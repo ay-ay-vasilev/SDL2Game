@@ -27,6 +27,7 @@ public:
 	bool running();
 
 	static SDL_Renderer* renderer;
+	static SDL_Event gameEvent;
 
 private:
 	bool isRunning;

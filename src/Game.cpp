@@ -7,6 +7,7 @@
 std::unique_ptr<Map> map;
 
 SDL_Renderer* Game::renderer = nullptr;
+SDL_Event Game::gameEvent;
 
 Manager manager;
 auto& player(manager.addEntity());
@@ -59,13 +60,13 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 	map = std::make_unique<Map>();
 	player.addComponent<TransformComponent>();
 	player.addComponent<SpriteComponent>("art/player.png");
+	player.addComponent<KeyboardController>();
 }
 
 void Game::handleEvents()
 {
-	SDL_Event newEvent;
-	SDL_PollEvent(&newEvent);
-	switch (newEvent.type)
+	SDL_PollEvent(&gameEvent);
+	switch (gameEvent.type)
 	{
 	case SDL_QUIT:
 		isRunning = false;
@@ -79,12 +80,6 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
-	player.getComponent<TransformComponent>().position.Add(Vector2D(0, 5));
-
-	if (player.getComponent<TransformComponent>().position.y > 100)
-	{
-		player.getComponent<SpriteComponent>().setTexture("art/enemy.png");
-	}
 }
 
 void Game::render()
