@@ -20,13 +20,13 @@ public:
 		switch (tileID)
 		{
 		case 0:
-			path = "art/water.png";
-			break;
-		case 1:
 			path = "art/dirt.png";
 			break;
-		case 2:
+		case 1:
 			path = "art/grass.png";
+			break;
+		case 2:
+			path = "art/water.png";
 			break;
 		default:
 			break;

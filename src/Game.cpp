@@ -5,7 +5,6 @@
 #include "Collision.h"
 #include <iostream>
 
-std::unique_ptr<Map> map;
 Manager manager;
 
 SDL_Renderer* Game::renderer = nullptr;
@@ -15,10 +14,6 @@ std::vector<ColliderComponent*> Game::colliders;
 
 auto& player(manager.addEntity());
 auto& wall(manager.addEntity());
-
-auto& tile0(manager.addEntity());
-auto& tile1(manager.addEntity());
-auto& tile2(manager.addEntity());
 
 Game::Game() : window(nullptr), isRunning(false), count(0)
 {
@@ -65,13 +60,7 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 		isRunning = false;
 	}
 
-	map = std::make_unique<Map>();
-
-	tile0.addComponent<TileComponent>(200, 200, 32, 32, 0);
-	tile1.addComponent<TileComponent>(250, 250, 32, 32, 1);
-	tile1.addComponent<ColliderComponent>("dirt");
-	tile2.addComponent<TileComponent>(300, 300, 32, 32, 2);
-	tile2.addComponent<ColliderComponent>("grass");
+	Map::LoadMap("../art/map.txt", 16, 16);
 
 	player.addComponent<TransformComponent>(2.f);
 	player.addComponent<SpriteComponent>("art/player.png");
@@ -111,7 +100,6 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	//map->DrawMap();
 	manager.draw();
 	SDL_RenderPresent(renderer);
 }
@@ -127,4 +115,10 @@ void Game::clean()
 bool Game::running()
 {
 	return isRunning;
+}
+
+void Game::AddTile(int id, int x, int y)
+{
+	auto& tile(manager.addEntity());
+	tile.addComponent<TileComponent>(x, y, 32, 32, id);
 }
