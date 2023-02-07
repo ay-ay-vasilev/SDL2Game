@@ -1,26 +1,10 @@
 #pragma once
-#ifdef _WIN32
-#include <SDL.h>
-#include <SDL_render.h>
-#include <SDL_image.h>
-#else
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2_image/SDL_image.h>
-#endif
 #include <memory>
 #include <string>
 #include <functional>
-
-class SDLDeleter {
-public:
-	void operator()(SDL_Window* window) {
-		SDL_DestroyWindow(window);
-	}
-	void operator()(SDL_Renderer* renderer) {
-		SDL_DestroyRenderer(renderer);
-	}
-};
 
 class Game {
 
@@ -39,8 +23,8 @@ public:
 
 private:
 	bool isRunning;
-	std::unique_ptr<SDL_Window, std::function<void(SDL_Window*)>> window;
-	std::unique_ptr<SDL_Renderer, std::function<void(SDL_Renderer*)>> renderer;
+	SDL_Window* window;
+	SDL_Renderer* renderer;
 
 	int count;
 };
