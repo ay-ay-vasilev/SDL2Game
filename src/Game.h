@@ -1,6 +1,11 @@
 #pragma once
+#ifdef _WIN32
+#include <SDL.h>
+#include <SDL_render.h>
+#else
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
+#endif
 #include <memory>
 #include <string>
 #include <functional>
