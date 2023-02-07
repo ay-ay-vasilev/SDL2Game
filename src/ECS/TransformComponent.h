@@ -20,10 +20,10 @@ struct TransformComponent : public Component
 
 	void init() override
 	{
-		velocity = Vector2D(0, 0);
+		velocity.Zero();
 	}
 	void update() override
 	{
-		position += Vector2D(velocity.x * speed, velocity.y * speed);
+		position += Vector2D(std::clamp(static_cast<int>(velocity.x * speed), 0, speed), std::clamp(static_cast<int>(velocity.y * speed), 0, speed));
 	}
 };

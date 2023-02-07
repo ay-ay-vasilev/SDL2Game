@@ -6,7 +6,7 @@
 class ColliderComponent : public Component
 {
 public:
-	ColliderComponent(std::string tag) : tag(tag) {};
+	ColliderComponent(std::string tag) : tag(tag), collider() {};
 
 	SDL_Rect collider;
 	std::string tag;
@@ -24,8 +24,8 @@ public:
 
 	void update() override
 	{
-		collider.x = (int)(transform->position.x);
-		collider.y = (int)(transform->position.y);
+		collider.x = static_cast<int>(transform->position.x);
+		collider.y = static_cast<int>(transform->position.y);
 		collider.w = transform->width * transform->scale;
 		collider.h = transform->height * transform->scale;
 	}

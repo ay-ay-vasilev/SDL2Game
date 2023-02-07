@@ -16,45 +16,37 @@ public:
 
 	void update() override
 	{
-		if (Game::gameEvent.type == SDL_KEYDOWN)
+		if (Game::gameEvent.type == SDL_KEYDOWN || Game::gameEvent.type == SDL_KEYUP)
 		{
+			int x = 0, y = 0;
+
 			switch (Game::gameEvent.key.keysym.sym)
 			{
 			case SDLK_w:
-				transform->velocity.y = -1;
+				y = -1;
 				break;
 			case SDLK_a:
-				transform->velocity.x = -1;
+				x = -1;
 				break;
 			case SDLK_s:
-				transform->velocity.y = 1;
+				y = 1;
 				break;
 			case SDLK_d:
-				transform->velocity.x = 1;
+				x = 1;
 				break;
 			default:
 				break;
 			}
-		}
 
-		if (Game::gameEvent.type == SDL_KEYUP)
-		{
-			switch (Game::gameEvent.key.keysym.sym)
+			if (Game::gameEvent.type == SDL_KEYDOWN)
 			{
-			case SDLK_w:
-				transform->velocity.y = 0;
-				break;
-			case SDLK_a:
-				transform->velocity.x = 0;
-				break;
-			case SDLK_s:
-				transform->velocity.y = 0;
-				break;
-			case SDLK_d:
-				transform->velocity.x = 0;
-				break;
-			default:
-				break;
+				transform->velocity.x += x;
+				transform->velocity.y += y;
+			}
+			else if (Game::gameEvent.type == SDL_KEYUP)
+			{
+				transform->velocity.x -= x;
+				transform->velocity.y -= y;
 			}
 		}
 	}
