@@ -24,6 +24,6 @@ struct TransformComponent : public Component
 	}
 	void update() override
 	{
-		position += Vector2D(std::clamp(static_cast<int>(velocity.x * speed), 0, speed), std::clamp(static_cast<int>(velocity.y * speed), 0, speed));
+		position += Vector2D(std::clamp(static_cast<int>(velocity.x * speed), -speed, speed), std::clamp(static_cast<int>(velocity.y * speed), -speed, speed));
 	}
 };
