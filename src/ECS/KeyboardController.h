@@ -16,38 +16,16 @@ public:
 
 	void update() override
 	{
-		if (Game::gameEvent.type == SDL_KEYDOWN || Game::gameEvent.type == SDL_KEYUP)
-		{
-			int x = 0, y = 0;
+		const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
 
-			switch (Game::gameEvent.key.keysym.sym)
-			{
-			case SDLK_w:
-				y = -1;
-				break;
-			case SDLK_a:
-				x = -1;
-				break;
-			case SDLK_s:
-				y = 1;
-				break;
-			case SDLK_d:
-				x = 1;
-				break;
-			default:
-				break;
-			}
+		int x = 0, y = 0;
 
-			if (Game::gameEvent.type == SDL_KEYDOWN)
-			{
-				transform->velocity.x += x;
-				transform->velocity.y += y;
-			}
-			else if (Game::gameEvent.type == SDL_KEYUP)
-			{
-				transform->velocity.x -= x;
-				transform->velocity.y -= y;
-			}
-		}
+		if (keyboardState[SDL_GetScancodeFromKey(SDLK_w)]) y -= 1;
+		if (keyboardState[SDL_GetScancodeFromKey(SDLK_a)]) x -= 1;
+		if (keyboardState[SDL_GetScancodeFromKey(SDLK_s)]) y += 1;
+		if (keyboardState[SDL_GetScancodeFromKey(SDLK_d)]) x += 1;
+
+		transform->velocity.x = x;
+		transform->velocity.y = y;
 	}
 };

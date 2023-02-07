@@ -15,6 +15,14 @@ std::vector<ColliderComponent*> Game::colliders;
 auto& player(manager.addEntity());
 auto& wall(manager.addEntity());
 
+enum eGroupLabels : std::size_t
+{
+	MAP,
+	PLAYERS,
+	ENEMIES,
+	COLLIDERS
+};
+
 Game::Game() : window(nullptr), isRunning(false), count(0)
 {
 }
@@ -66,10 +74,12 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 	player.addComponent<SpriteComponent>("art/player.png");
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
+	player.addGroup(eGroupLabels::PLAYERS);
 
 	wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
 	wall.addComponent<SpriteComponent>("art/dirt.png");
 	wall.addComponent<ColliderComponent>("wall");
+	wall.addGroup(eGroupLabels::MAP);
 }
 
 void Game::handleEvents()
@@ -97,10 +107,16 @@ void Game::update()
 	}
 }
 
+auto& tiles(manager.getGroup(eGroupLabels::MAP));
+auto& players(manager.getGroup(eGroupLabels::PLAYERS));
+auto& enemies(manager.getGroup(eGroupLabels::ENEMIES));
+
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	manager.draw();
+	for (const auto& t : tiles) t->draw();
+	for (const auto& p : players) p->draw();
+	for (const auto& e : enemies) e->draw();
 	SDL_RenderPresent(renderer);
 }
 
@@ -121,4 +137,5 @@ void Game::AddTile(int id, int x, int y)
 {
 	auto& tile(manager.addEntity());
 	tile.addComponent<TileComponent>(x, y, 32, 32, id);
+	tile.addGroup(eGroupLabels::MAP);
 }
