@@ -46,6 +46,9 @@ Map::Map()
 
 Map::~Map()
 {
+	SDL_DestroyTexture(dirt);
+	SDL_DestroyTexture(water);
+	SDL_DestroyTexture(grass);
 }
 
 void Map::LoadMap(std::vector<std::vector<int>> levelVector)

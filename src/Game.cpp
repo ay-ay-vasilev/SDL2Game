@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "Map.h"
 #include "Components.h"
+#include "Collision.h"
 #include <iostream>
 
 std::unique_ptr<Map> map;
@@ -11,6 +12,7 @@ SDL_Event Game::gameEvent;
 
 Manager manager;
 auto& player(manager.addEntity());
+auto& wall(manager.addEntity());
 
 Game::Game() : window(nullptr), isRunning(false), count(0)
 {
@@ -58,9 +60,14 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 	}
 
 	map = std::make_unique<Map>();
-	player.addComponent<TransformComponent>();
+	player.addComponent<TransformComponent>(2.f);
 	player.addComponent<SpriteComponent>("art/player.png");
 	player.addComponent<KeyboardController>();
+	player.addComponent<ColliderComponent>("player");
+
+	wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
+	wall.addComponent<SpriteComponent>("art/dirt.png");
+	wall.addComponent<ColliderComponent>("wall");
 }
 
 void Game::handleEvents()
@@ -80,6 +87,12 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
+
+	if (Collision::AABB(player.getComponent<ColliderComponent>().collider, wall.getComponent<ColliderComponent>().collider))
+	{
+		player.getComponent<TransformComponent>().scale = 1.f;
+		std::cout << "Wall hit!\n";
+	}
 }
 
 void Game::render()
