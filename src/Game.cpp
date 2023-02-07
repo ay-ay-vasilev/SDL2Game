@@ -2,12 +2,16 @@
 
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "Map.h"
 #include <iostream>
 
 std::unique_ptr<GameObject> player;
 std::unique_ptr<GameObject> enemy;
+std::unique_ptr<Map> map;
 
-Game::Game() : window(nullptr), renderer(nullptr), isRunning(false), count(0)
+SDL_Renderer* Game::renderer = nullptr;
+
+Game::Game() : window(nullptr), isRunning(false), count(0)
 {
 }
 
@@ -52,8 +56,9 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
         isRunning = false;
     }
     
-    player = std::make_unique<GameObject>("art/player.png", renderer, 0, 0);
-    enemy = std::make_unique<GameObject>("art/enemy.png", renderer, 50, 50);
+    player = std::make_unique<GameObject>("art/player.png", 0, 0);
+    enemy = std::make_unique<GameObject>("art/enemy.png", 50, 50);
+    map = std::make_unique<Map>();
 }
 
 void Game::handleEvents()
@@ -80,6 +85,7 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
+    map->DrawMap();
     player->Render();
     enemy->Render();
     SDL_RenderPresent(renderer);

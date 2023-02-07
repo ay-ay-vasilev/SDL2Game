@@ -20,15 +20,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Game.cpp" />
+    <ClCompile Include="..\src\GameObject.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Map.cpp" />
     <ClCompile Include="..\src\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h" />
+    <ClInclude Include="..\src\GameObject.h" />
+    <ClInclude Include="..\src\Map.h" />
     <ClInclude Include="..\src\TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\art\dirt.png" />
+    <Image Include="..\art\enemy.png" />
+    <Image Include="..\art\grass.png" />
     <Image Include="..\art\player.png" />
+    <Image Include="..\art\water.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -24,6 +24,12 @@
     <ClCompile Include="..\src\TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">
@@ -32,9 +38,27 @@
     <ClInclude Include="..\src\TextureManager.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\GameObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Map.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\dirt.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\enemy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\grass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\art\water.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

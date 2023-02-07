@@ -1,4 +1,8 @@
+#ifdef _WIN32
+#include "SDL.h"
+#else
 #include <SDL2/SDL.h>
+#endif
 #include "Game.h"
 #include <memory>
 #include <chrono>
@@ -12,7 +16,7 @@ int main(int argc, char* argv[])
 	const int frameDelay = 1000 / FPS;
 
 	game = std::make_unique<Game>();
-	game->init("Game Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+	game->init("Game Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
 
 	auto nextFrame = std::chrono::steady_clock::now();
 	while (game->running())
