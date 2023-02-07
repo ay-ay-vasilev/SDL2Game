@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "TextureManager.h"
 #include <iostream>
 
 SDL_Texture* playerTex;
@@ -53,9 +54,7 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 		isRunning = false;
 	}
 
-	SDL_Surface* tmpSurface = IMG_Load("../art/player.png");
-	playerTex = SDL_CreateTextureFromSurface(renderer.get(), tmpSurface);
-	SDL_FreeSurface(tmpSurface);
+	playerTex = TextureManager::LoadTexture("../art/player.png", renderer.get());
 }
 
 void Game::handleEvents()
