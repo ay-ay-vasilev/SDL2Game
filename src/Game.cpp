@@ -17,8 +17,9 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 		flags = SDL_WINDOW_FULLSCREEN;
 	}
 
-	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
+	if (SDL_Init(SDL_INIT_VIDEO) == 0)
 	{
+        std::cout << SDL_GetError() << "\n";
 		std::cout << "Subsystem Initialized.\n";
 
 		window = std::unique_ptr<SDL_Window, SDLDeleter>(
@@ -37,6 +38,8 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 		if (renderer)
 		{
 			SDL_SetRenderDrawColor(renderer.get(), 255, 255, 255, 255);
+            SDL_Event event;
+            SDL_PollEvent(&event);
 			std::cout << "Renderer created!\n";
 		}
 
