@@ -83,6 +83,9 @@
     <ClInclude Include="..\src\ECS\ECS.h">
       <Filter>Source Files\ECS</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ECS\Animation.h">
+      <Filter>Source Files\ECS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">
