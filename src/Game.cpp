@@ -57,7 +57,7 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 	}
 
 	map = std::make_unique<Map>();
-	player.addComponent<PositionComponent>();
+	player.addComponent<TransformComponent>();
 	player.addComponent<SpriteComponent>("art/player.png");
 }
 
@@ -79,8 +79,9 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
+	player.getComponent<TransformComponent>().position.Add(Vector2D(0, 5));
 
-	if (player.getComponent<PositionComponent>().x() > 200)
+	if (player.getComponent<TransformComponent>().position.y > 100)
 	{
 		player.getComponent<SpriteComponent>().setTexture("art/enemy.png");
 	}
