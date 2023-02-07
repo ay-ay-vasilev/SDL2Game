@@ -71,7 +71,7 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 	Map::LoadMap("../art/map.txt", 16, 16);
 
 	player.addComponent<TransformComponent>(2.f);
-	player.addComponent<SpriteComponent>("art/player.png");
+	player.addComponent<SpriteComponent>("art/player_idle.png", 4, 150);
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(eGroupLabels::PLAYERS);
