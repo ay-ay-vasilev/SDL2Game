@@ -54,7 +54,7 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 		isRunning = false;
 	}
 
-	playerTex = TextureManager::LoadTexture("../art/player.png", renderer.get());
+	playerTex = TextureManager::LoadTexture("art/player.png", renderer.get());
 }
 
 void Game::handleEvents()

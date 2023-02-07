@@ -3,7 +3,10 @@
 
 SDL_Texture* TextureManager::LoadTexture(const std::string& fileName, SDL_Renderer* ren)
 {
-	SDL_Surface* tempSurface = IMG_Load(fileName.c_str());
+    std::string imagePath = SDL_GetBasePath();
+    imagePath += fileName;
+
+	SDL_Surface* tempSurface = IMG_Load(imagePath.c_str());
 	if (tempSurface == nullptr)
 	{
 		throw std::runtime_error("Failed to load image: " + fileName + " Error: " + IMG_GetError());
