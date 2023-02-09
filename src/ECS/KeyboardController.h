@@ -20,29 +20,30 @@ public:
 	{
 		const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
 
-		sprite->spriteFlip = SDL_FLIP_NONE;
 		int x = 0, y = 0;
 
+		sprite->Play("idle");
 		if (keyboardState[SDL_GetScancodeFromKey(SDLK_w)])
 		{
 			y -= 1;
-			sprite->Play("idle");
+			sprite->Play("walk");
 		}
 		if (keyboardState[SDL_GetScancodeFromKey(SDLK_a)])
 		{
 			x -= 1;
-			sprite->Play("idle");
+			sprite->Play("walk");
 			sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
 		}
 		if (keyboardState[SDL_GetScancodeFromKey(SDLK_s)])
 		{
 			y += 1;
-			sprite->Play("idle");
+			sprite->Play("walk");
 		}
 		if (keyboardState[SDL_GetScancodeFromKey(SDLK_d)])
 		{
 			x += 1;
-			sprite->Play("idle");
+			sprite->Play("walk");
+			sprite->spriteFlip = SDL_FLIP_NONE;
 		}
 
 		transform->velocity.x = x;

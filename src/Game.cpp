@@ -70,8 +70,8 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 
 	Map::LoadMap("../art/map.txt", 16, 16);
 
-	player.addComponent<TransformComponent>(2.f);
-	player.addComponent<SpriteComponent>("art/player_idle.png", true);
+	player.addComponent<TransformComponent>(6.f);
+	player.addComponent<SpriteComponent>("art/goblin_downscale_spritesheet.png", true);
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(eGroupLabels::PLAYERS);

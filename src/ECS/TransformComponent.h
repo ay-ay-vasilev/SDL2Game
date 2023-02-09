@@ -7,11 +7,11 @@ struct TransformComponent : public Component
 	Vector2D position;
 	Vector2D velocity;
 
-	int width = 32;
-	int height = 32;
+	int width = 16;
+	int height = 16;
 	float scale = 1.f;
 
-	int speed = 3;
+	int speed = 5;
 
 	TransformComponent() : position() {}
 	TransformComponent(float scale) : position(), scale(scale) {}
