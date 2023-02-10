@@ -13,7 +13,8 @@ SDL_Event Game::gameEvent;
 std::vector<ColliderComponent*> Game::colliders;
 
 auto& player(manager.addEntity());
-auto& wall(manager.addEntity());
+
+const std::string mapFile = "art/tiles_v0.png";
 
 enum eGroupLabels : std::size_t
 {
@@ -75,11 +76,6 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(eGroupLabels::PLAYERS);
-
-	wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
-	wall.addComponent<SpriteComponent>("art/dirt.png");
-	wall.addComponent<ColliderComponent>("wall");
-	wall.addGroup(eGroupLabels::MAP);
 }
 
 void Game::handleEvents()
@@ -133,9 +129,9 @@ bool Game::running()
 	return isRunning;
 }
 
-void Game::AddTile(int id, int x, int y)
+void Game::AddTile(int srcX, int srcY, int xpos, int ypos)
 {
 	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(x, y, 32, 32, id);
+	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, mapFile);
 	tile.addGroup(eGroupLabels::MAP);
 }
