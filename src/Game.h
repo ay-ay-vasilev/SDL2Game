@@ -33,9 +33,8 @@ public:
 	static SDL_Renderer* renderer;
 	static SDL_Event gameEvent;
 	static std::vector<ColliderComponent*> colliders;
-
+	static bool isRunning;
 private:
-	bool isRunning;
 	SDL_Window* window;
 
 	int count;

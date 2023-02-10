@@ -12,6 +12,8 @@ SDL_Event Game::gameEvent;
 
 std::vector<ColliderComponent*> Game::colliders;
 
+bool Game::isRunning = false;
+
 auto& player(manager.addEntity());
 
 const std::string mapFile = "art/tiles_v0.png";
@@ -24,7 +26,11 @@ enum eGroupLabels : std::size_t
 	COLLIDERS
 };
 
-Game::Game() : window(nullptr), isRunning(false), count(0)
+auto& tiles(manager.getGroup(eGroupLabels::MAP));
+auto& players(manager.getGroup(eGroupLabels::PLAYERS));
+auto& enemies(manager.getGroup(eGroupLabels::ENEMIES));
+
+Game::Game() : window(nullptr), count(0)
 {
 }
 
@@ -93,19 +99,18 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	Vector2D playerPos = player.getComponent<TransformComponent>().position;
 	manager.refresh();
 	manager.update();
 
-	for (const auto collider : colliders)
+	Vector2D velocity = player.getComponent<TransformComponent>().velocity;
+	int playerSpeed = player.getComponent<TransformComponent>().speed;
+	
+	for (auto t : tiles)
 	{
-		Collision::AABB(player.getComponent<ColliderComponent>(), *collider);
+		t->getComponent<TileComponent>().destRect.x += -(velocity.x * playerSpeed);
+		t->getComponent<TileComponent>().destRect.y += -(velocity.y * playerSpeed);
 	}
 }
-
-auto& tiles(manager.getGroup(eGroupLabels::MAP));
-auto& players(manager.getGroup(eGroupLabels::PLAYERS));
-auto& enemies(manager.getGroup(eGroupLabels::ENEMIES));
 
 void Game::render()
 {

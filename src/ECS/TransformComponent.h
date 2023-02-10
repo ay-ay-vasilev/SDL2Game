@@ -14,7 +14,7 @@ struct TransformComponent : public Component
 	int speed = 5;
 
 	TransformComponent() : position() {}
-	TransformComponent(float scale) : position(), scale(scale) {}
+	TransformComponent(float scale) : position(Vector2D(400, 320)), scale(scale) {}
 	TransformComponent(float x, float y) : position(x, y) {}
 	TransformComponent(float x, float y, int w, int h, float scale) : position(x, y), width(w), height(h), scale(scale) {}
 
@@ -24,9 +24,5 @@ struct TransformComponent : public Component
 	}
 	void update() override
 	{
-		int newX = static_cast<int>(velocity.x * speed);
-		int newY = static_cast<int>(velocity.y * speed);
-
-		position += Vector2D(std::clamp(newX, -speed, speed), std::clamp(newY, -speed, speed));
 	}
 };

@@ -20,6 +20,13 @@ public:
 	{
 		const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
 
+		switch (Game::gameEvent.key.keysym.sym)
+		{
+		case SDLK_ESCAPE:
+			Game::isRunning = false;
+			break;
+		}
+
 		int x = 0, y = 0;
 
 		sprite->Play("idle");
