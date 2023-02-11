@@ -34,6 +34,8 @@ public:
 	static SDL_Event gameEvent;
 	static std::vector<ColliderComponent*> colliders;
 	static bool isRunning;
+	static SDL_Rect camera;
+
 private:
 	SDL_Window* window;
 

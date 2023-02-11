@@ -28,11 +28,11 @@ void Map::LoadMap(std::string path, int sizeX, int sizeY)
 		for (int x = 0; x < sizeX; x++)
 		{
 			mapFile >> tile;
-			std::cout << tile << " ";
 			int tileNum = (int)tile - '0';
 
 			srcX = (tileNum % tileSetCols) * 32;
 			srcY = (tileNum / tileSetCols) * 32;
+			std::cout << x * 32 * scale << "\t ";
 			Game::AddTile(srcX, srcY, x * 32 * scale, y * 32 * scale);
 			mapFile.ignore();
 		}
