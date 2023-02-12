@@ -4,11 +4,17 @@
 class Map
 {
 public:
-	Map();
+	Map(std::string mapFilePath, int mapScale, int tileSize);
 	~Map();
 
-	static void LoadMap(std::string path, int sizeX, int sizeY);
-
+	void LoadMap(std::string path, int sizeX, int sizeY);
+	void AddTile(int srcX, int srcY, int xpos, int ypos);
 private:
+	void LoadTiles(std::string path, int sizeX, int sizeY);
+	void LoadCollisions(std::string path, int sizeX, int sizeY);
 
+	std::string mapFilePath;
+	int mapScale;
+	int tileSize;
+	int scaledSize;
 };

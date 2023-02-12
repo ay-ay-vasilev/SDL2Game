@@ -1,10 +1,21 @@
 #include "Map.h"
 #include "Game.h"
+#include "ECS.h"
+#include "Components.h"
+
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <string>
+#include <sstream>
 
-Map::Map()
+extern Manager manager;
+
+Map::Map(std::string mapFilePath, int mapScale, int tileSize) :
+	mapFilePath(mapFilePath),
+	mapScale(mapScale),
+	tileSize(tileSize),
+	scaledSize(mapScale* tileSize)
 {
 }
 
@@ -14,29 +25,88 @@ Map::~Map()
 
 void Map::LoadMap(std::string path, int sizeX, int sizeY)
 {
-	char tile;
+	LoadTiles(path, sizeX, sizeY);
+	LoadCollisions(path, sizeX, sizeY);
+}
+
+void Map::AddTile(int srcX, int srcY, int xpos, int ypos)
+{
+	auto& tile(manager.addEntity());
+	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, tileSize, mapScale, mapFilePath);
+	tile.addGroup(Game::eGroupLabels::MAP);
+}
+
+void Map::LoadTiles(std::string path, int sizeX, int sizeY)
+{
 	std::fstream mapFile;
-	mapFile.open(path);
+	mapFile.open("../art/" + path + "_Tiles.csv");
 
 	int srcX, srcY;
-	int tileSetCols = 5;
+	int tileSetCols = 6;
 
-	float scale = 6.f;
-
-	for (int y = 0; y < sizeY; y++)
+	int x = 0;
+	int y = 0;
+	std::string line;
+	while (std::getline(mapFile, line))
 	{
-		for (int x = 0; x < sizeX; x++)
+		x = 0;
+		std::istringstream lineStream(line);
+		int tileNum;
+		while (lineStream >> tileNum)
 		{
-			mapFile >> tile;
-			int tileNum = (int)tile - '0';
+			std::cout << tileNum << "\t";
+			srcX = (tileNum % tileSetCols) * tileSize;
+			srcY = (tileNum / tileSetCols) * tileSize;
+			AddTile(srcX, srcY, x * scaledSize, y * scaledSize);
 
-			srcX = (tileNum % tileSetCols) * 32;
-			srcY = (tileNum / tileSetCols) * 32;
-			std::cout << x * 32 * scale << "\t ";
-			Game::AddTile(srcX, srcY, x * 32 * scale, y * 32 * scale);
-			mapFile.ignore();
+			if (lineStream.peek() == ',')
+			{
+				lineStream.ignore();
+			}
+			x++;
 		}
 		std::cout << "\n";
+		y++;
+	}
+
+	mapFile.close();
+}
+
+void Map::LoadCollisions(std::string path, int sizeX, int sizeY)
+{
+	std::fstream mapFile;
+	mapFile.open("../art/" + path + "_Collision.csv");
+
+	int srcX, srcY;
+	int tileSetCols = 6;
+
+	int x = 0;
+	int y = 0;
+	std::string line;
+	std::cout << "\n";
+	while (std::getline(mapFile, line))
+	{
+		x = 0;
+		std::istringstream lineStream(line);
+		int tileNum;
+		while (lineStream >> tileNum)
+		{
+			std::cout << tileNum << "\t";
+			if (tileNum == 1)
+			{
+				auto & tileCollider(manager.addEntity());
+				tileCollider.addComponent<ColliderComponent>("terrain", x * scaledSize, y * scaledSize, scaledSize);
+				tileCollider.addGroup(Game::COLLIDERS);
+			}
+
+			if (tileNum == 0 || lineStream.peek() == ',')
+			{
+				lineStream.ignore();
+			}
+			x++;
+		}
+		std::cout << "\n";
+		y++;
 	}
 
 	mapFile.close();
