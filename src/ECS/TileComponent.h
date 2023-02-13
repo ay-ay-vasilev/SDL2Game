@@ -2,6 +2,9 @@
 
 #include "ECS.h"
 #include <SDL.h>
+#include "Vector2D.h"
+#include "Game.h"
+#include "TextureManager.h"
 
 class TileComponent : public Component
 {
@@ -17,9 +20,9 @@ public:
 		SDL_DestroyTexture(texture);
 	}
 
-	TileComponent(int srcX, int srcY, int xpos, int ypos, int tileSize, int tileScale, std::string path)
+	TileComponent(int srcX, int srcY, int xpos, int ypos, int tileSize, int tileScale, std::string textureId)
 	{
-		texture = TextureManager::LoadTexture(path);
+		texture = Game::assets->GetTexture(textureId);
 
 		position.x = xpos;
 		position.y = ypos;

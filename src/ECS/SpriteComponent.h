@@ -2,6 +2,7 @@
 
 #include "Components.h"
 #include "TextureManager.h"
+#include "AssetManager.h"
 #include "Animation.h"
 #include <map>
 #include <SDL.h>
@@ -15,9 +16,9 @@ public:
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
 	SpriteComponent() = default;
-	SpriteComponent(std::string path)
+	SpriteComponent(std::string textureId)
 	{
-		setTexture(path);
+		setTexture(textureId);
 	}
 	SpriteComponent(std::string path, bool isAnimated) : animated(isAnimated)
 	{
@@ -31,14 +32,11 @@ public:
 		setTexture(path);
 	}
 
-	~SpriteComponent()
-	{
-		SDL_DestroyTexture(texture);
-	}
+	~SpriteComponent() {}
 
-	void setTexture(std::string path)
+	void setTexture(std::string textureId)
 	{
-		texture = TextureManager::LoadTexture(path);
+		texture = Game::assets->GetTexture(textureId);
 	}
 
 	void init() override

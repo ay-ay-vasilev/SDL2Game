@@ -4,7 +4,7 @@
 class Map
 {
 public:
-	Map(std::string mapFilePath, int mapScale, int tileSize);
+	Map(std::string textureId, int mapScale, int tileSize);
 	~Map();
 
 	void LoadMap(std::string path, int sizeX, int sizeY);
@@ -13,7 +13,7 @@ private:
 	void LoadTiles(std::string path, int sizeX, int sizeY);
 	void LoadCollisions(std::string path, int sizeX, int sizeY);
 
-	std::string mapFilePath;
+	std::string textureId;
 	int mapScale;
 	int tileSize;
 	int scaledSize;

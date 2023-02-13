@@ -1,17 +1,19 @@
 #include "Game.h"
 #include "TextureManager.h"
+#include "AssetManager.h"
 #include "Map.h"
 #include "Components.h"
 #include "Collision.h"
 #include <iostream>
 
+Map* map;
 Manager manager;
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
-
 SDL_Rect Game::camera = { 0, 0, 16 * 32 * 6 - 800, 16 * 32 * 6 - 640};
-Map* map;
+
+AssetManager* Game::assets = new AssetManager(&manager);
 
 bool Game::isRunning = false;
 
@@ -62,21 +64,32 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 		isRunning = false;
 	}
 
-	map = new Map("art/tiles_v0.png", 6, 32);
+	assets->AddTexture("terrain", "art/tiles_v0.png");
+	assets->AddTexture("player", "art/goblin_downscale_spritesheet.png");
+	assets->AddTexture("projectile", "art/test_projectile.png");
+
+	map = new Map("terrain", 6, 32);
 
 	map->LoadMap("map", 16, 16);
 
 	player.addComponent<TransformComponent>(6.f);
-	player.addComponent<SpriteComponent>("art/goblin_downscale_spritesheet.png", true);
+	player.addComponent<SpriteComponent>("player", true);
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(eGroupLabels::PLAYERS);
+
+	assets->CreateProjectile(Vector2D(500, 600), Vector2D(-2, -2), 200, 2, "projectile");
+	assets->CreateProjectile(Vector2D(300, 500), Vector2D(2, -2), 200, 2, "projectile");
+	assets->CreateProjectile(Vector2D(400, 400), Vector2D(-2, 0), 200, 2, "projectile");
+	assets->CreateProjectile(Vector2D(200, 300), Vector2D(2, 2), 200, 2, "projectile");
+	assets->CreateProjectile(Vector2D(600, 200), Vector2D(-2, 2), 200, 2, "projectile");
 }
 
 auto& tiles(manager.getGroup(Game::eGroupLabels::MAP));
 auto& players(manager.getGroup(Game::eGroupLabels::PLAYERS));
 auto& enemies(manager.getGroup(Game::eGroupLabels::ENEMIES));
 auto& colliders(manager.getGroup(Game::eGroupLabels::COLLIDERS));
+auto& projectiles(manager.getGroup(Game::eGroupLabels::PROJECTILES));
 
 void Game::handleEvents()
 {
@@ -99,12 +112,22 @@ void Game::update()
 	manager.refresh();
 	manager.update();
 
-	for (auto& c : colliders)
+	for (const auto& c : colliders)
 	{
 		SDL_Rect collider = c->getComponent<ColliderComponent>().collider;
 		if (Collision::AABB(collider, playerCollider))
 		{
 			player.getComponent<TransformComponent>().position = playerPosition;
+		}
+	}
+
+	for (const auto& projectile : projectiles)
+	{
+		SDL_Rect collider = projectile->getComponent<ColliderComponent>().collider;
+		if (Collision::AABB(collider, playerCollider))
+		{
+			projectile->destroy();
+			std::cout << "projectile: hit the player!\n";
 		}
 	}
 
@@ -126,6 +149,7 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	for (const auto& t : tiles) t->draw();
 	for (const auto& c : colliders) c->draw();
+	for (const auto& p : projectiles) p->draw();
 	for (const auto& p : players) p->draw();
 	for (const auto& e : enemies) e->draw();
 	SDL_RenderPresent(renderer);

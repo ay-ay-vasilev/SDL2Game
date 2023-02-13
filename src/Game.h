@@ -8,12 +8,14 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2_image/SDL_image.h>
 #endif
+
 #include <memory>
 #include <string>
 #include <functional>
 #include <vector>
 
 class ColliderComponent;
+class AssetManager;
 
 class Game {
 
@@ -33,13 +35,15 @@ public:
 	static SDL_Event gameEvent;
 	static bool isRunning;
 	static SDL_Rect camera;
+	static AssetManager* assets;
 
 	enum eGroupLabels : std::size_t
 	{
 		MAP,
 		PLAYERS,
 		ENEMIES,
-		COLLIDERS
+		COLLIDERS,
+		PROJECTILES
 	};
 
 private:
