@@ -41,6 +41,7 @@
     <ClInclude Include="..\src\ECS\TileComponent.h" />
     <ClInclude Include="..\src\ECS\TransformComponent.h" />
     <ClInclude Include="..\src\ECS\SpriteComponent.h" />
+    <ClInclude Include="..\src\ECS\UILabel.h" />
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\GameObject.h" />
     <ClInclude Include="..\src\Map.h" />
@@ -48,11 +49,16 @@
     <ClInclude Include="..\src\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\art\dirt.png" />
-    <Image Include="..\art\enemy.png" />
-    <Image Include="..\art\grass.png" />
+    <Image Include="..\art\goblin_downscale_spritesheet.png" />
     <Image Include="..\art\player.png" />
-    <Image Include="..\art\water.png" />
+    <Image Include="..\art\tiles_v0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\art\arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\art\map_Collision.csv" />
+    <None Include="..\art\map_Tiles.csv" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -144,14 +150,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\projects\Personal\SDL2Game\src;C:\projects\Personal\SDL2Game\src\ECS;C:\projects\Personal\SDL2_image\include;C:\projects\Personal\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\projects\Personal\SDL2_ttf\include;C:\projects\Personal\SDL2Game\src;C:\projects\Personal\SDL2Game\src\ECS;C:\projects\Personal\SDL2_image\include;C:\projects\Personal\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\projects\Personal\SDL2_image\lib\x64;C:\projects\Personal\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\projects\Personal\SDL2_ttf\lib\x64;C:\projects\Personal\SDL2_image\lib\x64;C:\projects\Personal\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

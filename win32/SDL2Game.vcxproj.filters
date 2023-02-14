@@ -95,22 +95,32 @@
     <ClInclude Include="..\src\ECS\ProjectileComponent.h">
       <Filter>Source Files\ECS</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ECS\UILabel.h">
+      <Filter>Source Files\ECS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\art\dirt.png">
+    <Image Include="..\art\tiles_v0.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\art\enemy.png">
+    <Image Include="..\art\goblin_downscale_spritesheet.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\art\grass.png">
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\art\arial.ttf">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\art\water.png">
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\art\map_Collision.csv">
       <Filter>Resource Files</Filter>
-    </Image>
+    </None>
+    <None Include="..\art\map_Tiles.csv">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -17,7 +17,7 @@ SDL_Texture* TextureManager::LoadTexture(const std::string& fileName)
 	SDL_Texture* tex = SDL_CreateTextureFromSurface(Game::renderer, tempSurface);
 	if (tex == nullptr)
 	{
-		throw std::runtime_error("Failder to create texture from surface: " + fileName + " Error" + SDL_GetError());
+		throw std::runtime_error("Failder to create texture from surface: " + fileName + " Error: " + SDL_GetError());
 	}
 	SDL_FreeSurface(tempSurface);
 	return tex;

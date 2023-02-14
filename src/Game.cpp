@@ -5,6 +5,7 @@
 #include "Components.h"
 #include "Collision.h"
 #include <iostream>
+#include <sstream>
 
 Map* map;
 Manager manager;
@@ -18,6 +19,7 @@ AssetManager* Game::assets = new AssetManager(&manager);
 bool Game::isRunning = false;
 
 auto& player(manager.addEntity());
+auto& label(manager.addEntity());
 
 Game::Game() : window(nullptr), count(0)
 {
@@ -64,9 +66,16 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 		isRunning = false;
 	}
 
+	if (TTF_Init() == -1)
+	{
+		std::cout << "Error: SDL_TTF\n";
+	}
+
 	assets->AddTexture("terrain", "art/tiles_v0.png");
 	assets->AddTexture("player", "art/goblin_downscale_spritesheet.png");
 	assets->AddTexture("projectile", "art/test_projectile.png");
+
+	assets->AddFont("arial", "../art/arial.ttf", 16);
 
 	map = new Map("terrain", 6, 32);
 
@@ -77,6 +86,9 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(eGroupLabels::PLAYERS);
+
+	SDL_Color white = { 255, 255, 255, 255 };
+	label.addComponent<UILabel>(10, 10, "Test String", "arial", white);
 
 	assets->CreateProjectile(Vector2D(500, 600), Vector2D(-2, -2), 200, 2, "projectile");
 	assets->CreateProjectile(Vector2D(300, 500), Vector2D(2, -2), 200, 2, "projectile");
@@ -109,6 +121,10 @@ void Game::update()
 	SDL_Rect playerCollider = player.getComponent<ColliderComponent>().collider;
 	Vector2D playerPosition = player.getComponent<TransformComponent>().position;
 
+	std::stringstream ss;
+	ss << "Player position: " << playerPosition;
+	label.getComponent<UILabel>().SetLabelText(ss.str(), "arial");
+
 	manager.refresh();
 	manager.update();
 
@@ -131,8 +147,8 @@ void Game::update()
 		}
 	}
 
-	camera.x = player.getComponent<TransformComponent>().position.x - 400;
-	camera.y = player.getComponent<TransformComponent>().position.y - 320;
+	camera.x = static_cast<int>(player.getComponent<TransformComponent>().position.x - 400);
+	camera.y = static_cast<int>(player.getComponent<TransformComponent>().position.y - 320);
 
 	if (camera.x < 0)
 		camera.x = 0;
@@ -152,6 +168,9 @@ void Game::render()
 	for (const auto& p : projectiles) p->draw();
 	for (const auto& p : players) p->draw();
 	for (const auto& e : enemies) e->draw();
+
+	label.draw();
+
 	SDL_RenderPresent(renderer);
 }
 

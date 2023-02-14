@@ -82,6 +82,6 @@ Vector2D& Vector2D::Zero()
 
 std::ostream& operator<<(std::ostream& stream, const Vector2D& vec)
 {
-	stream << "(" << vec.x << ", " << vec.y << ")\n";
+	stream << "(" << vec.x << ", " << vec.y << ")";
 	return stream;
 }

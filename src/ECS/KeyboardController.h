@@ -53,7 +53,7 @@ public:
 			sprite->spriteFlip = SDL_FLIP_NONE;
 		}
 
-		transform->velocity.x = x;
-		transform->velocity.y = y;
+		transform->velocity.x = static_cast<float>(x);
+		transform->velocity.y = static_cast<float>(y);
 	}
 };

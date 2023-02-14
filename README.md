@@ -3,8 +3,10 @@
 #TODO:
 
 1. UI
-2. Health ?
-3. Shooting tower ?
+2. Health
+3. Shooting tower
+4. Containers for UI elements
+5. Scene manager to "switch" levels
 
 - Cleanup the assets folder.
 - Replace std::string in arguments to std::string_view.

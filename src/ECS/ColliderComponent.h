@@ -42,8 +42,8 @@ public:
 		{
 			collider.x = static_cast<int>(transform->position.x);
 			collider.y = static_cast<int>(transform->position.y);
-			collider.w = transform->width * transform->scale;
-			collider.h = transform->height * transform->scale;
+			collider.w = static_cast<int>(transform->width * transform->scale);
+			collider.h = static_cast<int>(transform->height * transform->scale);
 		}
 
 		destRect.x = collider.x - Game::camera.x;
