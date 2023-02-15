@@ -11,16 +11,16 @@ class SpriteComponent : public Component
 {
 public:
 	int animIndex = 0;
-	std::map<std::string, Animation> animations;
+	std::map<std::string_view, Animation> animations;
 
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
 	SpriteComponent() = default;
-	SpriteComponent(std::string textureId)
+	SpriteComponent(const std::string_view textureId)
 	{
 		setTexture(textureId);
 	}
-	SpriteComponent(std::string path, bool isAnimated) : animated(isAnimated)
+	SpriteComponent(const std::string_view path, const bool isAnimated) : animated(isAnimated)
 	{
 		Animation idle = Animation(0, 4, 80);
 		Animation walk = Animation(1, 8, 80);
@@ -34,7 +34,7 @@ public:
 
 	~SpriteComponent() {}
 
-	void setTexture(std::string textureId)
+	void setTexture(const std::string_view textureId)
 	{
 		texture = Game::assets->GetTexture(textureId);
 	}
@@ -69,7 +69,7 @@ public:
 		TextureManager::Draw(texture, srcRect, destRect, spriteFlip);
 	}
 
-	void Play(std::string animName)
+	void Play(const std::string_view animName)
 	{
 		frames = animations[animName].frames;
 		animIndex = animations[animName].index;

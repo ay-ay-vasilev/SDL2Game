@@ -13,20 +13,20 @@ public:
 	~AssetManager();
 
 	// Game objects
-	void CreateProjectile(Vector2D pos, Vector2D velocity, int range, int speed, std::string id);
+	void CreateProjectile(const Vector2D pos, const Vector2D velocity, const int range, const int speed, const std::string_view id) const;
 
 
 	// Texture management
-	void AddTexture(std::string id, std::string path);
-	SDL_Texture* GetTexture(std::string id);
+	void AddTexture(const std::string_view id, const std::string_view path);
+	SDL_Texture* GetTexture(const std::string_view id) const;
 
 	// Font management
-	void AddFont(std::string id, std::string path, int fontSize);
-	TTF_Font* GetFont(std::string id);
+	void AddFont(const std::string_view id, const std::string_view path, const int fontSize);
+	TTF_Font* GetFont(const std::string_view id) const;
 
 private:
 
 	Manager* manager;
-	std::map<std::string, SDL_Texture*> textures;
-	std::map<std::string, TTF_Font*> fonts;
+	std::map<const std::string_view, SDL_Texture*> textures;
+	std::map<const std::string_view, TTF_Font*> fonts;
 };

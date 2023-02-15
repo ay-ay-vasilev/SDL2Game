@@ -4,14 +4,14 @@
 class Map
 {
 public:
-	Map(std::string textureId, int mapScale, int tileSize);
+	Map(const std::string_view textureId, const int mapScale, const int tileSize);
 	~Map();
 
-	void LoadMap(std::string path, int sizeX, int sizeY);
-	void AddTile(int srcX, int srcY, int xpos, int ypos);
+	void LoadMap(const std::string_view path, const int sizeX, const int sizeY);
+	void AddTile(const int srcX, const int srcY, const int xpos, const int ypos);
 private:
-	void LoadTiles(std::string path, int sizeX, int sizeY);
-	void LoadCollisions(std::string path, int sizeX, int sizeY);
+	void LoadTiles(const std::string_view path, const int sizeX, const int sizeY);
+	void LoadCollisions(const std::string_view path, const int sizeX, const int sizeY);
 
 	std::string textureId;
 	int mapScale;

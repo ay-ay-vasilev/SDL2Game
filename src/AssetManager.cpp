@@ -5,7 +5,7 @@ AssetManager::AssetManager(Manager* manager) : manager(manager) {}
 
 AssetManager::~AssetManager() {}
 
-void AssetManager::CreateProjectile(Vector2D pos, Vector2D velocity, int range, int speed, std::string id)
+void AssetManager::CreateProjectile(const Vector2D pos, const Vector2D velocity, const int range, const int speed, const std::string_view id) const
 {
 	auto& projectile(manager->addEntity());
 	projectile.addComponent<TransformComponent>(pos.x, pos.y, 32, 32, 1);
@@ -15,23 +15,42 @@ void AssetManager::CreateProjectile(Vector2D pos, Vector2D velocity, int range, 
 	projectile.addGroup(Game::PROJECTILES);
 }
 
-void AssetManager::AddTexture(std::string id, std::string path)
+void AssetManager::AddTexture(const std::string_view id, const std::string_view path)
 {
 	textures.emplace(id, TextureManager::LoadTexture(path));
 }
 
-SDL_Texture* AssetManager::GetTexture(std::string id)
+SDL_Texture* AssetManager::GetTexture(const std::string_view id) const
 {
-	return textures[id];
+	auto it = textures.find(id);
+	if (it != textures.end())
+	{
+		return it->second;
+	}
+	else
+	{
+		std::cout << "Error: texture not found (" << id << ").\n";
+		return nullptr;
+	}
 }
 
-void AssetManager::AddFont(std::string id, std::string path, int fontSize)
+void AssetManager::AddFont(const std::string_view id, const std::string_view path, const int fontSize)
 {
-	fonts.emplace(id, TTF_OpenFont(path.c_str(), fontSize));
+	const std::string tempPath(path);
+	fonts.emplace(id, TTF_OpenFont(tempPath.c_str(), fontSize));
 }
 
-TTF_Font* AssetManager::GetFont(std::string id)
+TTF_Font* AssetManager::GetFont(const std::string_view id) const
 {
-	return fonts[id];
+	auto it = fonts.find(id);
+	if (it != fonts.end())
+	{
+		return it->second;
+	}
+	else
+	{
+		std::cout << "Error: font not found (" << id << ").\n";
+		return nullptr;
+	}
 }
 

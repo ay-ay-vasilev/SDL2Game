@@ -14,9 +14,9 @@ struct TransformComponent : public Component
 	int speed = 5;
 
 	TransformComponent() : position() {}
-	TransformComponent(float scale) : position(Vector2D(400, 320)), scale(scale) {}
-	TransformComponent(float x, float y) : position(x, y) {}
-	TransformComponent(float x, float y, int w, int h, float scale) : position(x, y), width(w), height(h), scale(scale) {}
+	TransformComponent(const float scale) : position(Vector2D(400, 320)), scale(scale) {}
+	TransformComponent(const float x, const float y) : position(x, y) {}
+	TransformComponent(const float x, const float y, const int w, const int h, const float scale) : position(x, y), width(w), height(h), scale(scale) {}
 
 	void init() override
 	{

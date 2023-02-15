@@ -11,7 +11,7 @@
 
 extern Manager manager;
 
-Map::Map(std::string textureId, int mapScale, int tileSize) :
+Map::Map(const std::string_view textureId, const int mapScale, const int tileSize) :
 	textureId(textureId),
 	mapScale(mapScale),
 	tileSize(tileSize),
@@ -23,23 +23,24 @@ Map::~Map()
 {
 }
 
-void Map::LoadMap(std::string path, int sizeX, int sizeY)
+void Map::LoadMap(const std::string_view path, const int sizeX, const int sizeY)
 {
 	LoadTiles(path, sizeX, sizeY);
 	LoadCollisions(path, sizeX, sizeY);
 }
 
-void Map::AddTile(int srcX, int srcY, int xpos, int ypos)
+void Map::AddTile(const int srcX, const int srcY, const int xpos, const int ypos)
 {
 	auto& tile(manager.addEntity());
 	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, tileSize, mapScale, textureId);
 	tile.addGroup(Game::eGroupLabels::MAP);
 }
 
-void Map::LoadTiles(std::string path, int sizeX, int sizeY)
+void Map::LoadTiles(const std::string_view path, const int sizeX, const int sizeY)
 {
+	const std::string tempPath(path);
 	std::fstream mapFile;
-	mapFile.open("../assets/map/" + path + "_Tiles.csv");
+	mapFile.open("../assets/map/" + tempPath + "_Tiles.csv");
 
 	int srcX, srcY;
 	int tileSetCols = 6;
@@ -72,10 +73,11 @@ void Map::LoadTiles(std::string path, int sizeX, int sizeY)
 	mapFile.close();
 }
 
-void Map::LoadCollisions(std::string path, int sizeX, int sizeY)
+void Map::LoadCollisions(const std::string_view path, const int sizeX, const int sizeY)
 {
+	const std::string tempPath(path);
 	std::fstream mapFile;
-	mapFile.open("../assets/map/" + path + "_Collision.csv");
+	mapFile.open("../assets/map/" + tempPath + "_Collision.csv");
 
 	int srcX, srcY;
 	int tileSetCols = 6;

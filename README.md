@@ -8,7 +8,6 @@
 4. Containers for UI elements
 5. Scene manager to "switch" levels
 
-- Cleanup the assets folder.
 - Replace std::string in arguments to std::string_view.
 - Fix Vector2D
 - Implement a JSON file parser and store global variables in a file.

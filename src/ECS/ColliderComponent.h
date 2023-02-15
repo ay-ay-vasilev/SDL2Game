@@ -7,18 +7,18 @@
 class ColliderComponent : public Component
 {
 public:
-	ColliderComponent(std::string tag) :
+	ColliderComponent(const std::string_view tag) :
 		tag(tag),
 		collider() {};
 
-	ColliderComponent(std::string tag, int xpos, int ypos, int size) :
+	ColliderComponent(const std::string_view tag, const int xpos, const int ypos, const int size) :
 		tag(tag),
 		collider({xpos, ypos, size, size}) {};
 
 	SDL_Rect collider;
 	std::string tag;
 
-	SDL_Texture* tex;
+	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
 
 	TransformComponent* transform;
@@ -31,7 +31,7 @@ public:
 		}
 		transform = &entity->getComponent<TransformComponent>();
 
-		tex = TextureManager::LoadTexture("assets/images/collider.png");
+		texture = TextureManager::LoadTexture("assets/images/collider.png");
 		srcRect = { 0, 0, 32, 32 };
 		destRect = { collider.x, collider.y, collider.w, collider.h };
 	}
@@ -52,6 +52,6 @@ public:
 
 	void draw() override
 	{
-		TextureManager::Draw(tex, srcRect, destRect, SDL_FLIP_NONE);
+		TextureManager::Draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
 };

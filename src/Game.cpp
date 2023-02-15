@@ -29,7 +29,7 @@ Game::~Game()
 {
 }
 
-void Game::init(std::string title, int x, int y, int width, int height, bool fullScreen)
+void Game::init(const std::string_view title, const int x, const int y, const int width, const int height, const bool fullScreen)
 {
 	int flags = 0;
 	if (fullScreen)
