@@ -71,11 +71,11 @@ void Game::init(std::string title, int x, int y, int width, int height, bool ful
 		std::cout << "Error: SDL_TTF\n";
 	}
 
-	assets->AddTexture("terrain", "art/tiles_v0.png");
-	assets->AddTexture("player", "art/goblin_downscale_spritesheet.png");
-	assets->AddTexture("projectile", "art/test_projectile.png");
+	assets->AddTexture("terrain", "assets/images/sprite_sheets/tiles_v0.png");
+	assets->AddTexture("player", "assets/images/sprite_sheets/goblin_downscale_spritesheet.png");
+	assets->AddTexture("projectile", "assets/images/test_projectile.png");
 
-	assets->AddFont("arial", "../art/arial.ttf", 16);
+	assets->AddFont("arial", "../assets/fonts/arial.ttf", 16);
 
 	map = new Map("terrain", 6, 32);
 

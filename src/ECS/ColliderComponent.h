@@ -31,7 +31,7 @@ public:
 		}
 		transform = &entity->getComponent<TransformComponent>();
 
-		tex = TextureManager::LoadTexture("art/collider.png");
+		tex = TextureManager::LoadTexture("assets/images/collider.png");
 		srcRect = { 0, 0, 32, 32 };
 		destRect = { collider.x, collider.y, collider.w, collider.h };
 	}

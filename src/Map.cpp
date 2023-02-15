@@ -39,7 +39,7 @@ void Map::AddTile(int srcX, int srcY, int xpos, int ypos)
 void Map::LoadTiles(std::string path, int sizeX, int sizeY)
 {
 	std::fstream mapFile;
-	mapFile.open("../art/" + path + "_Tiles.csv");
+	mapFile.open("../assets/map/" + path + "_Tiles.csv");
 
 	int srcX, srcY;
 	int tileSetCols = 6;
@@ -75,7 +75,7 @@ void Map::LoadTiles(std::string path, int sizeX, int sizeY)
 void Map::LoadCollisions(std::string path, int sizeX, int sizeY)
 {
 	std::fstream mapFile;
-	mapFile.open("../art/" + path + "_Collision.csv");
+	mapFile.open("../assets/map/" + path + "_Collision.csv");
 
 	int srcX, srcY;
 	int tileSetCols = 6;
