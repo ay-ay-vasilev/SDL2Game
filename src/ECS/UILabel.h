@@ -36,6 +36,7 @@ public:
 	void draw() override
 	{
 		SDL_RenderCopy(Game::renderer, labelTexture, nullptr, &position);
+		SDL_DestroyTexture(labelTexture);
 	}
 
 private:

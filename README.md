@@ -8,10 +8,9 @@
 4. Containers for UI elements
 5. Scene manager to "switch" levels
 
-- Replace std::string in arguments to std::string_view.
-- Fix Vector2D
 - Implement a JSON file parser and store global variables in a file.
 - Get rid of magic numbers
+- Fix colliders
 - Add an enemy.
 - Improve movement and controls.
 - Add simple combat.

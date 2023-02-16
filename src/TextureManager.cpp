@@ -24,7 +24,9 @@ SDL_Texture* TextureManager::LoadTexture(const std::string_view& fileName)
 	return texture;
 }
 
-void TextureManager::Draw(SDL_Texture* tex, const SDL_Rect src, const SDL_Rect dest, const SDL_RendererFlip flip)
+void TextureManager::Draw(SDL_Texture* texture, const SDL_Rect source, const SDL_Rect destination, const SDL_RendererFlip flip)
 {
-	SDL_RenderCopyEx(Game::renderer, tex, &src, &dest, NULL, NULL, flip);
+	if (destination.x < (Game::camera.w + destination.w) && destination.x >= ((-1) * destination.w))
+		if (destination.y < (Game::camera.h + destination.h) && destination.y >= ((-1) * destination.h))
+			SDL_RenderCopyEx(Game::renderer, texture, &source, &destination, 0, NULL, flip);
 }

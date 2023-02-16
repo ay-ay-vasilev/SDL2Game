@@ -5,5 +5,5 @@ class TextureManager
 {
 public:
 	static SDL_Texture* LoadTexture(const std::string_view& fileName);
-	static void Draw(SDL_Texture* tex, const SDL_Rect src, const SDL_Rect dest, const SDL_RendererFlip flip);
+	static void Draw(SDL_Texture* texture, const SDL_Rect source, const SDL_Rect destination, const SDL_RendererFlip flip);
 };
