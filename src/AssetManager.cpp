@@ -1,14 +1,15 @@
 #include "AssetManager.h"
 #include "Components.h"
+#include "Constants.h"
 
 AssetManager::AssetManager(Manager* manager) : manager(manager) {}
 
 AssetManager::~AssetManager() {}
 
-void AssetManager::CreateProjectile(const Vector2D pos, const Vector2D velocity, const int range, const int speed, const std::string_view id) const
+void AssetManager::CreateProjectile(const Vector2D pos, const Vector2D size, const Vector2D velocity, const int range, const int speed, const std::string_view id) const
 {
 	auto& projectile(manager->addEntity());
-	projectile.addComponent<TransformComponent>(pos.x, pos.y, 32, 32, 1);
+	projectile.addComponent<TransformComponent>(pos.x, pos.y, size.x, size.y, 1);
 	projectile.addComponent<SpriteComponent>(id, false);
 	projectile.addComponent<ProjectileComponent>(velocity, range, speed);
 	projectile.addComponent<ColliderComponent>("projectile");

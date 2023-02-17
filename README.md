@@ -9,7 +9,7 @@
 5. Scene manager to "switch" levels
 
 - Implement a JSON file parser and store global variables in a file.
-- Get rid of magic numbers
+- Implement a start position for player
 - Fix colliders
 - Add an enemy.
 - Improve movement and controls.

@@ -16,6 +16,9 @@
     <Filter Include="Source Files\ECS">
       <UniqueIdentifier>{52ff7559-8fc7-4e3d-9411-efda8244913c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Constants">
+      <UniqueIdentifier>{70685c18-418e-4185-a76d-15b19d5d27f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Game.cpp">
@@ -41,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="..\src\AssetManager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Constants\Constants.cpp">
+      <Filter>Source Files\Constants</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ECS\UILabel.h">
       <Filter>Source Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Constants\Constants.h">
+      <Filter>Source Files\Constants</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

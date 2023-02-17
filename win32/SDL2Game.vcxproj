@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\AssetManager.cpp" />
     <ClCompile Include="..\src\Collision.cpp" />
+    <ClCompile Include="..\src\Constants\Constants.cpp" />
     <ClCompile Include="..\src\ECS\ECS.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\main.cpp" />
@@ -31,6 +32,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\AssetManager.h" />
     <ClInclude Include="..\src\Collision.h" />
+    <ClInclude Include="..\src\Constants\Constants.h" />
     <ClInclude Include="..\src\ECS\Animation.h" />
     <ClInclude Include="..\src\ECS\ColliderComponent.h" />
     <ClInclude Include="..\src\ECS\Components.h" />
@@ -148,7 +150,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\projects\Personal\SDL2_ttf\include;C:\projects\Personal\SDL2Game\src;C:\projects\Personal\SDL2Game\src\ECS;C:\projects\Personal\SDL2_image\include;C:\projects\Personal\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\projects\Personal\SDL2Game\src\Constants;C:\projects\Personal\SDL2_ttf\include;C:\projects\Personal\SDL2Game\lib;C:\projects\Personal\SDL2Game\src;C:\projects\Personal\SDL2Game\src\ECS;C:\projects\Personal\SDL2_image\include;C:\projects\Personal\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>

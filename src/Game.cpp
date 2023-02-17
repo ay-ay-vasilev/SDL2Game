@@ -4,6 +4,8 @@
 #include "Map.h"
 #include "Components.h"
 #include "Collision.h"
+#include "Constants.h"
+
 #include <iostream>
 #include <sstream>
 
@@ -12,7 +14,11 @@ Manager manager;
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
-SDL_Rect Game::camera = { 0, 0, 16 * 32 * 6 - 800, 16 * 32 * 6 - 640};
+
+SDL_Rect Game::camera = { 0, 0,
+	Constants::MAP_TILE_WIDTH * Constants::TILE_SIZE * Constants::SCALE - Constants::SCREEN_WIDTH,
+	Constants::MAP_TILE_HEIGHT * Constants::TILE_SIZE * Constants::SCALE - Constants::MAP_TILE_HEIGHT
+};
 
 AssetManager* Game::assets = new AssetManager(&manager);
 
@@ -53,7 +59,7 @@ void Game::init(const std::string_view title, const int x, const int y, const in
 
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(renderer, Constants::WHITE.r, Constants::WHITE.g, Constants::WHITE.b, Constants::WHITE.a);
 			SDL_Event event;
 			SDL_PollEvent(&event);
 			std::cout << "Renderer created!\n";
@@ -75,26 +81,29 @@ void Game::init(const std::string_view title, const int x, const int y, const in
 	assets->AddTexture("player", "assets/images/sprite_sheets/goblin_downscale_spritesheet.png");
 	assets->AddTexture("projectile", "assets/images/test_projectile.png");
 
-	assets->AddFont("arial", "../assets/fonts/arial.ttf", 16);
+	assets->AddFont("arial", "../assets/fonts/arial.ttf", Constants::DEBUG_FONT_SIZE);
 
-	map = new Map("terrain", 6, 32);
+	map = new Map("terrain", Constants::SCALE, Constants::TILE_SIZE);
 
-	map->LoadMap("map", 16, 16);
+	map->LoadMap("map", Constants::MAP_TILE_WIDTH, Constants::MAP_TILE_HEIGHT);
 
-	player.addComponent<TransformComponent>(6.f);
+	auto playerPos = Vector2D(Constants::SCREEN_WIDTH / 2 - Constants::PLAYER_WIDTH, Constants::SCREEN_HEIGHT / 2 - Constants::PLAYER_HEIGHT);
+	player.addComponent<TransformComponent>(playerPos.x, playerPos.y, Constants::PLAYER_WIDTH, Constants::PLAYER_HEIGHT, Constants::SCALE, Constants::PLAYER_SPEED);
 	player.addComponent<SpriteComponent>("player", true);
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(eGroupLabels::PLAYERS);
 
-	SDL_Color white = { 255, 255, 255, 255 };
-	label.addComponent<UILabel>(10, 10, "Test String", "arial", white);
+	label.addComponent<UILabel>(10, 10, "Test String", "arial", Constants::WHITE);
 
-	assets->CreateProjectile(Vector2D(500, 600), Vector2D(-2, -2), 200, 2, "projectile");
-	assets->CreateProjectile(Vector2D(300, 500), Vector2D(2, -2), 200, 2, "projectile");
-	assets->CreateProjectile(Vector2D(400, 400), Vector2D(-2, 0), 200, 2, "projectile");
-	assets->CreateProjectile(Vector2D(200, 300), Vector2D(2, 2), 200, 2, "projectile");
-	assets->CreateProjectile(Vector2D(600, 200), Vector2D(-2, 2), 200, 2, "projectile");
+	// todo: remove
+	const auto projectileSize = Vector2D(Constants::PROJECTILE_SIZE, Constants::PROJECTILE_SIZE);
+
+	assets->CreateProjectile(Vector2D(500, 600), Vector2D(-2, -2), projectileSize, Constants::PROJECTILE_RANGE, 2, "projectile");
+	assets->CreateProjectile(Vector2D(300, 500), Vector2D(2, -2), projectileSize, Constants::PROJECTILE_RANGE, 2, "projectile");
+	assets->CreateProjectile(Vector2D(400, 400), Vector2D(-2, 0), projectileSize, Constants::PROJECTILE_RANGE, 2, "projectile");
+	assets->CreateProjectile(Vector2D(200, 300), Vector2D(2, 2), projectileSize, Constants::PROJECTILE_RANGE, 2, "projectile");
+	assets->CreateProjectile(Vector2D(600, 200), Vector2D(-2, 2), projectileSize, Constants::PROJECTILE_RANGE, 2, "projectile");
 }
 
 auto& tiles(manager.getGroup(Game::eGroupLabels::MAP));
@@ -147,8 +156,8 @@ void Game::update()
 		}
 	}
 
-	camera.x = static_cast<int>(player.getComponent<TransformComponent>().position.x - 400);
-	camera.y = static_cast<int>(player.getComponent<TransformComponent>().position.y - 320);
+	camera.x = static_cast<int>(player.getComponent<TransformComponent>().position.x - Constants::SCREEN_WIDTH / 2);
+	camera.y = static_cast<int>(player.getComponent<TransformComponent>().position.y - Constants::SCREEN_HEIGHT / 2);
 
 	if (camera.x < 0)
 		camera.x = 0;
