@@ -23,7 +23,7 @@ public:
 	Game();
 	~Game();
 
-	void init(const std::string_view title, const int x, const int y, const int width, const int height, const bool fullScreen);
+	void init();
 	
 	void handleEvents();
 	void update();

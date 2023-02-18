@@ -8,8 +8,6 @@
 4. Containers for UI elements
 5. Scene manager to "switch" levels
 
-- Implement a JSON file parser and store global variables in a file.
-- Implement a start position for player
 - Fix colliders
 - Add an enemy.
 - Improve movement and controls.
@@ -20,3 +18,7 @@
 - Add an inventory system.
 - Add skills.
 - Add rotate to Transform
+
+Easy?
+- Implement a start position for player
+- Clean up in constants and settings.json

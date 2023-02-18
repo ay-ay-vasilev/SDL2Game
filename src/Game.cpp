@@ -11,13 +11,14 @@
 
 Map* map;
 Manager manager;
+Constants constants{"data/settings.json"};
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
 
 SDL_Rect Game::camera = { 0, 0,
-	Constants::MAP_TILE_WIDTH * Constants::TILE_SIZE * Constants::SCALE - Constants::SCREEN_WIDTH,
-	Constants::MAP_TILE_HEIGHT * Constants::TILE_SIZE * Constants::SCALE - Constants::MAP_TILE_HEIGHT
+	constants.MAP_TILE_WIDTH * constants.TILE_SIZE * constants.SCALE - constants.SCREEN_WIDTH,
+	constants.MAP_TILE_HEIGHT * constants.TILE_SIZE * constants.SCALE - constants.MAP_TILE_HEIGHT
 };
 
 AssetManager* Game::assets = new AssetManager(&manager);
@@ -35,10 +36,10 @@ Game::~Game()
 {
 }
 
-void Game::init(const std::string_view title, const int x, const int y, const int width, const int height, const bool fullScreen)
+void Game::init()
 {
 	int flags = 0;
-	if (fullScreen)
+	if (constants.FULLSCREEN)
 	{
 		flags = SDL_WINDOW_FULLSCREEN;
 	}
@@ -48,7 +49,11 @@ void Game::init(const std::string_view title, const int x, const int y, const in
 		std::cout << SDL_GetError() << "\n";
 		std::cout << "Subsystem Initialized.\n";
 
-		window = SDL_CreateWindow(title.data(), x, y, width, height, flags);
+		window = SDL_CreateWindow(
+			constants.WINDOW_TITLE.c_str(), 
+			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+			constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT,
+			flags);
 
 		if (window)
 		{
@@ -59,7 +64,7 @@ void Game::init(const std::string_view title, const int x, const int y, const in
 
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, Constants::WHITE.r, Constants::WHITE.g, Constants::WHITE.b, Constants::WHITE.a);
+			SDL_SetRenderDrawColor(renderer, constants.WHITE.r, constants.WHITE.g, constants.WHITE.b, constants.WHITE.a);
 			SDL_Event event;
 			SDL_PollEvent(&event);
 			std::cout << "Renderer created!\n";
@@ -81,29 +86,29 @@ void Game::init(const std::string_view title, const int x, const int y, const in
 	assets->AddTexture("player", "assets/images/sprite_sheets/goblin_downscale_spritesheet.png");
 	assets->AddTexture("projectile", "assets/images/test_projectile.png");
 
-	assets->AddFont("arial", "../assets/fonts/arial.ttf", Constants::DEBUG_FONT_SIZE);
+	assets->AddFont("arial", "../assets/fonts/arial.ttf", constants.DEBUG_FONT_SIZE);
 
-	map = new Map("terrain", Constants::SCALE, Constants::TILE_SIZE);
+	map = new Map("terrain", constants.SCALE, constants.TILE_SIZE);
 
-	map->LoadMap("map", Constants::MAP_TILE_WIDTH, Constants::MAP_TILE_HEIGHT);
+	map->LoadMap("map", constants.MAP_TILE_WIDTH, constants.MAP_TILE_HEIGHT);
 
-	auto playerPos = Vector2D(Constants::SCREEN_WIDTH / 2 - Constants::PLAYER_WIDTH, Constants::SCREEN_HEIGHT / 2 - Constants::PLAYER_HEIGHT);
-	player.addComponent<TransformComponent>(playerPos.x, playerPos.y, Constants::PLAYER_WIDTH, Constants::PLAYER_HEIGHT, Constants::SCALE, Constants::PLAYER_SPEED);
+	auto playerPos = Vector2D(constants.SCREEN_WIDTH / 2 - constants.PLAYER_WIDTH, constants.SCREEN_HEIGHT / 2 - constants.PLAYER_HEIGHT);
+	player.addComponent<TransformComponent>(playerPos.x, playerPos.y, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT, constants.SCALE, constants.PLAYER_SPEED);
 	player.addComponent<SpriteComponent>("player", true);
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(eGroupLabels::PLAYERS);
 
-	label.addComponent<UILabel>(10, 10, "Test String", "arial", Constants::WHITE);
+	label.addComponent<UILabel>(10, 10, "Test String", "arial", constants.WHITE);
 
 	// todo: remove
-	const auto projectileSize = Vector2D(Constants::PROJECTILE_SIZE, Constants::PROJECTILE_SIZE);
+	const auto projectileSize = Vector2D(constants.PROJECTILE_SIZE, constants.PROJECTILE_SIZE);
 
-	assets->CreateProjectile(Vector2D(500, 600), Vector2D(-2, -2), projectileSize, Constants::PROJECTILE_RANGE, 2, "projectile");
-	assets->CreateProjectile(Vector2D(300, 500), Vector2D(2, -2), projectileSize, Constants::PROJECTILE_RANGE, 2, "projectile");
-	assets->CreateProjectile(Vector2D(400, 400), Vector2D(-2, 0), projectileSize, Constants::PROJECTILE_RANGE, 2, "projectile");
-	assets->CreateProjectile(Vector2D(200, 300), Vector2D(2, 2), projectileSize, Constants::PROJECTILE_RANGE, 2, "projectile");
-	assets->CreateProjectile(Vector2D(600, 200), Vector2D(-2, 2), projectileSize, Constants::PROJECTILE_RANGE, 2, "projectile");
+	assets->CreateProjectile(Vector2D(500, 600), projectileSize, Vector2D(-2, -2), constants.PROJECTILE_RANGE, 2, "projectile");
+	assets->CreateProjectile(Vector2D(300, 500), projectileSize, Vector2D(2, -2), constants.PROJECTILE_RANGE, 2, "projectile");
+	assets->CreateProjectile(Vector2D(400, 400), projectileSize, Vector2D(-2, 0), constants.PROJECTILE_RANGE, 2, "projectile");
+	assets->CreateProjectile(Vector2D(200, 300), projectileSize, Vector2D(2, 2), constants.PROJECTILE_RANGE, 2, "projectile");
+	assets->CreateProjectile(Vector2D(600, 200), projectileSize, Vector2D(-2, 2), constants.PROJECTILE_RANGE, 2, "projectile");
 }
 
 auto& tiles(manager.getGroup(Game::eGroupLabels::MAP));
@@ -156,8 +161,8 @@ void Game::update()
 		}
 	}
 
-	camera.x = static_cast<int>(player.getComponent<TransformComponent>().position.x - Constants::SCREEN_WIDTH / 2);
-	camera.y = static_cast<int>(player.getComponent<TransformComponent>().position.y - Constants::SCREEN_HEIGHT / 2);
+	camera.x = static_cast<int>(player.getComponent<TransformComponent>().position.x - constants.SCREEN_WIDTH / 2);
+	camera.y = static_cast<int>(player.getComponent<TransformComponent>().position.y - constants.SCREEN_HEIGHT / 2);
 
 	if (camera.x < 0)
 		camera.x = 0;

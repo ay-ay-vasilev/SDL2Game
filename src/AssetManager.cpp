@@ -1,6 +1,5 @@
 #include "AssetManager.h"
 #include "Components.h"
-#include "Constants.h"
 
 AssetManager::AssetManager(Manager* manager) : manager(manager) {}
 

@@ -28,8 +28,8 @@ template <typename T> inline ComponentID getComponentTypeID() noexcept
 	return typeID;
 }
 
-constexpr std::size_t maxComponents = Constants::MAX_COMPONENTS;
-constexpr std::size_t maxGroups = Constants::MAX_GROUPS;
+constexpr std::size_t maxComponents = 32;
+constexpr std::size_t maxGroups = 32;
 
 using ComponentBitSet = std::bitset<maxComponents>;
 using ComponentArray = std::array<Component*, maxComponents>;

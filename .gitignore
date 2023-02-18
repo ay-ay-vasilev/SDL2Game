@@ -470,3 +470,4 @@ Makefile.rules
 libtool
 sdl2-config
 sdl2.pc
+lib

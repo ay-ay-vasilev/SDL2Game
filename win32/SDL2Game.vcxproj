@@ -150,7 +150,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\projects\Personal\SDL2Game\src\Constants;C:\projects\Personal\SDL2_ttf\include;C:\projects\Personal\SDL2Game\lib;C:\projects\Personal\SDL2Game\src;C:\projects\Personal\SDL2Game\src\ECS;C:\projects\Personal\SDL2_image\include;C:\projects\Personal\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\projects\Personal\SDL2Game\lib\nlohmann\include;C:\projects\Personal\SDL2Game\src\Constants;C:\projects\Personal\SDL2_ttf\include;C:\projects\Personal\SDL2Game\src\lib;C:\projects\Personal\SDL2Game\src;C:\projects\Personal\SDL2Game\src\ECS;C:\projects\Personal\SDL2_image\include;C:\projects\Personal\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
