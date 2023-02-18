@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Constants">
       <UniqueIdentifier>{70685c18-418e-4185-a76d-15b19d5d27f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Libs">
+      <UniqueIdentifier>{3feb355a-8af4-49ae-8569-03ea1665442f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Game.cpp">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Constants\Constants.h">
       <Filter>Source Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Libs\json.hpp">
+      <Filter>Source Files\Libs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

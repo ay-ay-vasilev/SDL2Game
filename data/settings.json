@@ -1,6 +1,6 @@
 {
-    "SCREEN_WIDTH": 800,
-    "SCREEN_HEIGHT": 640,
+    "SCREEN_WIDTH": 1280,
+    "SCREEN_HEIGHT": 800,
     "SCALE": 6.0,
     "MAP_TILE_WIDTH": 16,
     "MAP_TILE_HEIGHT": 16,
@@ -9,5 +9,5 @@
     "PROJECTILE_RANGE": 200,
     "PLAYER_WIDTH": 16,
     "PLAYER_HEIGHT": 16,
-    "PLAYER_SPEED": 5
+    "PLAYER_SPEED": 10
 }

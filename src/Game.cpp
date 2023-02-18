@@ -11,14 +11,14 @@
 
 Map* map;
 Manager manager;
-Constants constants{"data/settings.json"};
+Constants constants {"../data/settings.json"};
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
 
 SDL_Rect Game::camera = { 0, 0,
 	constants.MAP_TILE_WIDTH * constants.TILE_SIZE * constants.SCALE - constants.SCREEN_WIDTH,
-	constants.MAP_TILE_HEIGHT * constants.TILE_SIZE * constants.SCALE - constants.MAP_TILE_HEIGHT
+	constants.MAP_TILE_HEIGHT * constants.TILE_SIZE * constants.SCALE - constants.SCREEN_HEIGHT
 };
 
 AssetManager* Game::assets = new AssetManager(&manager);
@@ -92,7 +92,7 @@ void Game::init()
 
 	map->LoadMap("map", constants.MAP_TILE_WIDTH, constants.MAP_TILE_HEIGHT);
 
-	auto playerPos = Vector2D(constants.SCREEN_WIDTH / 2 - constants.PLAYER_WIDTH, constants.SCREEN_HEIGHT / 2 - constants.PLAYER_HEIGHT);
+	auto playerPos = Vector2D(constants.SCREEN_WIDTH / 2 - constants.PLAYER_WIDTH - 200, constants.SCREEN_HEIGHT / 2 - constants.PLAYER_HEIGHT);
 	player.addComponent<TransformComponent>(playerPos.x, playerPos.y, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT, constants.SCALE, constants.PLAYER_SPEED);
 	player.addComponent<SpriteComponent>("player", true);
 	player.addComponent<KeyboardController>();
