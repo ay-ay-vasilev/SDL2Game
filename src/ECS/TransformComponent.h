@@ -24,6 +24,7 @@ struct TransformComponent : public Component
 	}
 	void update() override
 	{
+		velocity.Normalize();
 		position.x += velocity.x * speed;
 		position.y += velocity.y * speed;
 	}
