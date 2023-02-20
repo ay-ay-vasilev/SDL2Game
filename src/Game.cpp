@@ -134,22 +134,63 @@ void Game::update()
 {
 	SDL_Rect playerCollider = player.getComponent<ColliderComponent>().collider;
 	Vector2D playerPosition = player.getComponent<TransformComponent>().position;
+	Vector2D playerVelocity = player.getComponent<TransformComponent>().velocity;
 
-	std::stringstream ss;
-	ss << "Player position: " << playerPosition;
-	label.getComponent<UILabel>().SetLabelText(ss.str(), "arial");
+	//std::cout << "Player position before: " << playerPosition << "\n";
 
 	manager.refresh();
 	manager.update();
 
-	for (const auto& c : colliders)
+	bool hasCollision = true;
+
+	while (hasCollision)
 	{
-		SDL_Rect collider = c->getComponent<ColliderComponent>().collider;
-		if (Collision::AABB(collider, playerCollider))
+		hasCollision = false;
+
+		for (const auto& c : colliders)
 		{
-			player.getComponent<TransformComponent>().position = playerPosition;
+			SDL_Rect collider = c->getComponent<ColliderComponent>().collider;
+			if (Collision::AABB(collider, playerCollider))
+			{
+				hasCollision = true;
+				float overlapX = std::min(playerCollider.x + playerCollider.w, collider.x + collider.w) - std::max(playerCollider.x, collider.x);
+				float overlapY = std::min(playerCollider.y + playerCollider.h, collider.y + collider.h) - std::max(playerCollider.y, collider.y);
+
+				if (overlapX < overlapY && overlapX > 0)
+				{
+					if (playerPosition.x < collider.x)
+					{
+						playerPosition.x -= overlapX;
+						playerCollider.x -= overlapX;
+					}
+					else
+					{
+						playerPosition.x += overlapX;
+						playerCollider.x += overlapX;
+					}
+					player.getComponent<TransformComponent>().position.x = floor(playerPosition.x);
+					player.getComponent<ColliderComponent>().collider.x = floor(playerCollider.x);
+				}
+				else if (overlapX >= overlapY && overlapY > 0)
+				{
+					if (playerPosition.y < collider.y)
+					{
+						playerPosition.y -= overlapY;
+						playerCollider.y -= overlapY;
+					}
+					else
+					{
+						playerPosition.y += overlapY;
+						playerCollider.y += overlapY;
+					}
+					player.getComponent<TransformComponent>().position.y = floor(playerPosition.y);
+					player.getComponent<ColliderComponent>().collider.y = floor(playerCollider.y);
+				}
+			}
 		}
 	}
+
+	std::cout << "Player position after: " << playerPosition << "\n";
 
 	for (const auto& projectile : projectiles)
 	{
@@ -172,6 +213,10 @@ void Game::update()
 		camera.x = camera.w;
 	if (camera.y > camera.h)
 		camera.y = camera.h;
+
+	std::stringstream ss;
+	ss << "Player position: " << playerPosition;
+	label.getComponent<UILabel>().SetLabelText(ss.str(), "arial");
 }
 
 void Game::render()
