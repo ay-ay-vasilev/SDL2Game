@@ -113,7 +113,7 @@ void Game::init()
 	assets->CreateProjectile(Vector2D(200, 300), projectileSize, Vector2D(2, 2), constants.PROJECTILE_RANGE, 2, "projectile");
 	assets->CreateProjectile(Vector2D(600, 200), projectileSize, Vector2D(-2, 2), constants.PROJECTILE_RANGE, 2, "projectile");
 
-	enemyManager->InstantiateEnemy(Vector2D(playerPos.x - 100, playerPos.y), Vector2D(16, 32), 6.f, 0, "enemy");
+	enemyManager->InstantiateEnemy(Vector2D(playerPos.x - 100, playerPos.y), Vector2D(32, 32), 6.f, 0, "enemy");
 }
 
 auto& tiles(manager.getGroup(Game::eGroupLabels::MAP));
