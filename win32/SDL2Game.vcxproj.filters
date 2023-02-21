@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Libs">
       <UniqueIdentifier>{3feb355a-8af4-49ae-8569-03ea1665442f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{97ec02f7-3bce-471b-8b89-1838b35029b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Game.cpp">
@@ -50,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Constants\Constants.cpp">
       <Filter>Source Files\Constants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Managers\EnemyManager.cpp">
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Libs\json.hpp">
       <Filter>Source Files\Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Managers\EnemyManager.h">
+      <Filter>Source Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

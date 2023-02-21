@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "TextureManager.h"
+#include "EnemyManager.h"
 #include "AssetManager.h"
 #include "Map.h"
 #include "Components.h"
@@ -21,7 +22,8 @@ SDL_Rect Game::camera = { 0, 0,
 	constants.MAP_TILE_HEIGHT * constants.TILE_SIZE * constants.SCALE - constants.SCREEN_HEIGHT
 };
 
-AssetManager* Game::assets = new AssetManager(&manager);
+auto Game::assets = std::make_unique<AssetManager>(&manager);
+auto Game::enemyManager = std::make_unique<EnemyManager>(&manager);
 
 bool Game::isRunning = false;
 
@@ -85,6 +87,7 @@ void Game::init()
 	assets->AddTexture("terrain", "assets/images/sprite_sheets/tiles_v0.png");
 	assets->AddTexture("player", "assets/images/sprite_sheets/goblin_downscale_spritesheet.png");
 	assets->AddTexture("projectile", "assets/images/test_projectile.png");
+	assets->AddTexture("enemy", "assets/images/sprite_sheets/human_downscale_spritesheet.png");
 
 	assets->AddFont("arial", "../assets/fonts/arial.ttf", constants.DEBUG_FONT_SIZE);
 
@@ -109,6 +112,8 @@ void Game::init()
 	assets->CreateProjectile(Vector2D(400, 400), projectileSize, Vector2D(-2, 0), constants.PROJECTILE_RANGE, 2, "projectile");
 	assets->CreateProjectile(Vector2D(200, 300), projectileSize, Vector2D(2, 2), constants.PROJECTILE_RANGE, 2, "projectile");
 	assets->CreateProjectile(Vector2D(600, 200), projectileSize, Vector2D(-2, 2), constants.PROJECTILE_RANGE, 2, "projectile");
+
+	enemyManager->InstantiateEnemy(Vector2D(playerPos.x - 100, playerPos.y), Vector2D(16, 32), 6.f, 0, "enemy");
 }
 
 auto& tiles(manager.getGroup(Game::eGroupLabels::MAP));

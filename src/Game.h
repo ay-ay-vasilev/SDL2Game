@@ -16,6 +16,7 @@
 
 class ColliderComponent;
 class AssetManager;
+class EnemyManager;
 
 class Game {
 
@@ -35,7 +36,9 @@ public:
 	static SDL_Event gameEvent;
 	static bool isRunning;
 	static SDL_Rect camera;
-	static AssetManager* assets;
+
+	static std::unique_ptr<AssetManager> assets;
+	static std::unique_ptr<EnemyManager> enemyManager;
 
 	enum eGroupLabels : std::size_t
 	{
