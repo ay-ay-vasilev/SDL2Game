@@ -22,8 +22,8 @@ SDL_Rect Game::camera = { 0, 0,
 	constants.MAP_TILE_HEIGHT * constants.TILE_SIZE * constants.SCALE - constants.SCREEN_HEIGHT
 };
 
-auto Game::assets = std::make_unique<AssetManager>(&manager);
-auto Game::enemyManager = std::make_unique<EnemyManager>(&manager);
+std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(&manager);
+std::unique_ptr<EnemyManager> Game::enemyManager = std::make_unique<EnemyManager>(&manager);
 
 bool Game::isRunning = false;
 
