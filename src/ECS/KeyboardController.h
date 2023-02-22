@@ -39,7 +39,7 @@ public:
 		{
 			x -= 1;
 			sprite->Play("walk");
-			sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
+			sprite->spriteFlip = SDL_FLIP_NONE;
 		}
 		if (keyboardState[SDL_GetScancodeFromKey(SDLK_s)])
 		{
@@ -50,7 +50,7 @@ public:
 		{
 			x += 1;
 			sprite->Play("walk");
-			sprite->spriteFlip = SDL_FLIP_NONE;
+			sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
 		}
 
 		transform->velocity.x = static_cast<float>(x);

@@ -13,7 +13,7 @@ public:
 	int animIndex = 0;
 	std::map<std::string_view, Animation> animations;
 
-	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
+	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 
 	SpriteComponent() = default;
 	SpriteComponent(const std::string_view textureId)

@@ -22,9 +22,11 @@ My plan:
 - Improve movement and controls.
 
 Maintenance:
+- Add PlayerSystem.
 - Add the Z level.
 - Implement a start position for player.
 - Clean up in constants and settings.json.
 - Move libraries to the game folder.
 - Clean up in SpriteComponent - remove magic numbers.
 - Fix player and enemy walk animation.
+- Untie collider size from sprite size.
