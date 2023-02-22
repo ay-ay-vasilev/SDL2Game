@@ -23,7 +23,7 @@ public:
 	SpriteComponent(const std::string_view path, const bool isAnimated) : animated(isAnimated)
 	{
 		Animation idle = Animation(0, 4, 100);
-		Animation walk = Animation(1, 8, 60);
+		Animation walk = Animation(1, 8, 80);
 
 		animations.emplace("idle", idle);
 		animations.emplace("walk", walk);

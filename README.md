@@ -10,7 +10,6 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
-- Add enemy walking animation.
 - Add sword attack.
 - Add a simple AI system.
 - Add a simple health system.
@@ -28,3 +27,4 @@ Maintenance:
 - Clean up in constants and settings.json.
 - Move libraries to the game folder.
 - Clean up in SpriteComponent - remove magic numbers.
+- Fix player and enemy walk animation.
