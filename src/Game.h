@@ -17,6 +17,7 @@
 class ColliderComponent;
 class AssetManager;
 class EnemyManager;
+class Manager;
 
 class Game {
 
@@ -39,6 +40,7 @@ public:
 
 	static std::unique_ptr<AssetManager> assets;
 	static std::unique_ptr<EnemyManager> enemyManager;
+	static std::unique_ptr<Manager> manager;
 
 	enum eGroupLabels : std::size_t
 	{

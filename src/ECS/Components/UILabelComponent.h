@@ -8,10 +8,10 @@
 #include <SDL_ttf.h>
 #include <string>
 
-class UILabel : public Component
+class UILabelComponent : public Component
 {
 public:
-	UILabel(const int xpos, const int ypos, const std::string_view text, const std::string_view font, const SDL_Color& color) :
+	UILabelComponent(const int xpos, const int ypos, const std::string_view text, const std::string_view font, const SDL_Color& color) :
 		position({xpos, ypos, 0, 0}),
 		labelText(text),
 		labelFont(font),
@@ -20,7 +20,7 @@ public:
 	{
 		SetLabelText(labelText, labelFont);
 	}
-	~UILabel()
+	~UILabelComponent()
 	{
 	}
 

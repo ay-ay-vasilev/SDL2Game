@@ -11,6 +11,7 @@
 
 class Component;
 class Entity;
+class System;
 class Manager;
 
 using ComponentID = std::size_t;
@@ -108,17 +109,29 @@ private:
 	GroupBitSet groupBitSet;
 };
 
+class System
+{
+public:
+	virtual void init() {}
+	virtual void update() {}
+	virtual void draw() {}
+
+	virtual ~System() {}
+};
+
 class Manager
 {
 public:
 	void update()
 	{
 		for (const auto& e : entities) e->update();
+		for (const auto& s : systems) s->update();
 	}
 	
 	void draw()
 	{
-		for (const auto& e : entities) e->draw();
+		/*for (const auto& e : entities) e->draw();*/
+		for (const auto& s : systems) s->draw();
 	}
 
 	void refresh()
@@ -156,13 +169,21 @@ public:
 
 	Entity& addEntity()
 	{
-		Entity* e = new Entity(*this);
-		std::unique_ptr<Entity> uPtr{ e };
-		entities.push_back(std::move(uPtr));
-		return *e;
+		auto e = std::make_unique<Entity>(*this);
+		entities.emplace_back(std::move(e));
+		return *entities.back();
+	}
+
+	template <typename T>
+	std::shared_ptr<T> addSystem()
+	{
+		std::shared_ptr<T> system = std::make_shared<T>();
+		systems.emplace_back(system);
+		return system;
 	}
 
 private:
 	std::vector<std::unique_ptr<Entity>> entities;
+	std::vector<std::shared_ptr<System>> systems;
 	std::array<std::vector<Entity*>, maxGroups> groupedEntities;
 };

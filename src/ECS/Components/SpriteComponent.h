@@ -3,9 +3,20 @@
 #include "Components.h"
 #include "TextureManager.h"
 #include "AssetManager.h"
-#include "Animation.h"
 #include <map>
 #include <SDL.h>
+
+class Animation
+{
+public:
+	Animation() : index(0), frames(0), speed(0) {}
+	Animation(int index, int frames, int speed) : index(index), frames(frames), speed(speed) {}
+
+	int index;
+	int frames;
+	int speed;
+private:
+};
 
 class SpriteComponent : public Component
 {
