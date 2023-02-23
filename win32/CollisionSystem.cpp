@@ -7,9 +7,9 @@ void CollisionSystem::init()
 
 void CollisionSystem::update()
 {
-	auto players = Game::manager->getGroup(Game::eGroupLabels::PLAYERS);
-	auto colliders = Game::manager->getGroup(Game::eGroupLabels::COLLIDERS);
-	auto projectiles = Game::manager->getGroup(Game::eGroupLabels::PROJECTILES);
+	players = Game::manager->getGroup(Game::eGroupLabels::PLAYERS);
+	colliders = Game::manager->getGroup(Game::eGroupLabels::COLLIDERS);
+	projectiles = Game::manager->getGroup(Game::eGroupLabels::PROJECTILES);
 
 	for (auto player : players)
 	{
@@ -21,7 +21,7 @@ void CollisionSystem::update()
 		{
 			if (c == player)
 			{
-				continue; // Skip self-collision
+				continue;
 			}
 
 			auto& collider = c->getComponent<ColliderComponent>().collider;

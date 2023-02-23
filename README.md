@@ -18,12 +18,11 @@ My plan:
 - Add an inventory system.
 - Add skills.
 - Add rotate to Transform
-- Fix colliders (use the velocity vector?)
 - Improve movement and controls.
 
 Maintenance:
 - Add PlayerSystem.
-- Add the Z level.
+- Add the Z level and the Rendering system.
 - Implement a start position for player.
 - Clean up in constants and settings.json.
 - Move libraries to the game folder.
