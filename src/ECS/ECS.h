@@ -112,11 +112,14 @@ private:
 class System
 {
 public:
-	virtual void init() {}
+	System(Manager& manager) : manager(manager) {}
 	virtual void update() {}
 	virtual void draw() {}
 
 	virtual ~System() {}
+
+protected:
+	Manager& manager;
 };
 
 class Manager
@@ -157,7 +160,7 @@ public:
 			std::end(entities));
 	}
 
-	void AddToGroup(Entity* entity, Group group)
+	void addToGroup(Entity* entity, Group group)
 	{
 		groupedEntities[group].emplace_back(entity);
 	}
@@ -177,9 +180,21 @@ public:
 	template <typename T>
 	std::shared_ptr<T> addSystem()
 	{
-		std::shared_ptr<T> system = std::make_shared<T>();
+		std::shared_ptr<T> system = std::make_shared<T>(*this);
 		systems.emplace_back(system);
 		return system;
+	}
+
+	template <typename T>
+	std::vector<Entity*> getEntitiesWithComponent()
+	{
+		std::vector<Entity*> entitiesWithComponent;
+		for (const auto& e : entities) {
+			if (e->hasComponent<T>()) {
+				entitiesWithComponent.push_back(e.get());
+			}
+		}
+		return entitiesWithComponent;
 	}
 
 private:

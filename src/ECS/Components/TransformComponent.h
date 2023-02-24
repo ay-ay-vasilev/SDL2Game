@@ -6,7 +6,6 @@ struct TransformComponent : public Component
 {
 	Vector2D position;
 	Vector2D velocity;
-	int z = 0;
 
 	int width = 0;
 	int height = 0;
@@ -29,4 +28,7 @@ struct TransformComponent : public Component
 		position.x += velocity.x * speed;
 		position.y += velocity.y * speed;
 	}
+
+	int getScaledWidth() { return width * scale; }
+	int getScaledHeight() { return height * scale; }
 };

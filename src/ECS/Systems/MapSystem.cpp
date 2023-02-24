@@ -6,17 +6,11 @@ void MapSystem::instantiateMap(const std::string textureId, const int mapScale, 
 	map->LoadMap("map", mapWidth, mapHeight);
 }
 
-void MapSystem::init()
-{
-}
-
 void MapSystem::update()
 {
-	tiles = Game::manager->getGroup(Game::eGroupLabels::MAP);
+	tiles = manager.getGroup(Game::eGroupLabels::MAP);
 }
 
 void MapSystem::draw()
 {
-	// todo remove ?
-	for (const auto& t : tiles) t->draw();
 }

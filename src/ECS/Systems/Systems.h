@@ -5,3 +5,4 @@
 #include "EnemySystem.h"
 #include "ProjectileSystem.h"
 #include "MapSystem.h"
+#include "RenderSystem.h"

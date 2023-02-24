@@ -2,15 +2,11 @@
 #include "Collision.h"
 #include "Vector2D.h"
 
-void CollisionSystem::init()
-{
-}
-
 void CollisionSystem::update()
 {
-	players = Game::manager->getGroup(Game::eGroupLabels::PLAYERS);
-	colliders = Game::manager->getGroup(Game::eGroupLabels::COLLIDERS);
-	projectiles = Game::manager->getGroup(Game::eGroupLabels::PROJECTILES);
+	players = manager.getGroup(Game::eGroupLabels::PLAYERS);
+	colliders = manager.getGroup(Game::eGroupLabels::COLLIDERS);
+	projectiles = manager.getGroup(Game::eGroupLabels::PROJECTILES);
 
 	for (auto player : players)
 	{

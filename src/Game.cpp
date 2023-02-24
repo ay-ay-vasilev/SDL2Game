@@ -11,6 +11,7 @@ std::shared_ptr<Constants> constants = std::make_shared<Constants>("../data/sett
 std::shared_ptr<Manager> Game::manager = std::make_shared<Manager>();
 std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(manager, constants);
 
+auto renderSystem(Game::manager->addSystem<RenderSystem>());
 auto mapSystem(Game::manager->addSystem<MapSystem>());
 auto collisionSystem(Game::manager->addSystem<CollisionSystem>());
 auto playerSystem(Game::manager->addSystem<PlayerSystem>());

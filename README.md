@@ -13,7 +13,7 @@ My plan:
 - Add sword attack.
 - Add a simple AI system.
 - Add a simple health system.
-- Add a simple menu screen.
+- Add a simple menu screen + UI system.
 - Add simple sounds.
 - Add an inventory system.
 - Add skills.
@@ -21,10 +21,11 @@ My plan:
 - Improve movement and controls.
 
 Maintenance:
-- Add the Z level and the Rendering system.
+- Clean up in SpriteComponent - remove magic numbers.
 - Implement a start position for player.
 - Clean up in constants and settings.json.
-- Clean up in SpriteComponent - remove magic numbers.
-- Fix player and enemy walk animation.
 - Untie collider size from sprite size.
+- Fix player and enemy walk animation.
 - Fix scale.
+
+- Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update)

@@ -5,20 +5,40 @@
 class RenderSystem : public System
 {
 public:
-	void init() override;
+	RenderSystem(Manager& manager) : System(manager) {}
+
 	void update() override
 	{
-		players = Game::manager->getGroup(Game::eGroupLabels::PLAYERS);
-		enemies = Game::manager->getGroup(Game::eGroupLabels::ENEMIES);
-		tiles = Game::manager->getGroup(Game::eGroupLabels::MAP);
-		projectiles = Game::manager->getGroup(Game::eGroupLabels::PROJECTILES);
+		sortedEntities.clear();
+		tiles = manager.getGroup(Game::eGroupLabels::MAP);
+		auto entitiesWithTransform = manager.getEntitiesWithComponent<TransformComponent>();
+
+		for (auto& entity : entitiesWithTransform)
+		{
+			auto transform = entity->getComponent<TransformComponent>();
+			double z = transform.position.y + transform.getScaledHeight();
+			sortedEntities.push_back({ entity, z });
+		}
+
+		std::sort(sortedEntities.begin(), sortedEntities.end(),
+			[](const EntityZValue& a, const EntityZValue& b)
+			{
+				return a.z < b.z;
+			});
 	}
 
-	void draw() override;
+	void draw() override
+	{
+		for (const auto& tile : tiles) tile->draw();
+		for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();
+	}
 
 private:
+	struct EntityZValue
+	{
+		Entity* entity;
+		double z;
+	};
 	std::vector<Entity*> tiles;
-	std::vector<Entity*> enemies;
-	std::vector<Entity*> players;
-	std::vector<Entity*> projectiles;
+	std::vector<EntityZValue> sortedEntities;
 };

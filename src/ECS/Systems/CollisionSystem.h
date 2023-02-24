@@ -4,7 +4,8 @@
 class CollisionSystem : public System
 {
 public:
-	void init() override;
+	CollisionSystem(Manager& manager) : System(manager) {}
+
 	void update() override;
 	void draw() override;
 
