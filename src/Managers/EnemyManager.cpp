@@ -1,7 +1,7 @@
 #include "EnemyManager.h"
 #include "Components.h"
 
-EnemyManager::EnemyManager(Manager* manager) : manager(manager) {}
+EnemyManager::EnemyManager(std::shared_ptr<Manager> manager) : manager(manager) {}
 
 EnemyManager::~EnemyManager() {}
 

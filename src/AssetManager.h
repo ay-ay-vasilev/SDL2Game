@@ -6,10 +6,11 @@
 #include "ECS.h"
 #include <SDL_ttf.h>
 
+class Constants;
 class AssetManager
 {
 public:
-	AssetManager(Manager* manager);
+	AssetManager(std::shared_ptr<Manager> manager, std::shared_ptr<Constants> constants);
 	~AssetManager();
 
 	// Game objects
@@ -20,13 +21,18 @@ public:
 	void AddTexture(const std::string_view id, const std::string_view path);
 	SDL_Texture* GetTexture(const std::string_view id) const;
 
+	void LoadTextures();
+
 	// Font management
 	void AddFont(const std::string_view id, const std::string_view path, const int fontSize);
 	TTF_Font* GetFont(const std::string_view id) const;
 
+	void LoadFonts();
+
 private:
 
-	Manager* manager;
+	std::shared_ptr<Manager> manager;
 	std::map<const std::string_view, SDL_Texture*> textures;
 	std::map<const std::string_view, TTF_Font*> fonts;
+	std::shared_ptr<Constants> constants;
 };

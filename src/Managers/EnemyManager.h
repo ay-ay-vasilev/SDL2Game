@@ -6,11 +6,11 @@
 class EnemyManager
 {
 public:
-	EnemyManager(Manager* manager);
+	EnemyManager(std::shared_ptr<Manager> manager);
 	~EnemyManager();
 
 	void InstantiateEnemy(const Vector2D pos, const Vector2D size, const float scale, const int speed, const std::string_view id) const;
 
 private:
-	Manager* manager;
+	std::shared_ptr<Manager> manager;
 };
