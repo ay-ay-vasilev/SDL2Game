@@ -1,8 +1,7 @@
 #include "Game.h"
-#include "TextureManager.h"
-#include "EnemyManager.h"
+#include "Systems.h"
+
 #include "AssetManager.h"
-#include "Components.h"
 #include "Map.h"
 #include "Constants.h"
 #include <iostream>
@@ -12,6 +11,13 @@ std::unique_ptr<Map> map;
 std::shared_ptr<Constants> constants = std::make_shared<Constants>("../data/settings.json");
 
 std::shared_ptr<Manager> Game::manager = std::make_shared<Manager>();
+std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(manager, constants);
+
+auto collisionSystem(Game::manager->addSystem<CollisionSystem>());
+auto playerSystem(Game::manager->addSystem<PlayerSystem>());
+auto enemySystem(Game::manager->addSystem<EnemySystem>());
+auto projectileSystem(Game::manager->addSystem<ProjectileSystem>());
+
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
 
@@ -20,22 +26,13 @@ SDL_Rect Game::camera = { 0, 0,
 	constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * constants->SCALE - constants->SCREEN_HEIGHT
 };
 
-std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(manager, constants);
-std::unique_ptr<EnemyManager> Game::enemyManager = std::make_unique<EnemyManager>(manager);
-
 bool Game::isRunning = false;
 
-auto& player(Game::manager->addEntity());
 auto& label(Game::manager->addEntity());
-auto collisionSystem(Game::manager->addSystem<CollisionSystem>());
 
-Game::Game() : window(nullptr), count(0)
-{
-}
+Game::Game() : window(nullptr), count(0) {}
 
-Game::~Game()
-{
-}
+Game::~Game() {}
 
 void Game::init()
 {
@@ -56,10 +53,7 @@ void Game::init()
 			constants->SCREEN_WIDTH, constants->SCREEN_HEIGHT,
 			flags);
 
-		if (window)
-		{
-			std::cout << "Window created!\n";
-		}
+		if (window) std::cout << "Window created!\n";
 
 		renderer = SDL_CreateRenderer(window, -1, 0);
 
@@ -70,18 +64,11 @@ void Game::init()
 			SDL_PollEvent(&event);
 			std::cout << "Renderer created!\n";
 		}
-
 		isRunning = true;
 	}
-	else
-	{
-		isRunning = false;
-	}
+	else isRunning = false;
 
-	if (TTF_Init() == -1)
-	{
-		std::cout << "Error: SDL_TTF\n";
-	}
+	if (TTF_Init() == -1) std::cout << "Error: SDL_TTF\n";
 
 	assets->LoadTextures();
 	assets->LoadFonts();
@@ -89,30 +76,22 @@ void Game::init()
 	map = std::make_unique<Map>("terrain", constants->SCALE, constants->TILE_SIZE);
 	map->LoadMap("map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
 
-	auto playerPos = Vector2D(constants->SCREEN_WIDTH / 2 - constants->PLAYER_WIDTH - 200, constants->SCREEN_HEIGHT / 2 - constants->PLAYER_HEIGHT);
-	player.addComponent<TransformComponent>(playerPos.x, playerPos.y, constants->PLAYER_WIDTH, constants->PLAYER_HEIGHT, constants->SCALE, constants->PLAYER_SPEED);
-	player.addComponent<SpriteComponent>("player", true);
-	player.addComponent<KeyboardController>();
-	player.addComponent<ColliderComponent>("player");
-	player.addGroup(eGroupLabels::PLAYERS);
-
 	label.addComponent<UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
 	// todo: remove
 	const auto projectileSize = Vector2D(constants->PROJECTILE_SIZE, constants->PROJECTILE_SIZE);
-	assets->CreateProjectile(Vector2D(500, 600), projectileSize, Vector2D(-2, -2), constants->PROJECTILE_RANGE, 2, "projectile");
-	assets->CreateProjectile(Vector2D(300, 500), projectileSize, Vector2D(2, -2), constants->PROJECTILE_RANGE, 2, "projectile");
-	assets->CreateProjectile(Vector2D(400, 400), projectileSize, Vector2D(-2, 0), constants->PROJECTILE_RANGE, 2, "projectile");
-	assets->CreateProjectile(Vector2D(200, 300), projectileSize, Vector2D(2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
-	assets->CreateProjectile(Vector2D(600, 200), projectileSize, Vector2D(-2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
+	projectileSystem->instantiateProjectile(Vector2D(500, 600), projectileSize, Vector2D(-2, -2), constants->PROJECTILE_RANGE, 2, "projectile");
+	projectileSystem->instantiateProjectile(Vector2D(300, 500), projectileSize, Vector2D(2, -2), constants->PROJECTILE_RANGE, 2, "projectile");
+	projectileSystem->instantiateProjectile(Vector2D(400, 400), projectileSize, Vector2D(-2, 0), constants->PROJECTILE_RANGE, 2, "projectile");
+	projectileSystem->instantiateProjectile(Vector2D(200, 300), projectileSize, Vector2D(2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
+	projectileSystem->instantiateProjectile(Vector2D(600, 200), projectileSize, Vector2D(-2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
 
-	enemyManager->InstantiateEnemy(Vector2D(playerPos.x - 200, playerPos.y), Vector2D(32, 32), 6.f, 0, "enemy");
+	const auto playerPos = Vector2D(constants->SCREEN_WIDTH / 2 - constants->PLAYER_WIDTH - 200, constants->SCREEN_HEIGHT / 2 - constants->PLAYER_HEIGHT);
+	playerSystem->instantiatePlayer(playerPos, Vector2D(constants->PLAYER_WIDTH, constants->PLAYER_HEIGHT), constants->SCALE, constants->PLAYER_SPEED, "player");
+	enemySystem->instantiateEnemy(Vector2D(playerPos.x - 200, playerPos.y), Vector2D(32, 32), 6.f, 0, "enemy");
 }
 
 auto& tiles(Game::manager->getGroup(Game::eGroupLabels::MAP));
-auto& projectiles(Game::manager->getGroup(Game::eGroupLabels::PROJECTILES));
-auto& players(Game::manager->getGroup(Game::eGroupLabels::PLAYERS));
-auto& enemies(Game::manager->getGroup(Game::eGroupLabels::ENEMIES));
 
 void Game::handleEvents()
 {
@@ -131,20 +110,15 @@ void Game::update()
 {
 	manager->refresh();
 	manager->update();
-
-	const auto& playerPosition = player.getComponent<TransformComponent>().position;
+	const auto& playerPosition = playerSystem->getPlayerPosition();
 
 	camera.x = static_cast<int>(playerPosition.x - constants->SCREEN_WIDTH / 2);
 	camera.y = static_cast<int>(playerPosition.y - constants->SCREEN_HEIGHT / 2);
 
-	if (camera.x < 0)
-		camera.x = 0;
-	if (camera.y < 0)
-		camera.y = 0;
-	if (camera.x > camera.w)
-		camera.x = camera.w;
-	if (camera.y > camera.h)
-		camera.y = camera.h;
+	if (camera.x < 0) camera.x = 0;
+	if (camera.y < 0) camera.y = 0;
+	if (camera.x > camera.w) camera.x = camera.w;
+	if (camera.y > camera.h) camera.y = camera.h;
 
 	std::stringstream ss;
 	ss << "Player position: " << playerPosition;
@@ -155,9 +129,6 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	for (const auto& t : tiles) t->draw();
-	for (const auto& p : projectiles) p->draw();
-	for (const auto& p : players) p->draw();
-	for (const auto& e : enemies) e->draw();
 	manager->draw();
 
 	label.draw();

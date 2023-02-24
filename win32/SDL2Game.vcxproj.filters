@@ -31,6 +31,9 @@
     <Filter Include="Source Files\ECS\Systems">
       <UniqueIdentifier>{3aa1a89a-e2df-4ba8-9da4-563edaff7b3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Common">
+      <UniqueIdentifier>{c6240737-179a-4973-babd-3747ed409827}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Game.cpp">
@@ -39,31 +42,37 @@
     <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\TextureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Vector2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ECS\ECS.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\AssetManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Constants\Constants.cpp">
       <Filter>Source Files\Constants</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Managers\EnemyManager.cpp">
+    <ClCompile Include="CollisionSystem.cpp">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ECS\Systems\PlayerSystem.cpp">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ECS\Systems\EnemySystem.cpp">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Managers\AssetManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionSystem.cpp">
+    <ClCompile Include="..\src\Managers\TextureManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Common\Collision.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Common\Vector2D.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ECS\Systems\ProjectileSystem.cpp">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,35 +80,17 @@
     <ClInclude Include="..\src\Game.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\TextureManager.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Map.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ECS\Components.h">
-      <Filter>Source Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Vector2D.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Collision.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ECS\ECS.h">
       <Filter>Source Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\AssetManager.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Constants\Constants.h">
       <Filter>Source Files\Constants</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Libs\json.hpp">
       <Filter>Source Files\Libs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Managers\EnemyManager.h">
-      <Filter>Source Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ECS\UILabelComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
@@ -126,6 +117,33 @@
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ECS\Systems\CollisionSystem.h">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Systems\PlayerSystem.h">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Systems\EnemySystem.h">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Managers\AssetManager.h">
+      <Filter>Source Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Managers\TextureManager.h">
+      <Filter>Source Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\Components.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Systems\Systems.h">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Common\Collision.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Common\Vector2D.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Systems\ProjectileSystem.h">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>
