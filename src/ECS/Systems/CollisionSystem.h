@@ -1,8 +1,5 @@
 #pragma once
 #include "Components.h"
-#include "Game.h"
-#include "Collision.h"
-#include "Vector2D.h"
 
 class CollisionSystem : public System
 {

@@ -1,6 +1,5 @@
 #pragma once
 #include "Components.h"
-#include "Game.h"
 
 class EnemySystem : public System
 {

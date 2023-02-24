@@ -2,17 +2,16 @@
 #include "Systems.h"
 
 #include "AssetManager.h"
-#include "Map.h"
 #include "Constants.h"
 #include <iostream>
 #include <sstream>
 
-std::unique_ptr<Map> map;
 std::shared_ptr<Constants> constants = std::make_shared<Constants>("../data/settings.json");
 
 std::shared_ptr<Manager> Game::manager = std::make_shared<Manager>();
 std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(manager, constants);
 
+auto mapSystem(Game::manager->addSystem<MapSystem>());
 auto collisionSystem(Game::manager->addSystem<CollisionSystem>());
 auto playerSystem(Game::manager->addSystem<PlayerSystem>());
 auto enemySystem(Game::manager->addSystem<EnemySystem>());
@@ -73,8 +72,6 @@ void Game::init()
 	assets->LoadTextures();
 	assets->LoadFonts();
 
-	map = std::make_unique<Map>("terrain", constants->SCALE, constants->TILE_SIZE);
-	map->LoadMap("map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
 
 	label.addComponent<UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
@@ -89,9 +86,8 @@ void Game::init()
 	const auto playerPos = Vector2D(constants->SCREEN_WIDTH / 2 - constants->PLAYER_WIDTH - 200, constants->SCREEN_HEIGHT / 2 - constants->PLAYER_HEIGHT);
 	playerSystem->instantiatePlayer(playerPos, Vector2D(constants->PLAYER_WIDTH, constants->PLAYER_HEIGHT), constants->SCALE, constants->PLAYER_SPEED, "player");
 	enemySystem->instantiateEnemy(Vector2D(playerPos.x - 200, playerPos.y), Vector2D(32, 32), 6.f, 0, "enemy");
+	mapSystem->instantiateMap("terrain", constants->SCALE, constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
 }
-
-auto& tiles(Game::manager->getGroup(Game::eGroupLabels::MAP));
 
 void Game::handleEvents()
 {
@@ -128,7 +124,6 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	for (const auto& t : tiles) t->draw();
 	manager->draw();
 
 	label.draw();

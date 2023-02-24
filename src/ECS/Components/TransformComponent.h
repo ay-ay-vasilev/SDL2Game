@@ -6,6 +6,7 @@ struct TransformComponent : public Component
 {
 	Vector2D position;
 	Vector2D velocity;
+	int z = 0;
 
 	int width = 0;
 	int height = 0;

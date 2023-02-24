@@ -20,21 +20,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Common\Collision.cpp" />
+    <ClCompile Include="..\src\Common\Map.cpp" />
     <ClCompile Include="..\src\Common\Vector2D.cpp" />
     <ClCompile Include="..\src\Constants\Constants.cpp" />
     <ClCompile Include="..\src\ECS\ECS.cpp" />
+    <ClCompile Include="..\src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\EnemySystem.cpp" />
+    <ClCompile Include="..\src\ECS\Systems\MapSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\PlayerSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\ProjectileSystem.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Managers\AssetManager.cpp" />
     <ClCompile Include="..\src\Managers\TextureManager.cpp" />
-    <ClCompile Include="..\src\Map.cpp" />
-    <ClCompile Include="CollisionSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Common\Collision.h" />
+    <ClInclude Include="..\src\Common\Map.h" />
     <ClInclude Include="..\src\Common\Vector2D.h" />
     <ClInclude Include="..\src\Constants\Constants.h" />
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h" />
@@ -48,15 +50,16 @@
     <ClInclude Include="..\src\ECS\ECS.h" />
     <ClInclude Include="..\src\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\EnemySystem.h" />
+    <ClInclude Include="..\src\ECS\Systems\MapSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\PlayerSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\ProjectileSystem.h" />
+    <ClInclude Include="..\src\ECS\Systems\RenderSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\Systems.h" />
     <ClInclude Include="..\src\ECS\UILabelComponent.h" />
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\Libs\json.hpp" />
     <ClInclude Include="..\src\Managers\AssetManager.h" />
     <ClInclude Include="..\src\Managers\TextureManager.h" />
-    <ClInclude Include="..\src\Map.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\goblin_downscale_spritesheet.png" />

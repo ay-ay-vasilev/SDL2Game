@@ -1,6 +1,5 @@
 #pragma once
 #include "Components.h"
-#include "Game.h"
 
 class PlayerSystem : public System
 {
