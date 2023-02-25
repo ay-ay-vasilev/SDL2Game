@@ -197,8 +197,12 @@ public:
 		return entitiesWithComponent;
 	}
 
+	float getScale() { return scale; }
+	void setScale(const float newScale) { scale = newScale; }
+
 private:
 	std::vector<std::unique_ptr<Entity>> entities;
 	std::vector<std::shared_ptr<System>> systems;
 	std::array<std::vector<Entity*>, maxGroups> groupedEntities;
+	float scale = 1.f;
 };

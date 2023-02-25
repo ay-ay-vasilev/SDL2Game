@@ -21,11 +21,14 @@ My plan:
 - Improve movement and controls.
 
 Maintenance:
-- Clean up in SpriteComponent - remove magic numbers.
 - Implement a start position for player.
 - Clean up in constants and settings.json.
+- Add projectile json.
+- Add map json.
 - Untie collider size from sprite size.
 - Fix player and enemy walk animation.
 - Fix scale.
 
+- Refactor actor json to an entity json ?
 - Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update)
+- Fix Tile-Collider logic

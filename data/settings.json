@@ -1,13 +1,10 @@
 {
-    "SCREEN_WIDTH": 1280,
-    "SCREEN_HEIGHT": 800,
-    "SCALE": 6.0,
-    "MAP_TILE_WIDTH": 16,
-    "MAP_TILE_HEIGHT": 16,
-    "TILE_SIZE": 32,
-    "PROJECTILE_SIZE": 32,
-    "PROJECTILE_RANGE": 200,
-    "PLAYER_WIDTH": 16,
-    "PLAYER_HEIGHT": 16,
-    "PLAYER_SPEED": 10
+	"screen_width": 1280,
+	"screen_height": 800,
+	"scale": 6.0,
+	"map_tile_width": 16,
+	"map_tile_height": 16,
+	"tile_size": 32,
+	"projecile_size": 32,
+	"projectile_range": 200
 }

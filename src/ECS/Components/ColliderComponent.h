@@ -31,7 +31,7 @@ public:
 		}
 		transform = &entity->getComponent<TransformComponent>();
 
-		texture = TextureManager::LoadTexture("assets/images/collider.png");
+		texture = TextureManager::loadTexture("assets/images/collider.png");
 		srcRect = { 0, 0, collider.w, collider.h };
 		destRect = { collider.x, collider.y, collider.w, collider.h };
 	}
@@ -52,6 +52,7 @@ public:
 
 	void draw() override
 	{
-		TextureManager::Draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+		// todo: add debug logic ?
+		//TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
 };

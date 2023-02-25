@@ -9,11 +9,10 @@
 #include <string>
 #include <sstream>
 
-Map::Map(const std::string_view textureId, const int mapScale, const int tileSize) :
+Map::Map(const std::string_view textureId, const int tileSize) :
 	textureId(textureId),
-	mapScale(mapScale),
 	tileSize(tileSize),
-	scaledSize(mapScale* tileSize)
+	scaledSize(Game::manager->getScale() * tileSize)
 {
 }
 
@@ -21,24 +20,24 @@ Map::~Map()
 {
 }
 
-void Map::LoadMap(const std::string_view path, const int sizeX, const int sizeY)
+void Map::loadMap(const std::string_view path, const int sizeX, const int sizeY)
 {
-	LoadTiles(path, sizeX, sizeY);
-	LoadCollisions(path, sizeX, sizeY);
+	loadTiles(path, sizeX, sizeY);
+	loadCollisions(path, sizeX, sizeY);
 }
 
-void Map::AddTile(const int srcX, const int srcY, const int xpos, const int ypos)
+void Map::addTile(const int srcX, const int srcY, const int xpos, const int ypos)
 {
 	auto& tile(Game::manager->addEntity());
-	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, tileSize, mapScale, textureId);
+	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, tileSize, textureId);
 	tile.addGroup(Game::eGroupLabels::MAP);
 }
 
-void Map::LoadTiles(const std::string_view path, const int sizeX, const int sizeY)
+void Map::loadTiles(const std::string_view path, const int sizeX, const int sizeY)
 {
 	const std::string tempPath(path);
 	std::fstream mapFile;
-	mapFile.open("../assets/map/" + tempPath + "_Tiles.csv");
+	mapFile.open("../assets/map/" + tempPath + "_tiles.csv");
 
 	int srcX, srcY;
 	int tileSetCols = 6;
@@ -56,7 +55,7 @@ void Map::LoadTiles(const std::string_view path, const int sizeX, const int size
 			std::cout << tileNum << "\t";
 			srcX = (tileNum % tileSetCols) * tileSize;
 			srcY = (tileNum / tileSetCols) * tileSize;
-			AddTile(srcX, srcY, x * scaledSize, y * scaledSize);
+			addTile(srcX, srcY, x * scaledSize, y * scaledSize);
 
 			if (lineStream.peek() == ',')
 			{
@@ -71,11 +70,11 @@ void Map::LoadTiles(const std::string_view path, const int sizeX, const int size
 	mapFile.close();
 }
 
-void Map::LoadCollisions(const std::string_view path, const int sizeX, const int sizeY)
+void Map::loadCollisions(const std::string_view path, const int sizeX, const int sizeY)
 {
 	const std::string tempPath(path);
 	std::fstream mapFile;
-	mapFile.open("../assets/map/" + tempPath + "_Collision.csv");
+	mapFile.open("../assets/map/" + tempPath + "_collision.csv");
 
 	int srcX, srcY;
 	int tileSetCols = 6;

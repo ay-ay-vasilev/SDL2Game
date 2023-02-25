@@ -1,0 +1,21 @@
+{
+	"texture": "human",
+	"speed": 10,
+	"width": 32,
+	"height": 32,
+	"animations":
+	{
+		"idle":
+		{
+			"id": 0,
+			"num_of_frames": 4,
+			"speed": 100
+		},
+		"walk":
+		{
+			"id": 1,
+			"num_of_frames": 8,
+			"speed": 80
+		}
+	}
+}

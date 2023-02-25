@@ -1,0 +1,21 @@
+{
+	"texture": "goblin",
+	"speed": 10,
+	"width": 16,
+	"height": 16,
+	"animations":
+	{
+		"idle":
+		{
+			"id": 0,
+			"num_of_frames": 4,
+			"speed": 100
+		},
+		"walk":
+		{
+			"id": 1,
+			"num_of_frames": 8,
+			"speed": 80
+		}
+	}
+}

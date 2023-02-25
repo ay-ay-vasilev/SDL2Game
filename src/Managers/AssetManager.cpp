@@ -5,25 +5,25 @@ AssetManager::AssetManager(std::shared_ptr<Manager> manager, std::shared_ptr<Con
 
 AssetManager::~AssetManager() {}
 
-void AssetManager::LoadTextures()
+void AssetManager::loadTextures()
 {
-	AddTexture("terrain", "assets/images/sprite_sheets/tiles_v0.png");
-	AddTexture("player", "assets/images/sprite_sheets/goblin_downscale_spritesheet.png");
-	AddTexture("projectile", "assets/images/test_projectile.png");
-	AddTexture("enemy", "assets/images/sprite_sheets/human_downscale_spritesheet.png");
+	addTexture("terrain", "assets/images/spritesheets/tiles_v0.png");
+	addTexture("goblin", "assets/images/spritesheets/goblin_downscale_spritesheet.png");
+	addTexture("projectile", "assets/images/test_projectile.png");
+	addTexture("human", "assets/images/spritesheets/human_downscale_spritesheet.png");
 }
 
-void AssetManager::LoadFonts()
+void AssetManager::loadFonts()
 {
-	AddFont("arial", "../assets/fonts/arial.ttf", constants->DEBUG_FONT_SIZE);
+	addFont("arial", "../assets/fonts/arial.ttf", constants->DEBUG_FONT_SIZE);
 }
 
-void AssetManager::AddTexture(const std::string_view id, const std::string_view path)
+void AssetManager::addTexture(const std::string_view id, const std::string_view path)
 {
-	textures.emplace(id, TextureManager::LoadTexture(path));
+	textures.emplace(id, TextureManager::loadTexture(path));
 }
 
-SDL_Texture* AssetManager::GetTexture(const std::string_view id) const
+SDL_Texture* AssetManager::getTexture(const std::string_view id) const
 {
 	auto it = textures.find(id);
 	if (it != textures.end())
@@ -37,13 +37,13 @@ SDL_Texture* AssetManager::GetTexture(const std::string_view id) const
 	}
 }
 
-void AssetManager::AddFont(const std::string_view id, const std::string_view path, const int fontSize)
+void AssetManager::addFont(const std::string_view id, const std::string_view path, const int fontSize)
 {
 	const std::string tempPath(path);
 	fonts.emplace(id, TTF_OpenFont(tempPath.c_str(), fontSize));
 }
 
-TTF_Font* AssetManager::GetFont(const std::string_view id) const
+TTF_Font* AssetManager::getFont(const std::string_view id) const
 {
 	auto it = fonts.find(id);
 	if (it != fonts.end())

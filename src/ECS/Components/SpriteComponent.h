@@ -3,26 +3,16 @@
 #include "Components.h"
 #include "TextureManager.h"
 #include "AssetManager.h"
-#include <map>
+#include "Animation.h"
+
 #include <SDL.h>
+#include <json.hpp>
 
-class Animation
-{
-public:
-	Animation() : index(0), frames(0), speed(0) {}
-	Animation(int index, int frames, int speed) : index(index), frames(frames), speed(speed) {}
-
-	int index;
-	int frames;
-	int speed;
-private:
-};
+#include <map>
 
 class SpriteComponent : public Component
 {
 public:
-	int animIndex = 0;
-	std::map<std::string_view, Animation> animations;
 
 	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 
@@ -31,23 +21,21 @@ public:
 	{
 		setTexture(textureId);
 	}
-	SpriteComponent(const std::string_view path, const bool isAnimated) : animated(isAnimated)
+	SpriteComponent(const std::string_view texturePath, const nlohmann::json& animationsData, const bool isAnimated) : animated(isAnimated)
 	{
-		Animation idle = Animation(0, 4, 100);
-		Animation walk = Animation(1, 8, 80);
-
-		animations.emplace("idle", idle);
-		animations.emplace("walk", walk);
-
-		Play("idle");
-		setTexture(path);
+		if (animated)
+		{
+			addAnimationsFromJson(animationsData);
+			play("idle");
+		}
+		setTexture(texturePath);
 	}
 
 	~SpriteComponent() {}
 
 	void setTexture(const std::string_view textureId)
 	{
-		texture = Game::assets->GetTexture(textureId);
+		texture = Game::assets->getTexture(textureId);
 	}
 
 	void init() override
@@ -77,17 +65,35 @@ public:
 
 	void draw() override
 	{
-		TextureManager::Draw(texture, srcRect, destRect, spriteFlip);
+		TextureManager::draw(texture, srcRect, destRect, spriteFlip);
 	}
 
-	void Play(const std::string_view animName)
+	void play(const std::string_view animName)
 	{
-		frames = animations[animName].frames;
-		animIndex = animations[animName].index;
-		speed = animations[animName].speed;
+		std::string animNameStr(animName);
+
+		frames = animations[animNameStr].frames;
+		animIndex = animations[animNameStr].index;
+		speed = animations[animNameStr].speed;
+	}
+
+	void addAnimationsFromJson(const nlohmann::json& animData)
+	{
+		for (auto& [name, animData] : animData.items())
+		{
+			addAnimation(name, animData["id"], animData["num_of_frames"], animData["speed"]);
+		}
+	}
+
+	void addAnimation(const std::string_view name, const int index, const int numOfFrames, const int speed)
+	{
+		animations.emplace(name, Animation(index, numOfFrames, speed));
 	}
 
 private:
+	int animIndex = 0;
+	std::map<std::string, Animation> animations;
+
 	TransformComponent* transform;
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;

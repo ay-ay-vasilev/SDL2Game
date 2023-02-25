@@ -20,12 +20,12 @@ public:
 		SDL_DestroyTexture(texture);
 	}
 
-	TileComponent(const int srcX, const int srcY, const int xpos, const int ypos, const int tileSize, const int tileScale, const std::string_view textureId)
+	TileComponent(const int srcX, const int srcY, const int xpos, const int ypos, const int tileSize, const std::string_view textureId)
 	{
-		texture = Game::assets->GetTexture(textureId);
+		texture = Game::assets->getTexture(textureId);
 		position = { static_cast<float>(xpos), static_cast<float>(ypos) };
 		srcRect = { srcX, srcY, tileSize, tileSize };
-		destRect = { xpos, ypos, tileSize * tileScale, tileSize * tileScale };
+		destRect = { xpos, ypos, tileSize * static_cast<int>(Game::manager->getScale()), static_cast<int>(tileSize * Game::manager->getScale()) };
 	}
 
 	void update() override
@@ -36,6 +36,6 @@ public:
 
 	void draw() override
 	{
-		TextureManager::Draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+		TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
 };

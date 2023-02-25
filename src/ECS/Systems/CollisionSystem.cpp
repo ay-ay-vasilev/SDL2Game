@@ -70,6 +70,4 @@ void CollisionSystem::update()
 
 void CollisionSystem::draw()
 {
-	// todo add debug option ?
-	for (const auto& c : colliders) c->draw();
 }

@@ -155,6 +155,9 @@
     <ClInclude Include="..\src\ECS\Systems\RenderSystem.h">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ECS\Systems\Animation.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">

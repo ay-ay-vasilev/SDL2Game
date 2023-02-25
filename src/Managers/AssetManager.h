@@ -13,16 +13,16 @@ public:
 	AssetManager(std::shared_ptr<Manager> manager, std::shared_ptr<Constants> constants);
 	~AssetManager();
 
-	void LoadTextures();
-	void LoadFonts();
+	void loadTextures();
+	void loadFonts();
 
 	// Texture management
-	void AddTexture(const std::string_view id, const std::string_view path);
-	SDL_Texture* GetTexture(const std::string_view id) const;
+	void addTexture(const std::string_view id, const std::string_view path);
+	SDL_Texture* getTexture(const std::string_view id) const;
 
 	// Font management
-	void AddFont(const std::string_view id, const std::string_view path, const int fontSize);
-	TTF_Font* GetFont(const std::string_view id) const;
+	void addFont(const std::string_view id, const std::string_view path, const int fontSize);
+	TTF_Font* getFont(const std::string_view id) const;
 
 private:
 

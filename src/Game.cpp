@@ -70,8 +70,9 @@ void Game::init()
 
 	if (TTF_Init() == -1) std::cout << "Error: SDL_TTF\n";
 
-	assets->LoadTextures();
-	assets->LoadFonts();
+	manager->setScale(constants->SCALE);
+	assets->loadTextures();
+	assets->loadFonts();
 
 
 	label.addComponent<UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
@@ -84,10 +85,10 @@ void Game::init()
 	projectileSystem->instantiateProjectile(Vector2D(200, 300), projectileSize, Vector2D(2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
 	projectileSystem->instantiateProjectile(Vector2D(600, 200), projectileSize, Vector2D(-2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
 
-	const auto playerPos = Vector2D(constants->SCREEN_WIDTH / 2 - constants->PLAYER_WIDTH - 200, constants->SCREEN_HEIGHT / 2 - constants->PLAYER_HEIGHT);
-	playerSystem->instantiatePlayer(playerPos, Vector2D(constants->PLAYER_WIDTH, constants->PLAYER_HEIGHT), constants->SCALE, constants->PLAYER_SPEED, "player");
-	enemySystem->instantiateEnemy(Vector2D(playerPos.x - 200, playerPos.y), Vector2D(32, 32), 6.f, 0, "enemy");
-	mapSystem->instantiateMap("terrain", constants->SCALE, constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
+	const auto playerPos = Vector2D(constants->SCREEN_WIDTH / 2 - 200, constants->SCREEN_HEIGHT / 2);
+	playerSystem->instantiatePlayer(playerPos, "../data/actors/goblin.json");
+	enemySystem->instantiateEnemy(Vector2D(playerPos.x - 200, playerPos.y), "../data/actors/human.json");
+	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
 }
 
 void Game::handleEvents()

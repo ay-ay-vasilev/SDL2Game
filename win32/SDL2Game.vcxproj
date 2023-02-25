@@ -48,6 +48,7 @@
     <ClInclude Include="..\src\ECS\Components\TransformComponent.h" />
     <ClInclude Include="..\src\ECS\Components\UILabelComponent.h" />
     <ClInclude Include="..\src\ECS\ECS.h" />
+    <ClInclude Include="..\src\ECS\Systems\Animation.h" />
     <ClInclude Include="..\src\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\EnemySystem.h" />
     <ClInclude Include="..\src\ECS\Systems\MapSystem.h" />

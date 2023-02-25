@@ -1,7 +1,7 @@
 #include "TextureManager.h"
 #include <stdexcept>
 
-SDL_Texture* TextureManager::LoadTexture(const std::string_view& fileName)
+SDL_Texture* TextureManager::loadTexture(const std::string_view& fileName)
 {
 	const std::string tempFileName(fileName);
 	std::string imagePath = SDL_GetBasePath();
@@ -24,7 +24,7 @@ SDL_Texture* TextureManager::LoadTexture(const std::string_view& fileName)
 	return texture;
 }
 
-void TextureManager::Draw(SDL_Texture* texture, const SDL_Rect source, const SDL_Rect destination, const SDL_RendererFlip flip)
+void TextureManager::draw(SDL_Texture* texture, const SDL_Rect source, const SDL_Rect destination, const SDL_RendererFlip flip)
 {
 	if (destination.x < (Game::camera.w + destination.w) && destination.x >= ((-1) * destination.w))
 		if (destination.y < (Game::camera.h + destination.h) && destination.y >= ((-1) * destination.h))

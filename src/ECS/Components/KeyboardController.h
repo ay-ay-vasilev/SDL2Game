@@ -29,29 +29,30 @@ public:
 
 		int x = 0, y = 0;
 
-		sprite->Play("idle");
+		std::string animName = "idle";
 		if (keyboardState[SDL_GetScancodeFromKey(SDLK_w)])
 		{
 			y -= 1;
-			sprite->Play("walk");
+			animName = "walk";
 		}
 		if (keyboardState[SDL_GetScancodeFromKey(SDLK_a)])
 		{
 			x -= 1;
-			sprite->Play("walk");
+			animName = "walk";
 			sprite->spriteFlip = SDL_FLIP_NONE;
 		}
 		if (keyboardState[SDL_GetScancodeFromKey(SDLK_s)])
 		{
 			y += 1;
-			sprite->Play("walk");
+			animName = "walk";
 		}
 		if (keyboardState[SDL_GetScancodeFromKey(SDLK_d)])
 		{
 			x += 1;
-			sprite->Play("walk");
+			animName = "walk";
 			sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
 		}
+		sprite->play(animName);
 
 		transform->velocity.x = static_cast<float>(x);
 		transform->velocity.y = static_cast<float>(y);

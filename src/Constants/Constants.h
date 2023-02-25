@@ -47,84 +47,64 @@ public:
 	// fonts
 	int DEBUG_FONT_SIZE{ 16 };
 
-	// player
-	int PLAYER_WIDTH{ 16 };
-	int PLAYER_HEIGHT{ 16 };
-	int PLAYER_SPEED{ 5 };
-
 private:
 
 	// helper function to load constants from JSON object
 	void LoadFromJsonObject(const nlohmann::json& constantsJson)
 	{
-		if (constantsJson.find("SCREEN_WIDTH") != constantsJson.end())
+		if (constantsJson.find("screen_width") != constantsJson.end())
 		{
-			SCREEN_WIDTH = constantsJson["SCREEN_WIDTH"];
+			SCREEN_WIDTH = constantsJson["screen_width"];
 		}
-		if (constantsJson.find("SCREEN_HEIGHT") != constantsJson.end())
+		if (constantsJson.find("screen_height") != constantsJson.end())
 		{
-			SCREEN_HEIGHT = constantsJson["SCREEN_HEIGHT"];
+			SCREEN_HEIGHT = constantsJson["screen_height"];
 		}
-		if (constantsJson.find("FULLSCREEN") != constantsJson.end())
+		if (constantsJson.find("fullscreen") != constantsJson.end())
 		{
-			FULLSCREEN = constantsJson["FULLSCREEN"];
+			FULLSCREEN = constantsJson["fullscreen"];
 		}
-		if (constantsJson.find("SCALE") != constantsJson.end())
+		if (constantsJson.find("scale") != constantsJson.end())
 		{
-			SCALE = constantsJson["SCALE"];
+			SCALE = constantsJson["scale"];
 		}
-		if (constantsJson.find("SCALE") != constantsJson.end())
+		
+		if (constantsJson.find("window_title") != constantsJson.end())
 		{
-			SCALE = constantsJson["SCALE"];
-		}
-		if (constantsJson.find("WINDOW_TITLE") != constantsJson.end())
-		{
-			WINDOW_TITLE = constantsJson["WINDOW_TITLE"];
+			WINDOW_TITLE = constantsJson["window_title"];
 		}
 
-		if (constantsJson.find("MAP_TILE_WIDTH") != constantsJson.end())
+		if (constantsJson.find("map_tile_width") != constantsJson.end())
 		{
-			MAP_TILE_WIDTH = constantsJson["MAP_TILE_WIDTH"];
+			MAP_TILE_WIDTH = constantsJson["map_tile_width"];
 		}
-		if (constantsJson.find("MAP_TILE_HEIGHT") != constantsJson.end())
+		if (constantsJson.find("map_tile_height") != constantsJson.end())
 		{
-			MAP_TILE_HEIGHT = constantsJson["MAP_TILE_HEIGHT"];
+			MAP_TILE_HEIGHT = constantsJson["map_tile_height"];
 		}
-		if (constantsJson.find("TILE_SIZE") != constantsJson.end())
+		if (constantsJson.find("tile_size") != constantsJson.end())
 		{
-			TILE_SIZE = constantsJson["TILE_SIZE"];
+			TILE_SIZE = constantsJson["tile_size"];
 		}
-		if (constantsJson.find("PROJECTILE_SIZE") != constantsJson.end())
+		if (constantsJson.find("projectile_size") != constantsJson.end())
 		{
-			PROJECTILE_SIZE = constantsJson["PROJECTILE_SIZE"];
+			PROJECTILE_SIZE = constantsJson["projectile_size"];
 		}
-		if (constantsJson.find("PROJECTILE_RANGE") != constantsJson.end())
+		if (constantsJson.find("projectile_range") != constantsJson.end())
 		{
-			PROJECTILE_RANGE = constantsJson["PROJECTILE_RANGE"];
+			PROJECTILE_RANGE = constantsJson["projectile_range"];
 		}
-		if (constantsJson.find("WHITE") != constantsJson.end())
+		if (constantsJson.find("white") != constantsJson.end())
 		{
-			auto white = constantsJson["WHITE"];
+			auto white = constantsJson["white"];
 			WHITE.r = white[0];
 			WHITE.g = white[1];
 			WHITE.b = white[2];
 			WHITE.a = white[3];
 		}
-		if (constantsJson.find("DEBUG_FONT_SIZE") != constantsJson.end())
+		if (constantsJson.find("debug_font_size") != constantsJson.end())
 		{
-			DEBUG_FONT_SIZE = constantsJson["DEBUG_FONT_SIZE"];
-		}
-		if (constantsJson.find("PLAYER_WIDTH") != constantsJson.end())
-		{
-			PLAYER_WIDTH = constantsJson["PLAYER_WIDTH"];
-		}
-		if (constantsJson.find("PLAYER_HEIGHT") != constantsJson.end())
-		{
-			PLAYER_HEIGHT = constantsJson["PLAYER_HEIGHT"];
-		}
-		if (constantsJson.find("PLAYER_SPEED") != constantsJson.end())
-		{
-			PLAYER_SPEED = constantsJson["PLAYER_SPEED"];
+			DEBUG_FONT_SIZE = constantsJson["debug_font_size"];
 		}
 	}
 };
