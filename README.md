@@ -21,7 +21,6 @@ My plan:
 - Improve movement and controls.
 
 Maintenance:
-- Implement a start position for player.
 - Clean up in constants and settings.json.
 - Add projectile json.
 - Add map json.

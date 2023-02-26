@@ -2,6 +2,7 @@
 #include <SDL_pixels.h>
 #include <json.hpp>
 
+#include "Vector2D.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -46,6 +47,10 @@ public:
 
 	// fonts
 	int DEBUG_FONT_SIZE{ 16 };
+
+	// start positions
+	Vector2D PLAYER_POS{200, 200};
+	Vector2D ENEMY_POS{ 100, 200 };
 
 private:
 
@@ -105,6 +110,17 @@ private:
 		if (constantsJson.find("debug_font_size") != constantsJson.end())
 		{
 			DEBUG_FONT_SIZE = constantsJson["debug_font_size"];
+		}
+
+		if (constantsJson.find("player_pos") != constantsJson.end())
+		{
+			PLAYER_POS.x = constantsJson["player_pos"]["x"];
+			PLAYER_POS.y = constantsJson["player_pos"]["y"];
+		}
+		if (constantsJson.find("enemy_pos") != constantsJson.end())
+		{
+			ENEMY_POS.x = constantsJson["enemy_pos"]["x"];
+			ENEMY_POS.y = constantsJson["enemy_pos"]["y"];
 		}
 	}
 };

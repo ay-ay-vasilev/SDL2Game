@@ -85,9 +85,8 @@ void Game::init()
 	projectileSystem->instantiateProjectile(Vector2D(200, 300), projectileSize, Vector2D(2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
 	projectileSystem->instantiateProjectile(Vector2D(600, 200), projectileSize, Vector2D(-2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
 
-	const auto playerPos = Vector2D(constants->SCREEN_WIDTH / 2 - 200, constants->SCREEN_HEIGHT / 2);
-	playerSystem->instantiatePlayer(playerPos, "../data/actors/goblin.json");
-	enemySystem->instantiateEnemy(Vector2D(playerPos.x - 200, playerPos.y), "../data/actors/human.json");
+	playerSystem->instantiatePlayer(constants->PLAYER_POS, "../data/actors/goblin.json");
+	enemySystem->instantiateEnemy(constants->ENEMY_POS, "../data/actors/human.json");
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
 }
 

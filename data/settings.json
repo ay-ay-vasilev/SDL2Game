@@ -5,6 +5,18 @@
 	"map_tile_width": 16,
 	"map_tile_height": 16,
 	"tile_size": 32,
+	
 	"projecile_size": 32,
-	"projectile_range": 200
+	"projectile_range": 200,
+
+	"player_pos":
+	{
+		"x": 400,
+		"y": 400
+	},
+	"enemy_pos":
+	{
+		"x": 200,
+		"y": 400
+	}
 }
