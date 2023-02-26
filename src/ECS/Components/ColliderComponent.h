@@ -88,6 +88,6 @@ public:
 			TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
 
-	int getLowestPoint() { return collider.y + collider.h / 2; }
+	int getLowestPoint() { return collider.y + collider.h; }
 	void setDebugDraw(bool value) { debugDraw = value; }
 };

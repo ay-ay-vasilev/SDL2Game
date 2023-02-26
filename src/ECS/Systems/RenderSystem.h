@@ -17,7 +17,7 @@ public:
 		{
 			auto colliderComponent = entity->getComponent<ColliderComponent>();
 			auto collider = colliderComponent.collider;
-			double z = collider.y + colliderComponent.getLowestPoint();
+			double z = colliderComponent.getLowestPoint();
 			sortedEntities.push_back({ entity, z });
 		}
 
