@@ -25,7 +25,7 @@ Maintenance:
 - Add projectile json.
 - Add map json.
 - Untie collider size from sprite size.
-- Fix player and enemy walk animation.
+- Fix human walk animation.
 - Fix scale.
 
 - Refactor actor json to an entity json ?
