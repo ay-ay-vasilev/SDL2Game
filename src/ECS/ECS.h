@@ -125,6 +125,8 @@ protected:
 class Manager
 {
 public:
+	Manager(std::shared_ptr<Constants> constants) : constants(constants) {}
+
 	void update()
 	{
 		for (const auto& e : entities) e->update();
@@ -199,8 +201,10 @@ public:
 
 	float getScale() { return scale; }
 	void setScale(const float newScale) { scale = newScale; }
+	std::shared_ptr<Constants> getConstants() { return constants; }
 
 private:
+	std::shared_ptr<Constants> constants;
 	std::vector<std::unique_ptr<Entity>> entities;
 	std::vector<std::shared_ptr<System>> systems;
 	std::array<std::vector<Entity*>, maxGroups> groupedEntities;

@@ -15,10 +15,15 @@ void PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string_view
 	file >> playerData;
 
 	auto& player(manager.addEntity());
-	player.addComponent<TransformComponent>(pos.x - (playerData["width"] / 2), pos.y - (playerData["height"] / 2), playerData["width"], playerData["height"], manager.getScale(), playerData["speed"]);
-	player.addComponent<SpriteComponent>(playerData["texture"], playerData["animations"], true);
+	player.addComponent<TransformComponent>
+	(
+		pos.x, pos.y,
+		playerData.value("width", 0), playerData.value("height", 0),
+		manager.getScale(), playerData["speed"]
+	);
+	player.addComponent<SpriteComponent>(playerData["sprite_data"], true);
 	player.addComponent<KeyboardController>();
-	player.addComponent<ColliderComponent>(playerData["texture"]);
+	player.addComponent<ColliderComponent>("player", playerData["collider_rect"]);
 	player.addGroup(Game::eGroupLabels::PLAYERS);
 }
 

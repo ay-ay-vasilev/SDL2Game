@@ -8,6 +8,8 @@ public:
 
 	void instantiatePlayer(const Vector2D& pos, const std::string_view& filename) const;
 	const Vector2D getPlayerPosition() const;
+	const int getPlayerWidth() const;
+	const int getPlayerHeight() const;
 
 	void update() override;
 	void draw() override;

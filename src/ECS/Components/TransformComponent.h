@@ -28,7 +28,4 @@ struct TransformComponent : public Component
 		position.x += velocity.x * speed;
 		position.y += velocity.y * speed;
 	}
-
-	int getScaledWidth() { return width * scale; }
-	int getScaledHeight() { return height * scale; }
 };

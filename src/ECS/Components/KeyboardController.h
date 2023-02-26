@@ -52,6 +52,13 @@ public:
 			animName = "walk";
 			sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
 		}
+
+		if (keyboardState[SDL_GetScancodeFromKey(SDLK_e)] || (SDL_GetMouseState(NULL, NULL)& SDL_BUTTON(SDL_BUTTON_LEFT)))
+		{
+			animName = "attack";
+			x = 0; y = 0;
+		}
+
 		sprite->play(animName);
 
 		transform->velocity.x = static_cast<float>(x);

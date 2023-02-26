@@ -4,6 +4,15 @@
 
 void CollisionSystem::update()
 {
+	if (manager.getConstants()->DRAW_COLLIDERS)
+	{
+		auto entitiesWithColliders = manager.getEntitiesWithComponent<ColliderComponent>();
+		for (auto entity : entitiesWithColliders)
+		{
+			entity->getComponent<ColliderComponent>().setDebugDraw(true);
+		}
+	}
+
 	players = manager.getGroup(Game::eGroupLabels::PLAYERS);
 	colliders = manager.getGroup(Game::eGroupLabels::COLLIDERS);
 	projectiles = manager.getGroup(Game::eGroupLabels::PROJECTILES);

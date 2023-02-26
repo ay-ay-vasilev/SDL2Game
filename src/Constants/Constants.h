@@ -52,6 +52,8 @@ public:
 	Vector2D PLAYER_POS{200, 200};
 	Vector2D ENEMY_POS{ 100, 200 };
 
+	bool DRAW_COLLIDERS{ false };
+
 private:
 
 	// helper function to load constants from JSON object
@@ -121,6 +123,10 @@ private:
 		{
 			ENEMY_POS.x = constantsJson["enemy_pos"]["x"];
 			ENEMY_POS.y = constantsJson["enemy_pos"]["y"];
+		}
+		if (constantsJson.find("debug_draw_colliders") != constantsJson.end())
+		{
+			DRAW_COLLIDERS = constantsJson["debug_draw_colliders"];
 		}
 	}
 };

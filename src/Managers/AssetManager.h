@@ -10,7 +10,7 @@ class Constants;
 class AssetManager
 {
 public:
-	AssetManager(std::shared_ptr<Manager> manager, std::shared_ptr<Constants> constants);
+	AssetManager(std::shared_ptr<Manager> manager);
 	~AssetManager();
 
 	void loadTextures();

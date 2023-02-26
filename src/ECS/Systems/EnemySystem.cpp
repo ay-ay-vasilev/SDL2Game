@@ -13,9 +13,14 @@ void EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string_view& 
 	file >> enemyData;
 
 	auto& enemy(manager.addEntity());
-	enemy.addComponent<TransformComponent>(pos.x - (enemyData["width"] / 2), pos.y - (enemyData["height"] / 2), enemyData["width"], enemyData["height"], manager.getScale(), enemyData["speed"]);
-	enemy.addComponent<SpriteComponent>(enemyData["texture"], enemyData["animations"], true);
-	enemy.addComponent<ColliderComponent>(enemyData["texture"]);
+	enemy.addComponent<TransformComponent>
+	(
+		pos.x, pos.y,
+		enemyData.value("width", 0), enemyData.value("height", 0),
+		manager.getScale(), enemyData["speed"]
+	);
+	enemy.addComponent<SpriteComponent>(enemyData["sprite_data"], true);
+	enemy.addComponent<ColliderComponent>("enemy", enemyData["collider_rect"]);
 	enemy.addGroup(Game::eGroupLabels::ENEMIES);
 }
 

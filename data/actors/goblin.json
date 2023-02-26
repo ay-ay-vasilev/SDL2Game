@@ -1,21 +1,35 @@
 {
-	"texture": "goblin",
 	"speed": 10,
-	"width": 16,
-	"height": 16,
-	"animations":
+	"collider_rect":
 	{
-		"idle":
+		"dx": 0, "dy": 6,
+		"w": 4, "h": 2
+	},
+	"sprite_data":
+	{
+		"texture": "goblin",
+		"frame_width": 24,
+		"frame_height": 24,
+		"animations":
 		{
-			"id": 0,
-			"num_of_frames": 4,
-			"speed": 100
-		},
-		"walk":
-		{
-			"id": 1,
-			"num_of_frames": 8,
-			"speed": 60
+			"idle":
+			{
+				"id": 0,
+				"num_of_frames": 4,
+				"speed": 100
+			},
+			"walk":
+			{
+				"id": 1,
+				"num_of_frames": 8,
+				"speed": 60
+			},
+			"attack":
+			{
+				"id": 2,
+				"num_of_frames": 5,
+				"speed": 60
+			}
 		}
 	}
 }

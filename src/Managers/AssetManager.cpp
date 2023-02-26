@@ -1,7 +1,7 @@
 #include "AssetManager.h"
 #include "Constants.h"
 
-AssetManager::AssetManager(std::shared_ptr<Manager> manager, std::shared_ptr<Constants> constants) : manager(manager), constants(constants) {}
+AssetManager::AssetManager(std::shared_ptr<Manager> manager) : manager(manager), constants(manager->getConstants()) {}
 
 AssetManager::~AssetManager() {}
 

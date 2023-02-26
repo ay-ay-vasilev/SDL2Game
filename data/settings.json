@@ -1,4 +1,7 @@
 {
+	"debug_draw_colliders": false,
+
+	"window_title": "Goblin Mode",
 	"screen_width": 1280,
 	"screen_height": 800,
 	"scale": 6.0,

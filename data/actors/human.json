@@ -1,21 +1,29 @@
 {
-	"texture": "human",
 	"speed": 10,
-	"width": 32,
-	"height": 32,
-	"animations":
+	"collider_rect":
 	{
-		"idle":
+		"dx": 0, "dy": 12,
+		"w": 8, "h": 4
+	},
+	"sprite_data":
+	{
+		"texture": "human",
+		"frame_width": 32,
+		"frame_height": 32,
+		"animations":
 		{
-			"id": 0,
-			"num_of_frames": 4,
-			"speed": 100
-		},
-		"walk":
-		{
-			"id": 1,
-			"num_of_frames": 8,
-			"speed": 80
+			"idle":
+			{
+				"id": 0,
+				"num_of_frames": 4,
+				"speed": 100
+			},
+			"walk":
+			{
+				"id": 1,
+				"num_of_frames": 8,
+				"speed": 80
+			}
 		}
 	}
 }

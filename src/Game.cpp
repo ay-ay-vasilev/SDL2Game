@@ -8,8 +8,8 @@
 
 std::shared_ptr<Constants> constants = std::make_shared<Constants>("../data/settings.json");
 
-std::shared_ptr<Manager> Game::manager = std::make_shared<Manager>();
-std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(manager, constants);
+std::shared_ptr<Manager> Game::manager = std::make_shared<Manager>(constants);
+std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(manager);
 
 auto renderSystem(Game::manager->addSystem<RenderSystem>());
 auto mapSystem(Game::manager->addSystem<MapSystem>());
@@ -85,7 +85,7 @@ void Game::init()
 	projectileSystem->instantiateProjectile(Vector2D(200, 300), projectileSize, Vector2D(2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
 	projectileSystem->instantiateProjectile(Vector2D(600, 200), projectileSize, Vector2D(-2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
 
-	playerSystem->instantiatePlayer(constants->PLAYER_POS, "../data/actors/human.json");
+	playerSystem->instantiatePlayer(constants->PLAYER_POS, "../data/actors/goblin.json");
 	enemySystem->instantiateEnemy(constants->ENEMY_POS, "../data/actors/human.json");
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
 }

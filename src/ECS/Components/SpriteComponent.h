@@ -21,14 +21,16 @@ public:
 	{
 		setTexture(textureId);
 	}
-	SpriteComponent(const std::string_view texturePath, const nlohmann::json& animationsData, const bool isAnimated) : animated(isAnimated)
+	SpriteComponent(const nlohmann::json& spriteData, const bool isAnimated) : animated(isAnimated)
 	{
 		if (animated)
 		{
-			addAnimationsFromJson(animationsData);
+			frameWidth = spriteData["frame_width"];
+			frameHeight = spriteData["frame_height"];
+			addAnimationsFromJson(spriteData["animations"]);
 			play("idle");
 		}
-		setTexture(texturePath);
+		setTexture(spriteData["texture"]);
 	}
 
 	~SpriteComponent() {}
@@ -44,8 +46,8 @@ public:
 
 		srcRect.x = 0;
 		srcRect.y = 0;
-		srcRect.w = transform->width;
-		srcRect.h = transform->height;
+		srcRect.w = frameWidth;
+		srcRect.h = frameHeight;
 	}
 
 	void update() override
@@ -55,12 +57,12 @@ public:
 			srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / speed) % frames);
 		}
 
-		srcRect.y = animIndex * transform->height;
+		srcRect.y = animIndex * frameHeight;
 
-		destRect.x = static_cast<int>(transform->position.x) - Game::camera.x;
-		destRect.y = static_cast<int>(transform->position.y) - Game::camera.y;
-		destRect.w = static_cast<int>(transform->width * transform->scale);
-		destRect.h = static_cast<int>(transform->height * transform->scale);
+		destRect.x = static_cast<int>(transform->position.x) - (frameWidth * transform->scale / 2) - Game::camera.x;
+		destRect.y = static_cast<int>(transform->position.y) - (frameHeight * transform->scale / 2) - Game::camera.y;
+		destRect.w = static_cast<int>(frameWidth * transform->scale);
+		destRect.h = static_cast<int>(frameHeight * transform->scale);
 	}
 
 	void draw() override
@@ -71,23 +73,28 @@ public:
 	void play(const std::string_view animName)
 	{
 		std::string animNameStr(animName);
+		auto animData = animations[animNameStr];
 
-		frames = animations[animNameStr].frames;
-		animIndex = animations[animNameStr].index;
-		speed = animations[animNameStr].speed;
+		frames = animData.frames;
+		animIndex = animData.index;
+		speed = animData.speed;
+
+		if (animData.frameWidth) frameWidth = animData.frameWidth;
+		if (animData.frameHeight) frameHeight = animData.frameHeight;
 	}
 
 	void addAnimationsFromJson(const nlohmann::json& animData)
 	{
 		for (auto& [name, animData] : animData.items())
 		{
-			addAnimation(name, animData["id"], animData["num_of_frames"], animData["speed"]);
+			addAnimation(name, animData["id"], animData["num_of_frames"], animData["speed"],
+				animData.value("frame_width", 0), animData.value("frame_height", 0));
 		}
 	}
 
-	void addAnimation(const std::string_view name, const int index, const int numOfFrames, const int speed)
+	void addAnimation(const std::string_view name, const int index, const int numOfFrames, const int speed, const int frameWidth = 0, const int frameHeight = 0)
 	{
-		animations.emplace(name, Animation(index, numOfFrames, speed));
+		animations.emplace(name, Animation(index, numOfFrames, speed, frameWidth, frameHeight));
 	}
 
 private:
@@ -101,4 +108,7 @@ private:
 	bool animated = false;
 	int frames = 0;
 	int speed = 100;
+
+	int frameWidth;
+	int frameHeight;
 };
