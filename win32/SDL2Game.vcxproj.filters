@@ -158,6 +158,12 @@
     <ClInclude Include="..\src\ECS\Systems\Animation.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Common\Observer.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Common\Subject.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">

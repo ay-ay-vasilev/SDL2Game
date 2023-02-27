@@ -11,9 +11,9 @@ Stuff to remember:
 
 My plan:
 - Add sword attack.
-	* Add an attack animation DONE
+	* DONE Add an attack animation
+	* ALMOST DONE (action left) Add signals to attack animations (start signal, hit signal, end signal)
 	* Add an AttackComponent
-	* Add signals to attack animations (start signal, hit signal, end signal)
 	* Add a HitboxComponent
 
 - Add a simple AI system.
@@ -22,10 +22,13 @@ My plan:
 - Add simple sounds.
 - Add an inventory system.
 - Add skills.
-- Add rotate to Transform
+- Add rotate to Transform.
 - Improve movement and controls.
+- Tweak attack movement.
+- Implement attack combos, remove attack holding ?
 
 Maintenance:
+- Uninline Components!
 - Clean up in constants and settings.json.
 - Add projectile json.
 - Add map json.

@@ -4,16 +4,22 @@
 #include "TextureManager.h"
 #include "AssetManager.h"
 #include "Animation.h"
+#include "Subject.h"
 
 #include <SDL.h>
 #include <json.hpp>
 
 #include <map>
 
-class SpriteComponent : public Component
+class SpriteComponent : public Component, public Subject
 {
 public:
-
+	enum class eAnimState : int
+	{
+		NONE = 0,
+		START,
+		END
+	};
 	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 
 	SpriteComponent() = default;
@@ -46,6 +52,7 @@ public:
 
 	void init() override
 	{
+		animStartTime = 0;
 		transform = &entity->getComponent<TransformComponent>();
 
 		srcRect.x = 0;
@@ -58,7 +65,17 @@ public:
 	{
 		if (animated)
 		{
-			srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / speed) % frames);
+			Uint32 ticks = SDL_GetTicks();
+			Uint32 elapsed = ticks - animStartTime;
+			auto frameNum = elapsed / speed;
+			if (frameNum >= frames && frameNum % frames == 0)
+			{
+				animStartTime = ticks;
+				frameNum = 0;
+				incAnimState();
+			}
+
+			srcRect.x = srcRect.w * static_cast<int>(frameNum % frames);
 		}
 
 		srcRect.y = animIndex * frameHeight;
@@ -74,17 +91,24 @@ public:
 		TextureManager::draw(texture, srcRect, destRect, spriteFlip);
 	}
 
-	void play(const std::string_view animName)
+	void play(const std::string_view animNameView)
 	{
-		std::string animNameStr(animName);
-		auto animData = animations[animNameStr];
-
+		std::string animNameStr(animNameView);
+		if (animName == animNameStr)
+			return;
+		
+		animName = animNameStr;
+		animStartTime = SDL_GetTicks();
+		auto animData = animations[animName];
 		frames = animData.frames;
 		animIndex = animData.index;
 		speed = animData.speed;
 
 		if (animData.frameWidth) frameWidth = animData.frameWidth;
 		if (animData.frameHeight) frameHeight = animData.frameHeight;
+
+		animState = eAnimState::NONE;
+		incAnimState();
 	}
 
 	void addAnimationsFromJson(const nlohmann::json& animData)
@@ -101,14 +125,40 @@ public:
 		animations.emplace(name, Animation(index, numOfFrames, speed, frameWidth, frameHeight));
 	}
 
+	void incAnimState()
+	{
+		if (static_cast<int>(animState) + 1 > static_cast<int>(eAnimState::END))
+		{
+			animState = eAnimState::NONE;
+		}
+
+		animState = static_cast<eAnimState>(static_cast<int>(animState) + 1);
+
+		std::string stateStr;
+		switch (animState)
+		{
+		case eAnimState::START:
+			stateStr = "start";
+			break;
+		case eAnimState::END:
+			stateStr = "end";
+			break;
+		}
+		if (animName == "attack")
+			notify(animName + "_" + stateStr);
+	}
+
 private:
+	Uint32 animStartTime;
 	int animIndex = 0;
 	std::map<std::string, Animation> animations;
+	eAnimState animState = eAnimState::NONE;
 
 	TransformComponent* transform;
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
 
+	std::string animName;
 	bool animated = false;
 	int frames = 0;
 	int speed = 100;
