@@ -21,6 +21,10 @@ public:
 	{
 		setTexture(textureId);
 	}
+	SpriteComponent(const std::string_view textureId, int width, int height) : frameWidth(width), frameHeight(height)
+	{
+		setTexture(textureId);
+	}
 	SpriteComponent(const nlohmann::json& spriteData, const bool isAnimated) : animated(isAnimated)
 	{
 		if (animated)
