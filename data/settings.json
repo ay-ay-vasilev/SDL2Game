@@ -1,5 +1,5 @@
 {
-	"debug_draw_colliders": false,
+	"debug_draw_colliders": true,
 
 	"fullscreen": false,
 

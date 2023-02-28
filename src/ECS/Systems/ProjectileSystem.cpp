@@ -6,7 +6,7 @@ void ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D 
 	projectile.addComponent<TransformComponent>(pos.x, pos.y, size.x, size.y, 1);
 	projectile.addComponent<SpriteComponent>(id, size.x, size.y);
 	projectile.addComponent<ProjectileComponent>(velocity, range, speed);
-	projectile.addComponent<ColliderComponent>("projectile");
+	projectile.addComponent<HitBoxComponent>("projectile");
 	projectile.addGroup(Game::PROJECTILES);
 }
 

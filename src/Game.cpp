@@ -13,7 +13,8 @@ std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(mana
 
 auto renderSystem(Game::manager->addSystem<RenderSystem>());
 auto mapSystem(Game::manager->addSystem<MapSystem>());
-auto collisionSystem(Game::manager->addSystem<CollisionSystem>());
+auto hitBoxSystem(Game::manager->addSystem<CollisionSystem>());
+auto collisionSystem(Game::manager->addSystem<HitBoxSystem>());
 auto playerSystem(Game::manager->addSystem<PlayerSystem>());
 auto enemySystem(Game::manager->addSystem<EnemySystem>());
 auto projectileSystem(Game::manager->addSystem<ProjectileSystem>());

@@ -26,6 +26,7 @@
     <ClCompile Include="..\src\ECS\ECS.cpp" />
     <ClCompile Include="..\src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\EnemySystem.cpp" />
+    <ClCompile Include="..\src\ECS\Systems\HitBoxSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\MapSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\PlayerSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\ProjectileSystem.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="..\src\Constants\Constants.h" />
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h" />
     <ClInclude Include="..\src\ECS\Components\Components.h" />
+    <ClInclude Include="..\src\ECS\Components\HitBoxComponent.h" />
     <ClInclude Include="..\src\ECS\Components\KeyboardController.h" />
     <ClInclude Include="..\src\ECS\Components\ProjectileComponent.h" />
     <ClInclude Include="..\src\ECS\Components\SpriteComponent.h" />
@@ -53,6 +55,7 @@
     <ClInclude Include="..\src\ECS\Systems\Animation.h" />
     <ClInclude Include="..\src\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\EnemySystem.h" />
+    <ClInclude Include="..\src\ECS\Systems\HitBoxSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\MapSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\PlayerSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\ProjectileSystem.h" />

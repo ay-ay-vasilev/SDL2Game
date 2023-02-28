@@ -24,6 +24,7 @@ void PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string_view
 	player.addComponent<SpriteComponent>(playerData["sprite_data"], true);
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player", playerData["collider_rect"]);
+	player.addComponent<HitBoxComponent>("player", playerData["hitbox_rect"]);
 	player.addGroup(Game::eGroupLabels::PLAYERS);
 }
 

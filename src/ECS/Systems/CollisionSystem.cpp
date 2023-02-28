@@ -15,7 +15,6 @@ void CollisionSystem::update()
 
 	players = manager.getGroup(Game::eGroupLabels::PLAYERS);
 	colliders = manager.getGroup(Game::eGroupLabels::COLLIDERS);
-	projectiles = manager.getGroup(Game::eGroupLabels::PROJECTILES);
 
 	for (auto player : players)
 	{
@@ -62,16 +61,6 @@ void CollisionSystem::update()
 						playerCollider.y += overlapY;
 					}
 				}
-			}
-		}
-
-		for (auto projectile : projectiles)
-		{
-			auto& collider = projectile->getComponent<ColliderComponent>().collider;
-			if (Collision::AABB(collider, playerCollider))
-			{
-				projectile->destroy();
-				std::cout << "projectile: hit the player!\n";
 			}
 		}
 	}

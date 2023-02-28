@@ -21,6 +21,7 @@ void EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string_view& 
 	);
 	enemy.addComponent<SpriteComponent>(enemyData["sprite_data"], true);
 	enemy.addComponent<ColliderComponent>("enemy", enemyData["collider_rect"]);
+	enemy.addComponent<HitBoxComponent>("enemy", enemyData["hitbox_rect"]);
 	enemy.addGroup(Game::eGroupLabels::ENEMIES);
 }
 

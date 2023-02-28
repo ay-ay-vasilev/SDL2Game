@@ -1,6 +1,7 @@
 #pragma once
 #include "ECS.h"
 #include "CollisionSystem.h"
+#include "HitBoxSystem.h"
 #include "PlayerSystem.h"
 #include "EnemySystem.h"
 #include "ProjectileSystem.h"

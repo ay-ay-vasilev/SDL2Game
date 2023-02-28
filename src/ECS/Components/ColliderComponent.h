@@ -42,12 +42,9 @@ public:
 	SDL_Rect collider;
 	Vector2D colliderOffset;
 	std::string tag;
-
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
-
 	TransformComponent* transform;
-
 	bool debugDraw = false;
 
 	void init() override

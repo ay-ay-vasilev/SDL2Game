@@ -12,9 +12,9 @@ Stuff to remember:
 My plan:
 - Add sword attack.
 	* DONE Add an attack animation
+	* DONE Add a HitboxComponent
 	* ALMOST DONE (action left) Add signals to attack animations (start signal, hit signal, end signal)
 	* Add an AttackComponent
-	* Add a HitboxComponent
 
 - Add a simple AI system.
 - Add a simple health system.
@@ -28,7 +28,6 @@ My plan:
 - Implement attack combos, remove attack holding ?
 
 Maintenance:
-- Uninline Components!
 - Clean up in constants and settings.json.
 - Add projectile json.
 - Add map json.

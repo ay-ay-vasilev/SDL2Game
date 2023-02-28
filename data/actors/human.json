@@ -5,6 +5,11 @@
 		"dx": 0, "dy": 12,
 		"w": 8, "h": 4
 	},
+	"hitbox_rect":
+	{
+		"dx": 0, "dy": 0,
+		"w": 10, "h": 32
+	},
 	"sprite_data":
 	{
 		"texture": "human",

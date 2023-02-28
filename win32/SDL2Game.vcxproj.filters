@@ -78,6 +78,9 @@
     <ClCompile Include="..\src\Common\Map.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ECS\Systems\HitBoxSystem.cpp">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">
@@ -163,6 +166,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Common\Subject.h">
       <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\HitBoxComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Systems\HitBoxSystem.h">
+      <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

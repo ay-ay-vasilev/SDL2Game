@@ -12,5 +12,4 @@ public:
 private:
 	std::vector<Entity*> players;
 	std::vector<Entity*> colliders;
-	std::vector<Entity*> projectiles;
 };
