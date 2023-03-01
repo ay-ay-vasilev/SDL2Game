@@ -11,6 +11,13 @@ public:
 		hitBox(),
 		hitBoxOffset() {};
 
+	HitBoxComponent(const std::string_view tag, const int xpos, const int ypos, const int width, const int height) :
+		tag(tag),
+		transform(nullptr), texture(nullptr),
+		srcRect(), destRect(),
+		hitBox({ xpos, ypos, width, height}),
+		hitBoxOffset() {};
+
 	HitBoxComponent(const std::string_view tag, const nlohmann::json& hitBoxData) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),

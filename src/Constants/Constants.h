@@ -53,6 +53,7 @@ public:
 	Vector2D ENEMY_POS{ 100, 200 };
 
 	bool DRAW_COLLIDERS{ false };
+	bool DRAW_HITBOXES{ false };
 
 private:
 
@@ -127,6 +128,10 @@ private:
 		if (constantsJson.find("debug_draw_colliders") != constantsJson.end())
 		{
 			DRAW_COLLIDERS = constantsJson["debug_draw_colliders"];
+		}
+		if (constantsJson.find("debug_draw_hitboxes") != constantsJson.end())
+		{
+			DRAW_HITBOXES = constantsJson["debug_draw_hitboxes"];
 		}
 	}
 };

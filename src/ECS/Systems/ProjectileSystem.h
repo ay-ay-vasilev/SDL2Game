@@ -6,7 +6,7 @@ class ProjectileSystem : public System
 public:
 	ProjectileSystem(Manager& manager) : System(manager) {}
 
-	void instantiateProjectile(const Vector2D pos, const Vector2D size, const Vector2D velocity, const int range, const int speed, const std::string_view id) const;
+	void instantiateProjectile(const Vector2D pos, const Vector2D velocity, const std::string_view& filename) const;
 
 	void update() override;
 	void draw() override;

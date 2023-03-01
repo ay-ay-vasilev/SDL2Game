@@ -1,0 +1,23 @@
+{
+	"collider_rect":
+	{
+		"dx": 0, "dy": 0,
+		"w": 7, "h": 7
+	},
+	"hitbox_rect":
+	{
+		"dx": 0, "dy": 0,
+		"w": 7, "h": 7
+	},
+	"sprite_data":
+	{
+		"texture": "projectile",
+		"frame_width": 7,
+		"frame_height": 7
+	},
+	"projectile_data":
+	{
+		"range": 200,
+		"speed": 2
+	}
+}

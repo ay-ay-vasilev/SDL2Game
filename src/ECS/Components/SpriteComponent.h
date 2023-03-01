@@ -33,14 +33,15 @@ public:
 	}
 	SpriteComponent(const nlohmann::json& spriteData, const bool isAnimated) : animated(isAnimated)
 	{
+		frameWidth = spriteData["frame_width"];
+		frameHeight = spriteData["frame_height"];
+		setTexture(spriteData["texture"]);
+
 		if (animated)
 		{
-			frameWidth = spriteData["frame_width"];
-			frameHeight = spriteData["frame_height"];
 			addAnimationsFromJson(spriteData["animations"]);
 			play("idle");
 		}
-		setTexture(spriteData["texture"]);
 	}
 
 	~SpriteComponent() {}

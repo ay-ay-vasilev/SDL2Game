@@ -78,13 +78,13 @@ void Game::init()
 
 	label.addComponent<UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
-	// todo: remove
-	const auto projectileSize = Vector2D(constants->PROJECTILE_SIZE, constants->PROJECTILE_SIZE);
-	projectileSystem->instantiateProjectile(Vector2D(500, 600), projectileSize, Vector2D(-2, -2), constants->PROJECTILE_RANGE, 2, "projectile");
-	projectileSystem->instantiateProjectile(Vector2D(300, 500), projectileSize, Vector2D(2, -2), constants->PROJECTILE_RANGE, 2, "projectile");
-	projectileSystem->instantiateProjectile(Vector2D(400, 400), projectileSize, Vector2D(-2, 0), constants->PROJECTILE_RANGE, 2, "projectile");
-	projectileSystem->instantiateProjectile(Vector2D(200, 300), projectileSize, Vector2D(2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
-	projectileSystem->instantiateProjectile(Vector2D(600, 200), projectileSize, Vector2D(-2, 2), constants->PROJECTILE_RANGE, 2, "projectile");
+	// todo: better data file handling
+	const std::string projectileFile = "../data/projectiles/test.json";
+	projectileSystem->instantiateProjectile(Vector2D(500, 600), Vector2D(-2, -2), projectileFile);
+	projectileSystem->instantiateProjectile(Vector2D(300, 500), Vector2D(2, -2), projectileFile);
+	projectileSystem->instantiateProjectile(Vector2D(400, 400), Vector2D(-2, 0), projectileFile);
+	projectileSystem->instantiateProjectile(Vector2D(200, 300), Vector2D(2, 2), projectileFile);
+	projectileSystem->instantiateProjectile(Vector2D(600, 200), Vector2D(-2, 2), projectileFile);
 
 	playerSystem->instantiatePlayer(constants->PLAYER_POS, "../data/actors/goblin.json");
 	enemySystem->instantiateEnemy(constants->ENEMY_POS, "../data/actors/human.json");

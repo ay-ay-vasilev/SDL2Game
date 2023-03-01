@@ -4,7 +4,7 @@
 
 void HitBoxSystem::update()
 {
-	if (manager.getConstants()->DRAW_COLLIDERS)
+	if (manager.getConstants()->DRAW_HITBOXES)
 	{
 		auto entitiesWithHitBoxes = manager.getEntitiesWithComponent<HitBoxComponent>();
 		for (auto entity : entitiesWithHitBoxes)
