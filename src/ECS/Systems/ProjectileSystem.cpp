@@ -2,9 +2,9 @@
 
 #include <json.hpp>
 
-void ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D velocity, const std::string_view& filename) const
+void ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D velocity, const std::string& filename) const
 {
-	std::string filenameString(filename);
+	std::string filenameString(Game::assets->getProjectileJson(filename));
 	std::ifstream file(filenameString);
 	if (!file.is_open())
 	{

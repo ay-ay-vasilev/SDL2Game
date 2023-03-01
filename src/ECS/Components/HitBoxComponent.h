@@ -4,21 +4,21 @@
 class HitBoxComponent : public Component
 {
 public:
-	HitBoxComponent(const std::string_view tag) :
+	HitBoxComponent(const std::string_view& tag) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		hitBox(),
 		hitBoxOffset() {};
 
-	HitBoxComponent(const std::string_view tag, const int xpos, const int ypos, const int width, const int height) :
+	HitBoxComponent(const std::string_view& tag, const int xpos, const int ypos, const int width, const int height) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		hitBox({ xpos, ypos, width, height}),
 		hitBoxOffset() {};
 
-	HitBoxComponent(const std::string_view tag, const nlohmann::json& hitBoxData) :
+	HitBoxComponent(const std::string_view& tag, const nlohmann::json& hitBoxData) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),

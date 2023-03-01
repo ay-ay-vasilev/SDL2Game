@@ -28,8 +28,8 @@ My plan:
 - Implement attack combos, remove attack holding ?
 
 Maintenance:
-- Clean up in constants and settings.json.
 - Add map json.
+- Clean up in constants and settings.json.
 - Fix human walk animation.
 - Fix scale.
 - Refactor actor json to an entity json ?

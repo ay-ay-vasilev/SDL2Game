@@ -9,7 +9,7 @@
 #include <string>
 #include <sstream>
 
-Map::Map(const std::string_view textureId, const int tileSize) :
+Map::Map(const std::string_view& textureId, const int tileSize) :
 	textureId(textureId),
 	tileSize(tileSize),
 	scaledSize(Game::manager->getScale() * tileSize)
@@ -20,7 +20,7 @@ Map::~Map()
 {
 }
 
-void Map::loadMap(const std::string_view path, const int sizeX, const int sizeY)
+void Map::loadMap(const std::string& path, const int sizeX, const int sizeY)
 {
 	loadTiles(path, sizeX, sizeY);
 	loadCollisions(path, sizeX, sizeY);
@@ -33,7 +33,7 @@ void Map::addTile(const int srcX, const int srcY, const int xpos, const int ypos
 	tile.addGroup(Game::eGroupLabels::MAP);
 }
 
-void Map::loadTiles(const std::string_view path, const int sizeX, const int sizeY)
+void Map::loadTiles(const std::string& path, const int sizeX, const int sizeY)
 {
 	const std::string tempPath(path);
 	std::fstream mapFile;
@@ -70,7 +70,7 @@ void Map::loadTiles(const std::string_view path, const int sizeX, const int size
 	mapFile.close();
 }
 
-void Map::loadCollisions(const std::string_view path, const int sizeX, const int sizeY)
+void Map::loadCollisions(const std::string& path, const int sizeX, const int sizeY)
 {
 	const std::string tempPath(path);
 	std::fstream mapFile;

@@ -1,8 +1,8 @@
 #include "EnemySystem.h"
 
-void EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string_view& filename) const
+void EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filename) const
 {
-	std::string filenameString(filename);
+	std::string filenameString(Game::assets->getActorJson(filename));
 	std::ifstream file(filenameString);
 	if (!file.is_open())
 	{

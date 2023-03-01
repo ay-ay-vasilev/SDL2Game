@@ -11,7 +11,7 @@
 class UILabelComponent : public Component
 {
 public:
-	UILabelComponent(const int xpos, const int ypos, const std::string_view text, const std::string_view font, const SDL_Color& color) :
+	UILabelComponent(const int xpos, const int ypos, const std::string_view& text, const std::string_view& font, const SDL_Color& color) :
 		position({xpos, ypos, 0, 0}),
 		labelText(text),
 		labelFont(font),
@@ -24,10 +24,9 @@ public:
 	{
 	}
 
-	void SetLabelText(const std::string_view text, const std::string_view font)
+	void SetLabelText(const std::string& text, const std::string_view& font)
 	{
-		std::string tempText(text);
-		SDL_Surface* surf = TTF_RenderText_Blended(Game::assets->getFont(font), tempText.c_str(), textColor);
+		SDL_Surface* surf = TTF_RenderText_Blended(Game::assets->getFont(font), text.c_str(), textColor);
 		labelTexture = SDL_CreateTextureFromSurface(Game::renderer, surf);
 		SDL_FreeSurface(surf);
 		SDL_QueryTexture(labelTexture, nullptr, nullptr, &position.w, &position.h);

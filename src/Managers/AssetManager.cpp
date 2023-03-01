@@ -18,12 +18,12 @@ void AssetManager::loadFonts()
 	addFont("arial", "../assets/fonts/arial.ttf", constants->DEBUG_FONT_SIZE);
 }
 
-void AssetManager::addTexture(const std::string_view id, const std::string_view path)
+void AssetManager::addTexture(const std::string_view& id, const std::string& path)
 {
 	textures.emplace(id, TextureManager::loadTexture(path));
 }
 
-SDL_Texture* AssetManager::getTexture(const std::string_view id) const
+SDL_Texture* AssetManager::getTexture(const std::string_view& id) const
 {
 	auto it = textures.find(id);
 	if (it != textures.end())
@@ -37,13 +37,12 @@ SDL_Texture* AssetManager::getTexture(const std::string_view id) const
 	}
 }
 
-void AssetManager::addFont(const std::string_view id, const std::string_view path, const int fontSize)
+void AssetManager::addFont(const std::string_view& id, const std::string& path, const int fontSize)
 {
-	const std::string tempPath(path);
-	fonts.emplace(id, TTF_OpenFont(tempPath.c_str(), fontSize));
+	fonts.emplace(id, TTF_OpenFont(path.c_str(), fontSize));
 }
 
-TTF_Font* AssetManager::getFont(const std::string_view id) const
+TTF_Font* AssetManager::getFont(const std::string_view& id) const
 {
 	auto it = fonts.find(id);
 	if (it != fonts.end())
@@ -55,4 +54,21 @@ TTF_Font* AssetManager::getFont(const std::string_view id) const
 		std::cout << "Error: font not found (" << id << ").\n";
 		return nullptr;
 	}
+}
+
+std::filesystem::path AssetManager::getDataPath()
+{
+	return std::filesystem::current_path() / ".." / "data";
+}
+
+std::string AssetManager::getActorJson(const std::string& fileName)
+{
+	std::filesystem::path actorPath = getDataPath() / "actors" / (fileName + ".json");
+	return actorPath.string();
+}
+
+std::string AssetManager::getProjectileJson(const std::string& fileName)
+{
+	std::filesystem::path projectilePath = getDataPath() / "projectiles" / (fileName + ".json");
+	return projectilePath.string();
 }

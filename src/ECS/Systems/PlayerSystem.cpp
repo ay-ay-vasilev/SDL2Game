@@ -2,9 +2,9 @@
 
 #include <json.hpp>
 
-void PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string_view& filename) const
+void PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& filename) const
 {
-	std::string filenameString(filename);
+	std::string filenameString(Game::assets->getActorJson(filename));
 	std::ifstream file(filenameString);
 	if (!file.is_open())
 	{

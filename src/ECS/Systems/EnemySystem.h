@@ -6,7 +6,7 @@ class EnemySystem : public System
 public:
 	EnemySystem(Manager& manager) : System(manager) {}
 
-	void instantiateEnemy(const Vector2D& pos, const std::string_view& filename) const;
+	void instantiateEnemy(const Vector2D& pos, const std::string& filename) const;
 
 	void update() override;
 	void draw() override;

@@ -23,11 +23,11 @@ public:
 	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 
 	SpriteComponent() = default;
-	SpriteComponent(const std::string_view textureId)
+	SpriteComponent(const std::string_view& textureId)
 	{
 		setTexture(textureId);
 	}
-	SpriteComponent(const std::string_view textureId, int width, int height) : frameWidth(width), frameHeight(height)
+	SpriteComponent(const std::string_view& textureId, int width, int height) : frameWidth(width), frameHeight(height)
 	{
 		setTexture(textureId);
 	}
@@ -46,7 +46,7 @@ public:
 
 	~SpriteComponent() {}
 
-	void setTexture(const std::string_view textureId)
+	void setTexture(const std::string_view& textureId)
 	{
 		texture = Game::assets->getTexture(textureId);
 	}
@@ -92,13 +92,12 @@ public:
 		TextureManager::draw(texture, srcRect, destRect, spriteFlip);
 	}
 
-	void play(const std::string_view animNameView)
+	void play(const std::string& newAnimPlay)
 	{
-		std::string animNameStr(animNameView);
-		if (animName == animNameStr)
+		if (animName == newAnimPlay)
 			return;
 		
-		animName = animNameStr;
+		animName = newAnimPlay;
 		animStartTime = SDL_GetTicks();
 		auto animData = animations[animName];
 		frames = animData.frames;
@@ -121,7 +120,7 @@ public:
 		}
 	}
 
-	void addAnimation(const std::string_view name, const int index, const int numOfFrames, const int speed, const int frameWidth = 0, const int frameHeight = 0)
+	void addAnimation(const std::string_view& name, const int index, const int numOfFrames, const int speed, const int frameWidth = 0, const int frameHeight = 0)
 	{
 		animations.emplace(name, Animation(index, numOfFrames, speed, frameWidth, frameHeight));
 	}
