@@ -12,7 +12,7 @@
 	},
 	"weapon_hitbox_rect":
 	{
-		"dx": 0, "dy": 0,
+		"dx": 4, "dy": 4,
 		"w": 16, "h": 16
 	},
 	"sprite_data":

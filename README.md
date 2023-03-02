@@ -15,7 +15,7 @@ My plan:
 	* DONE Add a HitboxComponent
 	* DONE Add signals to attack animations (start signal, hit signal, end signal)
 	* DONE Add a WeaponCollider (with blue color)
-	* Move WeaponCollider depending on movement
+	* DONE Move WeaponCollider depending on movement
 	* Register collision between HitBoxes and Weapons
 	* Add circular colliders
 

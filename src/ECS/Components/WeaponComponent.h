@@ -52,8 +52,8 @@ public:
 		if (!isEnabled)
 			return;
 
-		weaponCollider.x = static_cast<int>(transform->position.x) + weaponColliderOffset.x - (weaponCollider.w) / 2;
-		weaponCollider.y = static_cast<int>(transform->position.y) + weaponColliderOffset.y - (weaponCollider.h) / 2;
+		weaponCollider.x = static_cast<int>(transform->position.x) + (transform->direction.x * weaponColliderOffset.x) - (weaponCollider.w) / 2;
+		weaponCollider.y = static_cast<int>(transform->position.y) + (transform->direction.y * weaponColliderOffset.y) - (weaponCollider.h) / 2;
 
 		destRect.x = weaponCollider.x - Game::camera.x;
 		destRect.y = weaponCollider.y - Game::camera.y;
@@ -72,12 +72,10 @@ public:
 	{
 		if (observedEvent == "attack_action_start")
 		{
-			std::cout << "Attack start!\n";
 			isEnabled = true;
 		}
 		if (observedEvent == "attack_action_stop")
 		{
-			std::cout << "Attack end!\n";
 			isEnabled = false;
 		}
 	}

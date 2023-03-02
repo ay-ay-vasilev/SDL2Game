@@ -6,6 +6,7 @@ struct TransformComponent : public Component
 {
 	Vector2D position;
 	Vector2D velocity;
+	Vector2D direction { -1, 0 };
 
 	int width = 0;
 	int height = 0;
@@ -24,7 +25,9 @@ struct TransformComponent : public Component
 	}
 	void update() override
 	{
-		velocity.Normalize();
+		if (velocity.x != 0 || velocity.y != 0)
+			direction = velocity.Normalize();
+
 		position.x += velocity.x * speed;
 		position.y += velocity.y * speed;
 	}
