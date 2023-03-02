@@ -1,6 +1,5 @@
 #pragma once
 
-#include "ECS.h"
 #include "AssetManager.h"
 #include "Game.h"
 

@@ -11,6 +11,12 @@ void HitBoxSystem::update()
 		{
 			entity->getComponent<HitBoxComponent>().setDebugDraw(true);
 		}
+
+		auto entitiesWithWeapons = manager.getEntitiesWithComponent<WeaponComponent>();
+		for (auto entity : entitiesWithWeapons)
+		{
+			entity->getComponent<WeaponComponent>().setDebugDraw(true);
+		}
 	}
 
 	players = manager.getGroup(Game::eGroupLabels::PLAYERS);

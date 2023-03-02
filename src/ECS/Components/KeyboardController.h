@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Game.h"
-#include "ECS.h"
 #include "Components.h"
 #include "Observer.h"
 
@@ -18,7 +16,7 @@ public:
 	eState state = eState::IDLE;
 	TransformComponent* transform;
 	SpriteComponent* sprite;
-	
+
 	void init() override
 	{
 		transform = &entity->getComponent<TransformComponent>();
@@ -75,22 +73,11 @@ public:
 
 		if (animName == "idle")
 		{
-			if (state == eState::ATTACK)
-			{
-				animName = "attack";
-			}
-			else
-			{
-				state = eState::IDLE;
-			}
+			if (state == eState::ATTACK) animName = "attack";
+			else state = eState::IDLE;
 		}
-		else if (animName == "walk")
-		{
-			state = eState::WALK;
-		}
-		else if (animName == "attack")
-			state = eState::ATTACK;
-
+		else if (animName == "walk") state = eState::WALK;
+		else if (animName == "attack") state = eState::ATTACK;
 
 		sprite->play(animName);
 

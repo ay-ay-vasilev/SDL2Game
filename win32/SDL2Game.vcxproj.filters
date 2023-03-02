@@ -95,9 +95,6 @@
     <ClInclude Include="..\src\Libs\json.hpp">
       <Filter>Source Files\Libs</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ECS\UILabelComponent.h">
-      <Filter>Source Files\ECS\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
@@ -172,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ECS\Systems\HitBoxSystem.h">
       <Filter>Source Files\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\WeaponComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

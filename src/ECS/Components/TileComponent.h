@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ECS.h"
-#include <SDL.h>
 #include "Vector2D.h"
 #include "Game.h"
 #include "TextureManager.h"

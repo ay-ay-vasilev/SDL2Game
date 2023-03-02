@@ -6,7 +6,6 @@
 #include "Animation.h"
 #include "Subject.h"
 
-#include <SDL.h>
 #include <json.hpp>
 
 #include <map>
@@ -177,8 +176,6 @@ public:
 
 	void sendSignal(const std::string& eventName)
 	{
-		if (animName == "attack")
-			std::cout << animName << "_" << eventName << "\n";
 		notify(animName + "_" + eventName);
 	}
 

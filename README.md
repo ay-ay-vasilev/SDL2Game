@@ -14,7 +14,10 @@ My plan:
 	* DONE Add an attack animation
 	* DONE Add a HitboxComponent
 	* DONE Add signals to attack animations (start signal, hit signal, end signal)
-	* Add a WeaponCollider (with blue color) and MeleeSlashComponent
+	* DONE Add a WeaponCollider (with blue color)
+	* Move WeaponCollider depending on movement
+	* Register collision between HitBoxes and Weapons
+	* Add circular colliders
 
 - Add a simple AI system.
 - Add a simple health system.
@@ -28,6 +31,8 @@ My plan:
 - Implement attack combos, remove attack holding ?
 
 Maintenance:
+- Smart pointers for components ?
+- Collider rect class.
 - Add map json.
 - Clean up in constants and settings.json.
 - Fix human walk animation.

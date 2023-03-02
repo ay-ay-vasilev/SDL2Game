@@ -10,6 +10,11 @@
 		"dx": 0, "dy": 2,
 		"w": 4, "h": 10
 	},
+	"weapon_hitbox_rect":
+	{
+		"dx": 0, "dy": 0,
+		"w": 16, "h": 16
+	},
 	"sprite_data":
 	{
 		"texture": "goblin",

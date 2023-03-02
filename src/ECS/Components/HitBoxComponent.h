@@ -55,11 +55,8 @@ public:
 
 	void update() override
 	{
-		if (tag != "terrain")
-		{
-			hitBox.x = static_cast<int>(transform->position.x) + hitBoxOffset.x - (hitBox.w) / 2;
-			hitBox.y = static_cast<int>(transform->position.y) + hitBoxOffset.y - (hitBox.h) / 2;
-		}
+		hitBox.x = static_cast<int>(transform->position.x) + hitBoxOffset.x - (hitBox.w) / 2;
+		hitBox.y = static_cast<int>(transform->position.y) + hitBoxOffset.y - (hitBox.h) / 2;
 
 		destRect.x = hitBox.x - Game::camera.x;
 		destRect.y = hitBox.y - Game::camera.y;

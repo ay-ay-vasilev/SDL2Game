@@ -8,3 +8,5 @@
 #include "TileComponent.h"
 #include "ProjectileComponent.h"
 #include "UILabelComponent.h"
+
+#include "WeaponComponent.h"
