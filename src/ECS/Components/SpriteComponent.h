@@ -69,11 +69,27 @@ public:
 			Uint32 ticks = SDL_GetTicks();
 			Uint32 elapsed = ticks - animStartTime;
 			auto frameNum = elapsed / speed;
+			// check if anim ended
 			if (frameNum >= frames && frameNum % frames == 0)
 			{
 				animStartTime = ticks;
 				frameNum = 0;
 				incAnimState();
+			}
+			// check for trigger events
+			if (!triggerFrames.empty())
+			{
+				auto isTriggerFrame = std::find(triggerFrames.begin(), triggerFrames.end(), frameNum) != triggerFrames.end();
+				if (!triggered && isTriggerFrame)
+				{
+					triggered = true;
+					sendSignal("action_start");
+				}
+				else if (triggered && !isTriggerFrame)
+				{
+					triggered = false;
+					sendSignal("action_stop");
+				}
 			}
 
 			srcRect.x = srcRect.w * static_cast<int>(frameNum % frames);
@@ -106,8 +122,10 @@ public:
 
 		if (animData.frameWidth) frameWidth = animData.frameWidth;
 		if (animData.frameHeight) frameHeight = animData.frameHeight;
+		if (!animData.triggerFrames.empty()) triggerFrames = animData.triggerFrames;
 
 		animState = eAnimState::NONE;
+		triggered = false;
 		incAnimState();
 	}
 
@@ -115,14 +133,23 @@ public:
 	{
 		for (auto& [name, animData] : animData.items())
 		{
-			addAnimation(name, animData["id"], animData["num_of_frames"], animData["speed"],
-				animData.value("frame_width", 0), animData.value("frame_height", 0));
+			const int id = animData.value("id", 0);
+			const int num_of_frames = animData.value("num_of_frames", 0);
+			const int speed = animData.value("speed", 0);
+			const int frame_width = animData.value("frame_width", 0);
+			const int frame_height = animData.value("frame_height", 0);
+			const auto trigger_frames = animData.count("trigger_frames") ? animData.at("trigger_frames").get<std::vector<int>>() : std::vector<int>();
+			addAnimation(name, id, num_of_frames, speed, frame_width, frame_height, trigger_frames);
 		}
 	}
 
-	void addAnimation(const std::string_view& name, const int index, const int numOfFrames, const int speed, const int frameWidth = 0, const int frameHeight = 0)
+	void addAnimation(
+		const std::string_view& name,
+		const int index, const int numOfFrames, const int speed,
+		const int frameWidth = 0, const int frameHeight = 0,
+		const std::span<const int>& triggerFrames = {})
 	{
-		animations.emplace(name, Animation(index, numOfFrames, speed, frameWidth, frameHeight));
+		animations.emplace(name, Animation(index, numOfFrames, speed, frameWidth, frameHeight, triggerFrames));
 	}
 
 	void incAnimState()
@@ -145,7 +172,14 @@ public:
 			break;
 		}
 		if (animName == "attack")
-			notify(animName + "_" + stateStr);
+			sendSignal(stateStr);
+	}
+
+	void sendSignal(const std::string& eventName)
+	{
+		if (animName == "attack")
+			std::cout << animName << "_" << eventName << "\n";
+		notify(animName + "_" + eventName);
 	}
 
 private:
@@ -162,6 +196,8 @@ private:
 	bool animated = false;
 	int frames = 0;
 	int speed = 100;
+	std::vector<int> triggerFrames;
+	bool triggered = false;
 
 	int frameWidth;
 	int frameHeight;

@@ -11,28 +11,28 @@
 class ColliderComponent : public Component
 {
 public:
-	ColliderComponent(const std::string_view tag) :
+	ColliderComponent(const std::string_view& tag) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		collider(),
 		colliderOffset() {};
 
-	ColliderComponent(const std::string_view tag, const int xpos, const int ypos, const int size) :
+	ColliderComponent(const std::string_view& tag, const int xpos, const int ypos, const int size) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		collider({ xpos, ypos, size, size }),
 		colliderOffset() {};
 
-	ColliderComponent(const std::string_view tag, const int xpos, const int ypos, const int width, const int height) :
+	ColliderComponent(const std::string_view& tag, const int xpos, const int ypos, const int width, const int height) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		collider({ xpos, ypos, width, height }),
 		colliderOffset() {};
 
-	ColliderComponent(const std::string_view tag, const nlohmann::json& colliderData) :
+	ColliderComponent(const std::string_view& tag, const nlohmann::json& colliderData) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),

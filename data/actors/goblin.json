@@ -33,6 +33,7 @@
 			{
 				"id": 2,
 				"num_of_frames": 5,
+				"trigger_frames": [1, 2, 3],
 				"speed": 60
 			}
 		}
