@@ -16,7 +16,8 @@ My plan:
 	* DONE Add signals to attack animations (start signal, hit signal, end signal)
 	* DONE Add a WeaponCollider (with blue color)
 	* DONE Move WeaponCollider depending on movement
-	* Register collision between HitBoxes and Weapons
+	* DONE Register collision between HitBoxes and Weapons
+	* Refactor Projectiles to use a WeaponCollider
 	* Add circular colliders
 
 - Add a simple AI system.
@@ -32,6 +33,7 @@ My plan:
 
 Maintenance:
 - Smart pointers for components ?
+- privatize component members
 - Collider rect class.
 - Add map json.
 - Clean up in constants and settings.json.
@@ -40,3 +42,4 @@ Maintenance:
 - Refactor actor json to an entity json ?
 - Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update)
 - Fix Tile-Collider logic
+- Fix WeaponCollider offset + attack and movement bug

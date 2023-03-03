@@ -1,53 +1,55 @@
 #pragma once
 #include "Components.h"
 
-class HitBoxComponent : public Component
+class HitboxComponent : public Component
 {
 public:
-	HitBoxComponent(const std::string_view& tag) :
+	HitboxComponent(const std::string_view& tag) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
-		hitBox(),
-		hitBoxOffset() {};
+		hitbox(),
+		hitboxOffset() {};
 
-	HitBoxComponent(const std::string_view& tag, const int xpos, const int ypos, const int width, const int height) :
+	HitboxComponent(const std::string_view& tag, const int xpos, const int ypos, const int width, const int height) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
-		hitBox({ xpos, ypos, width, height}),
-		hitBoxOffset() {};
+		hitbox({ xpos, ypos, width, height}),
+		hitboxOffset() {};
 
-	HitBoxComponent(const std::string_view& tag, const nlohmann::json& hitBoxData) :
+	HitboxComponent(const std::string_view& tag, const nlohmann::json& hitBoxData) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
-		hitBox({ 0, 0, hitBoxData["w"], hitBoxData["h"] }),
-		hitBoxOffset({ hitBoxData["dx"], hitBoxData["dy"] }) {};
+		hitbox({ 0, 0, hitBoxData["w"], hitBoxData["h"] }),
+		hitboxOffset({ hitBoxData["dx"], hitBoxData["dy"] }) {};
 
-	SDL_Rect hitBox;
-	Vector2D hitBoxOffset;
-	std::string tag;
 	SDL_Texture* texture;
-	SDL_Rect srcRect, destRect;
 	TransformComponent* transform;
+	SDL_Rect hitbox;
+	SDL_Rect srcRect, destRect;
+	Vector2D hitboxOffset;
+	std::string tag;
 	bool debugDraw = false;
+	int id = 0;
 
 	void init() override
 	{
+		id = entity->getID();
 		if (entity->hasComponent<TransformComponent>())
 		{
 			transform = &entity->getComponent<TransformComponent>();
-			hitBoxOffset.x *= transform->scale;
-			hitBoxOffset.y *= transform->scale;
+			hitboxOffset.x *= transform->scale;
+			hitboxOffset.y *= transform->scale;
 
-			hitBox.w *= static_cast<int>(transform->scale);
-			hitBox.h *= static_cast<int>(transform->scale);
-			hitBox.x += static_cast<int>(transform->position.x) + hitBoxOffset.x - (hitBox.w) / 2;
-			hitBox.y += static_cast<int>(transform->position.y) + hitBoxOffset.y - (hitBox.h) / 2;
+			hitbox.w *= static_cast<int>(transform->scale);
+			hitbox.h *= static_cast<int>(transform->scale);
+			hitbox.x += static_cast<int>(transform->position.x) + hitboxOffset.x - (hitbox.w) / 2;
+			hitbox.y += static_cast<int>(transform->position.y) + hitboxOffset.y - (hitbox.h) / 2;
 		}
 
-		destRect = { hitBox.x, hitBox.y, hitBox.w, hitBox.h };
+		destRect = { hitbox.x, hitbox.y, hitbox.w, hitbox.h };
 
 		texture = TextureManager::loadTexture("assets/images/hitbox.png");
 		srcRect = { 0, 0, 32, 32 };
@@ -55,11 +57,11 @@ public:
 
 	void update() override
 	{
-		hitBox.x = static_cast<int>(transform->position.x) + hitBoxOffset.x - (hitBox.w) / 2;
-		hitBox.y = static_cast<int>(transform->position.y) + hitBoxOffset.y - (hitBox.h) / 2;
+		hitbox.x = static_cast<int>(transform->position.x) + hitboxOffset.x - (hitbox.w) / 2;
+		hitbox.y = static_cast<int>(transform->position.y) + hitboxOffset.y - (hitbox.h) / 2;
 
-		destRect.x = hitBox.x - Game::camera.x;
-		destRect.y = hitBox.y - Game::camera.y;
+		destRect.x = hitbox.x - Game::camera.x;
+		destRect.y = hitbox.y - Game::camera.y;
 	}
 
 	void draw() override

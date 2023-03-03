@@ -78,7 +78,7 @@
     <ClCompile Include="..\src\Common\Map.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ECS\Systems\HitBoxSystem.cpp">
+    <ClCompile Include="..\src\ECS\Systems\HitboxWeaponCollisionSystem.cpp">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -164,10 +164,10 @@
     <ClInclude Include="..\src\Common\Subject.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ECS\Components\HitBoxComponent.h">
+    <ClInclude Include="..\src\ECS\Components\HitboxComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ECS\Systems\HitBoxSystem.h">
+    <ClInclude Include="..\src\ECS\Systems\HitboxWeaponCollisionSystem.h">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ECS\Components\WeaponComponent.h">

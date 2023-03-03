@@ -23,7 +23,7 @@ void ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D 
 	);
 	projectile.addComponent<SpriteComponent>(projectileData["sprite_data"], false);
 	projectile.addComponent<ProjectileComponent>(velocity, projectileData["projectile_data"]["range"], projectileData["projectile_data"]["speed"]);
-	projectile.addComponent<HitBoxComponent>("projectile", projectileData["hitbox_rect"]);
+	projectile.addComponent<HitboxComponent>("projectile", projectileData["hitbox_rect"]);
 	projectile.addComponent<ColliderComponent>("projectile", projectileData["collider_rect"]);
 	projectile.addGroup(Game::PROJECTILES);
 }

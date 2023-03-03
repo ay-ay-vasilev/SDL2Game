@@ -50,7 +50,7 @@ public:
 class Entity
 {
 public:
-	Entity(Manager& manager) : manager(manager) {}
+	Entity(Manager& manager, int nextID) : manager(manager), id(nextID) {}
 	void update()
 	{
 		for (auto& c : components) c->update();
@@ -99,7 +99,10 @@ public:
 		return *static_cast<T*>(ptr);
 	}
 
+	int getID() const { return id; }
+
 private:
+	int id;
 	Manager& manager;
 	bool active = true;
 	std::vector<std::unique_ptr<Component>> components;
@@ -174,7 +177,7 @@ public:
 
 	Entity& addEntity()
 	{
-		auto e = std::make_unique<Entity>(*this);
+		auto e = std::make_unique<Entity>(*this, nextID++);
 		entities.emplace_back(std::move(e));
 		return *entities.back();
 	}
@@ -209,4 +212,5 @@ private:
 	std::vector<std::shared_ptr<System>> systems;
 	std::array<std::vector<Entity*>, maxGroups> groupedEntities;
 	float scale = 1.f;
+	int nextID = 0;
 };

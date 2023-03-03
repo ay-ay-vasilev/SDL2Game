@@ -8,18 +8,20 @@ class WeaponComponent : public Component, private Observer
 public:
 	WeaponComponent(const std::string_view& tag, const nlohmann::json& weaponColliderData) :
 		tag(tag),
-		transform(nullptr), texture(nullptr),
+		transform(nullptr), texture(nullptr), sprite(nullptr),
 		srcRect(), destRect(),
 		weaponCollider({ 0, 0, weaponColliderData["w"], weaponColliderData["h"] }),
 		weaponColliderOffset({ weaponColliderData["dx"], weaponColliderData["dy"] }) {};
 
-	SDL_Rect weaponCollider;
-	Vector2D weaponColliderOffset;
-	std::string tag;
-	SDL_Texture* texture;
-	SDL_Rect srcRect, destRect;
 	TransformComponent* transform;
 	SpriteComponent* sprite;
+	SDL_Rect weaponCollider;
+	SDL_Rect srcRect, destRect;
+	Vector2D weaponColliderOffset;
+	std::string tag;
+	std::string ownerTag;
+	SDL_Texture* texture;
+	std::vector<int> affectedTargets;
 
 	bool isEnabled = false;
 	bool debugDraw = false;
@@ -36,6 +38,11 @@ public:
 			weaponCollider.h *= static_cast<int>(transform->scale);
 			weaponCollider.x += static_cast<int>(transform->position.x) + weaponColliderOffset.x - (weaponCollider.w) / 2;
 			weaponCollider.y += static_cast<int>(transform->position.y) + weaponColliderOffset.y - (weaponCollider.h) / 2;
+		}
+		if (entity->hasComponent<HitboxComponent>())
+		{
+			const auto hitboxComponent = &entity->getComponent<HitboxComponent>();
+			ownerTag = hitboxComponent->tag;
 		}
 
 		destRect = { weaponCollider.x, weaponCollider.y, weaponCollider.w, weaponCollider.h };
@@ -77,7 +84,13 @@ public:
 		if (observedEvent == "attack_action_stop")
 		{
 			isEnabled = false;
+			affectedTargets.clear();
 		}
+	}
+
+	void addAffectedTarget(int id)
+	{
+		affectedTargets.emplace_back(id);
 	}
 
 	void setDebugDraw(bool value) { debugDraw = value; }
