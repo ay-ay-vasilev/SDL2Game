@@ -93,7 +93,7 @@ void Map::loadCollisions(const std::string& path, const int sizeX, const int siz
 			if (tileNum == 1)
 			{
 				auto & tileCollider(Game::manager->addEntity());
-				tileCollider.addComponent<ColliderComponent>("terrain", x * scaledSize, y * scaledSize, scaledSize);
+				tileCollider.addComponent<ColliderComponent>("terrain", Vector2D(x * scaledSize, y * scaledSize), scaledSize, scaledSize);
 				tileCollider.addGroup(Game::COLLIDERS);
 			}
 

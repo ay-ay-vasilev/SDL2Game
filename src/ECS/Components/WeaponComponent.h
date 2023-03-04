@@ -2,6 +2,7 @@
 
 #include "Components.h"
 #include "Observer.h"
+#include "ColliderShape.h"
 
 class WeaponComponent : public Component, private Observer
 {
@@ -10,11 +11,18 @@ public:
 		tag(tag),
 		transform(nullptr), texture(nullptr), sprite(nullptr),
 		srcRect(), destRect(),
-		weaponCollider({ 0, 0, weaponColliderData["w"], weaponColliderData["h"] }),
 		weaponColliderDirectionCoefficient({ weaponColliderData["x"], weaponColliderData["y"] }),
 		weaponColliderOffset({ 0, 0 }),
 		enabled(isProjectile)
 	{
+		if (weaponColliderData["shape"] == "circle")
+		{
+			weaponCollider = std::make_shared<CircleCollider>(Vector2D(0, 0), weaponColliderData["radius"]);
+		}
+		if (weaponColliderData["shape"] == "rectangle")
+		{
+			weaponCollider = std::make_shared<RectangleCollider>(Vector2D(0, 0), weaponColliderData["w"], weaponColliderData["h"]);
+		}
 		if (weaponColliderData.contains("offset")) {
 			weaponColliderOffset = { weaponColliderData["offset"]["dx"], weaponColliderData["offset"]["dy"] };
 		}
@@ -28,10 +36,10 @@ public:
 			weaponColliderDirectionCoefficient.x *= transform->getScale();
 			weaponColliderDirectionCoefficient.y *= transform->getScale();
 
-			weaponCollider.w *= static_cast<int>(transform->getScale());
-			weaponCollider.h *= static_cast<int>(transform->getScale());
-			weaponCollider.x = static_cast<int>(transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x) - (weaponCollider.w) / 2;
-			weaponCollider.y = static_cast<int>(transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y) - (weaponCollider.h) / 2;
+			weaponCollider->setScale(transform->getScale());
+			const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
+			const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
+			weaponCollider->setPosition(Vector2D(weaponColliderX - (weaponCollider->getWidth()) / 2, weaponColliderY - (weaponCollider->getHeight()) / 2));
 		}
 		if (entity->hasComponent<HitboxComponent>())
 		{
@@ -39,9 +47,16 @@ public:
 			ownerTag = hitboxComponent->getTag();
 		}
 
-		destRect = { weaponCollider.x, weaponCollider.y, weaponCollider.w, weaponCollider.h };
+		destRect = { static_cast<int>(weaponCollider->getPosition().x), static_cast<int>(weaponCollider->getPosition().y), weaponCollider->getWidth(), weaponCollider->getHeight() };
 
-		texture = TextureManager::loadTexture("assets/images/weapon_collider.png");
+		std::string texturePath;
+		if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(weaponCollider)) {
+			texturePath = "assets/images/weapon_collider_rect.png";
+		}
+		else if (auto circleCollider = std::dynamic_pointer_cast<CircleCollider>(weaponCollider)) {
+			texturePath = "assets/images/weapon_collider_circle.png";
+		}
+		texture = TextureManager::loadTexture(texturePath);
 		srcRect = { 0, 0, 32, 32 };
 
 		sprite = &entity->getComponent<SpriteComponent>();
@@ -53,11 +68,12 @@ public:
 		if (!enabled)
 			return;
 
-		weaponCollider.x = static_cast<int>(transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x) - (weaponCollider.w) / 2;
-		weaponCollider.y = static_cast<int>(transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y) - (weaponCollider.h) / 2;
+		const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
+		const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
+		weaponCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
 
-		destRect.x = weaponCollider.x - Game::camera.x;
-		destRect.y = weaponCollider.y - Game::camera.y;
+		destRect.x = weaponCollider->getPosition().x - Game::camera.x;
+		destRect.y = weaponCollider->getPosition().y - Game::camera.y;
 	}
 
 	void draw() override
@@ -82,7 +98,7 @@ public:
 		}
 	}
 
-	SDL_Rect getCollider() const { return weaponCollider; }
+	std::shared_ptr<ColliderShape> getCollider() const { return weaponCollider; }
 
 	void addAffectedTarget(int id) { affectedTargets.emplace_back(id); }
 	void setDebugDraw(bool value) { debugDraw = value; }
@@ -95,7 +111,7 @@ public:
 private:
 	TransformComponent* transform;
 	SpriteComponent* sprite;
-	SDL_Rect weaponCollider;
+	std::shared_ptr<ColliderShape> weaponCollider;
 	SDL_Rect srcRect, destRect;
 	Vector2D weaponColliderDirectionCoefficient;
 	Vector2D weaponColliderOffset;

@@ -31,7 +31,7 @@ void HitboxWeaponCollisionSystem::update()
 			if (weaponCollider.isInAffectedTargets(hitboxCollider.getId()))
 				continue;
 
-			if (Collision::AABB(weaponCollider.getCollider(), hitboxCollider.getHitbox()))
+			if (weaponCollider.getCollider()->collidesWith(*(hitboxCollider.getHitbox())))
 			{
 				weaponCollider.addAffectedTarget(hitboxCollider.getId());
 				std::cout << hitboxCollider.getTag() << " got hit by " << weaponCollider.getTag() << "!\n";

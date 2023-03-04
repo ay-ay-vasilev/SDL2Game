@@ -2,11 +2,13 @@
 	"speed": 10,
 	"collider_rect":
 	{
+		"shape": "rectangle",
 		"dx": 0, "dy": 12,
 		"w": 8, "h": 4
 	},
 	"hitbox_rect":
 	{
+		"shape": "rectangle",
 		"dx": 0, "dy": 0,
 		"w": 10, "h": 32
 	},

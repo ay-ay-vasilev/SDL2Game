@@ -1,12 +1,12 @@
 #pragma once
 #include "Components.h"
 #include "TextureManager.h"
+#include "ColliderShape.h"
 
 #include <SDL.h>
 #include <json.hpp>
 
 #include <string>
-
 
 class ColliderComponent : public Component
 {
@@ -18,26 +18,42 @@ public:
 		collider(),
 		colliderOffset() {};
 
-	ColliderComponent(const std::string_view& tag, const int xpos, const int ypos, const int size) :
+	ColliderComponent(const std::string_view& tag, const Vector2D& position, const float radius, const Vector2D& colliderOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
-		collider({ xpos, ypos, size, size }),
-		colliderOffset() {};
+		collider(std::make_shared<CircleCollider>(position, radius)),
+		colliderOffset(colliderOffset) {};
 
-	ColliderComponent(const std::string_view& tag, const int xpos, const int ypos, const int width, const int height) :
+	ColliderComponent(const std::string_view& tag, const Vector2D& position, const int width, const int height, const Vector2D& colliderOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
-		collider({ xpos, ypos, width, height }),
-		colliderOffset() {};
+		collider(std::make_shared<RectangleCollider>(position, width, height)),
+		colliderOffset(colliderOffset) {};
+
+	ColliderComponent(const std::string_view& tag, const std::shared_ptr<ColliderShape>& colliderShape, const Vector2D& colliderOffset = Vector2D()) :
+		tag(tag),
+		transform(nullptr), texture(nullptr),
+		srcRect(), destRect(),
+		collider(colliderShape),
+		colliderOffset(colliderOffset) {};
 
 	ColliderComponent(const std::string_view& tag, const nlohmann::json& colliderData) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
-		collider({ 0, 0, colliderData["w"], colliderData["h"]}),
-		colliderOffset ({ colliderData["dx"], colliderData["dy"] }) {};
+		colliderOffset({ colliderData["dx"], colliderData["dy"] })
+	{
+		if (colliderData["shape"] == "circle")
+		{
+			collider = std::make_shared<CircleCollider>(Vector2D(0, 0), colliderData["radius"]);
+		}
+		if (colliderData["shape"] == "rectangle")
+		{
+			collider = std::make_shared<RectangleCollider>(Vector2D(0, 0), colliderData["w"], colliderData["h"]);
+		}
+	}
 	
 	void init() override
 	{
@@ -47,15 +63,24 @@ public:
 			colliderOffset.x *= transform->getScale();
 			colliderOffset.y *= transform->getScale();
 
-			collider.w *= static_cast<int>(transform->getScale());
-			collider.h *= static_cast<int>(transform->getScale());
-			collider.x += static_cast<int>(transform->getPosition().x + colliderOffset.x) - (collider.w) / 2;
-			collider.y += static_cast<int>(transform->getPosition().y + colliderOffset.y) - (collider.h) / 2;
+			collider->setScale(transform->getScale());
+			const auto colliderPosition = collider->getPosition();
+			const auto colliderX = colliderPosition.x + transform->getPosition().x + colliderOffset.x - (collider->getWidth()) / 2;
+			const auto colliderY = colliderPosition.y + transform->getPosition().y + colliderOffset.y - (collider->getHeight()) / 2;
+			collider->setPosition(Vector2D(colliderX, colliderY));
 		}
 
-		destRect = { collider.x, collider.y, collider.w, collider.h };
+		destRect = { static_cast<int>(collider->getPosition().x), static_cast<int>(collider->getPosition().y), collider->getWidth(), collider->getHeight()};
 
-		texture = TextureManager::loadTexture("assets/images/collider.png");
+		std::string texturePath;
+		if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(collider)) {
+			texturePath = "assets/images/collider_rect.png";
+		}
+		else if (auto circleCollider = std::dynamic_pointer_cast<CircleCollider>(collider)) {
+			texturePath = "assets/images/collider_circle.png";
+		}
+		texture = TextureManager::loadTexture(texturePath);
+
 		srcRect = { 0, 0, 32, 32 };
 	}
 
@@ -63,12 +88,13 @@ public:
 	{
 		if (tag != "terrain")
 		{
-			collider.x = static_cast<int>(transform->getPosition().x + colliderOffset.x) - (collider.w) / 2;
-			collider.y = static_cast<int>(transform->getPosition().y + colliderOffset.y) - (collider.h) / 2;
+			const auto x = static_cast<int>(transform->getPosition().x + colliderOffset.x) - (collider->getWidth()) / 2;
+			const auto y = static_cast<int>(transform->getPosition().y + colliderOffset.y) - (collider->getHeight()) / 2;
+			collider->setPosition(Vector2D(x, y));
 		}
 
-		destRect.x = collider.x - Game::camera.x;
-		destRect.y = collider.y - Game::camera.y;
+		destRect.x = collider->getPosition().x - Game::camera.x;
+		destRect.y = collider->getPosition().y - Game::camera.y;
 	}
 
 	void draw() override
@@ -77,10 +103,10 @@ public:
 			TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
 
-	SDL_Rect getCollider() const { return collider; }
-	void setColliderPos(int x, int y) { collider.x = x; collider.y = y; }
+	std::shared_ptr<ColliderShape> getCollider() const { return collider; }
+	void setColliderPos(int x, int y) { collider->setPosition(Vector2D(x, y)); }
 
-	int getLowestPoint() const { return collider.y + collider.h; }
+	int getLowestPoint() const { return collider->getPosition().y + collider->getHeight(); }
 	void setDebugDraw(bool value) { debugDraw = value; }
 
 private:
@@ -90,7 +116,7 @@ private:
 	Vector2D colliderOffset;
 	SDL_Rect srcRect, destRect;
 
-	SDL_Rect collider;
+	std::shared_ptr<ColliderShape> collider;
 	std::string tag;
 	bool debugDraw = false;
 };

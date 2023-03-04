@@ -29,38 +29,39 @@ void CollisionSystem::update()
 			const auto playerPosition = playerTransformComponent.getPosition();
 
 			const auto collider = c->getComponent<ColliderComponent>().getCollider();
-			if (Collision::AABB(collider, playerCollider))
-			{
-				int overlapXInt = std::min(playerCollider.x + playerCollider.w, collider.x + collider.w) - std::max(playerCollider.x, collider.x);
-				int overlapYInt = std::min(playerCollider.y + playerCollider.h, collider.y + collider.h) - std::max(playerCollider.y, collider.y);
 
-				float overlapX = static_cast<float>(overlapXInt);
-				float overlapY = static_cast<float>(overlapYInt);
+			if (playerCollider->collidesWith(*collider))
+			{
+				float overlapX = playerCollider->getOverlapX(*collider);
+				float overlapY = playerCollider->getOverlapY(*collider);
+
+				int overlapXInt = static_cast<int>(overlapX);
+				int overlapYInt = static_cast<int>(overlapY);
 
 				if (overlapX < overlapY && overlapX > 0)
 				{
-					if (playerPosition.x < collider.x)
+					if (playerPosition.x < collider->getPosition().x)
 					{
 						playerTransformComponent.setPosition(playerPosition.x - overlapXInt, playerPosition.y);
-						playerColliderComponent.setColliderPos(playerCollider.x - overlapXInt, playerCollider.y);
+						playerColliderComponent.setColliderPos(playerCollider->getPosition().x - overlapXInt, playerCollider->getPosition().y);
 					}
 					else
 					{
 						playerTransformComponent.setPosition(playerPosition.x + overlapXInt, playerPosition.y);
-						playerColliderComponent.setColliderPos(playerCollider.x + overlapXInt, playerCollider.y);
+						playerColliderComponent.setColliderPos(playerCollider->getPosition().x + overlapXInt, playerCollider->getPosition().y);
 					}
 				}
 				else if (overlapX >= overlapY && overlapY > 0)
 				{
-					if (playerPosition.y < collider.y)
+					if (playerPosition.y < collider->getPosition().y)
 					{
 						playerTransformComponent.setPosition(playerPosition.x, playerPosition.y - overlapYInt);
-						playerColliderComponent.setColliderPos(playerCollider.x, playerCollider.y - overlapYInt);
+						playerColliderComponent.setColliderPos(playerCollider->getPosition().x, playerCollider->getPosition().y - overlapYInt);
 					}
 					else
 					{
 						playerTransformComponent.setPosition(playerPosition.x, playerPosition.y + overlapYInt);
-						playerColliderComponent.setColliderPos(playerCollider.x, playerCollider.y + overlapYInt);
+						playerColliderComponent.setColliderPos(playerCollider->getPosition().x, playerCollider->getPosition().y + overlapYInt);
 					}
 				}
 			}

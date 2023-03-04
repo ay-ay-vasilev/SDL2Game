@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Common\ColliderShape.cpp" />
     <ClCompile Include="..\src\Common\Collision.cpp" />
     <ClCompile Include="..\src\Common\Map.cpp" />
     <ClCompile Include="..\src\Common\Vector2D.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="..\src\Managers\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Common\ColliderShape.h" />
     <ClInclude Include="..\src\Common\Collision.h" />
     <ClInclude Include="..\src\Common\Map.h" />
     <ClInclude Include="..\src\Common\Observer.h" />

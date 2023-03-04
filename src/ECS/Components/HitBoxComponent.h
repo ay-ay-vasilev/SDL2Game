@@ -1,5 +1,6 @@
 #pragma once
 #include "Components.h"
+#include "ColliderShape.h"
 
 class HitboxComponent : public Component
 {
@@ -11,19 +12,42 @@ public:
 		hitbox(),
 		hitboxOffset() {};
 
-	HitboxComponent(const std::string_view& tag, const int xpos, const int ypos, const int width, const int height) :
+	HitboxComponent(const std::string_view& tag, const Vector2D& position, const float radius, const Vector2D& hitboxOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
-		hitbox({ xpos, ypos, width, height}),
-		hitboxOffset() {};
+		hitbox(std::make_shared<CircleCollider>(position, radius)),
+		hitboxOffset(hitboxOffset) {};
 
-	HitboxComponent(const std::string_view& tag, const nlohmann::json& hitBoxData) :
+	HitboxComponent(const std::string_view& tag, const Vector2D& position, const int width, const int height, const Vector2D& hitboxOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
-		hitbox({ 0, 0, hitBoxData["w"], hitBoxData["h"] }),
-		hitboxOffset({ hitBoxData["dx"], hitBoxData["dy"] }) {};
+		hitbox(std::make_shared<RectangleCollider>(position, width, height)),
+		hitboxOffset(hitboxOffset) {};
+
+	HitboxComponent(const std::string_view& tag, const std::shared_ptr<ColliderShape>& hitboxShape, const Vector2D& hitboxOffset = Vector2D()) :
+		tag(tag),
+		transform(nullptr), texture(nullptr),
+		srcRect(), destRect(),
+		hitbox(hitboxShape),
+		hitboxOffset(hitboxOffset) {};
+
+	HitboxComponent(const std::string_view& tag, const nlohmann::json& colliderData) :
+		tag(tag),
+		transform(nullptr), texture(nullptr),
+		srcRect(), destRect(),
+		hitboxOffset({ colliderData["dx"], colliderData["dy"] })
+	{
+		if (colliderData["shape"] == "circle")
+		{
+			hitbox = std::make_shared<CircleCollider>(Vector2D(0, 0), colliderData["radius"]);
+		}
+		if (colliderData["shape"] == "rectangle")
+		{
+			hitbox = std::make_shared<RectangleCollider>(Vector2D(0, 0), colliderData["w"], colliderData["h"]);
+		}
+	}
 
 	void init() override
 	{
@@ -34,25 +58,34 @@ public:
 			hitboxOffset.x *= transform->getScale();
 			hitboxOffset.y *= transform->getScale();
 
-			hitbox.w *= static_cast<int>(transform->getScale());
-			hitbox.h *= static_cast<int>(transform->getScale());
-			hitbox.x += static_cast<int>(transform->getPosition().x + hitboxOffset.x) - (hitbox.w) / 2;
-			hitbox.y += static_cast<int>(transform->getPosition().y + hitboxOffset.y) - (hitbox.h) / 2;
+			hitbox->setScale(transform->getScale());
+			const auto hitboxPosition = hitbox->getPosition();
+			const auto hitboxX = hitboxPosition.x + transform->getPosition().x + hitboxOffset.x - (hitbox->getWidth()) / 2;
+			const auto hitboxY = hitboxPosition.y + transform->getPosition().y + hitboxOffset.y - (hitbox->getHeight()) / 2;
+			hitbox->setPosition(Vector2D(hitboxX, hitboxY));
 		}
 
-		destRect = { hitbox.x, hitbox.y, hitbox.w, hitbox.h };
+		destRect = { static_cast<int>(hitbox->getPosition().x), static_cast<int>(hitbox->getPosition().y), hitbox->getWidth(), hitbox->getHeight() };
 
-		texture = TextureManager::loadTexture("assets/images/hitbox.png");
+		std::string texturePath;
+		if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(hitbox)) {
+			texturePath = "assets/images/hitbox_rect.png";
+		}
+		else if (auto circleCollider = std::dynamic_pointer_cast<CircleCollider>(hitbox)) {
+			texturePath = "assets/images/hitbox_circle.png";
+		}
+		texture = TextureManager::loadTexture(texturePath);
 		srcRect = { 0, 0, 32, 32 };
 	}
 
 	void update() override
 	{
-		hitbox.x = static_cast<int>(transform->getPosition().x + hitboxOffset.x) - (hitbox.w) / 2;
-		hitbox.y = static_cast<int>(transform->getPosition().y + hitboxOffset.y) - (hitbox.h) / 2;
+		const auto x = static_cast<int>(transform->getPosition().x + hitboxOffset.x) - (hitbox->getWidth()) / 2;
+		const auto y = static_cast<int>(transform->getPosition().y + hitboxOffset.y) - (hitbox->getHeight()) / 2;
+		hitbox->setPosition(Vector2D(x, y));
 
-		destRect.x = hitbox.x - Game::camera.x;
-		destRect.y = hitbox.y - Game::camera.y;
+		destRect.x = hitbox->getPosition().x - Game::camera.x;
+		destRect.y = hitbox->getPosition().y - Game::camera.y;
 	}
 
 	void draw() override
@@ -61,7 +94,7 @@ public:
 			TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
 
-	SDL_Rect getHitbox() const { return hitbox; }
+	std::shared_ptr<ColliderShape> getHitbox() const { return hitbox; }
 
 	std::string getTag() const { return tag; }
 	int getId() const { return id; }
@@ -75,7 +108,7 @@ private:
 	Vector2D hitboxOffset;
 	SDL_Rect srcRect, destRect;
 
-	SDL_Rect hitbox;
+	std::shared_ptr<ColliderShape> hitbox;
 	std::string tag;
 	bool debugDraw = false;
 

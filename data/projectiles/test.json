@@ -1,16 +1,19 @@
 {
 	"collider_rect":
 	{
+		"shape": "rectangle",
 		"dx": 0, "dy": 0,
 		"w": 7, "h": 7
 	},
 	"hitbox_rect":
 	{
+		"shape": "rectangle",
 		"dx": 0, "dy": 0,
 		"w": 7, "h": 7
 	},
 	"weapon_rect":
 	{
+		"shape": "rectangle",
 		"x": 0, "y": 0,
 		"w": 10, "h": 10
 	},

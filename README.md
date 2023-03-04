@@ -20,6 +20,7 @@ My plan:
 	* DONE Refactor Projectiles to use a WeaponCollider
 	* Add circular colliders
 
+- Add an attack animation for a human.
 - Add a simple AI system.
 - Add a simple health system.
 - Add a simple menu screen + UI system.
@@ -32,8 +33,8 @@ My plan:
 - Implement attack combos, remove attack holding ?
 
 Maintenance:
+- Collider shape class.
 - Smart pointers for components ?
-- Collider rect class.
 - Add map json.
 - Clean up in constants and settings.json.
 - Fix human walk animation.
@@ -41,4 +42,3 @@ Maintenance:
 - Refactor actor json to an entity json ?
 - Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update)
 - Fix Tile-Collider logic
-- Fix WeaponCollider offset + attack and movement bug
