@@ -33,7 +33,6 @@ My plan:
 
 Maintenance:
 - Smart pointers for components ?
-- privatize component members
 - Collider rect class.
 - Add map json.
 - Clean up in constants and settings.json.

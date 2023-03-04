@@ -39,26 +39,18 @@ public:
 		collider({ 0, 0, colliderData["w"], colliderData["h"]}),
 		colliderOffset ({ colliderData["dx"], colliderData["dy"] }) {};
 	
-	SDL_Rect collider;
-	Vector2D colliderOffset;
-	std::string tag;
-	SDL_Texture* texture;
-	SDL_Rect srcRect, destRect;
-	TransformComponent* transform;
-	bool debugDraw = false;
-
 	void init() override
 	{
 		if (entity->hasComponent<TransformComponent>())
 		{
 			transform = &entity->getComponent<TransformComponent>();
-			colliderOffset.x *= transform->scale;
-			colliderOffset.y *= transform->scale;
+			colliderOffset.x *= transform->getScale();
+			colliderOffset.y *= transform->getScale();
 
-			collider.w *= static_cast<int>(transform->scale);
-			collider.h *= static_cast<int>(transform->scale);
-			collider.x += static_cast<int>(transform->position.x) + colliderOffset.x - (collider.w) / 2;
-			collider.y += static_cast<int>(transform->position.y) + colliderOffset.y - (collider.h) / 2;
+			collider.w *= static_cast<int>(transform->getScale());
+			collider.h *= static_cast<int>(transform->getScale());
+			collider.x += static_cast<int>(transform->getPosition().x) + colliderOffset.x - (collider.w) / 2;
+			collider.y += static_cast<int>(transform->getPosition().y) + colliderOffset.y - (collider.h) / 2;
 		}
 
 		destRect = { collider.x, collider.y, collider.w, collider.h };
@@ -71,8 +63,8 @@ public:
 	{
 		if (tag != "terrain")
 		{
-			collider.x = static_cast<int>(transform->position.x) + colliderOffset.x - (collider.w) / 2;
-			collider.y = static_cast<int>(transform->position.y) + colliderOffset.y - (collider.h) / 2;
+			collider.x = static_cast<int>(transform->getPosition().x) + colliderOffset.x - (collider.w) / 2;
+			collider.y = static_cast<int>(transform->getPosition().y) + colliderOffset.y - (collider.h) / 2;
 		}
 
 		destRect.x = collider.x - Game::camera.x;
@@ -85,6 +77,20 @@ public:
 			TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
 
-	int getLowestPoint() { return collider.y + collider.h; }
+	SDL_Rect getCollider() const { return collider; }
+	void setColliderPos(int x, int y) { collider.x = x; collider.y = y; }
+
+	int getLowestPoint() const { return collider.y + collider.h; }
 	void setDebugDraw(bool value) { debugDraw = value; }
+
+private:
+	TransformComponent* transform;
+	SDL_Texture* texture;
+
+	Vector2D colliderOffset;
+	SDL_Rect srcRect, destRect;
+
+	SDL_Rect collider;
+	std::string tag;
+	bool debugDraw = false;
 };

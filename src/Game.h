@@ -18,6 +18,7 @@ class ColliderComponent;
 class AssetManager;
 class EnemyManager;
 class Manager;
+class Constants;
 
 class Game {
 
@@ -37,6 +38,7 @@ public:
 	static SDL_Event gameEvent;
 	static bool isRunning;
 	static SDL_Rect camera;
+	static std::shared_ptr<Constants> constants;
 
 	static std::unique_ptr<AssetManager> assets;
 	static std::unique_ptr<EnemyManager> enemyManager;

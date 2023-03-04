@@ -13,10 +13,6 @@ public:
 		ATTACK
 	};
 
-	eState state = eState::IDLE;
-	TransformComponent* transform;
-	SpriteComponent* sprite;
-
 	void init() override
 	{
 		transform = &entity->getComponent<TransformComponent>();
@@ -33,36 +29,20 @@ public:
 		case SDLK_ESCAPE:
 			Game::isRunning = false;
 			break;
+		case SDLK_o:
+			Game::constants->ReloadSettings();
+			break;
 		}
 
 		int x = 0, y = 0;
-
 		std::string animName = "idle";
 
 		if (state != eState::ATTACK)
 		{
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_w)])
-			{
-				y -= 1;
-				animName = "walk";
-			}
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_a)])
-			{
-				x -= 1;
-				animName = "walk";
-				sprite->spriteFlip = SDL_FLIP_NONE;
-			}
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_s)])
-			{
-				y += 1;
-				animName = "walk";
-			}
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_d)])
-			{
-				x += 1;
-				animName = "walk";
-				sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
-			}
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_w)]) { y -= 1; animName = "walk"; }
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_a)]) { x -= 1; animName = "walk"; sprite->spriteFlip = SDL_FLIP_NONE; }
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_s)]) { y += 1; animName = "walk"; }
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_d)]) { x += 1; animName = "walk"; sprite->spriteFlip = SDL_FLIP_HORIZONTAL; }
 		}
 
 		if (state != eState::ATTACK && (keyboardState[SDL_GetScancodeFromKey(SDLK_e)] || (SDL_GetMouseState(NULL, NULL)& SDL_BUTTON(SDL_BUTTON_LEFT))))
@@ -80,9 +60,7 @@ public:
 		else if (animName == "attack") state = eState::ATTACK;
 
 		sprite->play(animName);
-
-		transform->velocity.x = static_cast<float>(x);
-		transform->velocity.y = static_cast<float>(y);
+		transform->setVeloctiy(static_cast<float>(x), static_cast<float>(y));
 	}
 
 	void onNotify(const std::string_view& observedEvent) override
@@ -94,4 +72,8 @@ public:
 		}
 	}
 
+private:
+	eState state = eState::IDLE;
+	TransformComponent* transform;
+	SpriteComponent* sprite;
 };

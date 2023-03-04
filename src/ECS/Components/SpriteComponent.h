@@ -96,10 +96,10 @@ public:
 
 		srcRect.y = animIndex * frameHeight;
 
-		destRect.x = static_cast<int>(transform->position.x) - (frameWidth * transform->scale / 2) - Game::camera.x;
-		destRect.y = static_cast<int>(transform->position.y) - (frameHeight * transform->scale / 2) - Game::camera.y;
-		destRect.w = static_cast<int>(frameWidth * transform->scale);
-		destRect.h = static_cast<int>(frameHeight * transform->scale);
+		destRect.x = static_cast<int>(transform->getPosition().x) - (frameWidth * transform->getScale() / 2) - Game::camera.x;
+		destRect.y = static_cast<int>(transform->getPosition().y) - (frameHeight * transform->getScale() / 2) - Game::camera.y;
+		destRect.w = static_cast<int>(frameWidth * transform->getScale());
+		destRect.h = static_cast<int>(frameHeight * transform->getScale());
 	}
 
 	void draw() override

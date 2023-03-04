@@ -11,7 +11,7 @@
 class Constants
 {
 public:
-	Constants(const std::string& filename)
+	Constants(const std::string& filename) : settingsFile(filename)
 	{
 		std::ifstream file(filename);
 		if (!file.is_open())
@@ -22,7 +22,20 @@ public:
 
 		nlohmann::json constantsJson;
 		file >> constantsJson;
+		LoadFromJsonObject(constantsJson);
+	}
 
+	void ReloadSettings()
+	{
+		std::ifstream file(settingsFile);
+		if (!file.is_open())
+		{
+			std::cerr << "Failed to open constants file: " << settingsFile << std::endl;
+			return;
+		}
+
+		nlohmann::json constantsJson;
+		file >> constantsJson;
 		LoadFromJsonObject(constantsJson);
 	}
 
@@ -134,4 +147,6 @@ private:
 			DRAW_HITBOXES = constantsJson["debug_draw_hitboxes"];
 		}
 	}
+
+	std::string settingsFile;
 };

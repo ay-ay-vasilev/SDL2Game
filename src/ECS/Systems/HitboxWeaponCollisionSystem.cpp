@@ -27,17 +27,17 @@ void HitboxWeaponCollisionSystem::update()
 		{
 			auto& weaponCollider = weapon->getComponent<WeaponComponent>();
 			
-			if (!weaponCollider.isEnabled)
+			if (!weaponCollider.isEnabled())
 				continue;
-			if (weaponCollider.ownerTag == hitboxCollider.tag)
+			if (weaponCollider.getOwnerTag() == hitboxCollider.getTag())
 				continue;
-			if (std::find(weaponCollider.affectedTargets.begin(), weaponCollider.affectedTargets.end(), hitboxCollider.id) != weaponCollider.affectedTargets.end())
+			if (weaponCollider.isInAffectedTargets(hitboxCollider.getId()))
 				continue;
 
-			if (Collision::AABB(weaponCollider.weaponCollider, hitboxCollider.hitbox))
+			if (Collision::AABB(weaponCollider.getCollider(), hitboxCollider.getHitbox()))
 			{
-				weaponCollider.addAffectedTarget(hitboxCollider.id);
-				std::cout << hitboxCollider.tag << " got hit by " << weaponCollider.tag << "!\n";
+				weaponCollider.addAffectedTarget(hitboxCollider.getId());
+				std::cout << hitboxCollider.getTag() << " got hit by " << weaponCollider.getTag() << "!\n";
 			}
 		}
 	}

@@ -25,28 +25,19 @@ public:
 		hitbox({ 0, 0, hitBoxData["w"], hitBoxData["h"] }),
 		hitboxOffset({ hitBoxData["dx"], hitBoxData["dy"] }) {};
 
-	SDL_Texture* texture;
-	TransformComponent* transform;
-	SDL_Rect hitbox;
-	SDL_Rect srcRect, destRect;
-	Vector2D hitboxOffset;
-	std::string tag;
-	bool debugDraw = false;
-	int id = 0;
-
 	void init() override
 	{
 		id = entity->getID();
 		if (entity->hasComponent<TransformComponent>())
 		{
 			transform = &entity->getComponent<TransformComponent>();
-			hitboxOffset.x *= transform->scale;
-			hitboxOffset.y *= transform->scale;
+			hitboxOffset.x *= transform->getScale();
+			hitboxOffset.y *= transform->getScale();
 
-			hitbox.w *= static_cast<int>(transform->scale);
-			hitbox.h *= static_cast<int>(transform->scale);
-			hitbox.x += static_cast<int>(transform->position.x) + hitboxOffset.x - (hitbox.w) / 2;
-			hitbox.y += static_cast<int>(transform->position.y) + hitboxOffset.y - (hitbox.h) / 2;
+			hitbox.w *= static_cast<int>(transform->getScale());
+			hitbox.h *= static_cast<int>(transform->getScale());
+			hitbox.x += static_cast<int>(transform->getPosition().x) + hitboxOffset.x - (hitbox.w) / 2;
+			hitbox.y += static_cast<int>(transform->getPosition().y) + hitboxOffset.y - (hitbox.h) / 2;
 		}
 
 		destRect = { hitbox.x, hitbox.y, hitbox.w, hitbox.h };
@@ -57,8 +48,8 @@ public:
 
 	void update() override
 	{
-		hitbox.x = static_cast<int>(transform->position.x) + hitboxOffset.x - (hitbox.w) / 2;
-		hitbox.y = static_cast<int>(transform->position.y) + hitboxOffset.y - (hitbox.h) / 2;
+		hitbox.x = static_cast<int>(transform->getPosition().x) + hitboxOffset.x - (hitbox.w) / 2;
+		hitbox.y = static_cast<int>(transform->getPosition().y) + hitboxOffset.y - (hitbox.h) / 2;
 
 		destRect.x = hitbox.x - Game::camera.x;
 		destRect.y = hitbox.y - Game::camera.y;
@@ -70,5 +61,23 @@ public:
 			TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
 
+	SDL_Rect getHitbox() const { return hitbox; }
+
+	std::string getTag() const { return tag; }
+	int getId() const { return id; }
+
 	void setDebugDraw(bool value) { debugDraw = value; }
+
+private:
+	TransformComponent* transform;
+	SDL_Texture* texture;
+
+	Vector2D hitboxOffset;
+	SDL_Rect srcRect, destRect;
+
+	SDL_Rect hitbox;
+	std::string tag;
+	bool debugDraw = false;
+
+	int id = 0;
 };

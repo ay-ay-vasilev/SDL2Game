@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 
-std::shared_ptr<Constants> constants = std::make_shared<Constants>("../data/settings.json");
+std::shared_ptr<Constants> Game::constants = std::make_shared<Constants>("../data/settings.json");
 
 std::shared_ptr<Manager> Game::manager = std::make_shared<Manager>(constants);
 std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(manager);

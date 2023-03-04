@@ -11,13 +11,12 @@ public:
 	{
 		sortedEntities.clear();
 		tiles = manager.getGroup(Game::eGroupLabels::MAP);
-		auto entitiesWithCollision = manager.getEntitiesWithComponent<ColliderComponent>();
+		const auto entitiesWithCollision = manager.getEntitiesWithComponent<ColliderComponent>();
 
 		for (auto& entity : entitiesWithCollision)
 		{
-			auto colliderComponent = entity->getComponent<ColliderComponent>();
-			auto collider = colliderComponent.collider;
-			double z = colliderComponent.getLowestPoint();
+			const auto colliderComponent = entity->getComponent<ColliderComponent>();
+			const double z = colliderComponent.getLowestPoint();
 			sortedEntities.push_back({ entity, z });
 		}
 

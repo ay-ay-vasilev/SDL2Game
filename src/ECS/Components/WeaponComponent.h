@@ -13,36 +13,23 @@ public:
 		weaponCollider({ 0, 0, weaponColliderData["w"], weaponColliderData["h"] }),
 		weaponColliderOffset({ weaponColliderData["dx"], weaponColliderData["dy"] }) {};
 
-	TransformComponent* transform;
-	SpriteComponent* sprite;
-	SDL_Rect weaponCollider;
-	SDL_Rect srcRect, destRect;
-	Vector2D weaponColliderOffset;
-	std::string tag;
-	std::string ownerTag;
-	SDL_Texture* texture;
-	std::vector<int> affectedTargets;
-
-	bool isEnabled = false;
-	bool debugDraw = false;
-
 	void init() override
 	{
 		if (entity->hasComponent<TransformComponent>())
 		{
 			transform = &entity->getComponent<TransformComponent>();
-			weaponColliderOffset.x *= transform->scale;
-			weaponColliderOffset.y *= transform->scale;
+			weaponColliderOffset.x *= transform->getScale();
+			weaponColliderOffset.y *= transform->getScale();
 
-			weaponCollider.w *= static_cast<int>(transform->scale);
-			weaponCollider.h *= static_cast<int>(transform->scale);
-			weaponCollider.x += static_cast<int>(transform->position.x) + weaponColliderOffset.x - (weaponCollider.w) / 2;
-			weaponCollider.y += static_cast<int>(transform->position.y) + weaponColliderOffset.y - (weaponCollider.h) / 2;
+			weaponCollider.w *= static_cast<int>(transform->getScale());
+			weaponCollider.h *= static_cast<int>(transform->getScale());
+			weaponCollider.x += static_cast<int>(transform->getPosition().x) + weaponColliderOffset.x - (weaponCollider.w) / 2;
+			weaponCollider.y += static_cast<int>(transform->getPosition().y) + weaponColliderOffset.y - (weaponCollider.h) / 2;
 		}
 		if (entity->hasComponent<HitboxComponent>())
 		{
 			const auto hitboxComponent = &entity->getComponent<HitboxComponent>();
-			ownerTag = hitboxComponent->tag;
+			ownerTag = hitboxComponent->getTag();
 		}
 
 		destRect = { weaponCollider.x, weaponCollider.y, weaponCollider.w, weaponCollider.h };
@@ -56,11 +43,11 @@ public:
 
 	void update() override
 	{
-		if (!isEnabled)
+		if (!enabled)
 			return;
 
-		weaponCollider.x = static_cast<int>(transform->position.x) + (transform->direction.x * weaponColliderOffset.x) - (weaponCollider.w) / 2;
-		weaponCollider.y = static_cast<int>(transform->position.y) + (transform->direction.y * weaponColliderOffset.y) - (weaponCollider.h) / 2;
+		weaponCollider.x = static_cast<int>(transform->getPosition().x) + (transform->getDirection().x * weaponColliderOffset.x) - (weaponCollider.w) / 2;
+		weaponCollider.y = static_cast<int>(transform->getPosition().y) + (transform->getDirection().y * weaponColliderOffset.y) - (weaponCollider.h) / 2;
 
 		destRect.x = weaponCollider.x - Game::camera.x;
 		destRect.y = weaponCollider.y - Game::camera.y;
@@ -68,7 +55,7 @@ public:
 
 	void draw() override
 	{
-		if (!isEnabled)
+		if (!enabled)
 			return;
 
 		if (debugDraw)
@@ -79,19 +66,37 @@ public:
 	{
 		if (observedEvent == "attack_action_start")
 		{
-			isEnabled = true;
+			enabled = true;
 		}
 		if (observedEvent == "attack_action_stop")
 		{
-			isEnabled = false;
+			enabled = false;
 			affectedTargets.clear();
 		}
 	}
 
-	void addAffectedTarget(int id)
-	{
-		affectedTargets.emplace_back(id);
-	}
+	SDL_Rect getCollider() const { return weaponCollider; }
 
+	void addAffectedTarget(int id) { affectedTargets.emplace_back(id); }
 	void setDebugDraw(bool value) { debugDraw = value; }
+
+	bool isEnabled() const { return enabled; }
+	std::string getOwnerTag() const { return ownerTag; }
+	std::string getTag() const { return tag; }
+	bool isInAffectedTargets(int id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
+
+private:
+	TransformComponent* transform;
+	SpriteComponent* sprite;
+	SDL_Rect weaponCollider;
+	SDL_Rect srcRect, destRect;
+	Vector2D weaponColliderOffset;
+	std::string tag;
+	std::string ownerTag;
+	SDL_Texture* texture;
+	std::vector<int> affectedTargets;
+
+	bool enabled = false;
+	bool debugDraw = false;
+
 };

@@ -12,8 +12,8 @@ public:
 	void init() override
 	{
 		transform = &entity->getComponent<TransformComponent>();
-		transform->velocity = velocity;
-		transform->speed = speed;
+		transform->setVeloctiy(velocity);
+		transform->setSpeed(speed);
 	}
 
 	void update() override
@@ -27,9 +27,7 @@ public:
 	}
 
 private:
-
 	TransformComponent* transform;
-
 	Vector2D velocity{ 0, 0 };
 	int range = 0;
 	int speed = 0;

@@ -7,10 +7,6 @@
 class TileComponent : public Component
 {
 public:
-	SDL_Texture* texture;
-	SDL_Rect srcRect, destRect;
-	Vector2D position;
-
 	TileComponent() = default;
 
 	~TileComponent()
@@ -36,4 +32,9 @@ public:
 	{
 		TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
+
+private:
+	SDL_Texture* texture;
+	SDL_Rect srcRect, destRect;
+	Vector2D position;
 };

@@ -31,7 +31,7 @@ void PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& fil
 
 const Vector2D PlayerSystem::getPlayerPosition() const
 {
-	return (*players.begin())->getComponent<TransformComponent>().position;
+	return (*players.begin())->getComponent<TransformComponent>().getPosition();
 }
 
 void PlayerSystem::update()
