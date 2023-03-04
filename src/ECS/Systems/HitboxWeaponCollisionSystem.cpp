@@ -6,17 +6,14 @@ void HitboxWeaponCollisionSystem::update()
 {
 	hitboxes = manager.getEntitiesWithComponent<HitboxComponent>();
 	weapons = manager.getEntitiesWithComponent<WeaponComponent>();
-	if (manager.getConstants()->DRAW_HITBOXES)
+	for (auto entity : hitboxes)
 	{
-		for (auto entity : hitboxes)
-		{
-			entity->getComponent<HitboxComponent>().setDebugDraw(true);
-		}
+		entity->getComponent<HitboxComponent>().setDebugDraw(manager.getConstants()->DRAW_HITBOXES);
+	}
 
-		for (auto entity : weapons)
-		{
-			entity->getComponent<WeaponComponent>().setDebugDraw(true);
-		}
+	for (auto entity : weapons)
+	{
+		entity->getComponent<WeaponComponent>().setDebugDraw(manager.getConstants()->DRAW_HITBOXES);
 	}
 
 	for (auto hitbox : hitboxes)

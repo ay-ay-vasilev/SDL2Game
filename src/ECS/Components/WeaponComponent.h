@@ -6,12 +6,13 @@
 class WeaponComponent : public Component, private Observer
 {
 public:
-	WeaponComponent(const std::string_view& tag, const nlohmann::json& weaponColliderData) :
+	WeaponComponent(const std::string_view& tag, const nlohmann::json& weaponColliderData, bool isProjectile = false) :
 		tag(tag),
 		transform(nullptr), texture(nullptr), sprite(nullptr),
 		srcRect(), destRect(),
 		weaponCollider({ 0, 0, weaponColliderData["w"], weaponColliderData["h"] }),
-		weaponColliderOffset({ weaponColliderData["dx"], weaponColliderData["dy"] }) {};
+		weaponColliderOffset({ weaponColliderData["dx"], weaponColliderData["dy"] }),
+		enabled(isProjectile) {};
 
 	void init() override
 	{
@@ -96,7 +97,7 @@ private:
 	SDL_Texture* texture;
 	std::vector<int> affectedTargets;
 
-	bool enabled = false;
+	bool enabled;
 	bool debugDraw = false;
 
 };

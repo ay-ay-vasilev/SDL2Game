@@ -17,7 +17,7 @@ My plan:
 	* DONE Add a WeaponCollider (with blue color)
 	* DONE Move WeaponCollider depending on movement
 	* DONE Register collision between HitBoxes and Weapons
-	* Refactor Projectiles to use a WeaponCollider
+	* DONE Refactor Projectiles to use a WeaponCollider
 	* Add circular colliders
 
 - Add a simple AI system.

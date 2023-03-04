@@ -4,13 +4,10 @@
 
 void CollisionSystem::update()
 {
-	if (manager.getConstants()->DRAW_COLLIDERS)
+	auto entitiesWithColliders = manager.getEntitiesWithComponent<ColliderComponent>();
+	for (auto entity : entitiesWithColliders)
 	{
-		auto entitiesWithColliders = manager.getEntitiesWithComponent<ColliderComponent>();
-		for (auto entity : entitiesWithColliders)
-		{
-			entity->getComponent<ColliderComponent>().setDebugDraw(true);
-		}
+		entity->getComponent<ColliderComponent>().setDebugDraw(manager.getConstants()->DRAW_COLLIDERS);
 	}
 
 	players = manager.getGroup(Game::eGroupLabels::PLAYERS);

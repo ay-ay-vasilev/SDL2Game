@@ -9,6 +9,11 @@
 		"dx": 0, "dy": 0,
 		"w": 7, "h": 7
 	},
+	"weapon_rect":
+	{
+		"dx": 0, "dy": 0,
+		"w": 10, "h": 10
+	},
 	"sprite_data":
 	{
 		"texture": "projectile",
