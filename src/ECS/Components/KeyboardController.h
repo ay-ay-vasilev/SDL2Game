@@ -39,10 +39,30 @@ public:
 
 		if (state != eState::ATTACK)
 		{
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_w)]) { y -= 1; animName = "walk"; }
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_a)]) { x -= 1; animName = "walk"; sprite->spriteFlip = SDL_FLIP_NONE; }
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_s)]) { y += 1; animName = "walk"; }
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_d)]) { x += 1; animName = "walk"; sprite->spriteFlip = SDL_FLIP_HORIZONTAL; }
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_w)])
+			{
+				y -= 1;
+				transform->setDirectionY(-1.f);
+				animName = "walk";
+			}
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_a)])
+			{
+				x -= 1;
+				transform->setDirectionX(-1.f);
+				animName = "walk";
+			}
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_s)])
+			{
+				y += 1;
+				transform->setDirectionY(1.f);
+				animName = "walk";
+			}
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_d)])
+			{
+				x += 1;
+				transform->setDirectionX(1.f);
+				animName = "walk";
+			}
 		}
 
 		if (state != eState::ATTACK && (keyboardState[SDL_GetScancodeFromKey(SDLK_e)] || (SDL_GetMouseState(NULL, NULL)& SDL_BUTTON(SDL_BUTTON_LEFT))))

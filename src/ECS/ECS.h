@@ -39,7 +39,7 @@ using GroupBitSet = std::bitset<maxGroups>;
 class Component
 {
 public:
-	Entity* entity;
+	Entity* entity = nullptr;
 	virtual void init() {}
 	virtual void update() {}
 	virtual void draw() {}
@@ -50,7 +50,7 @@ public:
 class Entity
 {
 public:
-	Entity(Manager& manager, int nextID) : manager(manager), id(nextID) {}
+	Entity(Manager& manager, int nextID) : manager(manager), id(nextID), componentArray{} {}
 	void update()
 	{
 		for (auto& c : components) c->update();

@@ -12,7 +12,7 @@
 Map::Map(const std::string_view& textureId, const int tileSize) :
 	textureId(textureId),
 	tileSize(tileSize),
-	scaledSize(Game::manager->getScale() * tileSize)
+	scaledSize(static_cast<int>(Game::manager->getScale()) * tileSize)
 {
 }
 
@@ -76,7 +76,6 @@ void Map::loadCollisions(const std::string& path, const int sizeX, const int siz
 	std::fstream mapFile;
 	mapFile.open("../assets/map/" + tempPath + "_collision.csv");
 
-	int srcX, srcY;
 	int tileSetCols = 6;
 
 	int x = 0;

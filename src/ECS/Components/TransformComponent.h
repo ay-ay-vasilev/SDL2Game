@@ -16,8 +16,8 @@ public:
 	}
 	void update() override
 	{
-		if (velocity.x != 0 || velocity.y != 0)
-			direction = velocity.Normalize();
+		velocity.Normalize();
+		direction.Normalize();
 
 		position.x += velocity.x * speed;
 		position.y += velocity.y * speed;
@@ -31,6 +31,10 @@ public:
 	void setVeloctiy(Vector2D newVelocity) { velocity = newVelocity; }
 	void setPosition(float x, float y) { position.x = x; position.y = y; }
 	void setPosition(Vector2D newPosition) { position = newPosition; }
+	void setDirection(float x, float y) { direction.x = x; direction.y = y; }
+	void setDirection(Vector2D newDirection) { direction = newDirection; }
+	void setDirectionX(float x) { direction.x = x; }
+	void setDirectionY(float y) { direction.y = y; }
 
 	int getWidth() const { return width; }
 	int getHeight() const { return height; }

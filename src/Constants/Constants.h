@@ -1,6 +1,8 @@
 #pragma once
 #include <SDL_pixels.h>
+#pragma warning(push, 0)
 #include <json.hpp>
+#pragma warning(pop)
 
 #include "Vector2D.h"
 #include <fstream>

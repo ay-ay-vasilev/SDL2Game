@@ -11,21 +11,27 @@ public:
 		transform(nullptr), texture(nullptr), sprite(nullptr),
 		srcRect(), destRect(),
 		weaponCollider({ 0, 0, weaponColliderData["w"], weaponColliderData["h"] }),
-		weaponColliderOffset({ weaponColliderData["dx"], weaponColliderData["dy"] }),
-		enabled(isProjectile) {};
+		weaponColliderDirectionCoefficient({ weaponColliderData["x"], weaponColliderData["y"] }),
+		weaponColliderOffset({ 0, 0 }),
+		enabled(isProjectile)
+	{
+		if (weaponColliderData.contains("offset")) {
+			weaponColliderOffset = { weaponColliderData["offset"]["dx"], weaponColliderData["offset"]["dy"] };
+		}
+	}
 
 	void init() override
 	{
 		if (entity->hasComponent<TransformComponent>())
 		{
 			transform = &entity->getComponent<TransformComponent>();
-			weaponColliderOffset.x *= transform->getScale();
-			weaponColliderOffset.y *= transform->getScale();
+			weaponColliderDirectionCoefficient.x *= transform->getScale();
+			weaponColliderDirectionCoefficient.y *= transform->getScale();
 
 			weaponCollider.w *= static_cast<int>(transform->getScale());
 			weaponCollider.h *= static_cast<int>(transform->getScale());
-			weaponCollider.x += static_cast<int>(transform->getPosition().x) + weaponColliderOffset.x - (weaponCollider.w) / 2;
-			weaponCollider.y += static_cast<int>(transform->getPosition().y) + weaponColliderOffset.y - (weaponCollider.h) / 2;
+			weaponCollider.x = static_cast<int>(transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x) - (weaponCollider.w) / 2;
+			weaponCollider.y = static_cast<int>(transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y) - (weaponCollider.h) / 2;
 		}
 		if (entity->hasComponent<HitboxComponent>())
 		{
@@ -47,8 +53,8 @@ public:
 		if (!enabled)
 			return;
 
-		weaponCollider.x = static_cast<int>(transform->getPosition().x) + (transform->getDirection().x * weaponColliderOffset.x) - (weaponCollider.w) / 2;
-		weaponCollider.y = static_cast<int>(transform->getPosition().y) + (transform->getDirection().y * weaponColliderOffset.y) - (weaponCollider.h) / 2;
+		weaponCollider.x = static_cast<int>(transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x) - (weaponCollider.w) / 2;
+		weaponCollider.y = static_cast<int>(transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y) - (weaponCollider.h) / 2;
 
 		destRect.x = weaponCollider.x - Game::camera.x;
 		destRect.y = weaponCollider.y - Game::camera.y;
@@ -91,6 +97,7 @@ private:
 	SpriteComponent* sprite;
 	SDL_Rect weaponCollider;
 	SDL_Rect srcRect, destRect;
+	Vector2D weaponColliderDirectionCoefficient;
 	Vector2D weaponColliderOffset;
 	std::string tag;
 	std::string ownerTag;

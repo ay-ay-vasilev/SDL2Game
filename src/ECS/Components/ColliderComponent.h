@@ -49,8 +49,8 @@ public:
 
 			collider.w *= static_cast<int>(transform->getScale());
 			collider.h *= static_cast<int>(transform->getScale());
-			collider.x += static_cast<int>(transform->getPosition().x) + colliderOffset.x - (collider.w) / 2;
-			collider.y += static_cast<int>(transform->getPosition().y) + colliderOffset.y - (collider.h) / 2;
+			collider.x += static_cast<int>(transform->getPosition().x + colliderOffset.x) - (collider.w) / 2;
+			collider.y += static_cast<int>(transform->getPosition().y + colliderOffset.y) - (collider.h) / 2;
 		}
 
 		destRect = { collider.x, collider.y, collider.w, collider.h };
@@ -63,8 +63,8 @@ public:
 	{
 		if (tag != "terrain")
 		{
-			collider.x = static_cast<int>(transform->getPosition().x) + colliderOffset.x - (collider.w) / 2;
-			collider.y = static_cast<int>(transform->getPosition().y) + colliderOffset.y - (collider.h) / 2;
+			collider.x = static_cast<int>(transform->getPosition().x + colliderOffset.x) - (collider.w) / 2;
+			collider.y = static_cast<int>(transform->getPosition().y + colliderOffset.y) - (collider.h) / 2;
 		}
 
 		destRect.x = collider.x - Game::camera.x;

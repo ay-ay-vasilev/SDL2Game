@@ -36,8 +36,8 @@ public:
 
 			hitbox.w *= static_cast<int>(transform->getScale());
 			hitbox.h *= static_cast<int>(transform->getScale());
-			hitbox.x += static_cast<int>(transform->getPosition().x) + hitboxOffset.x - (hitbox.w) / 2;
-			hitbox.y += static_cast<int>(transform->getPosition().y) + hitboxOffset.y - (hitbox.h) / 2;
+			hitbox.x += static_cast<int>(transform->getPosition().x + hitboxOffset.x) - (hitbox.w) / 2;
+			hitbox.y += static_cast<int>(transform->getPosition().y + hitboxOffset.y) - (hitbox.h) / 2;
 		}
 
 		destRect = { hitbox.x, hitbox.y, hitbox.w, hitbox.h };
@@ -48,8 +48,8 @@ public:
 
 	void update() override
 	{
-		hitbox.x = static_cast<int>(transform->getPosition().x) + hitboxOffset.x - (hitbox.w) / 2;
-		hitbox.y = static_cast<int>(transform->getPosition().y) + hitboxOffset.y - (hitbox.h) / 2;
+		hitbox.x = static_cast<int>(transform->getPosition().x + hitboxOffset.x) - (hitbox.w) / 2;
+		hitbox.y = static_cast<int>(transform->getPosition().y + hitboxOffset.y) - (hitbox.h) / 2;
 
 		destRect.x = hitbox.x - Game::camera.x;
 		destRect.y = hitbox.y - Game::camera.y;

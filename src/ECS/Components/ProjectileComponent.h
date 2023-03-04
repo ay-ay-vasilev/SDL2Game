@@ -6,7 +6,11 @@
 class ProjectileComponent : public Component
 {
 public:
-	ProjectileComponent(Vector2D velocity, int range, int speed) : velocity(velocity), range(range), speed(speed) {}
+	ProjectileComponent(Vector2D velocity, int range, int speed) :
+		transform(nullptr),
+		velocity(velocity),
+		range(range),
+		speed(speed) {}
 	~ProjectileComponent() {}
 
 	void init() override

@@ -19,7 +19,6 @@ public:
 		START,
 		END
 	};
-	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 
 	SpriteComponent() = default;
 	SpriteComponent(const std::string_view& textureId)
@@ -67,7 +66,7 @@ public:
 		{
 			Uint32 ticks = SDL_GetTicks();
 			Uint32 elapsed = ticks - animStartTime;
-			auto frameNum = elapsed / speed;
+			int frameNum = static_cast<int>(elapsed) / speed;
 			// check if anim ended
 			if (frameNum >= frames && frameNum % frames == 0)
 			{
@@ -92,12 +91,13 @@ public:
 			}
 
 			srcRect.x = srcRect.w * static_cast<int>(frameNum % frames);
+			spriteFlip = transform->getDirection().x > 0 ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 		}
 
 		srcRect.y = animIndex * frameHeight;
 
-		destRect.x = static_cast<int>(transform->getPosition().x) - (frameWidth * transform->getScale() / 2) - Game::camera.x;
-		destRect.y = static_cast<int>(transform->getPosition().y) - (frameHeight * transform->getScale() / 2) - Game::camera.y;
+		destRect.x = static_cast<int>(transform->getPosition().x - static_cast<float>(frameWidth) * transform->getScale() / 2) - Game::camera.x;
+		destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(frameHeight) * transform->getScale() / 2) - Game::camera.y;
 		destRect.w = static_cast<int>(frameWidth * transform->getScale());
 		destRect.h = static_cast<int>(frameHeight * transform->getScale());
 	}
@@ -184,6 +184,7 @@ private:
 	int animIndex = 0;
 	std::map<std::string, Animation> animations;
 	eAnimState animState = eAnimState::NONE;
+	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 
 	TransformComponent* transform;
 	SDL_Texture* texture;

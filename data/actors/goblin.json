@@ -12,7 +12,8 @@
 	},
 	"weapon_rect":
 	{
-		"dx": 4, "dy": 4,
+		"x": 4, "y": 4,
+		"offset": { "dx": 0, "dy": 20 },
 		"w": 16, "h": 16
 	},
 	"sprite_data":
