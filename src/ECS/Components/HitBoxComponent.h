@@ -19,7 +19,7 @@ public:
 		hitbox(std::make_shared<CircleCollider>(position, radius)),
 		hitboxOffset(hitboxOffset) {};
 
-	HitboxComponent(const std::string_view& tag, const Vector2D& position, const int width, const int height, const Vector2D& hitboxOffset = Vector2D()) :
+	HitboxComponent(const std::string_view& tag, const Vector2D& position, const float width, const float height, const Vector2D& hitboxOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),

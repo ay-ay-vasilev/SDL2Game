@@ -25,7 +25,7 @@ public:
 		collider(std::make_shared<CircleCollider>(position, radius)),
 		colliderOffset(colliderOffset) {};
 
-	ColliderComponent(const std::string_view& tag, const Vector2D& position, const int width, const int height, const Vector2D& colliderOffset = Vector2D()) :
+	ColliderComponent(const std::string_view& tag, const Vector2D& position, const float width, const float height, const Vector2D& colliderOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
