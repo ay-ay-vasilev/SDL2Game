@@ -10,19 +10,9 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
-- Add a sword attack.
-	* DONE Add an attack animation
-	* DONE Add a HitboxComponent
-	* DONE Add signals to attack animations (start signal, hit signal, end signal)
-	* DONE Add a WeaponCollider (with blue color)
-	* DONE Move WeaponCollider depending on movement
-	* DONE Register collision between HitBoxes and Weapons
-	* DONE Refactor Projectiles to use a WeaponCollider
-	* Add circular colliders
-
 - Add an attack animation for a human.
-- Add a simple AI system.
 - Add a simple health system.
+- Add a simple AI system.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
 - Add an inventory system.
@@ -33,7 +23,7 @@ My plan:
 - Implement attack combos, remove attack holding ?
 
 Maintenance:
-- Collider shape class.
+- Change ColliderShape to accomodate central shape coordinates
 - Smart pointers for components ?
 - Add map json.
 - Clean up in constants and settings.json.

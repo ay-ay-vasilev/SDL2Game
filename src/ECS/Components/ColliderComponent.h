@@ -64,13 +64,12 @@ public:
 			colliderOffset.y *= transform->getScale();
 
 			collider->setScale(transform->getScale());
-			const auto colliderPosition = collider->getPosition();
-			const auto colliderX = colliderPosition.x + transform->getPosition().x + colliderOffset.x - (collider->getWidth()) / 2;
-			const auto colliderY = colliderPosition.y + transform->getPosition().y + colliderOffset.y - (collider->getHeight()) / 2;
-			collider->setPosition(Vector2D(colliderX, colliderY));
+			const auto colliderDX = transform->getPosition().x + colliderOffset.x - (collider->getWidth()) / 2;
+			const auto colliderDY = transform->getPosition().y + colliderOffset.y - (collider->getHeight()) / 2;
+			collider->movePosition(Vector2D(colliderDX, colliderDY));
 		}
 
-		destRect = { static_cast<int>(collider->getPosition().x), static_cast<int>(collider->getPosition().y), collider->getWidth(), collider->getHeight()};
+		destRect = collider->getDrawRect();
 
 		std::string texturePath;
 		if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(collider)) {
@@ -93,8 +92,9 @@ public:
 			collider->setPosition(Vector2D(x, y));
 		}
 
-		destRect.x = collider->getPosition().x - Game::camera.x;
-		destRect.y = collider->getPosition().y - Game::camera.y;
+		destRect = collider->getDrawRect();
+		destRect.x -= Game::camera.x;
+		destRect.y -= Game::camera.y;
 	}
 
 	void draw() override
@@ -105,6 +105,7 @@ public:
 
 	std::shared_ptr<ColliderShape> getCollider() const { return collider; }
 	void setColliderPos(int x, int y) { collider->setPosition(Vector2D(x, y)); }
+	void moveColliderPos(int dx, int dy) { collider->movePosition(Vector2D(dx, dy)); }
 
 	int getLowestPoint() const { return collider->getPosition().y + collider->getHeight(); }
 	void setDebugDraw(bool value) { debugDraw = value; }

@@ -46,8 +46,7 @@ public:
 			const auto hitboxComponent = &entity->getComponent<HitboxComponent>();
 			ownerTag = hitboxComponent->getTag();
 		}
-
-		destRect = { static_cast<int>(weaponCollider->getPosition().x), static_cast<int>(weaponCollider->getPosition().y), weaponCollider->getWidth(), weaponCollider->getHeight() };
+		destRect = weaponCollider->getDrawRect();
 
 		std::string texturePath;
 		if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(weaponCollider)) {
@@ -70,10 +69,11 @@ public:
 
 		const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
 		const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
-		weaponCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
+		weaponCollider->setPosition(Vector2D(weaponColliderX - (weaponCollider->getWidth()) / 2, weaponColliderY - (weaponCollider->getHeight()) / 2));
 
-		destRect.x = weaponCollider->getPosition().x - Game::camera.x;
-		destRect.y = weaponCollider->getPosition().y - Game::camera.y;
+		destRect = weaponCollider->getDrawRect();
+		destRect.x -= Game::camera.x;
+		destRect.y -= Game::camera.y;
 	}
 
 	void draw() override

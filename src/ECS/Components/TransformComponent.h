@@ -31,6 +31,8 @@ public:
 	void setVeloctiy(Vector2D newVelocity) { velocity = newVelocity; }
 	void setPosition(float x, float y) { position.x = x; position.y = y; }
 	void setPosition(Vector2D newPosition) { position = newPosition; }
+	void movePosition(float dx, float dy) { position.x += dx; position.y += dy; }
+	void movePosition(Vector2D positionDelta) { position += positionDelta; }
 	void setDirection(float x, float y) { direction.x = x; direction.y = y; }
 	void setDirection(Vector2D newDirection) { direction = newDirection; }
 	void setDirectionX(float x) { direction.x = x; }

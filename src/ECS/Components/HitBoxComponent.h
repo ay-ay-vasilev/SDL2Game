@@ -59,13 +59,12 @@ public:
 			hitboxOffset.y *= transform->getScale();
 
 			hitbox->setScale(transform->getScale());
-			const auto hitboxPosition = hitbox->getPosition();
-			const auto hitboxX = hitboxPosition.x + transform->getPosition().x + hitboxOffset.x - (hitbox->getWidth()) / 2;
-			const auto hitboxY = hitboxPosition.y + transform->getPosition().y + hitboxOffset.y - (hitbox->getHeight()) / 2;
-			hitbox->setPosition(Vector2D(hitboxX, hitboxY));
+			const auto hitboxDX = transform->getPosition().x + hitboxOffset.x - (hitbox->getWidth()) / 2;
+			const auto hitboxDY = transform->getPosition().y + hitboxOffset.y - (hitbox->getHeight()) / 2;
+			hitbox->movePosition(Vector2D(hitboxDX, hitboxDY));
 		}
 
-		destRect = { static_cast<int>(hitbox->getPosition().x), static_cast<int>(hitbox->getPosition().y), hitbox->getWidth(), hitbox->getHeight() };
+		destRect = hitbox->getDrawRect();
 
 		std::string texturePath;
 		if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(hitbox)) {
@@ -84,8 +83,9 @@ public:
 		const auto y = static_cast<int>(transform->getPosition().y + hitboxOffset.y) - (hitbox->getHeight()) / 2;
 		hitbox->setPosition(Vector2D(x, y));
 
-		destRect.x = hitbox->getPosition().x - Game::camera.x;
-		destRect.y = hitbox->getPosition().y - Game::camera.y;
+		destRect = hitbox->getDrawRect();
+		destRect.x -= Game::camera.x;
+		destRect.y -= Game::camera.y;
 	}
 
 	void draw() override

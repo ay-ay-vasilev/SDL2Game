@@ -42,26 +42,26 @@ void CollisionSystem::update()
 				{
 					if (playerPosition.x < collider->getPosition().x)
 					{
-						playerTransformComponent.setPosition(playerPosition.x - overlapXInt, playerPosition.y);
-						playerColliderComponent.setColliderPos(playerCollider->getPosition().x - overlapXInt, playerCollider->getPosition().y);
+						playerTransformComponent.movePosition(-overlapXInt, 0);
+						playerColliderComponent.moveColliderPos(-overlapXInt, 0);
 					}
 					else
 					{
-						playerTransformComponent.setPosition(playerPosition.x + overlapXInt, playerPosition.y);
-						playerColliderComponent.setColliderPos(playerCollider->getPosition().x + overlapXInt, playerCollider->getPosition().y);
+						playerTransformComponent.movePosition(overlapXInt, 0);
+						playerColliderComponent.moveColliderPos(overlapXInt, 0);
 					}
 				}
 				else if (overlapX >= overlapY && overlapY > 0)
 				{
 					if (playerPosition.y < collider->getPosition().y)
 					{
-						playerTransformComponent.setPosition(playerPosition.x, playerPosition.y - overlapYInt);
-						playerColliderComponent.setColliderPos(playerCollider->getPosition().x, playerCollider->getPosition().y - overlapYInt);
+						playerTransformComponent.movePosition(0, -overlapYInt);
+						playerColliderComponent.moveColliderPos(0, -overlapYInt);
 					}
 					else
 					{
-						playerTransformComponent.setPosition(playerPosition.x, playerPosition.y + overlapYInt);
-						playerColliderComponent.setColliderPos(playerCollider->getPosition().x, playerCollider->getPosition().y + overlapYInt);
+						playerTransformComponent.movePosition(0, overlapYInt);
+						playerColliderComponent.moveColliderPos(0, overlapYInt);
 					}
 				}
 			}
