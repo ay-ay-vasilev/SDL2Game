@@ -23,17 +23,22 @@ class RectangleCollider : public ColliderShape
 {
 public:
 	RectangleCollider(const Vector2D& position, float width, float height) :
-		position(position), w(width), h(height) {}
+		position({ position.x - width/2, position.y - height/2 }), w(width), h(height) {}
 
 	bool collidesWith(const ColliderShape& other) const override;
 	float getOverlapX(const ColliderShape& other) const override;
 	float getOverlapY(const ColliderShape& other) const override;
 
-	void setPosition(const Vector2D& newPosition) override { position = newPosition; }
+	void setPosition(const Vector2D& newPosition) override { position = { newPosition.x - w / 2, newPosition.y - h / 2 }; }
 	void movePosition(const Vector2D& positionDelta) override { position += positionDelta; }
 	Vector2D getPosition() const override { return { position.x, position.y }; }
 	SDL_Rect getDrawRect() const override { return { static_cast<int>(position.x), static_cast<int>(position.y), w, h }; }
-	void setScale(float scaleVal) override { w *= scaleVal; h *= scaleVal; }
+	void setScale(float scaleVal) override
+	{
+		const Vector2D originalPosition{ position.x + w / 2, position.y + h / 2 };
+		w *= scaleVal; h *= scaleVal;
+		setPosition({ originalPosition.x - w / 2, originalPosition.y - h / 2 });
+	}
 	int getWidth() const override { return w; }
 	int getHeight() const override { return h; }
 private:
@@ -50,16 +55,11 @@ public:
 	float getOverlapX(const ColliderShape& other) const;
 	float getOverlapY(const ColliderShape& other) const;
 
-	void setPosition(const Vector2D& newPosition) override { position.x = newPosition.x + radius; position.y = newPosition.y + radius; }
-	void movePosition(const Vector2D& positionDelta) override { position.x += positionDelta.x + radius; position.y += positionDelta.y + radius; }
-	Vector2D getPosition() const override { return { position }; }
+	void setPosition(const Vector2D& newPosition) override { position = newPosition; }
+	void movePosition(const Vector2D& positionDelta) override { position += positionDelta; }
+	Vector2D getPosition() const override { return position; }
 	SDL_Rect getDrawRect() const override { return { static_cast<int>(position.x) - radius, static_cast<int>(position.y) - radius, radius * 2, radius * 2 }; }
-	void setScale(float scaleVal) override
-	{
-		const Vector2D centerPosition{ position.x - radius, position.y - radius };
-		radius *= scaleVal;
-		setPosition({ centerPosition.x + radius, centerPosition.y + radius });
-	}
+	void setScale(float scaleVal) override { radius *= scaleVal; }
 	int getWidth() const override { return radius * 2; }
 	int getHeight() const override { return radius * 2; }
 

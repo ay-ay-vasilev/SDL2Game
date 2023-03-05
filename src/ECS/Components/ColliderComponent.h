@@ -64,8 +64,8 @@ public:
 			colliderOffset.y *= transform->getScale();
 
 			collider->setScale(transform->getScale());
-			const auto colliderDX = transform->getPosition().x + colliderOffset.x - (collider->getWidth()) / 2;
-			const auto colliderDY = transform->getPosition().y + colliderOffset.y - (collider->getHeight()) / 2;
+			const auto colliderDX = transform->getPosition().x + colliderOffset.x;
+			const auto colliderDY = transform->getPosition().y + colliderOffset.y;
 			collider->movePosition(Vector2D(colliderDX, colliderDY));
 		}
 
@@ -87,8 +87,8 @@ public:
 	{
 		if (tag != "terrain")
 		{
-			const auto x = static_cast<int>(transform->getPosition().x + colliderOffset.x) - (collider->getWidth()) / 2;
-			const auto y = static_cast<int>(transform->getPosition().y + colliderOffset.y) - (collider->getHeight()) / 2;
+			const auto x = static_cast<int>(transform->getPosition().x + colliderOffset.x);
+			const auto y = static_cast<int>(transform->getPosition().y + colliderOffset.y);
 			collider->setPosition(Vector2D(x, y));
 		}
 

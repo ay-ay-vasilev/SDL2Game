@@ -39,7 +39,7 @@ public:
 			weaponCollider->setScale(transform->getScale());
 			const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
 			const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
-			weaponCollider->setPosition(Vector2D(weaponColliderX - (weaponCollider->getWidth()) / 2, weaponColliderY - (weaponCollider->getHeight()) / 2));
+			weaponCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
 		}
 		if (entity->hasComponent<HitboxComponent>())
 		{
@@ -69,7 +69,7 @@ public:
 
 		const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
 		const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
-		weaponCollider->setPosition(Vector2D(weaponColliderX - (weaponCollider->getWidth()) / 2, weaponColliderY - (weaponCollider->getHeight()) / 2));
+		weaponCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
 
 		destRect = weaponCollider->getDrawRect();
 		destRect.x -= Game::camera.x;

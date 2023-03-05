@@ -2,9 +2,9 @@
 	"speed": 10,
 	"collider_rect":
 	{
-		"shape": "rectangle",
+		"shape": "circle",
 		"dx": 0, "dy": 6,
-		"w": 4, "h": 2
+		"radius": 2
 	},
 	"hitbox_rect":
 	{
@@ -16,9 +16,8 @@
 	{
 		"shape": "circle",
 		"x": 4, "y": 4,
-		"offset": { "dx": 0, "dy": 20 },
-		"radius": 8,
-		"w": 16, "h": 16
+		"offset": { "dx": 0, "dy": 16 },
+		"radius": 10
 	},
 	"sprite_data":
 	{

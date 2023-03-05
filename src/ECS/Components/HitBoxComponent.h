@@ -59,8 +59,8 @@ public:
 			hitboxOffset.y *= transform->getScale();
 
 			hitbox->setScale(transform->getScale());
-			const auto hitboxDX = transform->getPosition().x + hitboxOffset.x - (hitbox->getWidth()) / 2;
-			const auto hitboxDY = transform->getPosition().y + hitboxOffset.y - (hitbox->getHeight()) / 2;
+			const auto hitboxDX = transform->getPosition().x + hitboxOffset.x;
+			const auto hitboxDY = transform->getPosition().y + hitboxOffset.y;
 			hitbox->movePosition(Vector2D(hitboxDX, hitboxDY));
 		}
 
@@ -79,8 +79,8 @@ public:
 
 	void update() override
 	{
-		const auto x = static_cast<int>(transform->getPosition().x + hitboxOffset.x) - (hitbox->getWidth()) / 2;
-		const auto y = static_cast<int>(transform->getPosition().y + hitboxOffset.y) - (hitbox->getHeight()) / 2;
+		const auto x = static_cast<int>(transform->getPosition().x + hitboxOffset.x);
+		const auto y = static_cast<int>(transform->getPosition().y + hitboxOffset.y);
 		hitbox->setPosition(Vector2D(x, y));
 
 		destRect = hitbox->getDrawRect();
