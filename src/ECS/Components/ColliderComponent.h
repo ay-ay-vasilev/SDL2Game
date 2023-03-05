@@ -87,8 +87,8 @@ public:
 	{
 		if (tag != "terrain")
 		{
-			const auto x = static_cast<int>(transform->getPosition().x + colliderOffset.x);
-			const auto y = static_cast<int>(transform->getPosition().y + colliderOffset.y);
+			const auto x = transform->getPosition().x + colliderOffset.x;
+			const auto y = transform->getPosition().y + colliderOffset.y;
 			collider->setPosition(Vector2D(x, y));
 		}
 
@@ -104,10 +104,10 @@ public:
 	}
 
 	std::shared_ptr<ColliderShape> getCollider() const { return collider; }
-	void setColliderPos(int x, int y) { collider->setPosition(Vector2D(x, y)); }
-	void moveColliderPos(int dx, int dy) { collider->movePosition(Vector2D(dx, dy)); }
+	void setColliderPos(float x, float y) { collider->setPosition(Vector2D(x, y)); }
+	void moveColliderPos(float dx, float dy) { collider->movePosition(Vector2D(dx, dy)); }
 
-	int getLowestPoint() const { return collider->getPosition().y + collider->getHeight(); }
+	float getLowestPoint() const { return collider->getPosition().y + collider->getHeight(); }
 	void setDebugDraw(bool value) { debugDraw = value; }
 
 private:

@@ -79,8 +79,8 @@ public:
 
 	void update() override
 	{
-		const auto x = static_cast<int>(transform->getPosition().x + hitboxOffset.x);
-		const auto y = static_cast<int>(transform->getPosition().y + hitboxOffset.y);
+		const auto x = transform->getPosition().x + hitboxOffset.x;
+		const auto y = transform->getPosition().y + hitboxOffset.y;
 		hitbox->setPosition(Vector2D(x, y));
 
 		destRect = hitbox->getDrawRect();

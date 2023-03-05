@@ -15,8 +15,8 @@ public:
 	virtual Vector2D getPosition() const = 0;
 	virtual SDL_Rect getDrawRect() const = 0;
 	virtual void setScale(float scaleVal) = 0;
-	virtual int getWidth() const = 0;
-	virtual int getHeight() const = 0;
+	virtual float getWidth() const = 0;
+	virtual float getHeight() const = 0;
 };
 
 class RectangleCollider : public ColliderShape
@@ -32,18 +32,18 @@ public:
 	void setPosition(const Vector2D& newPosition) override { position = { newPosition.x - w / 2, newPosition.y - h / 2 }; }
 	void movePosition(const Vector2D& positionDelta) override { position += positionDelta; }
 	Vector2D getPosition() const override { return { position.x, position.y }; }
-	SDL_Rect getDrawRect() const override { return { static_cast<int>(position.x), static_cast<int>(position.y), w, h }; }
+	SDL_Rect getDrawRect() const override { return { static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(w), static_cast<int>(h) }; }
 	void setScale(float scaleVal) override
 	{
 		const Vector2D originalPosition{ position.x + w / 2, position.y + h / 2 };
 		w *= scaleVal; h *= scaleVal;
 		setPosition({ originalPosition.x - w / 2, originalPosition.y - h / 2 });
 	}
-	int getWidth() const override { return w; }
-	int getHeight() const override { return h; }
+	float getWidth() const override { return w; }
+	float getHeight() const override { return h; }
 private:
 	Vector2D position;
-	int w, h;
+	float w, h;
 };
 
 class CircleCollider : public ColliderShape {
@@ -58,14 +58,14 @@ public:
 	void setPosition(const Vector2D& newPosition) override { position = newPosition; }
 	void movePosition(const Vector2D& positionDelta) override { position += positionDelta; }
 	Vector2D getPosition() const override { return position; }
-	SDL_Rect getDrawRect() const override { return { static_cast<int>(position.x) - radius, static_cast<int>(position.y) - radius, radius * 2, radius * 2 }; }
+	SDL_Rect getDrawRect() const override { return { static_cast<int>(position.x - radius), static_cast<int>(position.y - radius), static_cast<int>(radius) * 2, static_cast<int>(radius) * 2 }; }
 	void setScale(float scaleVal) override { radius *= scaleVal; }
-	int getWidth() const override { return radius * 2; }
-	int getHeight() const override { return radius * 2; }
+	float getWidth() const override { return radius * 2; }
+	float getHeight() const override { return radius * 2; }
 
 	float getRadius() const { return radius; }
 
 private:
 	Vector2D position;
-	int radius;
+	float radius;
 };
