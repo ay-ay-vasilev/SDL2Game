@@ -17,6 +17,7 @@ public:
 	virtual void setScale(float scaleVal) = 0;
 	virtual float getWidth() const = 0;
 	virtual float getHeight() const = 0;
+	virtual float getLowestPoint() const = 0;
 };
 
 class RectangleCollider : public ColliderShape
@@ -41,6 +42,7 @@ public:
 	}
 	float getWidth() const override { return w; }
 	float getHeight() const override { return h; }
+	float getLowestPoint() const override { return position.y + w / 2; }
 private:
 	Vector2D position;
 	float w, h;
@@ -62,8 +64,8 @@ public:
 	void setScale(float scaleVal) override { radius *= scaleVal; }
 	float getWidth() const override { return radius * 2; }
 	float getHeight() const override { return radius * 2; }
-
 	float getRadius() const { return radius; }
+	float getLowestPoint() const override { return position.y + radius; }
 
 private:
 	Vector2D position;

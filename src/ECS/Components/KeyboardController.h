@@ -39,25 +39,25 @@ public:
 
 		if (state != eState::ATTACK)
 		{
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_w)])
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_w)] || keyboardState[SDL_GetScancodeFromKey(SDLK_UP)])
 			{
 				y -= 1;
 				transform->setDirectionY(-1.f);
 				animName = "walk";
 			}
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_a)])
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_a)] || keyboardState[SDL_GetScancodeFromKey(SDLK_LEFT)])
 			{
 				x -= 1;
 				transform->setDirectionX(-1.f);
 				animName = "walk";
 			}
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_s)])
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_s)] || keyboardState[SDL_GetScancodeFromKey(SDLK_DOWN)])
 			{
 				y += 1;
 				transform->setDirectionY(1.f);
 				animName = "walk";
 			}
-			if (keyboardState[SDL_GetScancodeFromKey(SDLK_d)])
+			if (keyboardState[SDL_GetScancodeFromKey(SDLK_d)] || keyboardState[SDL_GetScancodeFromKey(SDLK_RIGHT)])
 			{
 				x += 1;
 				transform->setDirectionX(1.f);

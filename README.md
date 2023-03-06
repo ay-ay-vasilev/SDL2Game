@@ -23,7 +23,6 @@ My plan:
 - Implement attack combos, remove attack holding ?
 
 Maintenance:
-- Fix warnings
 - Smart pointers for components ?
 - Add map json.
 - Clean up in constants and settings.json.

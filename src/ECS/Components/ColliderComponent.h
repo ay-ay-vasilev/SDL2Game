@@ -107,7 +107,7 @@ public:
 	void setColliderPos(float x, float y) { collider->setPosition(Vector2D(x, y)); }
 	void moveColliderPos(float dx, float dy) { collider->movePosition(Vector2D(dx, dy)); }
 
-	float getLowestPoint() const { return collider->getPosition().y + collider->getHeight(); }
+	float getLowestPoint() const { return collider->getLowestPoint(); }
 	void setDebugDraw(bool value) { debugDraw = value; }
 
 private:
