@@ -10,7 +10,6 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
-- Add an attack animation for a human.
 - Add a simple health system.
 - Add a simple AI system.
 - Add a simple menu screen + UI system.
@@ -23,11 +22,10 @@ My plan:
 - Implement attack combos, remove attack holding ?
 
 Maintenance:
-- Smart pointers for components ?
-- Add map json.
-- Clean up in constants and settings.json.
-- Fix human walk animation.
 - Fix scale.
+- Add map json.
+- Fix Tile-Collider logic
+- Smart pointers for components ?
+- Clean up in constants and settings.json.
 - Refactor actor json to an entity json ?
 - Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update)
-- Fix Tile-Collider logic

@@ -85,7 +85,7 @@ void Game::init()
 	projectileSystem->instantiateProjectile(Vector2D(200, 300), Vector2D(2, 2), projectileFile);
 	projectileSystem->instantiateProjectile(Vector2D(600, 200), Vector2D(-2, 2), projectileFile);
 
-	playerSystem->instantiatePlayer(constants->PLAYER_POS, "goblin");
+	playerSystem->instantiatePlayer(constants->PLAYER_POS, "human");
 	enemySystem->instantiateEnemy(constants->ENEMY_POS, "human");
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
 }
