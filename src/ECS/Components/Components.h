@@ -10,3 +10,4 @@
 #include "UILabelComponent.h"
 
 #include "WeaponComponent.h"
+#include "HealthComponent.h"

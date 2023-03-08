@@ -179,6 +179,9 @@
     <ClInclude Include="..\src\Common\ColliderShape.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\HealthComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">

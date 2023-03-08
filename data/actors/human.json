@@ -1,5 +1,9 @@
 {
-	"speed": 10,
+	"speed": 6,
+	"health":
+	{
+		"max_health": 100
+	},
 	"collider_rect":
 	{
 		"shape": "circle",
@@ -12,12 +16,16 @@
 		"dx": 0, "dy": 0,
 		"w": 10, "h": 32
 	},
-	"weapon_rect":
+	"weapon":
 	{
-		"shape": "circle",
-		"x": 8, "y": 8,
-		"offset": { "dx": 0, "dy": 16 },
-		"radius": 16
+		"damage": 20,
+		"weapon_rect":
+		{
+			"shape": "circle",
+			"x": 8, "y": 8,
+			"offset": { "dx": 0, "dy": 16 },
+			"radius": 16
+		}
 	},
 	"sprite_data":
 	{
@@ -36,14 +44,14 @@
 			{
 				"id": 1,
 				"num_of_frames": 8,
-				"speed": 80
+				"speed": 100
 			},
 			"attack":
 			{
 				"id": 2,
 				"num_of_frames": 5,
 				"trigger_frames": [1, 2, 3],
-				"speed": 80
+				"speed": 100
 			}
 		}
 	}

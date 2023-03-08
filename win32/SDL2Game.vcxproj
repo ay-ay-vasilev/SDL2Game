@@ -46,6 +46,7 @@
     <ClInclude Include="..\src\Constants\Constants.h" />
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h" />
     <ClInclude Include="..\src\ECS\Components\Components.h" />
+    <ClInclude Include="..\src\ECS\Components\HealthComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HitboxComponent.h" />
     <ClInclude Include="..\src\ECS\Components\KeyboardController.h" />
     <ClInclude Include="..\src\ECS\Components\ProjectileComponent.h" />

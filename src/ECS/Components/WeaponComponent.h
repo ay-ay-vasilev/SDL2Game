@@ -11,21 +11,24 @@ public:
 		tag(tag),
 		transform(nullptr), texture(nullptr), sprite(nullptr),
 		srcRect(), destRect(),
-		weaponColliderDirectionCoefficient({ weaponColliderData["x"], weaponColliderData["y"] }),
+		weaponColliderDirectionCoefficient({ weaponColliderData["weapon_rect"]["x"], weaponColliderData["weapon_rect"]["y"] }),
 		weaponColliderOffset({ 0, 0 }),
-		enabled(isProjectile)
+		enabled(isProjectile),
+		destroyOnHit(isProjectile),
+		damage(0)
 	{
-		if (weaponColliderData["shape"] == "circle")
+		if (weaponColliderData["weapon_rect"]["shape"] == "circle")
 		{
-			weaponCollider = std::make_shared<CircleCollider>(Vector2D(0, 0), weaponColliderData["radius"]);
+			weaponCollider = std::make_shared<CircleCollider>(Vector2D(0, 0), weaponColliderData["weapon_rect"]["radius"]);
 		}
-		if (weaponColliderData["shape"] == "rectangle")
+		if (weaponColliderData["weapon_rect"]["shape"] == "rectangle")
 		{
-			weaponCollider = std::make_shared<RectangleCollider>(Vector2D(0, 0), weaponColliderData["w"], weaponColliderData["h"]);
+			weaponCollider = std::make_shared<RectangleCollider>(Vector2D(0, 0), weaponColliderData["weapon_rect"]["w"], weaponColliderData["weapon_rect"]["h"]);
 		}
-		if (weaponColliderData.contains("offset")) {
-			weaponColliderOffset = { weaponColliderData["offset"]["dx"], weaponColliderData["offset"]["dy"] };
+		if (weaponColliderData["weapon_rect"].contains("offset")) {
+			weaponColliderOffset = { weaponColliderData["weapon_rect"]["offset"]["dx"], weaponColliderData["weapon_rect"]["offset"]["dy"]};
 		}
+		damage = weaponColliderData.value("damage", 0);
 	}
 
 	void init() override
@@ -103,10 +106,14 @@ public:
 	void addAffectedTarget(int id) { affectedTargets.emplace_back(id); }
 	void setDebugDraw(bool value) { debugDraw = value; }
 
-	bool isEnabled() const { return enabled; }
 	std::string getOwnerTag() const { return ownerTag; }
 	std::string getTag() const { return tag; }
 	bool isInAffectedTargets(int id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
+
+	int getDamage() const { return damage; }
+
+	bool isEnabled() const { return enabled; }
+	bool isDestroyedOnHit() const { return destroyOnHit; }
 
 private:
 	TransformComponent* transform;
@@ -121,6 +128,8 @@ private:
 	std::vector<int> affectedTargets;
 
 	bool enabled;
+	bool destroyOnHit;
 	bool debugDraw = false;
 
+	int damage;
 };

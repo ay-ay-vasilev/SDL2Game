@@ -11,11 +11,15 @@
 		"dx": 0, "dy": 0,
 		"radius": 5
 	},
-	"weapon_rect":
+	"weapon":
 	{
-		"shape": "circle",
-		"x": 0, "y": 0,
-		"radius": 5
+		"damage": 5,
+		"weapon_rect":
+		{
+			"shape": "circle",
+			"x": 0, "y": 0,
+			"radius": 5
+		}
 	},
 	"sprite_data":
 	{
@@ -26,6 +30,10 @@
 	"projectile_data":
 	{
 		"range": 200,
-		"speed": 2
+		"speed": 2,
+		"health":
+		{
+			"max_health": 1
+		}
 	}
 }

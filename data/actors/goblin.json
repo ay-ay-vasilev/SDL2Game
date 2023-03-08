@@ -1,5 +1,9 @@
 {
 	"speed": 10,
+	"health":
+	{
+		"max_health": 20
+	},
 	"collider_rect":
 	{
 		"shape": "circle",
@@ -12,12 +16,16 @@
 		"dx": 0, "dy": 2,
 		"w": 4, "h": 10
 	},
-	"weapon_rect":
+	"weapon":
 	{
-		"shape": "circle",
-		"x": 4, "y": 4,
-		"offset": { "dx": 0, "dy": 16 },
-		"radius": 10
+		"damage": 5,
+		"weapon_rect":
+		{
+			"shape": "circle",
+			"x": 4, "y": 4,
+			"offset": { "dx": 0, "dy": 16 },
+			"radius": 10
+		}
 	},
 	"sprite_data":
 	{

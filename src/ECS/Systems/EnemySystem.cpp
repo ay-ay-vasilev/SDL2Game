@@ -22,7 +22,10 @@ void EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filen
 	enemy.addComponent<SpriteComponent>(enemyData["sprite_data"], true);
 	enemy.addComponent<ColliderComponent>("enemy", enemyData["collider_rect"]);
 	enemy.addComponent<HitboxComponent>("enemy", enemyData["hitbox_rect"]);
+	enemy.addComponent<HealthComponent>(enemyData["health"]);
+
 	enemy.addGroup(Game::eGroupLabels::ENEMIES);
+
 }
 
 void EnemySystem::update()

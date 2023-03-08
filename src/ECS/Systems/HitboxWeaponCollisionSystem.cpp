@@ -16,13 +16,13 @@ void HitboxWeaponCollisionSystem::update()
 		entity->getComponent<WeaponComponent>().setDebugDraw(manager.getConstants()->DRAW_HITBOXES);
 	}
 
-	for (auto hitbox : hitboxes)
+	for (auto hitboxEntity : hitboxes)
 	{
-		auto& hitboxCollider = hitbox->getComponent<HitboxComponent>();
+		auto& hitboxCollider = hitboxEntity->getComponent<HitboxComponent>();
 
-		for (auto weapon : weapons)
+		for (auto weaponWieldingEntity : weapons)
 		{
-			auto& weaponCollider = weapon->getComponent<WeaponComponent>();
+			auto& weaponCollider = weaponWieldingEntity->getComponent<WeaponComponent>();
 			
 			if (!weaponCollider.isEnabled())
 				continue;
@@ -34,7 +34,27 @@ void HitboxWeaponCollisionSystem::update()
 			if (weaponCollider.getCollider()->collidesWith(*(hitboxCollider.getHitbox())))
 			{
 				weaponCollider.addAffectedTarget(hitboxCollider.getId());
-				std::cout << hitboxCollider.getTag() << " got hit by " << weaponCollider.getTag() << "!\n";
+				auto& actorHealthComponent = hitboxEntity->getComponent<HealthComponent>();
+
+				const int damage = weaponCollider.getDamage();
+				actorHealthComponent.changeHealth(-damage);
+				const int currentHealth = actorHealthComponent.getHealth();
+
+				std::cout
+					<< hitboxCollider.getTag() << " got hit by " << weaponCollider.getTag() << " for " << damage << " damage!"
+					<< hitboxCollider.getTag() << " has " << currentHealth << " hp left!\n";
+
+				if (currentHealth <= 0)
+				{
+					// TODO better death handling!
+					hitboxEntity->destroy();
+					std::cout << hitboxCollider.getTag() << " died!\n";
+				}
+
+				if (weaponCollider.isDestroyedOnHit())
+				{
+					weaponWieldingEntity->destroy();
+				}
 			}
 		}
 	}

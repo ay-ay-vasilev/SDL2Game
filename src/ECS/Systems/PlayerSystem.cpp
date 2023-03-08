@@ -25,12 +25,16 @@ void PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& fil
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player", playerData["collider_rect"]);
 	player.addComponent<HitboxComponent>("player", playerData["hitbox_rect"]);
-	player.addComponent<WeaponComponent>("sword", playerData["weapon_rect"]);
+	player.addComponent<WeaponComponent>("sword", playerData["weapon"]);
+	player.addComponent<HealthComponent>(playerData["health"]);
+
 	player.addGroup(Game::eGroupLabels::PLAYERS);
 }
 
 const Vector2D PlayerSystem::getPlayerPosition() const
 {
+	if (players.empty())
+		return Vector2D();
 	return (*players.begin())->getComponent<TransformComponent>().getPosition();
 }
 
