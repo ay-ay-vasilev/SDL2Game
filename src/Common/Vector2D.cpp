@@ -1,4 +1,5 @@
 #include "Vector2D.h"
+#include <cmath>
 
 Vector2D::Vector2D() : x(0.f), y(0.f) {}
 Vector2D::Vector2D(float x, float y) : x(x), y(y) {}
@@ -99,4 +100,11 @@ std::ostream& operator<<(std::ostream& stream, const Vector2D& vec)
 {
 	stream << "(" << vec.x << ", " << vec.y << ")";
 	return stream;
+}
+
+float Vector2D::Distance(const Vector2D& v1, const Vector2D& v2)
+{
+	float dx = v1.x - v2.x;
+	float dy = v1.y - v2.y;
+	return std::sqrt(dx * dx + dy * dy);
 }

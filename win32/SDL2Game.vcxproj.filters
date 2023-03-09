@@ -182,6 +182,12 @@
     <ClInclude Include="..\src\ECS\Components\HealthComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\AIComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\AIComponentBasicEnemy.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">

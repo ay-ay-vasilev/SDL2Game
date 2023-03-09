@@ -44,6 +44,8 @@
     <ClInclude Include="..\src\Common\Subject.h" />
     <ClInclude Include="..\src\Common\Vector2D.h" />
     <ClInclude Include="..\src\Constants\Constants.h" />
+    <ClInclude Include="..\src\ECS\Components\AIComponent.h" />
+    <ClInclude Include="..\src\ECS\Components\AIComponentBasicEnemy.h" />
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h" />
     <ClInclude Include="..\src\ECS\Components\Components.h" />
     <ClInclude Include="..\src\ECS\Components\HealthComponent.h" />

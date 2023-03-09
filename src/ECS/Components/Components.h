@@ -11,3 +11,6 @@
 
 #include "WeaponComponent.h"
 #include "HealthComponent.h"
+
+#include "AIComponent.h"
+#include "AIComponentBasicEnemy.h"

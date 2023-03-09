@@ -29,6 +29,7 @@ public:
 	Vector2D& Zero();
 	Vector2D& Normalize();
 
+	static float Distance(const Vector2D& v1, const Vector2D& v2);
 };
 
 std::ostream& operator<<(std::ostream& stream, const Vector2D& vec);
