@@ -2,7 +2,7 @@
 	"speed": 10,
 	"health":
 	{
-		"max_health": 20
+		"max_health": 100
 	},
 	"collider_rect":
 	{
