@@ -78,6 +78,11 @@ public:
 		return componentBitSet[getComponentTypeID<T>()];
 	}
 
+	template <typename... ComponentTypes> bool hasComponents() const
+	{
+		return (hasComponent<ComponentTypes>() && ...);
+	}
+
 	template <typename T, typename... TArgs>
 	std::shared_ptr<T> addComponent(TArgs&&... mArgs)
 	{
@@ -200,6 +205,18 @@ public:
 			}
 		}
 		return entitiesWithComponent;
+	}
+
+	template <typename... ComponentTypes>
+	std::vector<Entity*> getEntitiesWithComponents()
+	{
+		std::vector<Entity*> entitiesWithComponents;
+		for (const auto& e : entities) {
+			if (e->hasComponents<ComponentTypes...>()) {
+				entitiesWithComponents.push_back(e.get());
+			}
+		}
+		return entitiesWithComponents;
 	}
 
 	float getScale() { return scale; }

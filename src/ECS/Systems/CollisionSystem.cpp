@@ -10,18 +10,18 @@ void CollisionSystem::update()
 		entity->getComponent<ColliderComponent>()->setDebugDraw(manager.getConstants()->DRAW_COLLIDERS);
 	}
 
-	players = manager.getEntitiesWithComponent<WeaponComponent>();
+	movingColliders = manager.getEntitiesWithComponents<TransformComponent, ColliderComponent>();
 
 	colliders = manager.getGroup(Game::eGroupLabels::COLLIDERS);
 
-	for (auto player : players)
+	for (auto movingCollider : movingColliders)
 	{
-		auto playerColliderComponent = player->getComponent<ColliderComponent>();
-		auto playerTransformComponent = player->getComponent<TransformComponent>();
+		auto playerColliderComponent = movingCollider->getComponent<ColliderComponent>();
+		auto playerTransformComponent = movingCollider->getComponent<TransformComponent>();
 
 		for (auto c : colliders)
 		{
-			if (c == player)
+			if (c == movingCollider)
 			{
 				continue;
 			}

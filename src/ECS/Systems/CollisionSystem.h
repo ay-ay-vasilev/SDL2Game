@@ -10,6 +10,6 @@ public:
 	void draw() override;
 
 private:
-	std::vector<Entity*> players;
+	std::vector<Entity*> movingColliders;
 	std::vector<Entity*> colliders;
 };
