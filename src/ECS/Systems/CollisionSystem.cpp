@@ -10,7 +10,8 @@ void CollisionSystem::update()
 		entity->getComponent<ColliderComponent>()->setDebugDraw(manager.getConstants()->DRAW_COLLIDERS);
 	}
 
-	players = manager.getGroup(Game::eGroupLabels::PLAYERS);
+	players = manager.getEntitiesWithComponent<WeaponComponent>();
+
 	colliders = manager.getGroup(Game::eGroupLabels::COLLIDERS);
 
 	for (auto player : players)

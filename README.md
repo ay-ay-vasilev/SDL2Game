@@ -12,7 +12,7 @@ Stuff to remember:
 My plan:
 - Add a simple AI system.
 	* Refactor AI component ALMOST (remove magic num + smart pointer for entity)
-	* AI movement
+	* AI movement (refine: REDO entity getting in CollisionSystem)
 	* Default behavior
 	* Notice/aggro range
 

@@ -31,11 +31,13 @@ void PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& fil
 	player.addGroup(Game::eGroupLabels::PLAYERS);
 }
 
-const Vector2D PlayerSystem::getPlayerPosition() const
+const Vector2D PlayerSystem::getPlayerPosition()
 {
-	if (players.empty())
-		return Vector2D();
-	return (*players.begin())->getComponent<TransformComponent>()->getPosition();
+	if (!players.empty())
+	{
+		lastPlayerPosition = (*players.begin())->getComponent<TransformComponent>()->getPosition();
+	}
+	return lastPlayerPosition;
 }
 
 void PlayerSystem::update()

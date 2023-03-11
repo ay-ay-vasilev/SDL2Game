@@ -31,11 +31,20 @@ public:
 	{
 		if (target)
 		{
+			transform->setVeloctiy(0, 0);
 			distance = Vector2D::Distance(targetTransform->getPosition(), transform->getPosition());
 			if (distance < 32 * 6 && state != eState::ATTACK) // todo REMOVE MAGIC NUM + ADD STATES FROM KEYBOARD CONTROLLER
 			{
 				transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
 				sprite->play("attack");
+				state = eState::ATTACK;
+			}
+			else if (state != eState::ATTACK)
+			{
+				transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
+				transform->setVeloctiy(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
+				sprite->play("walk");
+				state = eState::WALK;
 			}
 		}
 		else
