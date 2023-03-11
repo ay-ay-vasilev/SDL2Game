@@ -1,7 +1,8 @@
 #pragma once
 #include "Components.h"
+#include "Subject.h"
 
-class HealthComponent : public Component
+class HealthComponent : public Component, public Subject
 {
 public:
 	HealthComponent(const nlohmann::json& healthData)
@@ -12,6 +13,12 @@ public:
 
 	void update() override
 	{
+		if (healthValue <= 0)
+		{
+			// move tag to entity instead?
+			sendSignal(entity->getComponent<HitboxComponent>()->getTag() + "_died");
+			entity->destroy();
+		}
 	}
 
 	bool changeHealth(int value)
@@ -30,6 +37,12 @@ public:
 
 	int getHealth() const { return healthValue; }
 	int getMaxHealth() const { return maxHealthValue; }
+
+	void sendSignal(const std::string& eventName)
+	{
+		std::cout << eventName << "\n";
+		notify(eventName);
+	}
 
 private:
 	int healthValue;

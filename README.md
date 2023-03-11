@@ -11,7 +11,12 @@ Stuff to remember:
 
 My plan:
 - Add a simple AI system.
-- Ranged weapon for player.
+	* Refactor AI component ALMOST (remove magic num + smart pointer for entity)
+	* AI movement
+	* Default behavior
+	* Notice/aggro range
+
+- Ranged weapon for player (after JSON weapon refactor).
 - Add a simple menu screen + UI system.
 - Add simple sounds.
 - Add an inventory system.
@@ -22,16 +27,16 @@ My plan:
 - Implement attack combos, remove attack holding ?
 
 Maintenance:
+- Smart pointers for entities.
+- Smart pointers for observers.
 - Fix scale.
 - Add map json.
-- Fix Tile-Collider logic
-- Smart pointers for components ?
+- Fix Tile-Collider logic.
 - Clean up in constants and settings.json.
 - Refactor actor json to an entity json ?
-- Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update)
-- JSON files for weapons
-- Better WeaponComponent implementation (add an object for weapon stats)
-- Better death handling
+- Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update).
+- JSON files for weapons.
+- Better WeaponComponent implementation (add an object for weapon stats).
 - i-frames ?
 
 Future plans:
@@ -42,3 +47,5 @@ Future plans:
 - Player randomization
 - Looting
 - Inventory system
+- Death animation
+- Hit feedback

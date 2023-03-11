@@ -16,20 +16,33 @@ public:
 
 	void init() override
 	{
-		transform = &entity->getComponent<TransformComponent>();
-		sprite = &entity->getComponent<SpriteComponent>();
+		transform = entity->getComponent<TransformComponent>();
+
+		sprite = entity->getComponent<SpriteComponent>();
 		sprite->addObserver(this);
+
+		targetHealth = target->getComponent<HealthComponent>();
+		targetHealth->addObserver(this);
+
+		targetTransform = target->getComponent<TransformComponent>();
 	}
 
 	void update() override
 	{
 		if (target)
-			distance = Vector2D::Distance(target->getComponent<TransformComponent>().getPosition(), entity->getComponent<TransformComponent>().getPosition());
-
-		if (distance < 32 * 6 && state != eState::ATTACK) // todo REMOVE MAGIC NUM + ADD STATES FROM KEYBOARD CONTROLLER
 		{
-			sprite->play("attack");
+			distance = Vector2D::Distance(targetTransform->getPosition(), transform->getPosition());
+			if (distance < 32 * 6 && state != eState::ATTACK) // todo REMOVE MAGIC NUM + ADD STATES FROM KEYBOARD CONTROLLER
+			{
+				transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
+				sprite->play("attack");
+			}
 		}
+		else
+		{
+			// switch to default behavior
+		}
+
 	}
 
 	void onNotify(const std::string_view& observedEvent) override
@@ -39,12 +52,19 @@ public:
 			sprite->play("idle");
 			state = eState::IDLE;
 		}
+		if (observedEvent == "player_died")
+		{
+			target = nullptr;
+			std::cout << "target lost!\n";
+		}
 	}
 
 private:
 	const Entity* target; // redo with smart pointer!
-	TransformComponent* transform;
-	SpriteComponent* sprite;
+	std::shared_ptr<HealthComponent> targetHealth;
+	std::shared_ptr<TransformComponent> targetTransform;
+	std::shared_ptr<TransformComponent> transform;
+	std::shared_ptr<SpriteComponent> sprite;
 	eState state = eState::IDLE;
 	int distance;
 };

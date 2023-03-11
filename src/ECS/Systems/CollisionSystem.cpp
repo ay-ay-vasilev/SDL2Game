@@ -7,7 +7,7 @@ void CollisionSystem::update()
 	auto entitiesWithColliders = manager.getEntitiesWithComponent<ColliderComponent>();
 	for (auto entity : entitiesWithColliders)
 	{
-		entity->getComponent<ColliderComponent>().setDebugDraw(manager.getConstants()->DRAW_COLLIDERS);
+		entity->getComponent<ColliderComponent>()->setDebugDraw(manager.getConstants()->DRAW_COLLIDERS);
 	}
 
 	players = manager.getGroup(Game::eGroupLabels::PLAYERS);
@@ -15,8 +15,8 @@ void CollisionSystem::update()
 
 	for (auto player : players)
 	{
-		auto& playerColliderComponent = player->getComponent<ColliderComponent>();
-		auto& playerTransformComponent = player->getComponent<TransformComponent>();
+		auto playerColliderComponent = player->getComponent<ColliderComponent>();
+		auto playerTransformComponent = player->getComponent<TransformComponent>();
 
 		for (auto c : colliders)
 		{
@@ -25,10 +25,10 @@ void CollisionSystem::update()
 				continue;
 			}
 
-			const auto playerCollider = playerColliderComponent.getCollider();
-			const auto playerPosition = playerTransformComponent.getPosition();
+			const auto playerCollider = playerColliderComponent->getCollider();
+			const auto playerPosition = playerTransformComponent->getPosition();
 
-			const auto collider = c->getComponent<ColliderComponent>().getCollider();
+			const auto collider = c->getComponent<ColliderComponent>()->getCollider();
 
 			if (playerCollider->collidesWith(*collider))
 			{
@@ -39,26 +39,26 @@ void CollisionSystem::update()
 				{
 					if (playerPosition.x < collider->getPosition().x)
 					{
-						playerTransformComponent.movePosition(-overlapX, 0.f);
-						playerColliderComponent.moveColliderPos(-overlapX, 0.f);
+						playerTransformComponent->movePosition(-overlapX, 0.f);
+						playerColliderComponent->moveColliderPos(-overlapX, 0.f);
 					}
 					else
 					{
-						playerTransformComponent.movePosition(overlapX, 0.f);
-						playerColliderComponent.moveColliderPos(overlapX, 0.f);
+						playerTransformComponent->movePosition(overlapX, 0.f);
+						playerColliderComponent->moveColliderPos(overlapX, 0.f);
 					}
 				}
 				else if (overlapX >= overlapY && overlapY > 0)
 				{
 					if (playerPosition.y < collider->getPosition().y)
 					{
-						playerTransformComponent.movePosition(0.f, -overlapY);
-						playerColliderComponent.moveColliderPos(0.f, -overlapY);
+						playerTransformComponent->movePosition(0.f, -overlapY);
+						playerColliderComponent->moveColliderPos(0.f, -overlapY);
 					}
 					else
 					{
-						playerTransformComponent.movePosition(0.f, overlapY);
-						playerColliderComponent.moveColliderPos(0.f, overlapY);
+						playerTransformComponent->movePosition(0.f, overlapY);
+						playerColliderComponent->moveColliderPos(0.f, overlapY);
 					}
 				}
 			}

@@ -33,7 +33,7 @@ constexpr std::size_t maxComponents = 32;
 constexpr std::size_t maxGroups = 32;
 
 using ComponentBitSet = std::bitset<maxComponents>;
-using ComponentArray = std::array<Component*, maxComponents>;
+using ComponentArray = std::array<std::shared_ptr<Component>, maxComponents>;
 using GroupBitSet = std::bitset<maxGroups>;
 
 class Component
@@ -53,11 +53,11 @@ public:
 	Entity(Manager& manager, int nextID) : manager(manager), id(nextID), componentArray{} {}
 	void update()
 	{
-		for (auto& c : components) c->update();
+		for (auto c : components) c->update();
 	}
 	void draw() 
 	{
-		for (auto& c : components) c->draw();
+		for (auto c : components) c->draw();
 	}
 	bool isActive() { return active; }
 	void destroy() { active = false; }
@@ -79,24 +79,24 @@ public:
 	}
 
 	template <typename T, typename... TArgs>
-	T& addComponent(TArgs&&... mArgs)
+	std::shared_ptr<T> addComponent(TArgs&&... mArgs)
 	{
-		T* c(new T(std::forward<TArgs>(mArgs)...));
+		std::shared_ptr<T> c = std::make_shared<T>(std::forward<TArgs>(mArgs)...);
 		c->entity = this;
-		std::unique_ptr<Component> uPtr{ c };
-		components.emplace_back(std::move(uPtr));
+		components.emplace_back(c);
 
 		componentArray[getComponentTypeID<T>()] = c;
 		componentBitSet[getComponentTypeID<T>()] = true;
 
 		c->init();
-		return *c;
+		return c;
 	}
 
-	template<typename T> T& getComponent() const
+	template<typename T>
+	std::shared_ptr<T> getComponent() const
 	{
-		auto ptr(componentArray[getComponentTypeID<T>()]);
-		return *static_cast<T*>(ptr);
+		std::shared_ptr<Component> c = componentArray[getComponentTypeID<T>()];
+		return std::dynamic_pointer_cast<T>(c);
 	}
 
 	int getID() const { return id; }
@@ -105,7 +105,7 @@ private:
 	int id;
 	Manager& manager;
 	bool active = true;
-	std::vector<std::unique_ptr<Component>> components;
+	std::vector<std::shared_ptr<Component>> components;
 
 	ComponentArray componentArray;
 	ComponentBitSet componentBitSet;

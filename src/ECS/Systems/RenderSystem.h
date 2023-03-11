@@ -16,7 +16,7 @@ public:
 		for (auto& entity : entitiesWithCollision)
 		{
 			const auto colliderComponent = entity->getComponent<ColliderComponent>();
-			const double z = colliderComponent.getLowestPoint();
+			const double z = colliderComponent->getLowestPoint();
 			sortedEntities.push_back({ entity, z });
 		}
 

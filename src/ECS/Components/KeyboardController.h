@@ -15,8 +15,8 @@ public:
 
 	void init() override
 	{
-		transform = &entity->getComponent<TransformComponent>();
-		sprite = &entity->getComponent<SpriteComponent>();
+		transform = entity->getComponent<TransformComponent>();
+		sprite = entity->getComponent<SpriteComponent>();
 		sprite->addObserver(this);
 	}
 
@@ -94,6 +94,6 @@ public:
 
 private:
 	eState state = eState::IDLE;
-	TransformComponent* transform;
-	SpriteComponent* sprite;
+	std::shared_ptr<TransformComponent> transform;
+	std::shared_ptr<SpriteComponent> sprite;
 };

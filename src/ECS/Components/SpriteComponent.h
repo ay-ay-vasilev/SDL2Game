@@ -52,7 +52,7 @@ public:
 	void init() override
 	{
 		animStartTime = 0;
-		transform = &entity->getComponent<TransformComponent>();
+		transform = entity->getComponent<TransformComponent>();
 
 		srcRect.x = 0;
 		srcRect.y = 0;
@@ -64,8 +64,8 @@ public:
 	{
 		if (animated)
 		{
-			Uint32 ticks = SDL_GetTicks();
-			Uint32 elapsed = ticks - animStartTime;
+			const Uint32 ticks = SDL_GetTicks();
+			const Uint32 elapsed = ticks - animStartTime;
 			int frameNum = static_cast<int>(elapsed) / speed;
 			// check if anim ended
 			if (frameNum >= frames && frameNum % frames == 0)
@@ -77,7 +77,7 @@ public:
 			// check for trigger events
 			if (!triggerFrames.empty())
 			{
-				auto isTriggerFrame = std::find(triggerFrames.begin(), triggerFrames.end(), frameNum) != triggerFrames.end();
+				const auto isTriggerFrame = std::find(triggerFrames.begin(), triggerFrames.end(), frameNum) != triggerFrames.end();
 				if (!triggered && isTriggerFrame)
 				{
 					triggered = true;
@@ -114,13 +114,15 @@ public:
 		
 		animName = newAnimPlay;
 		animStartTime = SDL_GetTicks();
-		auto animData = animations[animName];
+		const auto animData = animations[animName];
 		frames = animData.frames;
 		animIndex = animData.index;
 		speed = animData.speed;
 
 		if (animData.frameWidth) frameWidth = animData.frameWidth;
 		if (animData.frameHeight) frameHeight = animData.frameHeight;
+
+		triggerFrames.clear();
 		if (!animData.triggerFrames.empty()) triggerFrames = animData.triggerFrames;
 
 		animState = eAnimState::NONE;
@@ -170,8 +172,7 @@ public:
 			stateStr = "end";
 			break;
 		}
-		if (animName == "attack")
-			sendSignal(stateStr);
+		sendSignal(stateStr);
 	}
 
 	void sendSignal(const std::string& eventName)
@@ -186,7 +187,7 @@ private:
 	eAnimState animState = eAnimState::NONE;
 	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 
-	TransformComponent* transform;
+	std::shared_ptr<TransformComponent> transform;
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
 

@@ -108,3 +108,10 @@ float Vector2D::Distance(const Vector2D& v1, const Vector2D& v2)
 	float dy = v1.y - v2.y;
 	return std::sqrt(dx * dx + dy * dy);
 }
+
+Vector2D Vector2D::VectorBetween(const Vector2D& pos1, const Vector2D& pos2)
+{
+	float x = pos2.x - pos1.x;
+	float y = pos2.y - pos1.y;
+	return Vector2D(x, y);
+}

@@ -15,7 +15,7 @@ public:
 
 	void init() override
 	{
-		transform = &entity->getComponent<TransformComponent>();
+		transform = entity->getComponent<TransformComponent>();
 		transform->setVeloctiy(velocity);
 		transform->setSpeed(speed);
 	}
@@ -31,7 +31,7 @@ public:
 	}
 
 private:
-	TransformComponent* transform;
+	std::shared_ptr<TransformComponent> transform;
 	Vector2D velocity{ 0, 0 };
 	int range = 0;
 	int speed = 0;

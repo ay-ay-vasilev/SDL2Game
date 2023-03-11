@@ -119,7 +119,7 @@ void Game::update()
 
 	std::stringstream ss;
 	ss << "Player position: " << playerPosition;
-	label.getComponent<UILabelComponent>().SetLabelText(ss.str(), "arial");
+	label.getComponent<UILabelComponent>()->SetLabelText(ss.str(), "arial");
 }
 
 void Game::render()

@@ -59,7 +59,7 @@ public:
 	{
 		if (entity->hasComponent<TransformComponent>())
 		{
-			transform = &entity->getComponent<TransformComponent>();
+			transform = entity->getComponent<TransformComponent>();
 			colliderOffset.x *= transform->getScale();
 			colliderOffset.y *= transform->getScale();
 
@@ -111,8 +111,8 @@ public:
 	void setDebugDraw(bool value) { debugDraw = value; }
 
 private:
-	TransformComponent* transform;
-	SDL_Texture* texture;
+	std::shared_ptr<TransformComponent> transform;
+	SDL_Texture* texture; // needs a deleter?
 
 	Vector2D colliderOffset;
 	SDL_Rect srcRect, destRect;

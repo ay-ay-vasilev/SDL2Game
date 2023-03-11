@@ -54,7 +54,7 @@ public:
 		id = entity->getID();
 		if (entity->hasComponent<TransformComponent>())
 		{
-			transform = &entity->getComponent<TransformComponent>();
+			transform = entity->getComponent<TransformComponent>();
 			hitboxOffset.x *= transform->getScale();
 			hitboxOffset.y *= transform->getScale();
 
@@ -102,7 +102,7 @@ public:
 	void setDebugDraw(bool value) { debugDraw = value; }
 
 private:
-	TransformComponent* transform;
+	std::shared_ptr<TransformComponent> transform;
 	SDL_Texture* texture;
 
 	Vector2D hitboxOffset;

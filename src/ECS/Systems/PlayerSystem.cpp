@@ -35,7 +35,7 @@ const Vector2D PlayerSystem::getPlayerPosition() const
 {
 	if (players.empty())
 		return Vector2D();
-	return (*players.begin())->getComponent<TransformComponent>().getPosition();
+	return (*players.begin())->getComponent<TransformComponent>()->getPosition();
 }
 
 void PlayerSystem::update()

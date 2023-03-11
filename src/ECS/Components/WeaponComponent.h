@@ -35,7 +35,7 @@ public:
 	{
 		if (entity->hasComponent<TransformComponent>())
 		{
-			transform = &entity->getComponent<TransformComponent>();
+			transform = entity->getComponent<TransformComponent>();
 			weaponColliderDirectionCoefficient.x *= transform->getScale();
 			weaponColliderDirectionCoefficient.y *= transform->getScale();
 
@@ -46,7 +46,7 @@ public:
 		}
 		if (entity->hasComponent<HitboxComponent>())
 		{
-			const auto hitboxComponent = &entity->getComponent<HitboxComponent>();
+			const auto hitboxComponent = entity->getComponent<HitboxComponent>();
 			ownerTag = hitboxComponent->getTag();
 		}
 		destRect = weaponCollider->getDrawRect();
@@ -61,7 +61,7 @@ public:
 		texture = TextureManager::loadTexture(texturePath);
 		srcRect = { 0, 0, 32, 32 };
 
-		sprite = &entity->getComponent<SpriteComponent>();
+		sprite = entity->getComponent<SpriteComponent>();
 		sprite->addObserver(this);
 	}
 
@@ -99,6 +99,10 @@ public:
 			enabled = false;
 			affectedTargets.clear();
 		}
+		if (observedEvent == "idle_start" || observedEvent == "walk_start")
+		{
+			enabled = false;
+		}
 	}
 
 	std::shared_ptr<ColliderShape> getCollider() const { return weaponCollider; }
@@ -116,8 +120,8 @@ public:
 	bool isDestroyedOnHit() const { return destroyOnHit; }
 
 private:
-	TransformComponent* transform;
-	SpriteComponent* sprite;
+	std::shared_ptr<TransformComponent> transform;
+	std::shared_ptr<SpriteComponent> sprite;
 	std::shared_ptr<ColliderShape> weaponCollider;
 	SDL_Rect srcRect, destRect;
 	Vector2D weaponColliderDirectionCoefficient;
