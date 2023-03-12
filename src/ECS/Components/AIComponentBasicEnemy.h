@@ -29,6 +29,14 @@ public:
 	{
 		if (target)
 		{
+			distance = Vector2D::Distance(transform->getPosition(), targetTransform->getPosition());
+			if (distance > 500)
+			{
+				std::cout << "target lost!\n";
+				target = nullptr;
+				return;
+			}
+
 			transform->setVeloctiy(0, 0);
 			if (weapon->isInRange(targetHitbox->getHitbox()) && state != eState::ATTACK)
 			{
@@ -46,8 +54,9 @@ public:
 		}
 		else
 		{
-			// switch to default behavior
-
+			sprite->play("idle");
+			state = eState::IDLE;
+			transform->setVeloctiy(0, 0);
 		}
 
 	}

@@ -26,8 +26,6 @@ My plan:
 - Implement attack combos, remove attack holding ?
 
 Maintenance:
-- Smart pointers for entities.
-- Smart pointers for observers.
 - Refactor groups to tags + remove tags from ColliderComponents.
 - Fix scale.
 - Add map json.
