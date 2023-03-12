@@ -25,16 +25,16 @@ My plan:
 - Implement attack combos, remove attack holding ?
 
 Maintenance:
-- Refactor groups to tags + remove tags from ColliderComponents.
 - Fix scale.
+- JSON files for weapons.
 - Add map json.
 - Fix Tile-Collider logic.
 - Clean up in constants and settings.json.
 - Refactor actor json to an entity json ?
 - Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update).
-- JSON files for weapons.
 - Better WeaponComponent implementation (add an object for weapon stats).
 - i-frames ?
+- Refactor groups to tags + remove tags from ColliderComponents.
 
 Future plans:
 - Different weapons

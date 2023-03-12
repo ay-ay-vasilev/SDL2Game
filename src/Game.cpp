@@ -106,21 +106,24 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	manager->refresh();
-	manager->update();
-	const auto& playerPosition = playerSystem->getPlayerPosition();
+	if (SDL_GetWindowFlags(window) & SDL_WINDOW_INPUT_FOCUS)
+	{
+		manager->refresh();
+		manager->update();
 
-	camera.x = static_cast<int>(playerPosition.x - constants->SCREEN_WIDTH / 2);
-	camera.y = static_cast<int>(playerPosition.y - constants->SCREEN_HEIGHT / 2);
+		const auto& playerPosition = playerSystem->getPlayerPosition();
+		camera.x = static_cast<int>(playerPosition.x - constants->SCREEN_WIDTH / 2);
+		camera.y = static_cast<int>(playerPosition.y - constants->SCREEN_HEIGHT / 2);
 
-	if (camera.x < 0) camera.x = 0;
-	if (camera.y < 0) camera.y = 0;
-	if (camera.x > camera.w) camera.x = camera.w;
-	if (camera.y > camera.h) camera.y = camera.h;
+		if (camera.x < 0) camera.x = 0;
+		if (camera.y < 0) camera.y = 0;
+		if (camera.x > camera.w) camera.x = camera.w;
+		if (camera.y > camera.h) camera.y = camera.h;
 
-	std::stringstream ss;
-	ss << "Player position: " << playerPosition;
-	label.getComponent<UILabelComponent>()->SetLabelText(ss.str(), "arial");
+		std::stringstream ss;
+		ss << "Player position: " << playerPosition;
+		label.getComponent<UILabelComponent>()->SetLabelText(ss.str(), "arial");
+	}
 }
 
 void Game::render()
