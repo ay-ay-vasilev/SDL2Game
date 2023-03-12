@@ -5,7 +5,11 @@ class AIComponentBasicEnemy : public AIComponent, public Observer
 {
 public:
 	AIComponentBasicEnemy(const Entity* target) : target(target) {}
-	virtual ~AIComponentBasicEnemy() {}
+	virtual ~AIComponentBasicEnemy()
+	{
+		sprite->removeObserver(this);
+		targetHealth->removeObserver(this);
+	}
 
 	void init() override
 	{

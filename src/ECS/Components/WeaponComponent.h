@@ -31,6 +31,11 @@ public:
 		damage = weaponColliderData.value("damage", 0);
 	}
 
+	virtual ~WeaponComponent()
+	{
+		sprite->removeObserver(this);
+	}
+
 	void init() override
 	{
 		if (entity->hasComponent<TransformComponent>())
