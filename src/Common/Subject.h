@@ -18,6 +18,11 @@ public:
 		observers.remove(observer);
 	}
 
+	void cleanObservers()
+	{
+		observers.clear();
+	}
+
 	void notify(const std::string_view& observerEvent)
 	{
 		for (const auto& observer : observers)

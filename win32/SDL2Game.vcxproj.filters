@@ -84,6 +84,9 @@
     <ClCompile Include="..\src\Common\ColliderShape.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ECS\Systems\AISystem.cpp">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ECS\Components\AIComponentBasicEnemy.h">
       <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Systems\AISystem.h">
+      <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

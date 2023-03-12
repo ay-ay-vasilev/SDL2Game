@@ -11,9 +11,8 @@ Stuff to remember:
 
 My plan:
 - Add a simple AI system.
-	* Add an AISystem for assigning targets
-	* Default behavior
-	* Notice/aggro range
+	* Default behavior ?
+	* JSON behavior
 
 - Ranged weapon for player (after JSON weapon refactor).
 - Add a simple menu screen + UI system.

@@ -25,6 +25,7 @@
     <ClCompile Include="..\src\Common\Vector2D.cpp" />
     <ClCompile Include="..\src\Constants\Constants.cpp" />
     <ClCompile Include="..\src\ECS\ECS.cpp" />
+    <ClCompile Include="..\src\ECS\Systems\AISystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\EnemySystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\HitboxWeaponCollisionSystem.cpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="..\src\ECS\Components\UILabelComponent.h" />
     <ClInclude Include="..\src\ECS\Components\WeaponComponent.h" />
     <ClInclude Include="..\src\ECS\ECS.h" />
+    <ClInclude Include="..\src\ECS\Systems\AISystem.h" />
     <ClInclude Include="..\src\ECS\Systems\Animation.h" />
     <ClInclude Include="..\src\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\EnemySystem.h" />

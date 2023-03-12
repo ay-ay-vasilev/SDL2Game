@@ -7,3 +7,4 @@
 #include "ProjectileSystem.h"
 #include "MapSystem.h"
 #include "RenderSystem.h"
+#include "AISystem.h"

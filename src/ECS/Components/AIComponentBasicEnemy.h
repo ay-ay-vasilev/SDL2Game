@@ -4,12 +4,8 @@
 class AIComponentBasicEnemy : public AIComponent, public Observer
 {
 public:
-	AIComponentBasicEnemy(const Entity* target) : target(target) {}
-	virtual ~AIComponentBasicEnemy()
-	{
-		sprite->removeObserver(this);
-		targetHealth->removeObserver(this);
-	}
+	AIComponentBasicEnemy() : target(nullptr), distance(0.f), state(eState::IDLE) {}
+	virtual ~AIComponentBasicEnemy() {}
 
 	void init() override
 	{
@@ -17,12 +13,6 @@ public:
 		sprite = entity->getComponent<SpriteComponent>();
 		sprite->addObserver(this);
 		weapon = entity->getComponent<WeaponComponent>();
-
-		targetHealth = target->getComponent<HealthComponent>();
-		targetHealth->addObserver(this);
-
-		targetTransform = target->getComponent<TransformComponent>();
-		targetHitbox = target->getComponent<HitboxComponent>();
 	}
 
 	void update() override
@@ -30,12 +20,6 @@ public:
 		if (target)
 		{
 			distance = Vector2D::Distance(transform->getPosition(), targetTransform->getPosition());
-			if (distance > 500)
-			{
-				std::cout << "target lost!\n";
-				target = nullptr;
-				return;
-			}
 
 			transform->setVeloctiy(0, 0);
 			if (weapon->isInRange(targetHitbox->getHitbox()) && state != eState::ATTACK)
@@ -54,12 +38,47 @@ public:
 		}
 		else
 		{
-			sprite->play("idle");
-			state = eState::IDLE;
-			transform->setVeloctiy(0, 0);
+			// default behavior
 		}
 
 	}
+
+	void setNewTarget(const Entity* newTarget)
+	{
+		if (!newTarget || target == newTarget)
+			return;
+		target = newTarget;
+		targetHealth = target->getComponent<HealthComponent>();
+		targetHealth->addObserver(this);
+		targetTransform = target->getComponent<TransformComponent>();
+		targetHitbox = target->getComponent<HitboxComponent>();
+	}
+
+	void resetTarget()
+	{
+		targetHealth.reset();
+		targetTransform.reset();
+		targetHitbox.reset();
+		target = nullptr;
+
+		sprite->play("idle");
+		state = eState::IDLE;
+		transform->setVeloctiy(0, 0);
+		distance = 0.f;
+
+		std::cout << "target lost!\n";
+	}
+
+	void loseTarget()
+	{
+		targetHealth->removeObserver(this);
+		resetTarget();
+	}
+	void targetDestroyed() { resetTarget(); }
+	const float getDistance() const { return distance; }
+	const float getAggroDistance() const { return aggroDistance; }
+	const float getLoseAggroDistance() const { return loseAggroDistance; }
+	const bool hasTarget() const { return target != nullptr; }
 
 	void onNotify(const std::string_view& observedEvent) override
 	{
@@ -70,8 +89,7 @@ public:
 		}
 		if (observedEvent == "player_died")
 		{
-			target = nullptr;
-			std::cout << "target lost!\n";
+			targetDestroyed();
 		}
 	}
 
@@ -93,6 +111,10 @@ private:
 	std::shared_ptr<HitboxComponent> targetHitbox;
 	std::shared_ptr<TransformComponent> transform;
 
-	eState state = eState::IDLE;
+	eState state;
 	float distance;
+
+	// todo refactor to json value
+	float aggroDistance = 500;
+	float loseAggroDistance = 800;
 };

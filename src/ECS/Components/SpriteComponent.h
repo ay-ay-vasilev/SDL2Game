@@ -42,7 +42,10 @@ public:
 		}
 	}
 
-	~SpriteComponent() {}
+	~SpriteComponent()
+	{
+		cleanObservers();
+	}
 
 	void setTexture(const std::string_view& textureId)
 	{

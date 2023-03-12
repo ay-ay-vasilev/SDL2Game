@@ -24,11 +24,7 @@ void EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filen
 	enemy.addComponent<HitboxComponent>("enemy", enemyData["hitbox_rect"]);
 	enemy.addComponent<WeaponComponent>("sword", enemyData["weapon"]);
 	enemy.addComponent<HealthComponent>(enemyData["health"]);
-	
-	const auto& playerEntities = manager.getEntitiesWithComponent<KeyboardController>();
-	auto& playerEntity = playerEntities[0];
-
-	enemy.addComponent<AIComponentBasicEnemy>(playerEntities.front());
+	enemy.addComponent<AIComponentBasicEnemy>();
 	enemy.addGroup(Game::eGroupLabels::ENEMIES);
 }
 

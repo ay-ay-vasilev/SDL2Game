@@ -11,6 +11,11 @@ public:
 		healthValue = maxHealthValue;
 	}
 
+	~HealthComponent()
+	{
+		cleanObservers();
+	}
+
 	void update() override
 	{
 		if (healthValue <= 0)

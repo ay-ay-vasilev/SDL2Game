@@ -6,10 +6,7 @@
 class KeyboardController : public Component, private Observer
 {
 public:
-	virtual ~KeyboardController()
-	{
-		sprite->removeObserver(this);
-	}
+	virtual ~KeyboardController() {}
 
 	enum class eState
 	{

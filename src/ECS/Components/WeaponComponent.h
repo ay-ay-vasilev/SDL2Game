@@ -31,10 +31,7 @@ public:
 		damage = weaponColliderData.value("damage", 0);
 	}
 
-	virtual ~WeaponComponent()
-	{
-		sprite->removeObserver(this);
-	}
+	virtual ~WeaponComponent() {}
 
 	void init() override
 	{

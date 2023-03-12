@@ -18,6 +18,7 @@ auto hitboxWeaponCollisionSystem(Game::manager->addSystem<HitboxWeaponCollisionS
 auto playerSystem(Game::manager->addSystem<PlayerSystem>());
 auto enemySystem(Game::manager->addSystem<EnemySystem>());
 auto projectileSystem(Game::manager->addSystem<ProjectileSystem>());
+auto aiSystem(Game::manager->addSystem<AISystem>());
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
