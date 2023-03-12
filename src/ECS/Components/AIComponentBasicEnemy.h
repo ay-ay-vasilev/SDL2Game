@@ -7,24 +7,18 @@ public:
 	AIComponentBasicEnemy(const Entity* target) : target(target) {}
 	virtual ~AIComponentBasicEnemy() {}
 
-	enum class eState
-	{
-		IDLE,
-		WALK,
-		ATTACK
-	};
-
 	void init() override
 	{
 		transform = entity->getComponent<TransformComponent>();
-
 		sprite = entity->getComponent<SpriteComponent>();
 		sprite->addObserver(this);
+		weapon = entity->getComponent<WeaponComponent>();
 
 		targetHealth = target->getComponent<HealthComponent>();
 		targetHealth->addObserver(this);
 
 		targetTransform = target->getComponent<TransformComponent>();
+		targetHitbox = target->getComponent<HitboxComponent>();
 	}
 
 	void update() override
@@ -32,8 +26,7 @@ public:
 		if (target)
 		{
 			transform->setVeloctiy(0, 0);
-			distance = Vector2D::Distance(targetTransform->getPosition(), transform->getPosition());
-			if (distance < 32 * 6 && state != eState::ATTACK) // todo REMOVE MAGIC NUM + ADD STATES FROM KEYBOARD CONTROLLER
+			if (weapon->isInRange(targetHitbox->getHitbox()) && state != eState::ATTACK)
 			{
 				transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
 				sprite->play("attack");
@@ -50,6 +43,7 @@ public:
 		else
 		{
 			// switch to default behavior
+
 		}
 
 	}
@@ -69,11 +63,23 @@ public:
 	}
 
 private:
-	const Entity* target; // redo with smart pointer!
+	enum class eState
+	{
+		IDLE,
+		WALK,
+		ATTACK
+	};
+
+	const Entity* target;
+
+	std::shared_ptr<SpriteComponent> sprite;
+	std::shared_ptr<WeaponComponent> weapon;
+
 	std::shared_ptr<HealthComponent> targetHealth;
 	std::shared_ptr<TransformComponent> targetTransform;
+	std::shared_ptr<HitboxComponent> targetHitbox;
 	std::shared_ptr<TransformComponent> transform;
-	std::shared_ptr<SpriteComponent> sprite;
+
 	eState state = eState::IDLE;
-	int distance;
+	float distance;
 };

@@ -7,9 +7,9 @@ class ColliderShape
 public:
 	ColliderShape() = default;
 	virtual ~ColliderShape() = default;
-	virtual bool collidesWith(const ColliderShape& other) const = 0;
-	virtual float getOverlapX(const ColliderShape& other) const = 0;
-	virtual float getOverlapY(const ColliderShape& other) const = 0;
+	virtual bool collidesWith(const std::shared_ptr<ColliderShape>& other) const = 0;
+	virtual float getOverlapX(const std::shared_ptr<ColliderShape>& other) const = 0;
+	virtual float getOverlapY(const std::shared_ptr<ColliderShape>& other) const = 0;
 	virtual void setPosition(const Vector2D& position) = 0;
 	virtual void movePosition(const Vector2D& positionDelta) = 0;
 	virtual Vector2D getPosition() const = 0;
@@ -26,9 +26,9 @@ public:
 	RectangleCollider(const Vector2D& position, float width, float height) :
 		position({ position.x - width/2, position.y - height/2 }), w(width), h(height) {}
 
-	bool collidesWith(const ColliderShape& other) const override;
-	float getOverlapX(const ColliderShape& other) const override;
-	float getOverlapY(const ColliderShape& other) const override;
+	bool collidesWith(const std::shared_ptr<ColliderShape>& other) const override;
+	float getOverlapX(const std::shared_ptr<ColliderShape>& other) const override;
+	float getOverlapY(const std::shared_ptr<ColliderShape>& other) const override;
 
 	void setPosition(const Vector2D& newPosition) override { position = { newPosition.x - w / 2, newPosition.y - h / 2 }; }
 	void movePosition(const Vector2D& positionDelta) override { position += positionDelta; }
@@ -53,9 +53,9 @@ public:
 	CircleCollider(const Vector2D& position, float radius) :
 		position(position), radius(radius) {}
 
-	bool collidesWith(const ColliderShape& other) const;
-	float getOverlapX(const ColliderShape& other) const;
-	float getOverlapY(const ColliderShape& other) const;
+	bool collidesWith(const std::shared_ptr<ColliderShape>& other) const;
+	float getOverlapX(const std::shared_ptr<ColliderShape>& other) const;
+	float getOverlapY(const std::shared_ptr<ColliderShape>& other) const;
 
 	void setPosition(const Vector2D& newPosition) override { position = newPosition; }
 	void movePosition(const Vector2D& positionDelta) override { position += positionDelta; }

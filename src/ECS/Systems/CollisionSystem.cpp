@@ -31,10 +31,10 @@ void CollisionSystem::update()
 
 			const auto collider = c->getComponent<ColliderComponent>()->getCollider();
 
-			if (playerCollider->collidesWith(*collider))
+			if (playerCollider->collidesWith(collider))
 			{
-				float overlapX = playerCollider->getOverlapX(*collider);
-				float overlapY = playerCollider->getOverlapY(*collider);
+				float overlapX = playerCollider->getOverlapX(collider);
+				float overlapY = playerCollider->getOverlapY(collider);
 
 				if (overlapX < overlapY && overlapX > 0.001)
 				{

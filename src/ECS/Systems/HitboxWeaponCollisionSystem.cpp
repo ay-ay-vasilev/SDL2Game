@@ -31,7 +31,7 @@ void HitboxWeaponCollisionSystem::update()
 			if (weaponCollider->isInAffectedTargets(hitboxCollider->getId()))
 				continue;
 
-			if (weaponCollider->getCollider()->collidesWith(*(hitboxCollider->getHitbox())))
+			if (weaponCollider->getCollider()->collidesWith(hitboxCollider->getHitbox()))
 			{
 				weaponCollider->addAffectedTarget(hitboxCollider->getId());
 				auto actorHealthComponent = hitboxEntity->getComponent<HealthComponent>();

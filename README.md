@@ -11,8 +11,7 @@ Stuff to remember:
 
 My plan:
 - Add a simple AI system.
-	* Refactor AI component ALMOST (remove magic num + smart pointer for entity)
-	* AI movement (refine: REDO entity getting in CollisionSystem)
+	* Add an AISystem for assigning targets
 	* Default behavior
 	* Notice/aggro range
 
@@ -29,6 +28,7 @@ My plan:
 Maintenance:
 - Smart pointers for entities.
 - Smart pointers for observers.
+- Refactor groups to tags + remove tags from ColliderComponents.
 - Fix scale.
 - Add map json.
 - Fix Tile-Collider logic.

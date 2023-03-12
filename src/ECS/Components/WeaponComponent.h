@@ -67,9 +67,6 @@ public:
 
 	void update() override
 	{
-		if (!enabled)
-			return;
-
 		const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
 		const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
 		weaponCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
@@ -118,6 +115,10 @@ public:
 
 	bool isEnabled() const { return enabled; }
 	bool isDestroyedOnHit() const { return destroyOnHit; }
+	bool isInRange(const std::shared_ptr<ColliderShape>& targetHitbox) const
+	{
+		return weaponCollider->collidesWith(targetHitbox);
+	}
 
 private:
 	std::shared_ptr<TransformComponent> transform;
