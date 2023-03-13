@@ -6,7 +6,7 @@
 class ProjectileComponent : public Component
 {
 public:
-	ProjectileComponent(Vector2D velocity, int range, int speed) :
+	ProjectileComponent(Vector2D velocity, float range, float speed) :
 		transform(nullptr),
 		velocity(velocity),
 		range(range),
@@ -33,7 +33,7 @@ public:
 private:
 	std::shared_ptr<TransformComponent> transform;
 	Vector2D velocity{ 0, 0 };
-	int range = 0;
-	int speed = 0;
-	int distance = 0;
+	float range = 0;
+	float speed = 0;
+	float distance = 0;
 };

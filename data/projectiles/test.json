@@ -30,7 +30,7 @@
 	"projectile_data":
 	{
 		"range": 200,
-		"speed": 2,
+		"speed": 0.33,
 		"health":
 		{
 			"max_health": 1

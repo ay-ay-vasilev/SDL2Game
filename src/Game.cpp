@@ -24,8 +24,8 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
 
 SDL_Rect Game::camera = { 0, 0,
-	constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE) - constants->SCREEN_WIDTH,
-	constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * static_cast<int>(constants->SCALE) - constants->SCREEN_HEIGHT
+	constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE),
+	constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * static_cast<int>(constants->SCALE)
 };
 
 bool Game::isRunning = false;

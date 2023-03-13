@@ -26,6 +26,9 @@ My plan:
 
 Maintenance:
 - Fix scale.
+	* Projectile distances
+	* Camera bounds
+	* Positions
 - JSON files for weapons.
 - Add map json.
 - Fix Tile-Collider logic.

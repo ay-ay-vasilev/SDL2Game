@@ -7,7 +7,7 @@ class TransformComponent : public Component
 public:
 	TransformComponent() : position() {}
 	TransformComponent(const float x, const float y) : position(x, y) {}
-	TransformComponent(const float x, const float y, const int w, const int h, const float scale, const int speed = 0) :
+	TransformComponent(const float x, const float y, const int w, const int h, const float scale, const float speed = 0) :
 		position(x, y), width(w), height(h), scale(scale), speed(speed) {}
 
 	void init() override
@@ -19,8 +19,8 @@ public:
 		velocity.Normalize();
 		direction.Normalize();
 
-		position.x += velocity.x * speed;
-		position.y += velocity.y * speed;
+		position.x += velocity.x * speed * scale;
+		position.y += velocity.y * speed * scale;
 	}
 
 	const Vector2D getPosition() const { return position; }
@@ -42,7 +42,7 @@ public:
 	int getHeight() const { return height; }
 	float getScale() const { return scale; }
 
-	void setSpeed(int newSpeed) { speed = newSpeed; }
+	void setSpeed(float newSpeed) { speed = newSpeed; }
 
 private:
 	Vector2D position;
@@ -53,6 +53,5 @@ private:
 	int height = 0;
 	float scale = 0;
 
-	int speed = 0;
-
+	float speed = 0;
 };
