@@ -6,18 +6,17 @@
 class ProjectileComponent : public Component
 {
 public:
-	ProjectileComponent(Vector2D velocity, float range, float speed) :
+	ProjectileComponent(Vector2D velocity, float range) :
 		transform(nullptr),
 		velocity(velocity),
-		range(range),
-		speed(speed) {}
+		range(range) {}
 	~ProjectileComponent() {}
 
 	void init() override
 	{
 		transform = entity->getComponent<TransformComponent>();
 		transform->setVeloctiy(velocity);
-		transform->setSpeed(speed);
+		speed = transform->getSpeed();
 	}
 
 	void update() override
@@ -32,8 +31,8 @@ public:
 
 private:
 	std::shared_ptr<TransformComponent> transform;
-	Vector2D velocity{ 0, 0 };
-	float range = 0;
-	float speed = 0;
-	float distance = 0;
+	Vector2D velocity{ 0.f, 0.f };
+	float range = 0.f;
+	float speed = 0.f;
+	float distance = 0.f;
 };

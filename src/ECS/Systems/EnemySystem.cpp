@@ -15,7 +15,7 @@ void EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filen
 	auto& enemy(manager.addEntity());
 	enemy.addComponent<TransformComponent>
 	(
-		pos.x, pos.y,
+		pos.x * manager.getScale(), pos.y * manager.getScale(),
 		enemyData.value("width", 0), enemyData.value("height", 0),
 		manager.getScale(), enemyData["speed"]
 	);

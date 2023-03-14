@@ -38,10 +38,11 @@ public:
 	void setDirectionX(float x) { direction.x = x; }
 	void setDirectionY(float y) { direction.y = y; }
 
-	int getWidth() const { return width; }
-	int getHeight() const { return height; }
-	float getScale() const { return scale; }
+	const int getWidth() const { return width; }
+	const int getHeight() const { return height; }
+	const float getScale() const { return scale; }
 
+	const float getSpeed() const{ return speed; }
 	void setSpeed(float newSpeed) { speed = newSpeed; }
 
 private:

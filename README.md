@@ -26,9 +26,9 @@ My plan:
 
 Maintenance:
 - Fix scale.
-	* Projectile distances
 	* Camera bounds
-	* Positions
+	* Collider offsets
+- Improve the Observer pattern (use boost?)
 - JSON files for weapons.
 - Add map json.
 - Fix Tile-Collider logic.

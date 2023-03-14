@@ -17,7 +17,7 @@ void PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& fil
 	auto& player(manager.addEntity());
 	player.addComponent<TransformComponent>
 	(
-		pos.x, pos.y,
+		pos.x * manager.getScale() , pos.y * manager.getScale(),
 		playerData.value("width", 0), playerData.value("height", 0),
 		manager.getScale(), playerData["speed"]
 	);

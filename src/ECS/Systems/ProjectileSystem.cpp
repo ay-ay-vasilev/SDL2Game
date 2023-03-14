@@ -17,12 +17,12 @@ void ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D 
 	auto& projectile(manager.addEntity());
 	projectile.addComponent<TransformComponent>
 	(
-		pos.x, pos.y,
+		pos.x * manager.getScale(), pos.y * manager.getScale(),
 		projectileData.value("width", 0), projectileData.value("height", 0),
-		manager.getScale(), projectileData["projectile_data"]["speed"]
+		manager.getScale(), projectileData["speed"]
 	);
 	projectile.addComponent<SpriteComponent>(projectileData["sprite_data"], false);
-	projectile.addComponent<ProjectileComponent>(velocity, projectileData["projectile_data"]["range"], projectileData["projectile_data"]["speed"]);
+	projectile.addComponent<ProjectileComponent>(velocity, projectileData["projectile_data"]["range"] * manager.getScale());
 	projectile.addComponent<HitboxComponent>("projectile", projectileData["hitbox_rect"]);
 	projectile.addComponent<WeaponComponent>("projectile", projectileData["weapon"], true);
 	projectile.addComponent<ColliderComponent>("projectile", projectileData["collider_rect"]);
