@@ -11,6 +11,7 @@ void AssetManager::loadTextures()
 	addTexture("goblin", "assets/images/spritesheets/goblin_downscale_spritesheet.png");
 	addTexture("projectile", "assets/images/test_projectile.png");
 	addTexture("human", "assets/images/spritesheets/human_downscale_spritesheet.png");
+	addTexture("black", "assets/images/black.png");
 }
 
 void AssetManager::loadFonts()

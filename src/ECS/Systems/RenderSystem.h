@@ -29,6 +29,9 @@ public:
 
 	void draw() override
 	{
+		auto blackTex = Game::assets->getTexture("black");
+		TextureManager::draw(blackTex, SDL_Rect(0, 0, 1, 1), SDL_Rect(0, 0, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT), SDL_FLIP_NONE);
+
 		for (const auto& tile : tiles) tile->draw();
 		for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();
 	}

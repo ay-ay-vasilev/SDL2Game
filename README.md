@@ -28,6 +28,7 @@ Maintenance:
 - Fix scale.
 	* Camera bounds
 	* Collider offsets
+	* Refactor scaling to be done in components (not in systems)
 - Improve the Observer pattern (use boost?)
 - JSON files for weapons.
 - Add map json.
@@ -38,6 +39,7 @@ Maintenance:
 - Better WeaponComponent implementation (add an object for weapon stats).
 - i-frames ?
 - Refactor groups to tags + remove tags from ColliderComponents.
+- Refactor the scale value to only modify the rendering.
 
 Future plans:
 - Different weapons

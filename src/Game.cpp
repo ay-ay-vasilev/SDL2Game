@@ -23,10 +23,13 @@ auto aiSystem(Game::manager->addSystem<AISystem>());
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
 
-SDL_Rect Game::camera = { 0, 0,
-	constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE),
-	constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * static_cast<int>(constants->SCALE)
-};
+
+int Game::cameraMinX = -(constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2;
+int Game::cameraMinY = -(constants->SCREEN_HEIGHT - (constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2;
+int Game::cameraMaxX = (constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2 + constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE);
+int Game::cameraMaxY = (constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2 + constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * static_cast<int>(constants->SCALE);
+
+SDL_Rect Game::camera = { cameraMinX, cameraMinY, cameraMaxX, cameraMaxY };
 
 bool Game::isRunning = false;
 
@@ -115,13 +118,18 @@ void Game::update()
 		camera.x = static_cast<int>(playerPosition.x - constants->SCREEN_WIDTH / 2);
 		camera.y = static_cast<int>(playerPosition.y - constants->SCREEN_HEIGHT / 2);
 
-		if (camera.x < 0) camera.x = 0;
-		if (camera.y < 0) camera.y = 0;
-		if (camera.x > camera.w) camera.x = camera.w;
-		if (camera.y > camera.h) camera.y = camera.h;
+		if (camera.x < cameraMinX) camera.x = cameraMinX;
+		if (camera.y < cameraMinY) camera.y = cameraMinY;
+		if (camera.x + camera.w > cameraMaxX) camera.x = cameraMaxX - camera.w;
+		if (camera.y + camera.h > cameraMaxY) camera.y = cameraMaxY - camera.h;
 
 		std::stringstream ss;
-		ss << "Player position: " << playerPosition;
+		ss << "Player position: " << playerPosition << "\n";
+		ss << "Camera minimum position: x = " << cameraMinX << " y = " << cameraMinY << "\n";
+		ss << "Camera maximum position: x = " << cameraMaxX << " y = " << cameraMaxY << "\n";
+		ss << "Camera current position: x = " << camera.x << " y = " << camera.y << "\n";
+		ss << "Player position: " << playerPosition << "\n";
+
 		label.getComponent<UILabelComponent>()->SetLabelText(ss.str(), "arial");
 	}
 }
