@@ -23,17 +23,21 @@ auto aiSystem(Game::manager->addSystem<AISystem>());
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
 
+int Game::cameraMinX = std::min(0, -(constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2);
+int Game::cameraMinY = std::min(0, -(constants->SCREEN_HEIGHT - (constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2);
+int Game::cameraMaxX = std::max(cameraMinX, (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE)) - constants->SCREEN_WIDTH);
+int Game::cameraMaxY = std::max(cameraMinY, (constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * static_cast<int>(constants->SCALE)) - constants->SCREEN_HEIGHT);
 
-int Game::cameraMinX = -(constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2;
-int Game::cameraMinY = -(constants->SCREEN_HEIGHT - (constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2;
-int Game::cameraMaxX = (constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2 + constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE);
-int Game::cameraMaxY = (constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2 + constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * static_cast<int>(constants->SCALE);
-
-SDL_Rect Game::camera = { cameraMinX, cameraMinY, cameraMaxX, cameraMaxY };
+SDL_Rect Game::camera =
+{
+	0, 0,
+	constants->SCREEN_WIDTH,
+	constants->SCREEN_HEIGHT
+};
 
 bool Game::isRunning = false;
 
-auto& label(Game::manager->addEntity());
+auto& label0(Game::manager->addEntity());
 
 Game::Game() : window(nullptr), count(0) {}
 
@@ -79,8 +83,7 @@ void Game::init()
 	assets->loadTextures();
 	assets->loadFonts();
 
-
-	label.addComponent<UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
+	label0.addComponent<UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
 	const std::string projectileFile = "test";
 	projectileSystem->instantiateProjectile(Vector2D(83.33, 100), Vector2D(-2, -2), projectileFile);
@@ -115,22 +118,13 @@ void Game::update()
 		manager->update();
 
 		const auto& playerPosition = playerSystem->getPlayerPosition();
-		camera.x = static_cast<int>(playerPosition.x - constants->SCREEN_WIDTH / 2);
-		camera.y = static_cast<int>(playerPosition.y - constants->SCREEN_HEIGHT / 2);
+		
+		camera.x = std::clamp(static_cast<int>(playerPosition.x - constants->SCREEN_WIDTH / 2), cameraMinX, cameraMaxX);
+		camera.y = std::clamp(static_cast<int>(playerPosition.y - constants->SCREEN_HEIGHT / 2), cameraMinY, cameraMaxY);
 
-		if (camera.x < cameraMinX) camera.x = cameraMinX;
-		if (camera.y < cameraMinY) camera.y = cameraMinY;
-		if (camera.x + camera.w > cameraMaxX) camera.x = cameraMaxX - camera.w;
-		if (camera.y + camera.h > cameraMaxY) camera.y = cameraMaxY - camera.h;
-
-		std::stringstream ss;
-		ss << "Player position: " << playerPosition << "\n";
-		ss << "Camera minimum position: x = " << cameraMinX << " y = " << cameraMinY << "\n";
-		ss << "Camera maximum position: x = " << cameraMaxX << " y = " << cameraMaxY << "\n";
-		ss << "Camera current position: x = " << camera.x << " y = " << camera.y << "\n";
-		ss << "Player position: " << playerPosition << "\n";
-
-		label.getComponent<UILabelComponent>()->SetLabelText(ss.str(), "arial");
+		std::stringstream ss0;
+		ss0 << "Player position: " << playerPosition;
+		label0.getComponent<UILabelComponent>()->SetLabelText(ss0.str(), "arial");
 	}
 }
 
@@ -139,7 +133,7 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	manager->draw();
 
-	label.draw();
+	label0.draw();
 	SDL_RenderPresent(renderer);
 }
 

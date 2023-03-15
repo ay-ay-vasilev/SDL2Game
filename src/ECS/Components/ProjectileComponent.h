@@ -17,6 +17,7 @@ public:
 		transform = entity->getComponent<TransformComponent>();
 		transform->setVeloctiy(velocity);
 		speed = transform->getSpeed();
+		range *= transform->getScale();
 	}
 
 	void update() override

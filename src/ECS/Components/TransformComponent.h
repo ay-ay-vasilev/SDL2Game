@@ -13,14 +13,15 @@ public:
 	void init() override
 	{
 		velocity.Zero();
+		speed *= scale;
 	}
 	void update() override
 	{
 		velocity.Normalize();
 		direction.Normalize();
 
-		position.x += velocity.x * speed * scale;
-		position.y += velocity.y * speed * scale;
+		position.x += velocity.x * speed;
+		position.y += velocity.y * speed;
 	}
 
 	const Vector2D getPosition() const { return position; }

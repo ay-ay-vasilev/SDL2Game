@@ -4,7 +4,10 @@
 class AIComponentBasicEnemy : public AIComponent, public Observer
 {
 public:
-	AIComponentBasicEnemy() : target(nullptr), distance(0.f), state(eState::IDLE) {}
+	AIComponentBasicEnemy() :
+		target(nullptr),
+		distance(0.f), aggroDistance(0.f), loseAggroDistance(0.f),
+		state(eState::IDLE) {}
 	virtual ~AIComponentBasicEnemy() {}
 
 	void init() override
@@ -13,13 +16,17 @@ public:
 		sprite = entity->getComponent<SpriteComponent>();
 		sprite->addObserver(this);
 		weapon = entity->getComponent<WeaponComponent>();
+
+		// todo: read from json
+		aggroDistance = 100 * transform->getScale();
+		loseAggroDistance = 150 * transform->getScale();
 	}
 
 	void update() override
 	{
 		if (target)
 		{
-			distance = Vector2D::Distance(transform->getPosition(), targetTransform->getPosition());
+			distance = (Vector2D::Distance(transform->getPosition(), targetTransform->getPosition()));
 
 			transform->setVeloctiy(0, 0);
 			if (weapon->isInRange(targetHitbox->getHitbox()) && state != eState::ATTACK)
@@ -113,8 +120,6 @@ private:
 
 	eState state;
 	float distance;
-
-	// todo refactor to json value
-	float aggroDistance = 500;
-	float loseAggroDistance = 800;
+	float aggroDistance;
+	float loseAggroDistance;
 };

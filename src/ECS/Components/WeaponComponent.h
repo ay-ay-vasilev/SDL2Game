@@ -40,6 +40,8 @@ public:
 			transform = entity->getComponent<TransformComponent>();
 			weaponColliderDirectionCoefficient.x *= transform->getScale();
 			weaponColliderDirectionCoefficient.y *= transform->getScale();
+			weaponColliderOffset.x *= transform->getScale();
+			weaponColliderOffset.y *= transform->getScale();
 
 			weaponCollider->setScale(transform->getScale());
 			const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;

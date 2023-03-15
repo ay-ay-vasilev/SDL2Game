@@ -23,7 +23,7 @@
 		{
 			"shape": "circle",
 			"x": 8, "y": 8,
-			"offset": { "dx": 0, "dy": 16 },
+			"offset": { "dx": 0, "dy": 2.7 },
 			"radius": 16
 		}
 	},

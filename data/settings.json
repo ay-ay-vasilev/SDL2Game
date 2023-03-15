@@ -7,7 +7,7 @@
 	"window_title": "Goblin Mode",
 	"screen_width": 1280,
 	"screen_height": 800,
-	"scale": 1.0,
+	"scale": 6.0,
 	"map_tile_width": 16,
 	"map_tile_height": 16,
 	"tile_size": 32,
