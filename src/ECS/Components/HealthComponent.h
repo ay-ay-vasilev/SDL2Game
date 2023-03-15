@@ -13,7 +13,6 @@ public:
 
 	~HealthComponent()
 	{
-		cleanObservers();
 	}
 
 	void update() override

@@ -1,36 +1,36 @@
 #pragma once
-#include "Observer.h"
-
-#include <list>
-#include <memory>
+#include <boost/signals2.hpp>
 #include <string>
 
 class Subject
 {
 public:
-	void addObserver(Observer* observer)
+	virtual ~Subject()
 	{
-		observers.push_back(observer);
+		clearObservers();
 	}
 
-	void removeObserver(Observer* observer)
+	void addObserver(boost::signals2::scoped_connection& connection, const std::function<void(const std::string_view&)>& slot)
 	{
-		observers.remove(observer);
+		connection = signal.connect(slot);
 	}
 
-	void cleanObservers()
+	void removeObserver(boost::signals2::scoped_connection& connection)
 	{
-		observers.clear();
+		connection.disconnect();
 	}
 
 	void notify(const std::string_view& observerEvent)
 	{
-		for (const auto& observer : observers)
-		{
-			observer->onNotify(observerEvent);
-		}
+		signal(observerEvent);
 	}
 
 private:
-	std::list<Observer*> observers;
+	void clearObservers()
+	{
+		signal.disconnect_all_slots();
+	}
+
+	friend class Observer;
+	boost::signals2::signal<void(const std::string_view&)> signal;
 };

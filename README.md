@@ -22,7 +22,6 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Improve the Observer pattern (use boost?)
 - JSON files for weapons.
 - JSON files for AI.
 - Add map json.

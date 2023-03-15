@@ -19,7 +19,7 @@ public:
 		texture = Game::assets->getTexture(textureId);
 		position = { static_cast<float>(xpos), static_cast<float>(ypos) };
 		srcRect = { srcX, srcY, tileSize, tileSize };
-		destRect = { xpos, ypos, tileSize * static_cast<int>(Game::manager->getScale()), static_cast<int>(tileSize * Game::manager->getScale()) };
+		destRect = { xpos, ypos, static_cast<int>(tileSize * Game::manager->getScale()), static_cast<int>(tileSize * Game::manager->getScale()) };
 	}
 
 	void update() override

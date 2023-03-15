@@ -23,10 +23,10 @@ auto aiSystem(Game::manager->addSystem<AISystem>());
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
 
-int Game::cameraMinX = std::min(0, -(constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2);
-int Game::cameraMinY = std::min(0, -(constants->SCREEN_HEIGHT - (constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * static_cast<int>(constants->SCALE))) / 2);
-int Game::cameraMaxX = std::max(cameraMinX, (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * static_cast<int>(constants->SCALE)) - constants->SCREEN_WIDTH);
-int Game::cameraMaxY = std::max(cameraMinY, (constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * static_cast<int>(constants->SCALE)) - constants->SCREEN_HEIGHT);
+int Game::cameraMinX = std::min(0, static_cast<int>(-(constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * constants->SCALE)) / 2));
+int Game::cameraMinY = std::min(0, static_cast<int>(-(constants->SCREEN_HEIGHT - (constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * constants->SCALE)) / 2));
+int Game::cameraMaxX = std::max(cameraMinX, static_cast<int>((constants->MAP_TILE_WIDTH * constants->TILE_SIZE * constants->SCALE) - constants->SCREEN_WIDTH));
+int Game::cameraMaxY = std::max(cameraMinY, static_cast<int>((constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * constants->SCALE) - constants->SCREEN_HEIGHT));
 
 SDL_Rect Game::camera =
 {

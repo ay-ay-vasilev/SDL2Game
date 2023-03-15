@@ -19,7 +19,7 @@ public:
 	{
 		transform = entity->getComponent<TransformComponent>();
 		sprite = entity->getComponent<SpriteComponent>();
-		sprite->addObserver(this);
+		registerWithSubject(sprite);
 	}
 
 	void update() override

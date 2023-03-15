@@ -12,7 +12,7 @@
 Map::Map(const std::string_view& textureId, const int tileSize) :
 	textureId(textureId),
 	tileSize(tileSize),
-	scaledSize(static_cast<int>(Game::manager->getScale()) * tileSize)
+	scaledSize(Game::manager->getScale() * tileSize)
 {
 }
 
@@ -55,7 +55,7 @@ void Map::loadTiles(const std::string& path, const int sizeX, const int sizeY)
 			std::cout << tileNum << "\t";
 			srcX = (tileNum % tileSetCols) * tileSize;
 			srcY = (tileNum / tileSetCols) * tileSize;
-			addTile(srcX, srcY, x * scaledSize, y * scaledSize);
+			addTile(srcX, srcY, static_cast<int>(x * scaledSize), static_cast<int>(y * scaledSize));
 
 			if (lineStream.peek() == ',')
 			{

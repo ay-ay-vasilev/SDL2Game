@@ -66,7 +66,7 @@ public:
 		srcRect = { 0, 0, 32, 32 };
 
 		sprite = entity->getComponent<SpriteComponent>();
-		sprite->addObserver(this);
+		registerWithSubject(sprite);
 	}
 
 	void update() override

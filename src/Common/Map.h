@@ -15,5 +15,5 @@ private:
 
 	std::string textureId;
 	int tileSize;
-	int scaledSize;
+	float scaledSize;
 };

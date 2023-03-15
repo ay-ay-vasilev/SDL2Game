@@ -14,7 +14,7 @@ public:
 	{
 		transform = entity->getComponent<TransformComponent>();
 		sprite = entity->getComponent<SpriteComponent>();
-		sprite->addObserver(this);
+		registerWithSubject(sprite);
 		weapon = entity->getComponent<WeaponComponent>();
 
 		// todo: read from json
@@ -56,7 +56,7 @@ public:
 			return;
 		target = newTarget;
 		targetHealth = target->getComponent<HealthComponent>();
-		targetHealth->addObserver(this);
+		registerWithSubject(targetHealth);
 		targetTransform = target->getComponent<TransformComponent>();
 		targetHitbox = target->getComponent<HitboxComponent>();
 	}
@@ -78,9 +78,9 @@ public:
 
 	void loseTarget()
 	{
-		targetHealth->removeObserver(this);
 		resetTarget();
 	}
+
 	void targetDestroyed() { resetTarget(); }
 	const float getDistance() const { return distance; }
 	const float getAggroDistance() const { return aggroDistance; }
