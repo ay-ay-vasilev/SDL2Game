@@ -29,15 +29,22 @@ public:
 			distance = (Vector2D::Distance(transform->getPosition(), targetTransform->getPosition()));
 
 			transform->setVeloctiy(0, 0);
+			if (!weapon)
+				weapon = entity->getComponent<WeaponComponent>();
+			if (!weapon)
+				return;
+
 			if (weapon->isInRange(targetHitbox->getHitbox()) && state != eState::ATTACK)
 			{
-				transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
+				const auto directionVector = Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()).Normalize();
+				transform->setDirection(directionVector);
 				sprite->play("attack");
 				state = eState::ATTACK;
 			}
 			else if (state != eState::ATTACK)
 			{
-				transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
+				const auto directionVector = Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()).Normalize();
+				transform->setDirection(directionVector);
 				transform->setVeloctiy(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
 				sprite->play("walk");
 				state = eState::WALK;

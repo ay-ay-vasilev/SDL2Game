@@ -16,17 +16,6 @@
 		"dx": 0, "dy": 2,
 		"w": 4, "h": 10
 	},
-	"weapon":
-	{
-		"damage": 5,
-		"weapon_rect":
-		{
-			"shape": "circle",
-			"x": 4, "y": 4,
-			"offset": { "dx": 0, "dy": 2.7 },
-			"radius": 10
-		}
-	},
 	"sprite_data":
 	{
 		"texture": "goblin",

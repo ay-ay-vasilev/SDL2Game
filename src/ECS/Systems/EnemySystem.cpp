@@ -1,17 +1,8 @@
 #include "EnemySystem.h"
 
-void EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filename) const
+Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filename) const
 {
-	std::string filenameString(Game::assets->getActorJson(filename));
-	std::ifstream file(filenameString);
-	if (!file.is_open())
-	{
-		std::cerr << "Failed to open an enemy file: " << filenameString << std::endl;
-		return;
-	}
-	nlohmann::json enemyData;
-	file >> enemyData;
-
+	const auto enemyData = Game::assets->getActorJson(filename);
 	auto& enemy(manager.addEntity());
 	enemy.addComponent<TransformComponent>
 	(
@@ -22,10 +13,16 @@ void EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filen
 	enemy.addComponent<SpriteComponent>(enemyData["sprite_data"], true);
 	enemy.addComponent<ColliderComponent>("enemy", enemyData["collider_rect"]);
 	enemy.addComponent<HitboxComponent>("enemy", enemyData["hitbox_rect"]);
-	enemy.addComponent<WeaponComponent>("sword", enemyData["weapon"]);
 	enemy.addComponent<HealthComponent>(enemyData["health"]);
 	enemy.addComponent<AIComponentBasicEnemy>();
 	enemy.addGroup(Game::eGroupLabels::ENEMIES);
+
+	return &enemy;
+}
+
+void EnemySystem::equipWeapon(Entity& enemy, const std::string& weaponName)
+{
+	enemy.addComponent<WeaponComponent>(weaponName);
 }
 
 void EnemySystem::update()

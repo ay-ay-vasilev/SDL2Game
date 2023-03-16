@@ -7,28 +7,44 @@
 class WeaponComponent : public Component, private Observer
 {
 public:
-	WeaponComponent(const std::string_view& tag, const nlohmann::json& weaponColliderData, bool isProjectile = false) :
-		tag(tag),
+	WeaponComponent(const std::string_view& name, bool isProjectile = false) :
+		tag(name),
 		transform(nullptr), texture(nullptr), sprite(nullptr),
 		srcRect(), destRect(),
-		weaponColliderDirectionCoefficient({ weaponColliderData["weapon_rect"]["x"], weaponColliderData["weapon_rect"]["y"] }),
+		weaponColliderDirectionCoefficient({ 0, 0 }),
 		weaponColliderOffset({ 0, 0 }),
 		enabled(isProjectile),
 		destroyOnHit(isProjectile),
 		damage(0)
 	{
-		if (weaponColliderData["weapon_rect"]["shape"] == "circle")
+		const auto weaponName = std::string(name);
+		nlohmann::json weaponData;
+		if (isProjectile)
 		{
-			weaponCollider = std::make_shared<CircleCollider>(Vector2D(0, 0), weaponColliderData["weapon_rect"]["radius"]);
+			weaponData = Game::assets->getProjectileJson(weaponName)["weapon"];
 		}
-		if (weaponColliderData["weapon_rect"]["shape"] == "rectangle")
+		else
 		{
-			weaponCollider = std::make_shared<RectangleCollider>(Vector2D(0, 0), weaponColliderData["weapon_rect"]["w"], weaponColliderData["weapon_rect"]["h"]);
+			weaponData = Game::assets->getWeaponJson(weaponName);
 		}
-		if (weaponColliderData["weapon_rect"].contains("offset")) {
-			weaponColliderOffset = { weaponColliderData["weapon_rect"]["offset"]["dx"], weaponColliderData["weapon_rect"]["offset"]["dy"]};
+		if (weaponData.contains("collider"))
+		{
+			const auto& weaponColliderData = weaponData["collider"];
+			if (weaponColliderData["shape"] == "circle")
+			{
+				weaponCollider = std::make_shared<CircleCollider>(Vector2D(0, 0), weaponColliderData["radius"]);
+			}
+			if (weaponColliderData["shape"] == "rectangle")
+			{
+				weaponCollider = std::make_shared<RectangleCollider>(Vector2D(0, 0), weaponColliderData["w"], weaponColliderData["h"]);
+			}
+			if (weaponColliderData.contains("offset")) {
+				weaponColliderOffset = { weaponColliderData["offset"]["dx"], weaponColliderData["offset"]["dy"] };
+			}
+			weaponColliderDirectionCoefficient = { weaponColliderData.value("x", 0.f), weaponColliderData.value("y", 0.f)};
+
 		}
-		damage = weaponColliderData.value("damage", 0);
+		damage = weaponData.value("damage", 0);
 	}
 
 	virtual ~WeaponComponent() {}
@@ -57,10 +73,10 @@ public:
 
 		std::string texturePath;
 		if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(weaponCollider)) {
-			texturePath = "assets/images/weapon_collider_rect.png";
+			texturePath = "assets/images/misc/weapon_collider_rect.png";
 		}
 		else if (auto circleCollider = std::dynamic_pointer_cast<CircleCollider>(weaponCollider)) {
-			texturePath = "assets/images/weapon_collider_circle.png";
+			texturePath = "assets/images/misc/weapon_collider_circle.png";
 		}
 		texture = TextureManager::loadTexture(texturePath);
 		srcRect = { 0, 0, 32, 32 };

@@ -16,17 +16,6 @@
 		"dx": 0, "dy": 0,
 		"w": 10, "h": 32
 	},
-	"weapon":
-	{
-		"damage": 0,
-		"weapon_rect":
-		{
-			"shape": "circle",
-			"x": 8, "y": 8,
-			"offset": { "dx": 0, "dy": 2.7 },
-			"radius": 16
-		}
-	},
 	"sprite_data":
 	{
 		"texture": "human",

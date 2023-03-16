@@ -19,8 +19,9 @@ public:
 	void loadFonts();
 	
 	std::filesystem::path getDataPath();
-	std::string getActorJson(const std::string& fileName);
-	std::string getProjectileJson(const std::string& fileName);
+	std::string getActorJsonPath(const std::string& fileName);
+	std::string getProjectileJsonPath(const std::string& fileName);
+	std::string getWeaponJsonPath(const std::string& fileName);
 
 	// Texture management
 	void addTexture(const std::string_view& id, const std::string& path);
@@ -29,6 +30,10 @@ public:
 	// Font management
 	void addFont(const std::string_view& id, const std::string& path, const int fontSize);
 	TTF_Font* getFont(const std::string_view& id) const;
+
+	nlohmann::json getActorJson(const std::string& actorName);
+	nlohmann::json getProjectileJson(const std::string& projectileName);
+	nlohmann::json getWeaponJson(const std::string& weaponName);
 
 private:
 

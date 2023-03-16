@@ -9,9 +9,9 @@ void AssetManager::loadTextures()
 {
 	addTexture("terrain", "assets/images/spritesheets/tiles_v0.png");
 	addTexture("goblin", "assets/images/spritesheets/goblin_downscale_spritesheet.png");
-	addTexture("projectile", "assets/images/test_projectile.png");
+	addTexture("test_projectile", "assets/images/misc/test_projectile.png");
 	addTexture("human", "assets/images/spritesheets/human_downscale_spritesheet.png");
-	addTexture("black", "assets/images/black.png");
+	addTexture("black", "assets/images/misc/black.png");
 }
 
 void AssetManager::loadFonts()
@@ -62,14 +62,65 @@ std::filesystem::path AssetManager::getDataPath()
 	return std::filesystem::current_path() / ".." / "data";
 }
 
-std::string AssetManager::getActorJson(const std::string& fileName)
+std::string AssetManager::getActorJsonPath(const std::string& fileName)
 {
 	std::filesystem::path actorPath = getDataPath() / "actors" / (fileName + ".json");
 	return actorPath.string();
 }
 
-std::string AssetManager::getProjectileJson(const std::string& fileName)
+std::string AssetManager::getProjectileJsonPath(const std::string& fileName)
 {
 	std::filesystem::path projectilePath = getDataPath() / "projectiles" / (fileName + ".json");
 	return projectilePath.string();
+}
+
+std::string AssetManager::getWeaponJsonPath(const std::string& fileName)
+{
+	std::filesystem::path weaponPath = getDataPath() / "weapons" / (fileName + ".json");
+	return weaponPath.string();
+}
+
+nlohmann::json AssetManager::getActorJson(const std::string& actorName)
+{
+	const auto fileName = std::string(actorName);
+	std::string filenameString(Game::assets->getActorJsonPath(fileName));
+	std::ifstream file(filenameString);
+	if (!file.is_open())
+	{
+		std::cerr << "Failed to open an actor file: " << filenameString << std::endl;
+		return nlohmann::json();
+	}
+	nlohmann::json actorData;
+	file >> actorData;
+	return actorData;
+}
+
+nlohmann::json AssetManager::getProjectileJson(const std::string& projectileName)
+{
+	const auto fileName = std::string(projectileName);
+	std::string filenameString(Game::assets->getProjectileJsonPath(fileName));
+	std::ifstream file(filenameString);
+	if (!file.is_open())
+	{
+		std::cerr << "Failed to open a projectile file: " << filenameString << std::endl;
+		return nlohmann::json();
+	}
+	nlohmann::json projectileData;
+	file >> projectileData;
+	return projectileData;
+}
+
+nlohmann::json AssetManager::getWeaponJson(const std::string& weaponName)
+{
+	const auto fileName = std::string(weaponName);
+	std::string filenameString(Game::assets->getWeaponJsonPath(fileName));
+	std::ifstream file(filenameString);
+	if (!file.is_open())
+	{
+		std::cerr << "Failed to open a weapon file: " << filenameString << std::endl;
+		return nlohmann::json();
+	}
+	nlohmann::json weaponData;
+	file >> weaponData;
+	return weaponData;
 }

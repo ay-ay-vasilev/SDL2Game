@@ -73,10 +73,10 @@ public:
 
 		std::string texturePath;
 		if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(collider)) {
-			texturePath = "assets/images/collider_rect.png";
+			texturePath = "assets/images/misc/collider_rect.png";
 		}
 		else if (auto circleCollider = std::dynamic_pointer_cast<CircleCollider>(collider)) {
-			texturePath = "assets/images/collider_circle.png";
+			texturePath = "assets/images/misc/collider_circle.png";
 		}
 		texture = TextureManager::loadTexture(texturePath);
 

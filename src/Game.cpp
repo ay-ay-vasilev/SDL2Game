@@ -92,8 +92,12 @@ void Game::init()
 	projectileSystem->instantiateProjectile(Vector2D(33.33, 50), Vector2D(2, 2), projectileFile);
 	projectileSystem->instantiateProjectile(Vector2D(100, 33.33), Vector2D(-2, 2), projectileFile);
 
-	playerSystem->instantiatePlayer(constants->PLAYER_POS, "goblin");
-	enemySystem->instantiateEnemy(constants->ENEMY_POS, "human");
+	auto player = playerSystem->instantiatePlayer(constants->PLAYER_POS, "goblin");
+	playerSystem->equipWeapon(*player, "shortsword");
+
+	auto enemy = enemySystem->instantiateEnemy(constants->ENEMY_POS, "human");
+	enemySystem->equipWeapon(*enemy, "sword");
+
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
 }
 

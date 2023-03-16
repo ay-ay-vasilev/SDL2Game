@@ -6,7 +6,9 @@ class PlayerSystem : public System
 public:
 	PlayerSystem(Manager& manager) : System(manager), lastPlayerPosition(0, 0) {}
 
-	void instantiatePlayer(const Vector2D& pos, const std::string& filename) const;
+	Entity* instantiatePlayer(const Vector2D& pos, const std::string& filename) const;
+	void equipWeapon(Entity& player, const std::string& weaponName);
+
 	const Vector2D getPlayerPosition();
 
 	void update() override;

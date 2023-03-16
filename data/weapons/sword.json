@@ -1,0 +1,41 @@
+{
+	"damage": 0,
+	"collider":
+	{
+		"shape": "circle",
+		"x": 8, "y": 8,
+		"offset": { "dx": 0, "dy": 2.7 },
+		"radius": 16
+	},
+	"sprite_data":
+	{
+		"goblin": {},
+		"human":
+		{
+			"texture": "sword_human",
+			"frame_width": 64,
+			"frame_height": 64,
+			"animations":
+			{
+				"idle":
+				{
+					"id": 0,
+					"num_of_frames": 4,
+					"speed": 100
+				},
+				"walk":
+				{
+					"id": 1,
+					"num_of_frames": 8,
+					"speed": 100
+				},
+				"attack":
+				{
+					"id": 2,
+					"num_of_frames": 5,
+					"speed": 100
+				}
+			}
+		}
+	}
+}
