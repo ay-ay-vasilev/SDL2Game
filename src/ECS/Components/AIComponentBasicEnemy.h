@@ -36,15 +36,13 @@ public:
 
 			if (weapon->isInRange(targetHitbox->getHitbox()) && state != eState::ATTACK)
 			{
-				const auto directionVector = Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()).Normalize();
-				transform->setDirection(directionVector);
+				transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
 				sprite->play("attack");
 				state = eState::ATTACK;
 			}
 			else if (state != eState::ATTACK)
 			{
-				const auto directionVector = Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()).Normalize();
-				transform->setDirection(directionVector);
+				transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
 				transform->setVeloctiy(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
 				sprite->play("walk");
 				state = eState::WALK;

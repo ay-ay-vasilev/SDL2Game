@@ -31,6 +31,7 @@ public:
 	void addFont(const std::string_view& id, const std::string& path, const int fontSize);
 	TTF_Font* getFont(const std::string_view& id) const;
 
+	nlohmann::json getJsonData(const std::string& filePath);
 	nlohmann::json getActorJson(const std::string& actorName);
 	nlohmann::json getProjectileJson(const std::string& projectileName);
 	nlohmann::json getWeaponJson(const std::string& weaponName);

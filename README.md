@@ -39,8 +39,6 @@ Maintenance:
 - Better WeaponComponent implementation (add an object for weapon stats).
 - i-frames ?
 - CameraSystem
-- AIComponent direction stuff
-- AssetManager small refactor ?
 
 Future plans:
 - Different weapons

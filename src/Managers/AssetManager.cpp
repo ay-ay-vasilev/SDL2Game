@@ -80,47 +80,32 @@ std::string AssetManager::getWeaponJsonPath(const std::string& fileName)
 	return weaponPath.string();
 }
 
-nlohmann::json AssetManager::getActorJson(const std::string& actorName)
+nlohmann::json AssetManager::getJsonData(const std::string& filePath)
 {
-	const auto fileName = std::string(actorName);
-	std::string filenameString(Game::assets->getActorJsonPath(fileName));
-	std::ifstream file(filenameString);
+	std::ifstream file(filePath);
 	if (!file.is_open())
 	{
-		std::cerr << "Failed to open an actor file: " << filenameString << std::endl;
-		return nlohmann::json();
+		throw std::runtime_error("Failed to open file: " + filePath);
 	}
-	nlohmann::json actorData;
-	file >> actorData;
-	return actorData;
+	nlohmann::json jsonData;
+	file >> jsonData;
+	return jsonData;
+}
+
+nlohmann::json AssetManager::getActorJson(const std::string& actorName)
+{
+	const std::string filePath = getActorJsonPath(actorName);
+	return getJsonData(filePath);
 }
 
 nlohmann::json AssetManager::getProjectileJson(const std::string& projectileName)
 {
-	const auto fileName = std::string(projectileName);
-	std::string filenameString(Game::assets->getProjectileJsonPath(fileName));
-	std::ifstream file(filenameString);
-	if (!file.is_open())
-	{
-		std::cerr << "Failed to open a projectile file: " << filenameString << std::endl;
-		return nlohmann::json();
-	}
-	nlohmann::json projectileData;
-	file >> projectileData;
-	return projectileData;
+	const std::string filePath = getProjectileJsonPath(projectileName);
+	return getJsonData(filePath);
 }
 
 nlohmann::json AssetManager::getWeaponJson(const std::string& weaponName)
 {
-	const auto fileName = std::string(weaponName);
-	std::string filenameString(Game::assets->getWeaponJsonPath(fileName));
-	std::ifstream file(filenameString);
-	if (!file.is_open())
-	{
-		std::cerr << "Failed to open a weapon file: " << filenameString << std::endl;
-		return nlohmann::json();
-	}
-	nlohmann::json weaponData;
-	file >> weaponData;
-	return weaponData;
+	const std::string filePath = getWeaponJsonPath(weaponName);
+	return getJsonData(filePath);
 }
