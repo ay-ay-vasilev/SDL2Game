@@ -2,7 +2,7 @@
 #include "ECS.h"
 #include "TransformComponent.h"
 #include "SpriteComponent.h"
-#include "KeyboardController.h"
+#include "KeyboardComponent.h"
 #include "ColliderComponent.h"
 #include "HitboxComponent.h"
 #include "TileComponent.h"

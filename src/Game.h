@@ -38,10 +38,7 @@ public:
 	static SDL_Event gameEvent;
 	static bool isRunning;
 	static SDL_Rect camera;
-	static int cameraMinX;
-	static int cameraMaxX;
-	static int cameraMinY;
-	static int cameraMaxY;
+	static SDL_Rect cameraBounds;
 
 	static std::shared_ptr<Constants> constants;
 

@@ -3,10 +3,10 @@
 #include "Components.h"
 #include "Observer.h"
 
-class KeyboardController : public Component, private Observer
+class KeyboardComponent : public Component, private Observer
 {
 public:
-	virtual ~KeyboardController() {}
+	virtual ~KeyboardComponent() {}
 
 	enum class eState
 	{

@@ -30,6 +30,7 @@ Maintenance:
     * Rework the RenderSystem to account for different Z values of pushed sprites:
         - Add a RenderComponent that stores sprites and their Z values.
         - Make it so SpriteComponent and WeaponComponent push their sprites to RenderComponent, instead of drawing their sprites.
+- Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.
@@ -38,7 +39,6 @@ Maintenance:
 - Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update).
 - Better WeaponComponent implementation (add an object for weapon stats).
 - i-frames ?
-- CameraSystem
 
 Future plans:
 - Different weapons

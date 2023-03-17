@@ -53,11 +53,11 @@ public:
 	Entity(Manager& manager, int nextID) : manager(manager), id(nextID), componentArray{} {}
 	void update()
 	{
-		for (auto c : components) c->update();
+		for (auto component : components) component->update();
 	}
 	void draw() 
 	{
-		for (auto c : components) c->draw();
+		for (auto component : components) component->draw();
 	}
 	bool isActive() { return active; }
 	void destroy() { active = false; }
@@ -86,22 +86,22 @@ public:
 	template <typename T, typename... TArgs>
 	std::shared_ptr<T> addComponent(TArgs&&... mArgs)
 	{
-		std::shared_ptr<T> c = std::make_shared<T>(std::forward<TArgs>(mArgs)...);
-		c->entity = this;
-		components.emplace_back(c);
+		std::shared_ptr<T> component = std::make_shared<T>(std::forward<TArgs>(mArgs)...);
+		component->entity = this;
+		components.emplace_back(component);
 
-		componentArray[getComponentTypeID<T>()] = c;
+		componentArray[getComponentTypeID<T>()] = component;
 		componentBitSet[getComponentTypeID<T>()] = true;
 
-		c->init();
-		return c;
+		component->init();
+		return component;
 	}
 
 	template<typename T>
 	std::shared_ptr<T> getComponent() const
 	{
-		std::shared_ptr<Component> c = componentArray[getComponentTypeID<T>()];
-		return std::dynamic_pointer_cast<T>(c);
+		std::shared_ptr<Component> component = componentArray[getComponentTypeID<T>()];
+		return std::dynamic_pointer_cast<T>(component);
 	}
 
 	int getID() const { return id; }
@@ -121,6 +121,7 @@ class System
 {
 public:
 	System(Manager& manager) : manager(manager) {}
+	virtual void init() {}
 	virtual void update() {}
 	virtual void draw() {}
 
@@ -137,14 +138,13 @@ public:
 
 	void update()
 	{
-		for (const auto& e : entities) e->update();
-		for (const auto& s : systems) s->update();
+		for (const auto& entity : entities) entity->update();
+		for (const auto& system : systems) system->update();
 	}
 	
 	void draw()
 	{
-		/*for (const auto& e : entities) e->draw();*/
-		for (const auto& s : systems) s->draw();
+		for (const auto& system : systems) system->draw();
 	}
 
 	void refresh()
@@ -182,8 +182,8 @@ public:
 
 	Entity& addEntity()
 	{
-		auto e = std::make_unique<Entity>(*this, nextID++);
-		entities.emplace_back(std::move(e));
+		auto entity = std::make_unique<Entity>(*this, nextID++);
+		entities.emplace_back(std::move(entity));
 		return *entities.back();
 	}
 
@@ -192,6 +192,7 @@ public:
 	{
 		std::shared_ptr<T> system = std::make_shared<T>(*this);
 		systems.emplace_back(system);
+		system->init();
 		return system;
 	}
 
@@ -199,9 +200,9 @@ public:
 	std::vector<Entity*> getEntitiesWithComponent()
 	{
 		std::vector<Entity*> entitiesWithComponent;
-		for (const auto& e : entities) {
-			if (e->hasComponent<T>()) {
-				entitiesWithComponent.push_back(e.get());
+		for (const auto& entity : entities) {
+			if (entity->hasComponent<T>()) {
+				entitiesWithComponent.push_back(entity.get());
 			}
 		}
 		return entitiesWithComponent;
@@ -211,9 +212,9 @@ public:
 	std::vector<Entity*> getEntitiesWithComponents()
 	{
 		std::vector<Entity*> entitiesWithComponents;
-		for (const auto& e : entities) {
-			if (e->hasComponents<ComponentTypes...>()) {
-				entitiesWithComponents.push_back(e.get());
+		for (const auto& entity : entities) {
+			if (entity->hasComponents<ComponentTypes...>()) {
+				entitiesWithComponents.push_back(entity.get());
 			}
 		}
 		return entitiesWithComponents;

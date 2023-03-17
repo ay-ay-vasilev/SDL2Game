@@ -23,16 +23,19 @@ auto aiSystem(Game::manager->addSystem<AISystem>());
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
 
-int Game::cameraMinX = std::min(0, static_cast<int>(-(constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * constants->SCALE)) / 2));
-int Game::cameraMinY = std::min(0, static_cast<int>(-(constants->SCREEN_HEIGHT - (constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * constants->SCALE)) / 2));
-int Game::cameraMaxX = std::max(cameraMinX, static_cast<int>((constants->MAP_TILE_WIDTH * constants->TILE_SIZE * constants->SCALE) - constants->SCREEN_WIDTH));
-int Game::cameraMaxY = std::max(cameraMinY, static_cast<int>((constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * constants->SCALE) - constants->SCREEN_HEIGHT));
-
 SDL_Rect Game::camera =
 {
 	0, 0,
 	constants->SCREEN_WIDTH,
 	constants->SCREEN_HEIGHT
+};
+
+SDL_Rect Game::cameraBounds =
+{
+	std::min(0, static_cast<int>(-(constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * constants->SCALE)) / 2)),
+	std::min(0, static_cast<int>(-(constants->SCREEN_HEIGHT - (constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * constants->SCALE)) / 2)),
+	std::max(0, static_cast<int>((constants->MAP_TILE_WIDTH * constants->TILE_SIZE * constants->SCALE) - constants->SCREEN_WIDTH)),
+	std::max(0, static_cast<int>((constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * constants->SCALE) - constants->SCREEN_HEIGHT))
 };
 
 bool Game::isRunning = false;
@@ -123,8 +126,8 @@ void Game::update()
 
 		const auto& playerPosition = playerSystem->getPlayerPosition();
 		
-		camera.x = std::clamp(static_cast<int>(playerPosition.x - constants->SCREEN_WIDTH / 2), cameraMinX, cameraMaxX);
-		camera.y = std::clamp(static_cast<int>(playerPosition.y - constants->SCREEN_HEIGHT / 2), cameraMinY, cameraMaxY);
+		camera.x = std::clamp(static_cast<int>(playerPosition.x - constants->SCREEN_WIDTH / 2), cameraBounds.x, cameraBounds.x + cameraBounds.w);
+		camera.y = std::clamp(static_cast<int>(playerPosition.y - constants->SCREEN_HEIGHT / 2), cameraBounds.y, cameraBounds.y + cameraBounds.h);
 
 		std::stringstream ss0;
 		ss0 << "Player position: " << playerPosition;

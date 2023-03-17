@@ -26,6 +26,7 @@
     <ClCompile Include="..\src\Constants\Constants.cpp" />
     <ClCompile Include="..\src\ECS\ECS.cpp" />
     <ClCompile Include="..\src\ECS\Systems\AISystem.cpp" />
+    <ClCompile Include="..\src\ECS\Systems\CameraSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\EnemySystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\HitboxWeaponCollisionSystem.cpp" />
@@ -51,7 +52,7 @@
     <ClInclude Include="..\src\ECS\Components\Components.h" />
     <ClInclude Include="..\src\ECS\Components\HealthComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HitboxComponent.h" />
-    <ClInclude Include="..\src\ECS\Components\KeyboardController.h" />
+    <ClInclude Include="..\src\ECS\Components\KeyboardComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ProjectileComponent.h" />
     <ClInclude Include="..\src\ECS\Components\SpriteComponent.h" />
     <ClInclude Include="..\src\ECS\Components\TileComponent.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="..\src\ECS\ECS.h" />
     <ClInclude Include="..\src\ECS\Systems\AISystem.h" />
     <ClInclude Include="..\src\ECS\Systems\Animation.h" />
+    <ClInclude Include="..\src\ECS\Systems\CameraSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\EnemySystem.h" />
     <ClInclude Include="..\src\ECS\Systems\HitboxWeaponCollisionSystem.h" />

@@ -87,6 +87,9 @@
     <ClCompile Include="..\src\ECS\Systems\AISystem.cpp">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ECS\Systems\CameraSystem.cpp">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">
@@ -104,7 +107,7 @@
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ECS\Components\KeyboardController.h">
+    <ClInclude Include="..\src\ECS\Components\KeyboardComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ECS\Components\ProjectileComponent.h">
@@ -192,6 +195,9 @@
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ECS\Systems\AISystem.h">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Systems\CameraSystem.h">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>

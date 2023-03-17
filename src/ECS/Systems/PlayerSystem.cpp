@@ -13,7 +13,7 @@ Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& 
 		manager.getScale(), playerData["speed"]
 	);
 	player.addComponent<SpriteComponent>(playerData["sprite_data"], true);
-	player.addComponent<KeyboardController>();
+	player.addComponent<KeyboardComponent>();
 	player.addComponent<ColliderComponent>("player", playerData["collider_rect"]);
 	player.addComponent<HitboxComponent>("player", playerData["hitbox_rect"]);
 	player.addComponent<HealthComponent>(playerData["health"]);
