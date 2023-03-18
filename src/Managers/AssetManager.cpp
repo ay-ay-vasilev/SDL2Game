@@ -8,9 +8,9 @@ AssetManager::~AssetManager() {}
 void AssetManager::loadTextures()
 {
 	addTexture("terrain", "assets/images/spritesheets/tiles_v0.png");
-	addTexture("goblin", "assets/images/spritesheets/goblin_downscale_spritesheet.png");
+	addTexture("goblin", "assets/images/spritesheets/actors/goblin/goblin_downscale_spritesheet.png");
 	addTexture("test_projectile", "assets/images/misc/test_projectile.png");
-	addTexture("human", "assets/images/spritesheets/human_downscale_spritesheet.png");
+	addTexture("human", "assets/images/spritesheets/actors/human/human_downscale_spritesheet.png");
 	addTexture("black", "assets/images/misc/black.png");
 }
 
