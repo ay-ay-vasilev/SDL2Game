@@ -25,8 +25,8 @@ Maintenance:
 - Weapons refactor:
     * DONE Make a json file and a directory for weapons.
     * DONE Add weapons to entities through systems with a dedicated method (not on creation).
-    * ALMOST Remove weapon sprites from actor spritesheets.
-    * Add dedicated spritesheets for hands and weapons.
+    * DONE Remove weapon sprites from actor spritesheets.
+    * DONE Add dedicated spritesheets for hands and weapons.
     * Rework the RenderSystem to account for different Z values of pushed sprites:
         - Add a RenderComponent that stores sprites and their Z values.
         - Make it so SpriteComponent and WeaponComponent push their sprites to RenderComponent, instead of drawing their sprites.
