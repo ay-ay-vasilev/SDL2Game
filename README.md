@@ -28,8 +28,8 @@ Maintenance:
     * DONE Remove weapon sprites from actor spritesheets.
     * DONE Add dedicated spritesheets for hands and weapons.
     * Rework the RenderSystem to account for different Z values of pushed sprites:
-        - Add a RenderComponent that stores sprites and their Z values.
-        - Make it so SpriteComponent and WeaponComponent push their sprites to RenderComponent, instead of drawing their sprites.
+        - Refactor SpriteComponent to hold a vector of sprites with Z values and to sort the sprites before drawing them.
+        - Make it so components with Sprite data would push their sprites to SpriteComponent, instead of drawing their sprites.
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - JSON files for AI.
 - Add map json.

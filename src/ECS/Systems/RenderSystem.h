@@ -23,7 +23,7 @@ public:
 		std::sort(sortedEntities.begin(), sortedEntities.end(),
 			[](const EntityZValue& a, const EntityZValue& b)
 			{
-				return a.z < b.z;
+				return a.entityZ < b.entityZ;
 			});
 	}
 
@@ -40,7 +40,7 @@ private:
 	struct EntityZValue
 	{
 		Entity* entity;
-		double z;
+		double entityZ;
 	};
 	std::vector<Entity*> tiles;
 	std::vector<EntityZValue> sortedEntities;

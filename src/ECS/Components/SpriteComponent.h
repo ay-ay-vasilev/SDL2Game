@@ -23,17 +23,17 @@ public:
 	SpriteComponent() = default;
 	SpriteComponent(const std::string_view& textureId)
 	{
-		setTexture(textureId);
+		addSprite(textureId, { 0, 0, frameWidth, frameHeight }, { 0, 0, 0, 0 }, 0);
 	}
 	SpriteComponent(const std::string_view& textureId, int width, int height) : frameWidth(width), frameHeight(height)
 	{
-		setTexture(textureId);
+		addSprite(textureId, { 0, 0, frameWidth, frameHeight }, { 0, 0, 0, 0 }, 0);
 	}
 	SpriteComponent(const nlohmann::json& spriteData, const bool isAnimated) : animated(isAnimated)
 	{
 		frameWidth = spriteData["frame_width"];
 		frameHeight = spriteData["frame_height"];
-		setTexture(spriteData["texture"]);
+		addSprite(spriteData["texture"], {0, 0, frameWidth, frameHeight}, {0, 0, 0, 0}, 0);
 
 		if (animated)
 		{
@@ -46,20 +46,16 @@ public:
 	{
 	}
 
-	void setTexture(const std::string_view& textureId)
+	void addSprite(const std::string_view& textureId, const SDL_Rect& srcRect, const SDL_Rect& destRect, int z)
 	{
-		texture = Game::assets->getTexture(textureId);
+		const auto texture = Game::assets->getTexture(textureId);
+		sprites.push_back(Sprite(texture, srcRect, destRect, SDL_FLIP_NONE, z));
 	}
 
 	void init() override
 	{
 		animStartTime = 0;
 		transform = entity->getComponent<TransformComponent>();
-
-		srcRect.x = 0;
-		srcRect.y = 0;
-		srcRect.w = frameWidth;
-		srcRect.h = frameHeight;
 	}
 
 	void update() override
@@ -106,7 +102,16 @@ public:
 
 	void draw() override
 	{
-		TextureManager::draw(texture, srcRect, destRect, spriteFlip);
+		std::sort(sprites.begin(), sprites.end(),
+			[](const Sprite& a, const Sprite& b)
+			{
+				return a.z < b.z;
+			});
+
+		for (const auto& sprite : sprites)
+		{
+			TextureManager::draw(sprite.texture, sprite.srcRect, sprite.destRect, sprite.spriteFlip);
+		}
 	}
 
 	void play(const std::string& newAnimPlay)
@@ -183,15 +188,21 @@ public:
 	}
 
 private:
+	struct Sprite
+	{
+		SDL_Texture* texture;
+		SDL_Rect srcRect, destRect;
+		SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
+		double z;
+	};
+
 	Uint32 animStartTime;
 	int animIndex = 0;
 	std::map<std::string, Animation> animations;
 	eAnimState animState = eAnimState::NONE;
-	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
-
 	std::shared_ptr<TransformComponent> transform;
-	SDL_Texture* texture;
-	SDL_Rect srcRect, destRect;
+
+	std::vector<Sprite> sprites;
 
 	std::string animName;
 	bool animated = false;
