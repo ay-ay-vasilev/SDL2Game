@@ -23,17 +23,17 @@ public:
 	SpriteComponent() = default;
 	SpriteComponent(const std::string_view& textureId)
 	{
-		addSprite(textureId, { 0, 0, frameWidth, frameHeight }, { 0, 0, 0, 0 }, 0);
+		addSprite(textureId, 0);
 	}
 	SpriteComponent(const std::string_view& textureId, int width, int height) : frameWidth(width), frameHeight(height)
 	{
-		addSprite(textureId, { 0, 0, frameWidth, frameHeight }, { 0, 0, 0, 0 }, 0);
+		addSprite(textureId, 0);
 	}
 	SpriteComponent(const nlohmann::json& spriteData, const bool isAnimated) : animated(isAnimated)
 	{
 		frameWidth = spriteData["frame_width"];
 		frameHeight = spriteData["frame_height"];
-		addSprite(spriteData["texture"], {0, 0, frameWidth, frameHeight}, {0, 0, 0, 0}, 0);
+		addSprite(spriteData["texture"], 0);
 
 		if (animated)
 		{
@@ -46,16 +46,21 @@ public:
 	{
 	}
 
-	void addSprite(const std::string_view& textureId, const SDL_Rect& srcRect, const SDL_Rect& destRect, int z)
+	void addSprite(const std::string_view& textureId, int z)
 	{
 		const auto texture = Game::assets->getTexture(textureId);
-		sprites.push_back(Sprite(texture, srcRect, destRect, SDL_FLIP_NONE, z));
+		sprites.push_back(Sprite(texture, z));
 	}
 
 	void init() override
 	{
 		animStartTime = 0;
 		transform = entity->getComponent<TransformComponent>();
+
+		srcRect.x = 0;
+		srcRect.y = 0;
+		srcRect.w = frameWidth;
+		srcRect.h = frameHeight;
 	}
 
 	void update() override
@@ -110,7 +115,7 @@ public:
 
 		for (const auto& sprite : sprites)
 		{
-			TextureManager::draw(sprite.texture, sprite.srcRect, sprite.destRect, sprite.spriteFlip);
+			TextureManager::draw(sprite.texture, srcRect, destRect, spriteFlip);
 		}
 	}
 
@@ -191,8 +196,6 @@ private:
 	struct Sprite
 	{
 		SDL_Texture* texture;
-		SDL_Rect srcRect, destRect;
-		SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 		double z;
 	};
 
@@ -200,7 +203,11 @@ private:
 	int animIndex = 0;
 	std::map<std::string, Animation> animations;
 	eAnimState animState = eAnimState::NONE;
+	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
+
 	std::shared_ptr<TransformComponent> transform;
+	SDL_Texture* texture;
+	SDL_Rect srcRect, destRect;
 
 	std::vector<Sprite> sprites;
 
