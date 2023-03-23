@@ -11,8 +11,8 @@ Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& fi
 		manager.getScale(), enemyData["speed"]
 	);
 	enemy.addComponent<SpriteComponent>(enemyData["sprite_data"], true);
-	enemy.addComponent<ColliderComponent>("enemy", enemyData["collider_rect"]);
-	enemy.addComponent<HitboxComponent>("enemy", enemyData["hitbox_rect"]);
+	enemy.addComponent<ColliderComponent>(filename, enemyData["collider_rect"]);
+	enemy.addComponent<HitboxComponent>(filename, enemyData["hitbox_rect"]);
 	enemy.addComponent<HealthComponent>(enemyData["health"]);
 	enemy.addComponent<AIComponentBasicEnemy>();
 	enemy.addGroup(Game::eGroupLabels::ENEMIES);
@@ -22,7 +22,13 @@ Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& fi
 
 void EnemySystem::equipWeapon(Entity& enemy, const std::string& weaponName)
 {
-	enemy.addComponent<WeaponComponent>(weaponName);
+	std::string enemyTag = "";
+	if (enemy.hasComponent<HitboxComponent>())
+	{
+		const auto hitboxComponent = enemy.getComponent<HitboxComponent>();
+		enemyTag = hitboxComponent->getTag();
+	}
+	enemy.addComponent<WeaponComponent>(weaponName, enemyTag);
 }
 
 void EnemySystem::update()

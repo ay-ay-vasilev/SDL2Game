@@ -7,8 +7,9 @@
 class WeaponComponent : public Component, private Observer
 {
 public:
-	WeaponComponent(const std::string_view& name, bool isProjectile = false) :
+	WeaponComponent(const std::string_view& name, const std::string_view& ownerName, bool isProjectile = false) :
 		tag(name),
+		ownerTag(ownerName),
 		transform(nullptr), texture(nullptr), sprite(nullptr),
 		srcRect(), destRect(),
 		weaponColliderDirectionCoefficient({ 0, 0 }),
@@ -27,6 +28,7 @@ public:
 		{
 			weaponData = Game::assets->getWeaponJson(weaponName);
 		}
+
 		if (weaponData.contains("collider"))
 		{
 			const auto& weaponColliderData = weaponData["collider"];
@@ -42,9 +44,26 @@ public:
 				weaponColliderOffset = { weaponColliderData["offset"]["dx"], weaponColliderData["offset"]["dy"] };
 			}
 			weaponColliderDirectionCoefficient = { weaponColliderData.value("x", 0.f), weaponColliderData.value("y", 0.f)};
-
 		}
 		damage = weaponData.value("damage", 0);
+
+		if (weaponData.contains("sprite_data"))
+		{
+			if (weaponData["sprite_data"].contains(ownerTag))
+			{
+				const auto weaponSpriteData = weaponData["sprite_data"][ownerTag];
+				if (weaponSpriteData.contains("front_and_back") && weaponSpriteData["front_and_back"] == true)
+				{
+					const std::string textureName = weaponSpriteData["texture"];
+					tempSprites.push_back({ textureName + "_back", -1 });
+					tempSprites.push_back({ textureName + "_front", 11 });
+				}
+				else
+				{
+					tempSprites.push_back({ weaponSpriteData["texture"] , 11 });
+				}
+			}
+		}
 	}
 
 	virtual ~WeaponComponent() {}
@@ -64,11 +83,6 @@ public:
 			const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
 			weaponCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
 		}
-		if (entity->hasComponent<HitboxComponent>())
-		{
-			const auto hitboxComponent = entity->getComponent<HitboxComponent>();
-			ownerTag = hitboxComponent->getTag();
-		}
 		destRect = weaponCollider->getDrawRect();
 
 		std::string texturePath;
@@ -83,6 +97,10 @@ public:
 
 		sprite = entity->getComponent<SpriteComponent>();
 		registerWithSubject(sprite);
+		for (const auto& tempSprite : tempSprites)
+		{
+			sprite->addSprite(tempSprite.spriteName, tempSprite.z);
+		}
 	}
 
 	void update() override
@@ -141,6 +159,12 @@ public:
 	}
 
 private:
+	struct TempSprites
+	{
+		std::string spriteName;
+		int z;
+	};
+
 	std::shared_ptr<TransformComponent> transform;
 	std::shared_ptr<SpriteComponent> sprite;
 	std::shared_ptr<ColliderShape> weaponCollider;
@@ -151,6 +175,7 @@ private:
 	std::string ownerTag;
 	SDL_Texture* texture;
 	std::vector<int> affectedTargets;
+	std::vector<TempSprites> tempSprites;
 
 	bool enabled;
 	bool destroyOnHit;

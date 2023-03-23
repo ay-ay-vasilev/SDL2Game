@@ -24,7 +24,7 @@ void ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D 
 	projectile.addComponent<SpriteComponent>(projectileData["sprite_data"], false);
 	projectile.addComponent<ProjectileComponent>(velocity, projectileData["projectile_data"]["range"]);
 	projectile.addComponent<HitboxComponent>("projectile", projectileData["hitbox_rect"]);
-	projectile.addComponent<WeaponComponent>("test_projectile", true);
+	projectile.addComponent<WeaponComponent>("test_projectile", nullptr, true);
 	projectile.addComponent<ColliderComponent>("projectile", projectileData["collider_rect"]);
 	projectile.addComponent<HealthComponent>(projectileData["projectile_data"]["health"]);
 

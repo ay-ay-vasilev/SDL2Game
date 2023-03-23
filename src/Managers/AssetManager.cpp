@@ -12,6 +12,12 @@ void AssetManager::loadTextures()
 	addTexture("goblin", "assets/images/spritesheets/actors/goblin/body/melee_unarmed/spritesheet.png");
 	addTexture("human", "assets/images/spritesheets/actors/human/body/melee_unarmed/spritesheet.png");
 
+	addTexture("shortsword_goblin_front", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_front.png");
+	addTexture("shortsword_goblin_back", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_back.png");
+
+	addTexture("sword_human_front", "assets/images/spritesheets/weapons/melee_medium/sword/human/spritesheet_front.png");
+	addTexture("sword_human_back", "assets/images/spritesheets/weapons/melee_medium/sword/human/spritesheet_back.png");
+
 	addTexture("test_projectile", "assets/images/misc/test_projectile.png");
 	addTexture("black", "assets/images/misc/black.png");
 }

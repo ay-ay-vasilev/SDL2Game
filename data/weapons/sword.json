@@ -13,6 +13,7 @@
 		"human":
 		{
 			"texture": "sword_human",
+			"front_and_back": true,
 			"frame_width": 64,
 			"frame_height": 64,
 			"animations":

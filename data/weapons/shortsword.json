@@ -12,6 +12,7 @@
 		"goblin":
 		{
 			"texture": "shortsword_goblin",
+			"front_and_back": true,
 			"frame_width": 24,
 			"frame_height": 24,
 			"animations":

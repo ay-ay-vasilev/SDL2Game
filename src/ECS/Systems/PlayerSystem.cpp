@@ -14,8 +14,8 @@ Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& 
 	);
 	player.addComponent<SpriteComponent>(playerData["sprite_data"], true);
 	player.addComponent<KeyboardComponent>();
-	player.addComponent<ColliderComponent>("player", playerData["collider_rect"]);
-	player.addComponent<HitboxComponent>("player", playerData["hitbox_rect"]);
+	player.addComponent<ColliderComponent>(filename, playerData["collider_rect"]);
+	player.addComponent<HitboxComponent>(filename, playerData["hitbox_rect"]);
 	player.addComponent<HealthComponent>(playerData["health"]);
 
 	player.addGroup(Game::eGroupLabels::PLAYERS);
@@ -25,7 +25,13 @@ Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& 
 
 void PlayerSystem::equipWeapon(Entity& player, const std::string& weaponName)
 {
-	player.addComponent<WeaponComponent>(weaponName);
+	std::string playerTag = "";
+	if (player.hasComponent<HitboxComponent>())
+	{
+		const auto hitboxComponent = player.getComponent<HitboxComponent>();
+		playerTag = hitboxComponent->getTag();
+	}
+	player.addComponent<WeaponComponent>(weaponName, playerTag);
 }
 
 const Vector2D PlayerSystem::getPlayerPosition()
