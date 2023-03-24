@@ -51,16 +51,10 @@ public:
 		{
 			if (weaponData["sprite_data"].contains(ownerTag))
 			{
-				const auto weaponSpriteData = weaponData["sprite_data"][ownerTag];
-				if (weaponSpriteData.contains("front_and_back") && weaponSpriteData["front_and_back"] == true)
+				const auto weaponSpriteData = weaponData["sprite_data"][ownerTag]["sprites"];
+				for (const auto data : weaponSpriteData)
 				{
-					const std::string textureName = weaponSpriteData["texture"];
-					tempSprites.push_back({ textureName + "_back", -1 });
-					tempSprites.push_back({ textureName + "_front", 11 });
-				}
-				else
-				{
-					tempSprites.push_back({ weaponSpriteData["texture"] , 11 });
+					tempSprites.push_back({ data["texture"], data["z"] });
 				}
 			}
 		}

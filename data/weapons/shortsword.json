@@ -11,31 +11,11 @@
 	{
 		"goblin":
 		{
-			"texture": "shortsword_goblin",
-			"front_and_back": true,
-			"frame_width": 24,
-			"frame_height": 24,
-			"animations":
-			{
-				"idle":
-				{
-					"id": 0,
-					"num_of_frames": 4,
-					"speed": 100
-				},
-				"walk":
-				{
-					"id": 1,
-					"num_of_frames": 8,
-					"speed": 100
-				},
-				"attack":
-				{
-					"id": 2,
-					"num_of_frames": 5,
-					"speed": 100
-				}
-			}
+			"sprites":
+			[
+				{ "texture": "shortsword_goblin_back", "z": -1 },
+				{ "texture": "shortsword_goblin_front", "z": 11 }
+			]
 		},
 		"human": {}
 	}
