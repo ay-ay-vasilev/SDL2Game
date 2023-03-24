@@ -30,6 +30,7 @@ Maintenance:
     * Rework the RenderSystem to account for different Z values of pushed sprites:
         - DONE Refactor SpriteComponent to hold a vector of sprites with Z values and to sort the sprites before drawing them.
         - KINDA DONE Make it so components with Sprite data would push their sprites to SpriteComponent, instead of drawing their sprites.
+        - Add a Sprite class.
         - Refactor!
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - JSON files for AI.
@@ -40,6 +41,7 @@ Maintenance:
 - Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update).
 - Better WeaponComponent implementation (add an object for weapon stats).
 - i-frames ?
+- Delete textures properly ?
 
 Future plans:
 - Different weapons

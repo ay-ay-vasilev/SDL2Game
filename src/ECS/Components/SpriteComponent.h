@@ -4,6 +4,7 @@
 #include "TextureManager.h"
 #include "AssetManager.h"
 #include "Animation.h"
+#include "Sprite.h"
 #include "Subject.h"
 
 #include <json.hpp>
@@ -193,12 +194,6 @@ public:
 	}
 
 private:
-	struct Sprite
-	{
-		SDL_Texture* texture;
-		double z;
-	};
-
 	Uint32 animStartTime;
 	int animIndex = 0;
 	std::map<std::string, Animation> animations;
@@ -206,7 +201,6 @@ private:
 	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 
 	std::shared_ptr<TransformComponent> transform;
-	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
 
 	std::vector<Sprite> sprites;
