@@ -24,7 +24,10 @@
 	},
 	"sprite_data":
 	{
-		"texture": "test_projectile",
+		"sprites":
+		[
+			{ "texture": "test_projectile", "z": 0 }
+		],
 		"frame_width": 7,
 		"frame_height": 7
 	},

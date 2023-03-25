@@ -18,8 +18,13 @@
 	},
 	"sprite_data":
 	{
-		"texture": "goblin",
 		"frame_width": 24, "frame_height": 24,
+		"sprites":
+		[
+			{ "texture": "goblin", "z": 0 },
+			{ "texture": "goblin_hands_front", "z": 10 },
+			{ "texture": "goblin_hands_back", "z": -2 }
+		],
 		"animations":
 		{
 			"idle": { "id": 0, "num_of_frames": 4, "speed": 100 },

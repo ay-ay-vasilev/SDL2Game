@@ -30,15 +30,22 @@ public:
 	{
 		addSprite(textureId, 0);
 	}
-	SpriteComponent(const nlohmann::json& spriteData, const bool isAnimated) : animated(isAnimated)
+	SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated) : animated(isAnimated)
 	{
-		frameWidth = spriteData["frame_width"];
-		frameHeight = spriteData["frame_height"];
-		addSprite(spriteData["texture"], 0);
+		frameWidth = spritesData["frame_width"];
+		frameHeight = spritesData["frame_height"];
+		
+		if (spritesData.contains("sprites"))
+		{
+			for (const auto& spriteData : spritesData["sprites"])
+			{
+				addSprite(spriteData["texture"], spriteData.value("z", 0));
+			}
+		}
 
 		if (animated)
 		{
-			addAnimationsFromJson(spriteData["animations"]);
+			addAnimationsFromJson(spritesData["animations"]);
 			play("idle");
 		}
 	}
@@ -51,6 +58,11 @@ public:
 	{
 		const auto texture = Game::assets->getTexture(textureId);
 		sprites.push_back(Sprite(texture, z));
+		std::sort(sprites.begin(), sprites.end(),
+			[](const Sprite& a, const Sprite& b)
+			{
+				return a.z < b.z;
+			});
 	}
 
 	void init() override
@@ -108,16 +120,8 @@ public:
 
 	void draw() override
 	{
-		std::sort(sprites.begin(), sprites.end(),
-			[](const Sprite& a, const Sprite& b)
-			{
-				return a.z < b.z;
-			});
-
 		for (const auto& sprite : sprites)
-		{
 			TextureManager::draw(sprite.texture, srcRect, destRect, spriteFlip);
-		}
 	}
 
 	void play(const std::string& newAnimPlay)

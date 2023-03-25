@@ -10,7 +10,9 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
-- Ranged weapon for player (after weapons refactor).
+- Adapt the sword for the goblin actor and the shortsword for the human actor.
+- Add changing weapons.
+- Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
 - Add an inventory system.
@@ -22,16 +24,6 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Weapons refactor:
-    * DONE Make a json file and a directory for weapons.
-    * DONE Add weapons to entities through systems with a dedicated method (not on creation).
-    * DONE Remove weapon sprites from actor spritesheets.
-    * DONE Add dedicated spritesheets for hands and weapons.
-    * Rework the RenderSystem to account for different Z values of pushed sprites:
-        - DONE Refactor SpriteComponent to hold a vector of sprites with Z values and to sort the sprites before drawing them.
-        - KINDA DONE Make it so components with Sprite data would push their sprites to SpriteComponent, instead of drawing their sprites.
-        - Add a Sprite class.
-        - Refactor!
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - JSON files for AI.
 - Add map json.

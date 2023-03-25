@@ -88,7 +88,7 @@ void Game::init()
 
 	label0.addComponent<UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
-	const std::string projectileFile = "test";
+	const std::string projectileFile = "test_projectile";
 	projectileSystem->instantiateProjectile(Vector2D(83.33, 100), Vector2D(-2, -2), projectileFile);
 	projectileSystem->instantiateProjectile(Vector2D(50, 83.33), Vector2D(2, -2), projectileFile);
 	projectileSystem->instantiateProjectile(Vector2D(66.67, 66.67), Vector2D(-2, 0), projectileFile);
