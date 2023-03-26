@@ -11,6 +11,10 @@ Stuff to remember:
 
 My plan:
 - Adapt the sword for the goblin actor and the shortsword for the human actor.
+    * Draw in aseprite DONE
+    * Export spritesheets of the new weapon and hands (front and back) + new attack animation
+    * Adapt attack animations for different weapon types (add to spritesheets and change the play animation method for WeaponComponent)
+    
 - Add changing weapons.
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
