@@ -24,22 +24,28 @@ public:
 	SpriteComponent() = default;
 	SpriteComponent(const std::string_view& textureId)
 	{
-		addSprite(textureId, 0);
+		addSprite(textureId, 0, 0, 0);
 	}
-	SpriteComponent(const std::string_view& textureId, int width, int height) : frameWidth(width), frameHeight(height)
+	SpriteComponent(const std::string_view& textureId, int width, int height)
 	{
-		addSprite(textureId, 0);
+		addSprite(textureId, width, height, 0);
 	}
 	SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated) : animated(isAnimated)
 	{
-		frameWidth = spritesData["frame_width"];
-		frameHeight = spritesData["frame_height"];
+		const auto frameWidth = spritesData["frame_width"];
+		const auto frameHeight = spritesData["frame_height"];
 		
 		if (spritesData.contains("sprites"))
 		{
 			for (const auto& spriteData : spritesData["sprites"])
 			{
-				addSprite(spriteData["texture"], spriteData.value("z", 0));
+				addSprite
+				(
+					spriteData["texture"],
+					spriteData.value("frame_width", 0),
+					spriteData.value("frame_height", 0),
+					spriteData.value("z", 0)
+				);
 			}
 		}
 
@@ -54,10 +60,10 @@ public:
 	{
 	}
 
-	void addSprite(const std::string_view& textureId, int z)
+	void addSprite(const std::string_view& textureId, int frameWidth, int frameHeight, int z)
 	{
 		const auto texture = Game::assets->getTexture(textureId);
-		sprites.push_back(Sprite(texture, z));
+		sprites.push_back(Sprite(texture, frameWidth, frameHeight, z));
 		std::sort(sprites.begin(), sprites.end(),
 			[](const Sprite& a, const Sprite& b)
 			{
@@ -69,11 +75,6 @@ public:
 	{
 		animStartTime = 0;
 		transform = entity->getComponent<TransformComponent>();
-
-		srcRect.x = 0;
-		srcRect.y = 0;
-		srcRect.w = frameWidth;
-		srcRect.h = frameHeight;
 	}
 
 	void update() override
@@ -106,22 +107,28 @@ public:
 				}
 			}
 
-			srcRect.x = srcRect.w * static_cast<int>(frameNum % frames);
+			for (auto& sprite : sprites)
+			{
+				sprite.srcRect.x = sprite.srcRect.w * static_cast<int>(frameNum % frames);
+			}
 			spriteFlip = transform->getDirection().x > 0 ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 		}
 
-		srcRect.y = animIndex * frameHeight;
+		for (auto& sprite : sprites)
+		{
+			sprite.srcRect.y = animIndex * sprite.frameHeight;
 
-		destRect.x = static_cast<int>(transform->getPosition().x - static_cast<float>(frameWidth) * transform->getScale() / 2) - Game::camera.x;
-		destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(frameHeight) * transform->getScale() / 2) - Game::camera.y;
-		destRect.w = static_cast<int>(frameWidth * transform->getScale());
-		destRect.h = static_cast<int>(frameHeight * transform->getScale());
+			sprite.destRect.x = static_cast<int>(transform->getPosition().x - static_cast<float>(sprite.frameWidth) * transform->getScale() / 2) - Game::camera.x;
+			sprite.destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(sprite.frameHeight) * transform->getScale() / 2) - Game::camera.y;
+			sprite.destRect.w = static_cast<int>(sprite.frameWidth * transform->getScale());
+			sprite.destRect.h = static_cast<int>(sprite.frameHeight * transform->getScale());
+		}
 	}
 
 	void draw() override
 	{
 		for (const auto& sprite : sprites)
-			TextureManager::draw(sprite.texture, srcRect, destRect, spriteFlip);
+			TextureManager::draw(sprite.texture, sprite.srcRect, sprite.destRect, spriteFlip);
 	}
 
 	void play(const std::string& newAnimPlay)
@@ -135,9 +142,6 @@ public:
 		frames = animData.frames;
 		animIndex = animData.index;
 		speed = animData.speed;
-
-		if (animData.frameWidth) frameWidth = animData.frameWidth;
-		if (animData.frameHeight) frameHeight = animData.frameHeight;
 
 		triggerFrames.clear();
 		if (!animData.triggerFrames.empty()) triggerFrames = animData.triggerFrames;
@@ -205,7 +209,6 @@ private:
 	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 
 	std::shared_ptr<TransformComponent> transform;
-	SDL_Rect srcRect, destRect;
 
 	std::vector<Sprite> sprites;
 
@@ -215,7 +218,4 @@ private:
 	int speed = 100;
 	std::vector<int> triggerFrames;
 	bool triggered = false;
-
-	int frameWidth;
-	int frameHeight;
 };
