@@ -39,11 +39,14 @@ public:
 		{
 			for (const auto& spriteData : spritesData["sprites"])
 			{
+				const auto spriteFrameWidth = spriteData.value("frame_width", frameWidth);
+				const auto spriteFrameHeight = spriteData.value("frame_height", frameHeight);
+
 				addSprite
 				(
 					spriteData["texture"],
-					spriteData.value("frame_width", 0),
-					spriteData.value("frame_height", 0),
+					spriteFrameWidth,
+					spriteFrameHeight,
 					spriteData.value("z", 0)
 				);
 			}
@@ -62,8 +65,18 @@ public:
 
 	void addSprite(const std::string_view& textureId, int frameWidth, int frameHeight, int z)
 	{
-		const auto texture = Game::assets->getTexture(textureId);
-		sprites.push_back(Sprite(texture, frameWidth, frameHeight, z));
+		sprites.push_back(Sprite(textureId, frameWidth, frameHeight, z));
+		sortSprites();
+	}
+
+	void addSprite(Sprite newSprite)
+	{
+		sprites.push_back(newSprite);
+		sortSprites();
+	}
+
+	void sortSprites()
+	{
 		std::sort(sprites.begin(), sprites.end(),
 			[](const Sprite& a, const Sprite& b)
 			{
@@ -158,20 +171,17 @@ public:
 			const int id = animData.value("id", 0);
 			const int num_of_frames = animData.value("num_of_frames", 0);
 			const int speed = animData.value("speed", 0);
-			const int frame_width = animData.value("frame_width", 0);
-			const int frame_height = animData.value("frame_height", 0);
 			const auto trigger_frames = animData.count("trigger_frames") ? animData.at("trigger_frames").get<std::vector<int>>() : std::vector<int>();
-			addAnimation(name, id, num_of_frames, speed, frame_width, frame_height, trigger_frames);
+			addAnimation(name, id, num_of_frames, speed, trigger_frames);
 		}
 	}
 
 	void addAnimation(
 		const std::string_view& name,
 		const int index, const int numOfFrames, const int speed,
-		const int frameWidth = 0, const int frameHeight = 0,
 		const std::span<const int>& triggerFrames = {})
 	{
-		animations.emplace(name, Animation(index, numOfFrames, speed, frameWidth, frameHeight, triggerFrames));
+		animations.emplace(name, Animation(index, numOfFrames, speed, triggerFrames));
 	}
 
 	void incAnimState()

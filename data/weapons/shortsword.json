@@ -11,6 +11,7 @@
 	{
 		"goblin":
 		{
+			"frame_width" : 24, "frame_height": 24,
 			"sprites":
 			[
 				{ "texture": "shortsword_goblin_back", "z": -1 },

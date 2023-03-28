@@ -20,6 +20,8 @@ void AssetManager::loadTextures()
 	addTexture("shortsword_goblin_front", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_front.png");
 	addTexture("shortsword_goblin_back", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_back.png");
 
+	addTexture("sword_goblin_front", "assets/images/spritesheets/weapons/melee_medium/sword/goblin/spritesheet_front.png");
+	addTexture("sword_goblin_back", "assets/images/spritesheets/weapons/melee_medium/sword/goblin/spritesheet_back.png");
 	addTexture("sword_human_front", "assets/images/spritesheets/weapons/melee_medium/sword/human/spritesheet_front.png");
 	addTexture("sword_human_back", "assets/images/spritesheets/weapons/melee_medium/sword/human/spritesheet_back.png");
 

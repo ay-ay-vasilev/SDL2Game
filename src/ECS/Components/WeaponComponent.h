@@ -3,6 +3,7 @@
 #include "Components.h"
 #include "Observer.h"
 #include "ColliderShape.h"
+#include "Sprite.h"
 
 class WeaponComponent : public Component, private Observer
 {
@@ -52,9 +53,15 @@ public:
 			if (weaponData["sprite_data"].contains(ownerTag))
 			{
 				const auto weaponSpriteData = weaponData["sprite_data"][ownerTag]["sprites"];
+				const auto weaponFrameWidth = weaponData["sprite_data"][ownerTag].value("frame_width", 0);
+				const auto weaponFrameHeight = weaponData["sprite_data"][ownerTag].value("frame_height", 0);
+
 				for (const auto data : weaponSpriteData)
 				{
-					tempSprites.push_back({ data["texture"], data["z"] });
+					const auto spriteFrameWidth = data.value("frame_width", weaponFrameWidth);
+					const auto spriteFrameHeight = data.value("frame_height", weaponFrameHeight);
+					const auto tempZ = data.value("z", 0);
+					tempSprites.push_back(Sprite(data["texture"], spriteFrameWidth, spriteFrameHeight, tempZ));
 				}
 			}
 		}
@@ -93,7 +100,7 @@ public:
 		registerWithSubject(sprite);
 		for (const auto& tempSprite : tempSprites)
 		{
-			sprite->addSprite(tempSprite.spriteName, tempSprite.z);
+			sprite->addSprite(tempSprite);
 		}
 	}
 
@@ -153,12 +160,6 @@ public:
 	}
 
 private:
-	struct TempSprites
-	{
-		std::string spriteName;
-		int z;
-	};
-
 	std::shared_ptr<TransformComponent> transform;
 	std::shared_ptr<SpriteComponent> sprite;
 	std::shared_ptr<ColliderShape> weaponCollider;
@@ -169,7 +170,7 @@ private:
 	std::string ownerTag;
 	SDL_Texture* texture;
 	std::vector<int> affectedTargets;
-	std::vector<TempSprites> tempSprites;
+	std::vector<Sprite> tempSprites;
 
 	bool enabled;
 	bool destroyOnHit;

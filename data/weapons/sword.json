@@ -9,9 +9,18 @@
 	},
 	"sprite_data":
 	{
-		"goblin": {},
+		"goblin":
+		{
+			"frame_width" : 48, "frame_height": 48,
+			"sprites":
+			[
+				{ "texture": "sword_goblin_back", "z": -1 },
+				{ "texture": "sword_goblin_front", "z": 11 }
+			]
+		},
 		"human":
 		{
+			"frame_width" : 64, "frame_height": 64,
 			"sprites":
 			[
 				{ "texture": "sword_human_back", "z": -1 },
