@@ -30,5 +30,14 @@
 			"walk": { "id": 1, "num_of_frames": 8, "speed": 60 },
 			"attack": { "id": 2, "num_of_frames": 5, "trigger_frames": [1, 2, 3], "speed": 85 }
 		}
+	},
+	"actor_data":
+	{
+		"default_actions":
+		{
+			"idle": "idle",
+			"walk": "walk",
+			"attack": "attack"
+		}
 	}
 }
