@@ -22,8 +22,8 @@
 		"sprites":
 		[
 			{ "texture": "human", "z": 0 },
-			{ "texture": "human_hands_front", "z": 10 },
-			{ "texture": "human_hands_back", "z": -2 }
+			{ "texture": "human_hands_0", "z": -2 },
+			{ "texture": "human_hands_1", "z": 10 }
 		],
 		"animations":
 		{

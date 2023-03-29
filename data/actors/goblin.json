@@ -22,7 +22,7 @@
 		"sprites":
 		[
 			{ "texture": "goblin", "frame_width" : 48, "frame_height" : 48, "z": 0 },
-			{ "texture": "goblin_hands_medium_front", "frame_width" : 48, "frame_height" : 48, "z": 10 }
+			{ "texture": "goblin_hands_medium_0", "frame_width" : 48, "frame_height" : 48, "z": 10 }
 		],
 		"animations":
 		{
