@@ -22,14 +22,13 @@
 		"sprites":
 		[
 			{ "texture": "goblin", "frame_width" : 48, "frame_height" : 48, "z": 0 },
-			{ "texture": "goblin_hands_front", "z": 10 },
-			{ "texture": "goblin_hands_back", "z": -2 }
+			{ "texture": "goblin_hands_medium_front", "frame_width" : 48, "frame_height" : 48, "z": 10 }
 		],
 		"animations":
 		{
 			"idle": { "id": 0, "num_of_frames": 4, "speed": 100 },
 			"walk": { "id": 1, "num_of_frames": 8, "speed": 60 },
-			"attack": { "id": 2, "num_of_frames": 5, "trigger_frames": [1, 2, 3], "speed": 60 }
+			"attack": { "id": 2, "num_of_frames": 5, "trigger_frames": [1, 2, 3], "speed": 85 }
 		}
 	}
 }

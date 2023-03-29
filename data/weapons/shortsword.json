@@ -1,5 +1,6 @@
 {
 	"damage": 5,
+	"weapon_type": "melee_light",
 	"collider":
 	{
 		"shape": "circle",

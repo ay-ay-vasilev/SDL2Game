@@ -10,8 +10,12 @@ void AssetManager::loadTextures()
 	addTexture("terrain", "assets/images/spritesheets/tiles_v0.png");
 
 	addTexture("goblin", "assets/images/spritesheets/actors/goblin/body/melee_unarmed/spritesheet.png");
-	addTexture("goblin_hands_front", "assets/images/spritesheets/actors/goblin/hands/melee_unarmed/spritesheet_front.png");
-	addTexture("goblin_hands_back", "assets/images/spritesheets/actors/goblin/hands/melee_unarmed/spritesheet_back.png");
+	
+	addTexture("goblin_hands_unarmed_front", "assets/images/spritesheets/actors/goblin/hands/melee_unarmed/spritesheet_front.png");
+	addTexture("goblin_hands_unarmed_back", "assets/images/spritesheets/actors/goblin/hands/melee_unarmed/spritesheet_back.png");
+	addTexture("goblin_hands_light_front", "assets/images/spritesheets/actors/goblin/hands/melee_light/spritesheet_front.png");
+	addTexture("goblin_hands_light_back", "assets/images/spritesheets/actors/goblin/hands/melee_light/spritesheet_back.png");
+	addTexture("goblin_hands_medium_front", "assets/images/spritesheets/actors/goblin/hands/melee_medium/spritesheet_front.png");
 
 	addTexture("human", "assets/images/spritesheets/actors/human/body/melee_unarmed/spritesheet.png");
 	addTexture("human_hands_front", "assets/images/spritesheets/actors/human/hands/melee_unarmed/spritesheet_front.png");
@@ -21,7 +25,6 @@ void AssetManager::loadTextures()
 	addTexture("shortsword_goblin_back", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_back.png");
 
 	addTexture("sword_goblin_front", "assets/images/spritesheets/weapons/melee_medium/sword/goblin/spritesheet_front.png");
-	addTexture("sword_goblin_back", "assets/images/spritesheets/weapons/melee_medium/sword/goblin/spritesheet_back.png");
 	addTexture("sword_human_front", "assets/images/spritesheets/weapons/melee_medium/sword/human/spritesheet_front.png");
 	addTexture("sword_human_back", "assets/images/spritesheets/weapons/melee_medium/sword/human/spritesheet_back.png");
 
