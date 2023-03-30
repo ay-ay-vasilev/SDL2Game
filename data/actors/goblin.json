@@ -21,8 +21,8 @@
 		"frame_width": 24, "frame_height": 24,
 		"sprites":
 		[
-			{ "texture": "goblin", "frame_width" : 48, "frame_height" : 48, "z": 0 },
-			{ "texture": "goblin_hands_medium_0", "frame_width" : 48, "frame_height" : 48, "z": 10 }
+			{ "slot": "body", "texture": "goblin", "frame_width" : 48, "frame_height" : 48, "z": 0 },
+			{ "slot": "hands", "texture": "goblin_hands_medium_0", "frame_width" : 48, "frame_height" : 48, "z": 10 }
 		],
 		"animations":
 		{

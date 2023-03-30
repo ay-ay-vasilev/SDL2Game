@@ -11,7 +11,7 @@ public:
 	WeaponComponent(const std::string_view& name, const std::string_view& ownerName, bool isProjectile = false) :
 		tag(name),
 		ownerTag(ownerName),
-		transform(nullptr), texture(nullptr), sprite(nullptr),
+		transform(nullptr), texture(nullptr), spriteComponent(nullptr),
 		srcRect(), destRect(),
 		weaponColliderDirectionCoefficient({ 0, 0 }),
 		weaponColliderOffset({ 0, 0 }),
@@ -61,7 +61,7 @@ public:
 					const auto spriteFrameWidth = data.value("frame_width", weaponFrameWidth);
 					const auto spriteFrameHeight = data.value("frame_height", weaponFrameHeight);
 					const auto tempZ = data.value("z", 0);
-					tempSprites.push_back(Sprite(data["texture"], spriteFrameWidth, spriteFrameHeight, tempZ));
+					tempSprites[data["slot"]].emplace_back((std::make_shared<Sprite>(data["texture"], spriteFrameWidth, spriteFrameHeight, tempZ)));
 				}
 			}
 		}
@@ -96,12 +96,16 @@ public:
 		texture = TextureManager::loadTexture(texturePath);
 		srcRect = { 0, 0, 32, 32 };
 
-		sprite = entity->getComponent<SpriteComponent>();
-		registerWithSubject(sprite);
-		for (const auto& tempSprite : tempSprites)
+		spriteComponent = entity->getComponent<SpriteComponent>();
+		registerWithSubject(spriteComponent);
+		for (auto& [slotName, tempSpriteVec] : tempSprites)
 		{
-			sprite->addSprite(tempSprite);
+			for (auto& tempSprite : tempSpriteVec)
+			{
+				spriteComponent->addSprite(slotName, tempSprite);
+			}
 		}
+		tempSprites.clear();
 	}
 
 	void update() override
@@ -161,7 +165,7 @@ public:
 
 private:
 	std::shared_ptr<TransformComponent> transform;
-	std::shared_ptr<SpriteComponent> sprite;
+	std::shared_ptr<SpriteComponent> spriteComponent;
 	std::shared_ptr<ColliderShape> weaponCollider;
 	SDL_Rect srcRect, destRect;
 	Vector2D weaponColliderDirectionCoefficient;
@@ -170,7 +174,7 @@ private:
 	std::string ownerTag;
 	SDL_Texture* texture;
 	std::vector<int> affectedTargets;
-	std::vector<Sprite> tempSprites;
+	std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> tempSprites;
 
 	bool enabled;
 	bool destroyOnHit;

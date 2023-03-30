@@ -24,13 +24,13 @@ public:
 	SpriteComponent() = default;
 	SpriteComponent(const std::string_view& textureId)
 	{
-		addSprite(textureId, 0, 0, 0);
+		addSprite("body", std::make_shared<Sprite>(textureId, 0, 0, 0));
 	}
 	SpriteComponent(const std::string_view& textureId, int width, int height)
 	{
-		addSprite(textureId, width, height, 0);
+		addSprite("body", std::make_shared<Sprite>(textureId, width, height, 0));
 	}
-	SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated) : animated(isAnimated)
+	SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated) : animated(isAnimated), animStartTime(0)
 	{
 		const auto frameWidth = spritesData["frame_width"];
 		const auto frameHeight = spritesData["frame_height"];
@@ -44,10 +44,12 @@ public:
 
 				addSprite
 				(
-					spriteData["texture"],
+					spriteData["slot"],
+					std::make_shared<Sprite>
+					(spriteData["texture"],
 					spriteFrameWidth,
 					spriteFrameHeight,
-					spriteData.value("z", 0)
+					spriteData.value("z", 0))
 				);
 			}
 		}
@@ -63,13 +65,13 @@ public:
 	{
 	}
 
-	void setSprite(const std::string& slotName, std::shared_ptr<Sprite> sprite)
+	void addSprite(const std::string& slotName, std::shared_ptr<Sprite> sprite)
 	{
-		sprites[slotName] = sprite;
+		sprites[slotName].emplace_back(sprite);
 		sortSpritesByZ();
 	}
 
-	void removeSprite(const std::string& slotName)
+	void removeSpritesFromSlot(const std::string& slotName)
 	{
 		sprites.erase(slotName);
 		sortSpritesByZ();
@@ -78,10 +80,12 @@ public:
 	void sortSpritesByZ()
 	{
 		sortedSprites.clear();
-		sortedSprites.reserve(sprites.size());
-		for (auto& [name, sprite] : sprites)
+		for (auto& [name, spriteVec] : sprites)
 		{
-			sortedSprites.emplace_back(name, sprite);
+			for (auto& sprite : spriteVec)
+			{
+				sortedSprites.emplace_back(name, sprite);
+			}
 		}
 		std::sort(sortedSprites.begin(), sortedSprites.end(), [](auto& a, auto& b) { return a.second->z < b.second->z; });
 	}
@@ -129,7 +133,7 @@ public:
 			spriteFlip = transform->getDirection().x > 0 ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 		}
 
-		for (auto& sprite : sprites)
+		for (auto& sprite : sortedSprites)
 		{
 			sprite.second->srcRect.y = animIndex * sprite.second->frameHeight;
 
@@ -218,7 +222,7 @@ private:
 	int animIndex = 0;
 
 	std::map<std::string, Animation> animations;
-	std::unordered_map<std::string, std::shared_ptr<Sprite>> sprites;
+	std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> sprites;
 	std::vector<std::pair<std::string, std::shared_ptr<Sprite>>> sortedSprites;
 
 	eAnimState animState = eAnimState::NONE;

@@ -15,8 +15,8 @@
 			"frame_width" : 24, "frame_height": 24,
 			"sprites":
 			[
-				{ "texture": "shortsword_goblin_0", "z": -1 },
-				{ "texture": "shortsword_goblin_1", "z": 11 }
+				{ "slot": "weapon", "texture": "shortsword_goblin_0", "z": -1 },
+				{ "slot": "weapon", "texture": "shortsword_goblin_1", "z": 11 }
 			]
 		},
 		"human": {}

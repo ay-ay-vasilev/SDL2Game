@@ -97,6 +97,25 @@ public:
 		return component;
 	}
 
+	template <typename T>
+	void removeComponent()
+	{
+		if (hasComponent<T>())
+		{
+			componentBitSet[getComponentTypeID<T>()] = false;
+			componentArray[getComponentTypeID<T>()] = nullptr;
+			auto it = std::find_if(components.begin(), components.end(),
+				[](const std::shared_ptr<Component>& c)
+				{
+					return std::dynamic_pointer_cast<T>(c) != nullptr;
+				});
+			if (it != components.end())
+			{
+				components.erase(it);
+			}
+		}
+	}
+
 	template<typename T>
 	std::shared_ptr<T> getComponent() const
 	{
