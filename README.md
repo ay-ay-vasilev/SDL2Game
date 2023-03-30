@@ -14,8 +14,7 @@ My plan:
     * Draw in aseprite DONE
     * Export spritesheets of hands DONE
     * Rename front and back spritesheets to 0 and 1 DONE
-    * Implement adding and removing Sprite objects when equipping weapons (adding WeaponComponents) ALMOST
-        Replace shared_ptr with weak_ptr in classes that should not OWN components!!!
+    * Implement adding and removing Sprite objects when equipping weapons (adding WeaponComponents) DONE
     * Adapt attack animations for different weapon types (add to spritesheets and change the play animation method for WeaponComponent)
 
 - Add changing weapons.

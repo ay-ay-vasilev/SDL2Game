@@ -16,7 +16,6 @@ public:
 		sprite = entity->getComponent<SpriteComponent>();
 		registerWithSubject(sprite);
 		weapon = entity->getComponent<WeaponComponent>();
-
 		// todo: read from json
 		aggroDistance = 100 * transform->getScale();
 		loseAggroDistance = 150 * transform->getScale();
@@ -29,12 +28,16 @@ public:
 			distance = (Vector2D::Distance(transform->getPosition(), targetTransform->getPosition()));
 
 			transform->setVeloctiy(0, 0);
-			if (!weapon)
-				weapon = entity->getComponent<WeaponComponent>();
-			if (!weapon)
+			auto lockedWeapon = weapon.lock();
+			if (!lockedWeapon)
+			{
+				lockedWeapon = entity->getComponent<WeaponComponent>();
+				weapon = lockedWeapon;
+			}
+			if (!lockedWeapon)
 				return;
 
-			if (weapon->isInRange(targetHitbox->getHitbox()) && state != eState::ATTACK)
+			if (lockedWeapon->isInRange(targetHitbox->getHitbox()) && state != eState::ATTACK)
 			{
 				transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
 				sprite->play("attack");
@@ -116,7 +119,7 @@ private:
 	const Entity* target;
 
 	std::shared_ptr<SpriteComponent> sprite;
-	std::shared_ptr<WeaponComponent> weapon;
+	std::weak_ptr<WeaponComponent> weapon;
 
 	std::shared_ptr<HealthComponent> targetHealth;
 	std::shared_ptr<TransformComponent> targetTransform;

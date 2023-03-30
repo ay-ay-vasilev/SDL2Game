@@ -120,7 +120,10 @@ public:
 	std::shared_ptr<T> getComponent() const
 	{
 		std::shared_ptr<Component> component = componentArray[getComponentTypeID<T>()];
-		return std::dynamic_pointer_cast<T>(component);
+		if (component) {
+			return std::dynamic_pointer_cast<T>(component);
+		}
+		return nullptr;
 	}
 
 	int getID() const { return id; }

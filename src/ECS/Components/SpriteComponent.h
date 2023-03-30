@@ -80,14 +80,14 @@ public:
 	void sortSpritesByZ()
 	{
 		sortedSprites.clear();
-		for (auto& [name, spriteVec] : sprites)
+		for (auto& [slot, spriteVec] : sprites)
 		{
 			for (auto& sprite : spriteVec)
 			{
-				sortedSprites.emplace_back(name, sprite);
+				sortedSprites.emplace_back(sprite);
 			}
 		}
-		std::sort(sortedSprites.begin(), sortedSprites.end(), [](auto& a, auto& b) { return a.second->z < b.second->z; });
+		std::sort(sortedSprites.begin(), sortedSprites.end(), [](auto& a, auto& b) { return a->z < b->z; });
 	}
 
 	void init() override
@@ -128,26 +128,26 @@ public:
 
 			for (auto& sprite : sortedSprites)
 			{
-				sprite.second->srcRect.x = sprite.second->srcRect.w * static_cast<int>(frameNum % frames);
+				sprite->srcRect.x = sprite->srcRect.w * static_cast<int>(frameNum % frames);
 			}
 			spriteFlip = transform->getDirection().x > 0 ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 		}
 
 		for (auto& sprite : sortedSprites)
 		{
-			sprite.second->srcRect.y = animIndex * sprite.second->frameHeight;
+			sprite->srcRect.y = animIndex * sprite->frameHeight;
 
-			sprite.second->destRect.x = static_cast<int>(transform->getPosition().x - static_cast<float>(sprite.second->frameWidth) * transform->getScale() / 2) - Game::camera.x;
-			sprite.second->destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(sprite.second->frameHeight) * transform->getScale() / 2) - Game::camera.y;
-			sprite.second->destRect.w = static_cast<int>(sprite.second->frameWidth * transform->getScale());
-			sprite.second->destRect.h = static_cast<int>(sprite.second->frameHeight * transform->getScale());
+			sprite->destRect.x = static_cast<int>(transform->getPosition().x - static_cast<float>(sprite->frameWidth) * transform->getScale() / 2) - Game::camera.x;
+			sprite->destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(sprite->frameHeight) * transform->getScale() / 2) - Game::camera.y;
+			sprite->destRect.w = static_cast<int>(sprite->frameWidth * transform->getScale());
+			sprite->destRect.h = static_cast<int>(sprite->frameHeight * transform->getScale());
 		}
 	}
 
 	void draw() override
 	{
 		for (const auto& sprite : sortedSprites)
-			TextureManager::draw(sprite.second->texture, sprite.second->srcRect, sprite.second->destRect, spriteFlip);
+			TextureManager::draw(sprite->texture, sprite->srcRect, sprite->destRect, spriteFlip);
 	}
 
 	void play(const std::string& newAnimPlay)
@@ -222,8 +222,9 @@ private:
 	int animIndex = 0;
 
 	std::map<std::string, Animation> animations;
+
 	std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> sprites;
-	std::vector<std::pair<std::string, std::shared_ptr<Sprite>>> sortedSprites;
+	std::vector<std::shared_ptr<Sprite>> sortedSprites;
 
 	eAnimState animState = eAnimState::NONE;
 	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
