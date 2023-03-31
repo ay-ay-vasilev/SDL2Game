@@ -11,10 +11,12 @@ Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& fi
 		manager.getScale(), enemyData["speed"]
 	);
 	enemy.addComponent<SpriteComponent>(enemyData["sprite_data"], true);
+	enemy.addComponent<ActorComponent>(filename);
 	enemy.addComponent<ColliderComponent>(filename, enemyData["collider_rect"]);
 	enemy.addComponent<HitboxComponent>(filename, enemyData["hitbox_rect"]);
 	enemy.addComponent<HealthComponent>(enemyData["health"]);
 	enemy.addComponent<AIComponentBasicEnemy>();
+
 	enemy.addGroup(Game::eGroupLabels::ENEMIES);
 
 	return &enemy;

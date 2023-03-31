@@ -203,6 +203,9 @@
     <ClInclude Include="..\src\Common\Sprite.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\ActorComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">

@@ -2,12 +2,7 @@ assets/images/spritesheets
 |-- actors/
 |   |-- goblin/
 |   |   |-- body/
-|   |   |   |-- melee_light
-|   |   |   |   |-- spritesheet.png
-|   |   |   |-- melee_medium
-|   |   |   |   |-- spritesheet.png
-|   |   |   |-- melee_unarmed
-|   |   |   |   |-- spritesheet.png
+|   |   |   |-- spritesheet.png
 |   |   |-- hands/
 |   |   |   |-- melee_light
 |   |   |   |   |-- spritesheet.png
@@ -17,12 +12,7 @@ assets/images/spritesheets
 |   |   |   |   |-- spritesheet.png
 |   |-- human/
 |   |   |-- body/
-|   |   |   |-- melee_light
-|   |   |   |   |-- spritesheet.png
-|   |   |   |-- melee_medium
-|   |   |   |   |-- spritesheet.png
-|   |   |   |-- melee_unarmed
-|   |   |   |   |-- spritesheet.png
+|   |   |   |-- spritesheet.png
 |   |   |-- hands/
 |   |   |   |-- melee_light
 |   |   |   |   |-- spritesheet.png

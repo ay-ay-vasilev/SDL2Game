@@ -12,9 +12,10 @@ public:
 
 	void init() override
 	{
+		actorComponent = entity->getComponent<ActorComponent>();
 		transform = entity->getComponent<TransformComponent>();
-		sprite = entity->getComponent<SpriteComponent>();
-		registerWithSubject(sprite);
+		spriteComponent = entity->getComponent<SpriteComponent>();
+		registerWithSubject(spriteComponent);
 		weapon = entity->getComponent<WeaponComponent>();
 		// todo: read from json
 		aggroDistance = 100 * transform->getScale();
@@ -40,14 +41,14 @@ public:
 			if (lockedWeapon->isInRange(targetHitbox->getHitbox()) && state != eState::ATTACK)
 			{
 				transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
-				sprite->play("attack");
+				actorComponent->playAction("attack");
 				state = eState::ATTACK;
 			}
 			else if (state != eState::ATTACK)
 			{
 				transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
 				transform->setVeloctiy(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
-				sprite->play("walk");
+				actorComponent->playAction("walk");
 				state = eState::WALK;
 			}
 		}
@@ -76,7 +77,7 @@ public:
 		targetHitbox.reset();
 		target = nullptr;
 
-		sprite->play("idle");
+		actorComponent->playAction("idle");
 		state = eState::IDLE;
 		transform->setVeloctiy(0, 0);
 		distance = 0.f;
@@ -99,7 +100,7 @@ public:
 	{
 		if (observedEvent == "attack_end")
 		{
-			sprite->play("idle");
+			actorComponent->playAction("idle");
 			state = eState::IDLE;
 		}
 		if (observedEvent == "player_died")
@@ -118,7 +119,8 @@ private:
 
 	const Entity* target;
 
-	std::shared_ptr<SpriteComponent> sprite;
+	std::shared_ptr<ActorComponent> actorComponent;
+	std::shared_ptr<SpriteComponent> spriteComponent;
 	std::weak_ptr<WeaponComponent> weapon;
 
 	std::shared_ptr<HealthComponent> targetHealth;

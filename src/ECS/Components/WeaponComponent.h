@@ -11,7 +11,7 @@ public:
 	WeaponComponent(const std::string_view& name, const std::string_view& ownerName, bool isProjectile = false) :
 		tag(name),
 		ownerTag(ownerName),
-		transform(nullptr), texture(nullptr), spriteComponent(nullptr),
+		texture(nullptr),
 		srcRect(), destRect(),
 		weaponColliderDirectionCoefficient({ 0, 0 }),
 		weaponColliderOffset({ 0, 0 }),
@@ -30,6 +30,9 @@ public:
 			weaponData = Game::assets->getWeaponJson(weaponName);
 		}
 
+		damage = weaponData.value("damage", 0);
+		weaponType = weaponData.value("weapon_type", "unarmed");
+
 		if (weaponData.contains("collider"))
 		{
 			const auto& weaponColliderData = weaponData["collider"];
@@ -46,7 +49,6 @@ public:
 			}
 			weaponColliderDirectionCoefficient = { weaponColliderData.value("x", 0.f), weaponColliderData.value("y", 0.f)};
 		}
-		damage = weaponData.value("damage", 0);
 
 		if (weaponData.contains("sprite_data"))
 		{
@@ -152,6 +154,8 @@ public:
 
 	std::string getOwnerTag() const { return ownerTag; }
 	std::string getTag() const { return tag; }
+	const std::string getWeaponType() const { return weaponType; }
+
 	bool isInAffectedTargets(int id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
 
 	int getDamage() const { return damage; }
@@ -172,6 +176,7 @@ private:
 	Vector2D weaponColliderOffset;
 	std::string tag;
 	std::string ownerTag;
+	std::string weaponType;
 	SDL_Texture* texture;
 	std::vector<int> affectedTargets;
 	std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> tempSprites;

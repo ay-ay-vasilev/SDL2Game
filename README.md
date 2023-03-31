@@ -11,11 +11,15 @@ Stuff to remember:
 
 My plan:
 - Adapt the sword for the goblin actor and the shortsword for the human actor.
-    * Draw in aseprite DONE
-    * Export spritesheets of hands DONE
-    * Rename front and back spritesheets to 0 and 1 DONE
-    * Implement adding and removing Sprite objects when equipping weapons (adding WeaponComponents) DONE
-    * Adapt attack animations for different weapon types (add to spritesheets and change the play animation method for WeaponComponent)
+	* Draw in aseprite DONE
+	* Export spritesheets of hands DONE
+	* Rename front and back spritesheets to 0 and 1 DONE
+	* Implement adding and removing Sprite objects when equipping weapons (adding WeaponComponents) DONE
+	* Adapt attack animations for different weapon types and play animations through ActorComponent (not SpriteComponent) DONE
+	* Refactor actor hands asset structure similarly to body
+	* Add unarmed animations
+	* Add weapon swapping
+
 
 - Add changing weapons.
 - Ranged weapon for player.
@@ -30,6 +34,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
+- Restrict access to SpriteComponent for KeyboardComponent and AIComponentBasicEnemy
 - Specific weapon stats for actors in weapon json files?
 - Add string ids to Sprite vectors ?
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)

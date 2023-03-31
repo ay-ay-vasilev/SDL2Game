@@ -31,5 +31,29 @@
 			"walk": { "id": 1, "num_of_frames": 8, "speed": 100 },
 			"attack": { "id": 2, "num_of_frames": 5, "trigger_frames": [2], "speed": 100 }
 		}
+	},
+	"actor_data":
+	{
+		"weapon_type_animations":
+		{
+			"unarmed":
+			{
+				"idle": "idle",
+				"walk": "walk",
+				"attack": "attack"
+			},
+			"melee_light":
+			{
+				"idle": "idle",
+				"walk": "walk",
+				"attack": "attack"
+			},
+			"melee_medium":
+			{
+				"idle": "idle",
+				"walk": "walk",
+				"attack": "attack"
+			}
+		}
 	}
 }

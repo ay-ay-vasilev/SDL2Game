@@ -17,9 +17,10 @@ public:
 
 	void init() override
 	{
+		actorComponent = entity->getComponent<ActorComponent>();
 		transform = entity->getComponent<TransformComponent>();
-		sprite = entity->getComponent<SpriteComponent>();
-		registerWithSubject(sprite);
+		spriteComponent = entity->getComponent<SpriteComponent>();
+		registerWithSubject(spriteComponent);
 	}
 
 	void update() override
@@ -81,7 +82,7 @@ public:
 		else if (animName == "walk") state = eState::WALK;
 		else if (animName == "attack") state = eState::ATTACK;
 
-		sprite->play(animName);
+		actorComponent->playAction(animName);
 		transform->setVeloctiy(static_cast<float>(x), static_cast<float>(y));
 	}
 
@@ -89,7 +90,7 @@ public:
 	{
 		if (observedEvent == "attack_end")
 		{
-			sprite->play("idle");
+			actorComponent->playAction("idle");
 			state = eState::IDLE;
 		}
 	}
@@ -97,5 +98,6 @@ public:
 private:
 	eState state = eState::IDLE;
 	std::shared_ptr<TransformComponent> transform;
-	std::shared_ptr<SpriteComponent> sprite;
+	std::shared_ptr<SpriteComponent> spriteComponent;
+	std::shared_ptr<ActorComponent> actorComponent;
 };

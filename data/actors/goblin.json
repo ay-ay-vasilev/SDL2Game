@@ -33,11 +33,26 @@
 	},
 	"actor_data":
 	{
-		"default_actions":
+		"weapon_type_animations":
 		{
-			"idle": "idle",
-			"walk": "walk",
-			"attack": "attack"
+			"unarmed":
+			{
+				"idle": "idle",
+				"walk": "walk",
+				"attack": "attack"
+			},
+			"melee_light":
+			{
+				"idle": "idle",
+				"walk": "walk",
+				"attack": "attack"
+			},
+			"melee_medium":
+			{
+				"idle": "idle",
+				"walk": "walk",
+				"attack": "attack"
+			}
 		}
 	}
 }
