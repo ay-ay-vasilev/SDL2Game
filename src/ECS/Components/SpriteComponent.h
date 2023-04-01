@@ -57,6 +57,10 @@ public:
 		if (animated)
 		{
 			addAnimationsFromJson(spritesData["animations"]);
+			for (const auto& sprite : sortedSprites)
+			{
+				sprite->setAnimNameIndexes(spritesData["animations"]);
+			}
 			play("idle");
 		}
 	}
@@ -98,7 +102,7 @@ public:
 
 	void update() override
 	{
-		if (animated)
+		if (animated && frames)
 		{
 			const Uint32 ticks = SDL_GetTicks();
 			const Uint32 elapsed = ticks - animStartTime;
@@ -135,7 +139,8 @@ public:
 
 		for (auto& sprite : sortedSprites)
 		{
-			sprite->srcRect.y = animIndex * sprite->frameHeight;
+			const auto index = sprite->getIndexByAnimName(animName);
+			sprite->srcRect.y =  (index != -1 ? index : animIndex) * sprite->frameHeight;
 
 			sprite->destRect.x = static_cast<int>(transform->getPosition().x - static_cast<float>(sprite->frameWidth) * transform->getScale() / 2) - Game::camera.x;
 			sprite->destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(sprite->frameHeight) * transform->getScale() / 2) - Game::camera.y;
@@ -154,10 +159,13 @@ public:
 	{
 		if (animName == newAnimPlay)
 			return;
-		
+		if (animations.count(newAnimPlay) == 0)
+			return;
+
 		animName = newAnimPlay;
 		animStartTime = SDL_GetTicks();
 		const auto animData = animations[animName];
+		actionName = animData.actionName;
 		frames = animData.frames;
 		animIndex = animData.index;
 		speed = animData.speed;
@@ -178,16 +186,18 @@ public:
 			const int num_of_frames = animData.value("num_of_frames", 0);
 			const int speed = animData.value("speed", 0);
 			const auto trigger_frames = animData.count("trigger_frames") ? animData.at("trigger_frames").get<std::vector<int>>() : std::vector<int>();
-			addAnimation(name, id, num_of_frames, speed, trigger_frames);
+			const auto action_name = animData.value("action_name", "");
+			addAnimation(name, id, num_of_frames, speed, trigger_frames, action_name);
 		}
 	}
 
 	void addAnimation(
 		const std::string_view& name,
 		const int index, const int numOfFrames, const int speed,
-		const std::span<const int>& triggerFrames = {})
+		const std::span<const int>& triggerFrames = {},
+		const std::string& actionName = "")
 	{
-		animations.emplace(name, Animation(index, numOfFrames, speed, triggerFrames));
+		animations.emplace(name, Animation(index, numOfFrames, speed, triggerFrames, actionName));
 	}
 
 	void incAnimState()
@@ -214,7 +224,8 @@ public:
 
 	void sendSignal(const std::string& eventName)
 	{
-		notify(animName + "_" + eventName);
+		const auto action = actionName.empty() ? animName : actionName;
+		notify(action + "_" + eventName);
 	}
 
 private:
@@ -232,6 +243,7 @@ private:
 	std::shared_ptr<TransformComponent> transform;
 
 	std::string animName;
+	std::string actionName;
 	bool animated = false;
 	int frames = 0;
 	int speed = 100;

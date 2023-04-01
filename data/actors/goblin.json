@@ -18,17 +18,24 @@
 	},
 	"sprite_data":
 	{
-		"frame_width": 24, "frame_height": 24,
+		"frame_width": 48, "frame_height": 48,
 		"sprites":
 		[
 			{ "slot": "body", "texture": "goblin", "frame_width" : 48, "frame_height" : 48, "z": 0 },
-			{ "slot": "hands", "texture": "goblin_hands_medium_0", "frame_width" : 48, "frame_height" : 48, "z": 10 }
+			{ "slot": "hands", "texture": "goblin_hands_0", "frame_width" : 48, "frame_height" : 48, "z": 10 },
+			{ "slot": "hands", "texture": "goblin_hands_1", "frame_width" : 48, "frame_height" : 48, "z": 10 }
 		],
 		"animations":
 		{
-			"idle": { "id": 0, "num_of_frames": 4, "speed": 100 },
-			"walk": { "id": 1, "num_of_frames": 8, "speed": 60 },
-			"attack": { "id": 2, "num_of_frames": 5, "trigger_frames": [1, 2, 3], "speed": 85 }
+			"unarmed_idle": { "id": 0, "num_of_frames": 4, "speed": 100 },
+			"unarmed_walk": { "id": 1, "num_of_frames": 8, "speed": 60 },
+			"unarmed_attack": { "id": 2, "num_of_frames": 5, "action_name" : "attack", "trigger_frames": [1, 2, 3], "speed": 85 },
+			"melee_light_idle": { "id": 3, "num_of_frames": 4, "speed": 100 },
+			"melee_light_walk": { "id": 4, "num_of_frames": 8, "speed": 60 },
+			"melee_light_attack": { "id": 5, "num_of_frames": 5, "action_name" : "attack", "trigger_frames": [1, 2, 3], "speed": 85 },
+			"melee_medium_idle": { "id": 6, "num_of_frames": 4, "speed": 100 },
+			"melee_medium_walk": { "id": 7, "num_of_frames": 8, "speed": 60 },
+			"melee_medium_attack": { "id": 8, "num_of_frames": 5, "action_name" : "attack", "trigger_frames": [1, 2, 3], "speed": 85 }
 		}
 	},
 	"actor_data":
@@ -37,21 +44,21 @@
 		{
 			"unarmed":
 			{
-				"idle": "idle",
-				"walk": "walk",
-				"attack": "attack"
+				"idle": "unarmed_idle",
+				"walk": "unarmed_walk",
+				"attack": "unarmed_attack"
 			},
 			"melee_light":
 			{
-				"idle": "idle",
-				"walk": "walk",
-				"attack": "attack"
+				"idle": "melee_light_idle",
+				"walk": "melee_light_walk",
+				"attack": "melee_light_attack"
 			},
 			"melee_medium":
 			{
-				"idle": "idle",
-				"walk": "walk",
-				"attack": "attack"
+				"idle": "melee_medium_idle",
+				"walk": "melee_medium_walk",
+				"attack": "melee_medium_attack"
 			}
 		}
 	}

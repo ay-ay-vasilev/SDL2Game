@@ -164,9 +164,6 @@
     <ClInclude Include="..\src\ECS\Systems\RenderSystem.h">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ECS\Systems\Animation.h">
-      <Filter>Source Files\Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Common\Observer.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
@@ -205,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ECS\Components\ActorComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Common\Animation.h">
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -25,11 +25,26 @@ public:
 
 		destRect = SDL_Rect();
 	}
-		
+	
+	void setAnimNameIndexes(const nlohmann::json& animData)
+	{
+		for (auto& [name, animData] : animData.items())
+			animNameIndex[name] = animData.value("id", -1);
+	}
+
+	int getIndexByAnimName(const std::string& animName)
+	{
+		if (animNameIndex.count(animName) != 0)
+			return animNameIndex[animName];
+		return -1;
+	}
+
 	SDL_Texture* texture;
-	int frameWidth;
-	int frameHeight;
-	double z;
+	const int frameWidth;
+	const int frameHeight;
+	const double z;
+
+	std::unordered_map<std::string, int> animNameIndex;
 
 	SDL_Rect srcRect, destRect;
 };
