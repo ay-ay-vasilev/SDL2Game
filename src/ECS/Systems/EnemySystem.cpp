@@ -1,6 +1,6 @@
 #include "EnemySystem.h"
 
-Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filename) const
+Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filename)
 {
 	const auto enemyData = Game::assets->getActorJson(filename);
 	auto& enemy(manager.addEntity());
@@ -18,6 +18,7 @@ Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& fi
 	enemy.addComponent<AIComponentBasicEnemy>();
 
 	enemy.addGroup(Game::eGroupLabels::ENEMIES);
+	equipWeapon(enemy, "unarmed");
 
 	return &enemy;
 }
@@ -29,6 +30,12 @@ void EnemySystem::equipWeapon(Entity& enemy, const std::string& weaponName)
 	{
 		const auto hitboxComponent = enemy.getComponent<HitboxComponent>();
 		enemyTag = hitboxComponent->getTag();
+	}
+	if (enemy.hasComponent<WeaponComponent>())
+	{
+		if (enemy.getComponent<WeaponComponent>()->getTag() == weaponName)
+			return;
+		enemy.removeComponent<WeaponComponent>();
 	}
 	enemy.addComponent<WeaponComponent>(weaponName, enemyTag);
 }

@@ -2,7 +2,7 @@
 
 #include <json.hpp>
 
-Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& filename) const
+Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& filename)
 {
 	const auto playerData = Game::assets->getActorJson(filename);
 	auto& player(manager.addEntity());
@@ -20,7 +20,7 @@ Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& 
 	player.addComponent<HealthComponent>(playerData["health"]);
 
 	player.addGroup(Game::eGroupLabels::PLAYERS);
-
+	equipWeapon(player, "unarmed");
 	return &player;
 }
 
@@ -31,6 +31,12 @@ void PlayerSystem::equipWeapon(Entity& player, const std::string& weaponName)
 	{
 		const auto hitboxComponent = player.getComponent<HitboxComponent>();
 		playerTag = hitboxComponent->getTag();
+	}
+	if (player.hasComponent<WeaponComponent>())
+	{
+		if (player.getComponent<WeaponComponent>()->getTag() == weaponName)
+			return;
+		player.removeComponent<WeaponComponent>();
 	}
 	player.addComponent<WeaponComponent>(weaponName, playerTag);
 }

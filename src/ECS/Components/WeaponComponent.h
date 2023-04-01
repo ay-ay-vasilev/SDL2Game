@@ -113,8 +113,11 @@ public:
 
 		spriteComponent = entity->getComponent<SpriteComponent>();
 		registerWithSubject(spriteComponent);
+		if (tempSprites.empty())
+			spriteComponent->removeSpritesFromSlot("weapon");
 		for (auto& [slotName, tempSpriteVec] : tempSprites)
 		{
+			spriteComponent->removeSpritesFromSlot(slotName);
 			for (auto& tempSprite : tempSpriteVec)
 			{
 				spriteComponent->addSprite(slotName, tempSprite);

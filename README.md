@@ -10,19 +10,8 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
-- Adapt the sword for the goblin actor and the shortsword for the human actor.
-	* Draw in aseprite DONE
-	* Export spritesheets of hands DONE
-	* Rename front and back spritesheets to 0 and 1 DONE
-	* Implement adding and removing Sprite objects when equipping weapons (adding WeaponComponents) DONE
-	* Adapt attack animations for different weapon types and play animations through ActorComponent (not SpriteComponent) DONE
-	* Refactor actor hands asset structure similarly to body DONE
-	* Refactor Sprite class to include Animation data DONE
-	* Add unarmed animations
-	* Add weapon swapping
-
-- Add changing weapons.
 - Ranged weapon for player.
+- Add armor.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
 - Add an inventory system.

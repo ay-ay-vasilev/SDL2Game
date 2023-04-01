@@ -35,6 +35,15 @@ public:
 		case SDLK_o:
 			Game::constants->ReloadSettings();
 			break;
+		case SDLK_1:
+			equipWeapon("unarmed");
+			break;
+		case SDLK_2:
+			equipWeapon("shortsword");
+			break;
+		case SDLK_3:
+			equipWeapon("sword");
+			break;
 		}
 
 		int x = 0, y = 0;
@@ -95,7 +104,26 @@ public:
 		}
 	}
 
+
+
 private:
+	void equipWeapon(const std::string& weaponName)
+	{
+		std::string entityTag = "";
+		if (entity->hasComponent<HitboxComponent>())
+		{
+			const auto hitboxComponent = entity->getComponent<HitboxComponent>();
+			entityTag = hitboxComponent->getTag();
+		}
+		if (entity->hasComponent<WeaponComponent>())
+		{
+			if (entity->getComponent<WeaponComponent>()->getTag() == weaponName)
+				return;
+			entity->removeComponent<WeaponComponent>();
+		}
+		entity->addComponent<WeaponComponent>(weaponName, entityTag);
+	}
+
 	eState state = eState::IDLE;
 	std::shared_ptr<TransformComponent> transform;
 	std::shared_ptr<SpriteComponent> spriteComponent;

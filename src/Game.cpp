@@ -96,7 +96,6 @@ void Game::init()
 	projectileSystem->instantiateProjectile(Vector2D(100, 33.33), Vector2D(-2, 2), projectileFile);
 
 	auto player = playerSystem->instantiatePlayer(constants->PLAYER_POS, "goblin");
-	playerSystem->equipWeapon(*player, "sword");
 
 	auto enemy = enemySystem->instantiateEnemy(constants->ENEMY_POS, "human");
 	enemySystem->equipWeapon(*enemy, "sword");
