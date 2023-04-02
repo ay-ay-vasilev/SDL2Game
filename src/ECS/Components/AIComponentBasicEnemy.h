@@ -4,7 +4,6 @@
 #include "AIComponent.h"
 #include "ActorComponent.h"
 #include "TransformComponent.h"
-#include "SpriteComponent.h"
 #include "HitboxComponent.h"
 #include "HealthComponent.h"
 
@@ -20,9 +19,8 @@ public:
 	void init() override
 	{
 		actorComponent = entity->getComponent<ActorComponent>();
+		registerWithSubject(actorComponent);
 		transform = entity->getComponent<TransformComponent>();
-		spriteComponent = entity->getComponent<SpriteComponent>();
-		registerWithSubject(spriteComponent);
 		weapon = entity->getComponent<WeaponComponent>();
 		// todo: read from json
 		aggroDistance = 100 * transform->getScale();
@@ -127,7 +125,6 @@ private:
 	const Entity* target;
 
 	std::shared_ptr<ActorComponent> actorComponent;
-	std::shared_ptr<SpriteComponent> spriteComponent;
 	std::weak_ptr<WeaponComponent> weapon;
 
 	std::shared_ptr<HealthComponent> targetHealth;

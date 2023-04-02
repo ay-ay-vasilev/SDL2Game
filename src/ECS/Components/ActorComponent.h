@@ -4,7 +4,7 @@
 #include "SpriteComponent.h"
 #include "WeaponComponent.h"
 
-class ActorComponent : public Component
+class ActorComponent : public Component, public Observer, public Subject
 {
 public:
 	ActorComponent(const std::string_view& name)
@@ -29,6 +29,7 @@ public:
 	void init() override
 	{
 		spriteComponent = entity->getComponent<SpriteComponent>();
+		registerWithSubject(spriteComponent);
 		weaponComponent = entity->getComponent<WeaponComponent>();
 	}
 
@@ -51,6 +52,14 @@ public:
 			}
 		}
 		spriteComponent->play(actionName);
+	}
+
+	void onNotify(const std::string_view& observedEvent) override
+	{
+		if (observedEvent == "attack_end")
+		{
+			notify(observedEvent);
+		}
 	}
 
 private:

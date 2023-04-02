@@ -20,9 +20,8 @@ public:
 	void init() override
 	{
 		actorComponent = entity->getComponent<ActorComponent>();
+		registerWithSubject(actorComponent);
 		transform = entity->getComponent<TransformComponent>();
-		spriteComponent = entity->getComponent<SpriteComponent>();
-		registerWithSubject(spriteComponent);
 	}
 
 	void update() override
@@ -106,8 +105,6 @@ public:
 		}
 	}
 
-
-
 private:
 	void equipWeapon(const std::string& weaponName)
 	{
@@ -128,6 +125,5 @@ private:
 
 	eState state = eState::IDLE;
 	std::shared_ptr<TransformComponent> transform;
-	std::shared_ptr<SpriteComponent> spriteComponent;
 	std::shared_ptr<ActorComponent> actorComponent;
 };

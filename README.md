@@ -23,7 +23,6 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Restrict access to SpriteComponent for KeyboardComponent and AIComponentBasicEnemy
 - Refactor Sprite and Animation classes!
 - Specific weapon stats for actors in weapon json files?
 - Add string ids to Sprite vectors ?
