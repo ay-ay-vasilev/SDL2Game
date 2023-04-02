@@ -1,5 +1,7 @@
 #pragma once
-#include "Components.h"
+#include "ECS.h"
+
+#include "SDL.h"
 
 class CameraSystem : public System
 {

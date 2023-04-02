@@ -1,5 +1,12 @@
 #pragma once
-#include "Components.h"
+#include "ECS.h"
+#include "Observer.h"
+#include "AIComponent.h"
+#include "ActorComponent.h"
+#include "TransformComponent.h"
+#include "SpriteComponent.h"
+#include "HitboxComponent.h"
+#include "HealthComponent.h"
 
 class AIComponentBasicEnemy : public AIComponent, public Observer
 {

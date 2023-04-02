@@ -1,4 +1,11 @@
 #include "EnemySystem.h"
+#include "TransformComponent.h"
+#include "SpriteComponent.h"
+#include "ColliderComponent.h"
+#include "ActorComponent.h"
+#include "HitboxComponent.h"
+#include "HealthComponent.h"
+#include "AIComponentBasicEnemy.h"
 
 Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filename)
 {

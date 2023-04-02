@@ -48,3 +48,4 @@ Future plans:
 - Inventory system
 - Death animation
 - Hit feedback
+- Add ids to entities (UUID or simple ids?)

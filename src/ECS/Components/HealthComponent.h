@@ -1,5 +1,6 @@
 #pragma once
-#include "Components.h"
+#include "ECS.h"
+#include "HitboxComponent.h"
 #include "Subject.h"
 
 class HealthComponent : public Component, public Subject

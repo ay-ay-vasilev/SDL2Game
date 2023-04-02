@@ -1,4 +1,5 @@
 #include "MapSystem.h"
+#include "Game.h"
 
 void MapSystem::instantiateMap(const std::string textureId, const int tileSize, const std::string mapFilePath, const int mapWidth, const int mapHeight)
 {

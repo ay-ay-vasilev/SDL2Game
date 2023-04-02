@@ -1,5 +1,7 @@
 #pragma once
-#include "Components.h"
+#include "ECS.h"
+#include "ColliderComponent.h"
+#include "AssetManager.h"
 #include "Map.h"
 
 class RenderSystem : public System

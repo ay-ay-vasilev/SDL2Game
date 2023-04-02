@@ -1,4 +1,5 @@
 #include "CollisionSystem.h"
+#include "ColliderComponent.h"
 #include "Collision.h"
 #include "Vector2D.h"
 

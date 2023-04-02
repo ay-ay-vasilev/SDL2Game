@@ -1,6 +1,6 @@
 #pragma once
-
-#include "Components.h"
+#include "ECS.h"
+#include "TransformComponent.h"
 #include "Vector2D.h"
 
 class ProjectileComponent : public Component

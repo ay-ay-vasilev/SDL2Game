@@ -1,7 +1,8 @@
 #include "Map.h"
 #include "Game.h"
 #include "ECS.h"
-#include "Components.h"
+#include "ColliderComponent.h"
+#include "TileComponent.h"
 
 #include <fstream>
 #include <iostream>

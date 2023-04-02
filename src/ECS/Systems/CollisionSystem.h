@@ -1,5 +1,8 @@
 #pragma once
-#include "Components.h"
+#include "ECS.h"
+#include "TransformComponent.h"
+#include "ColliderComponent.h"
+#include "ColliderShape.h"
 
 class CollisionSystem : public System
 {

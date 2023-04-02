@@ -1,4 +1,11 @@
 #include "ProjectileSystem.h"
+#include "TransformComponent.h"
+#include "SpriteComponent.h"
+#include "ColliderComponent.h"
+#include "ProjectileComponent.h"
+#include "HitboxComponent.h"
+#include "WeaponComponent.h"
+#include "HealthComponent.h"
 
 #include <json.hpp>
 

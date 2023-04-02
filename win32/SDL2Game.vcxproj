@@ -52,7 +52,6 @@
     <ClInclude Include="..\src\ECS\Components\AIComponent.h" />
     <ClInclude Include="..\src\ECS\Components\AIComponentBasicEnemy.h" />
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h" />
-    <ClInclude Include="..\src\ECS\Components\Components.h" />
     <ClInclude Include="..\src\ECS\Components\HealthComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HitboxComponent.h" />
     <ClInclude Include="..\src\ECS\Components\KeyboardComponent.h" />
@@ -72,7 +71,6 @@
     <ClInclude Include="..\src\ECS\Systems\PlayerSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\ProjectileSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\RenderSystem.h" />
-    <ClInclude Include="..\src\ECS\Systems\Systems.h" />
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\Libs\json.hpp" />
     <ClInclude Include="..\src\Managers\AssetManager.h" />

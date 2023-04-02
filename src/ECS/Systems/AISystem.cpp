@@ -1,4 +1,5 @@
 #include "AISystem.h"
+#include "AIComponentBasicEnemy.h"
 
 void AISystem::update()
 {

@@ -1,6 +1,6 @@
 #pragma once
+#include "TransformComponent.h"
 
-#include "Components.h"
 #include "TextureManager.h"
 #include "AssetManager.h"
 #include "Animation.h"

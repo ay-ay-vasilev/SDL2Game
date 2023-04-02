@@ -1,5 +1,8 @@
 #pragma once
-#include "Components.h"
+#include "ECS.h"
+#include "AssetManager.h"
+#include "SpriteComponent.h"
+#include "WeaponComponent.h"
 
 class ActorComponent : public Component
 {

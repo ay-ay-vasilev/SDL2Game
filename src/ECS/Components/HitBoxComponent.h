@@ -1,5 +1,7 @@
 #pragma once
-#include "Components.h"
+#include "ECS.h"
+#include "TransformComponent.h"
+#include "TextureManager.h"
 #include "ColliderShape.h"
 
 class HitboxComponent : public Component

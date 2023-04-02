@@ -1,4 +1,7 @@
 #include "HitboxWeaponCollisionSystem.h"
+#include "HitboxComponent.h"
+#include "WeaponComponent.h"
+#include "HealthComponent.h"
 #include "Collision.h"
 #include "Vector2D.h"
 

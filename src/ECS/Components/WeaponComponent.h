@@ -1,6 +1,8 @@
 #pragma once
+#include "TransformComponent.h"
+#include "SpriteComponent.h"
+#include "HealthComponent.h"
 
-#include "Components.h"
 #include "Observer.h"
 #include "ColliderShape.h"
 #include "Sprite.h"

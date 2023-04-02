@@ -1,5 +1,14 @@
 #include "Game.h"
-#include "Systems.h"
+#include "RenderSystem.h"
+#include "MapSystem.h"
+#include "CollisionSystem.h"
+#include "HitboxWeaponCollisionSystem.h"
+#include "PlayerSystem.h"
+#include "EnemySystem.h"
+#include "ProjectileSystem.h"
+#include "AISystem.h"
+
+#include "UILabelComponent.h"
 
 #include "AssetManager.h"
 #include "Constants.h"

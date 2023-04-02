@@ -1,4 +1,6 @@
 #pragma once
+#include "Subject.h"
+
 #include <boost/signals2.hpp>
 #include <string>
 #include <vector>

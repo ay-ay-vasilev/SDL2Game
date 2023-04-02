@@ -1,6 +1,7 @@
 #pragma once
-#include "Components.h"
+#include "ECS.h"
 #include "TextureManager.h"
+#include "TransformComponent.h"
 #include "ColliderShape.h"
 
 #include <SDL.h>

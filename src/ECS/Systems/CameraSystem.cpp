@@ -1,4 +1,6 @@
 #include "CameraSystem.h"
+#include "TransformComponent.h"
+#include "Game.h"
 
 CameraSystem::CameraSystem(Manager& manager) : System(manager), camera(), cameraBounds(), lastPlayerPosition(0, 0) {}
 

@@ -1,6 +1,8 @@
 #pragma once
-
-#include "Components.h"
+#include "ECS.h"
+#include "ActorComponent.h"
+#include "TransformComponent.h"
+#include "HitboxComponent.h"
 #include "Observer.h"
 
 class KeyboardComponent : public Component, private Observer
