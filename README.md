@@ -23,9 +23,8 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Refactor Sprite and Animation classes!
-- Specific weapon stats for actors in weapon json files?
-- Add string ids to Sprite vectors ?
+- Delete textures properly ?
+- Add implementation files for Components.
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - JSON files for AI.
 - Add map json.
@@ -35,7 +34,7 @@ Maintenance:
 - Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update).
 - Better WeaponComponent implementation (add an object for weapon stats).
 - i-frames ?
-- Delete textures properly ?
+- Specific weapon stats for actors in weapon json files?
 
 Future plans:
 - Different weapons

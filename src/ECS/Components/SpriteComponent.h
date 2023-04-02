@@ -91,7 +91,7 @@ public:
 				sortedSprites.emplace_back(sprite);
 			}
 		}
-		std::sort(sortedSprites.begin(), sortedSprites.end(), [](auto& a, auto& b) { return a->z < b->z; });
+		std::sort(sortedSprites.begin(), sortedSprites.end(), [](auto& a, auto& b) { return a->getZ() < b->getZ(); });
 	}
 
 	void init() override
@@ -102,13 +102,13 @@ public:
 
 	void update() override
 	{
-		if (animated && frames)
+		if (animated && numOfFrames)
 		{
 			const Uint32 ticks = SDL_GetTicks();
 			const Uint32 elapsed = ticks - animStartTime;
-			int frameNum = static_cast<int>(elapsed) / speed;
+			int frameNum = static_cast<int>(elapsed) / animSpeed;
 			// check if anim ended
-			if (frameNum >= frames && frameNum % frames == 0)
+			if (frameNum >= numOfFrames && frameNum % numOfFrames == 0)
 			{
 				animStartTime = ticks;
 				frameNum = 0;
@@ -132,27 +132,22 @@ public:
 
 			for (auto& sprite : sortedSprites)
 			{
-				sprite->srcRect.x = sprite->srcRect.w * static_cast<int>(frameNum % frames);
+				sprite->setSrcRectXForFrame(static_cast<int>(frameNum % numOfFrames));
 			}
 			spriteFlip = transform->getDirection().x > 0 ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 		}
 
 		for (auto& sprite : sortedSprites)
 		{
-			const auto index = sprite->getIndexByAnimName(animName);
-			sprite->srcRect.y =  (index != -1 ? index : animIndex) * sprite->frameHeight;
-
-			sprite->destRect.x = static_cast<int>(transform->getPosition().x - static_cast<float>(sprite->frameWidth) * transform->getScale() / 2) - Game::camera.x;
-			sprite->destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(sprite->frameHeight) * transform->getScale() / 2) - Game::camera.y;
-			sprite->destRect.w = static_cast<int>(sprite->frameWidth * transform->getScale());
-			sprite->destRect.h = static_cast<int>(sprite->frameHeight * transform->getScale());
+			sprite->setSrcRectYForAnim(animName, animIndex);
+			sprite->setDestRect(transform->getPosition(), Vector2D(Game::camera.x, Game::camera.y), transform->getScale());
 		}
 	}
 
 	void draw() override
 	{
 		for (const auto& sprite : sortedSprites)
-			TextureManager::draw(sprite->texture, sprite->srcRect, sprite->destRect, spriteFlip);
+			TextureManager::draw(sprite->getTexture(), sprite->getSrcRect(), sprite->getDestRect(), spriteFlip);
 	}
 
 	void play(const std::string& newAnimPlay)
@@ -165,13 +160,11 @@ public:
 		animName = newAnimPlay;
 		animStartTime = SDL_GetTicks();
 		const auto animData = animations[animName];
-		actionName = animData.actionName;
-		frames = animData.frames;
-		animIndex = animData.index;
-		speed = animData.speed;
-
-		triggerFrames.clear();
-		if (!animData.triggerFrames.empty()) triggerFrames = animData.triggerFrames;
+		actionName = animData.getActionName();
+		numOfFrames = animData.getNumOfFrames();
+		animIndex = animData.getAnimIndex();
+		animSpeed = animData.getAnimSpeed();
+		triggerFrames = animData.getTriggerFrames();
 
 		animState = eAnimState::NONE;
 		triggered = false;
@@ -182,12 +175,12 @@ public:
 	{
 		for (auto& [name, animData] : animData.items())
 		{
-			const int id = animData.value("id", 0);
+			const int animIndex = animData.value("anim_index", 0);
 			const int num_of_frames = animData.value("num_of_frames", 0);
-			const int speed = animData.value("speed", 0);
+			const int animSpeed = animData.value("anim_speed", 0);
 			const auto trigger_frames = animData.count("trigger_frames") ? animData.at("trigger_frames").get<std::vector<int>>() : std::vector<int>();
 			const auto action_name = animData.value("action_name", "");
-			addAnimation(name, id, num_of_frames, speed, trigger_frames, action_name);
+			addAnimation(name, animIndex, num_of_frames, animSpeed, trigger_frames, action_name);
 		}
 	}
 
@@ -245,8 +238,8 @@ private:
 	std::string animName;
 	std::string actionName;
 	bool animated = false;
-	int frames = 0;
-	int speed = 100;
+	int numOfFrames = 0;
+	int animSpeed = 100;
 	std::vector<int> triggerFrames;
 	bool triggered = false;
 };
