@@ -24,7 +24,7 @@ public:
 		weapon = entity->getComponent<WeaponComponent>();
 		// todo: read from json
 		aggroDistance = 100 * transform->getScale();
-		loseAggroDistance = 150 * transform->getScale();
+		loseAggroDistance = 120 * transform->getScale();
 	}
 
 	void update() override

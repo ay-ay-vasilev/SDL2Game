@@ -10,8 +10,11 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
-- Ranged weapon for player.
 - Add armor.
+	* Remove head into a separate spritesheet DONE
+	* Reparse actor spritesheets ALMOST
+	* Create an Armor class and draw clothing on actors 
+- Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
 - Add an inventory system.
@@ -37,7 +40,6 @@ Maintenance:
 - Specific weapon stats for actors in weapon json files?
 
 Future plans:
-- Different weapons
 - Different clothes
 - Customization for characters
 - Actor randomization
@@ -47,3 +49,4 @@ Future plans:
 - Death animation
 - Hit feedback
 - Add ids to entities (UUID or simple ids?)
+- Outline for actors?

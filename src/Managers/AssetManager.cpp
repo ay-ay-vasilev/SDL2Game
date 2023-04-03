@@ -9,7 +9,13 @@ void AssetManager::loadTextures()
 {
 	addTexture("terrain", "assets/images/spritesheets/tiles_v0.png");
 
-	addTexture("goblin", "assets/images/spritesheets/actors/goblin/body/spritesheet.png");	
+	addTexture("goblin_body", "assets/images/spritesheets/actors/goblin/body/spritesheet.png");
+	addTexture("goblin_head", "assets/images/spritesheets/actors/goblin/head/spritesheet.png");
+	addTexture("goblin_face_0", "assets/images/spritesheets/actors/goblin/head/face/spritesheet_0.png");
+	addTexture("goblin_ears_0", "assets/images/spritesheets/actors/goblin/head/ears/spritesheet_0.png");
+	addTexture("pants_goblin_0", "assets/images/spritesheets/actors/goblin/armor/pants/spritesheet_0.png");
+	addTexture("goblin_shirt_0", "assets/images/spritesheets/actors/goblin/armor/shirt/spritesheet_0.png");
+
 	addTexture("goblin_hands_0", "assets/images/spritesheets/actors/goblin/hands/spritesheet_0.png");
 	addTexture("goblin_hands_1", "assets/images/spritesheets/actors/goblin/hands/spritesheet_1.png");
 

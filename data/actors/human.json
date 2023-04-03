@@ -22,8 +22,8 @@
 		"sprites":
 		[
 			{ "slot": "body", "texture": "human", "z": 0 },
-			{ "slot": "hands", "texture": "human_hands_0", "z": -2 },
-			{ "slot": "hands", "texture": "human_hands_1", "z": 10 }
+			{ "slot": "hands", "texture": "human_hands_0", "z": -200 },
+			{ "slot": "hands", "texture": "human_hands_1", "z": 200 }
 		],
 		"animations":
 		{

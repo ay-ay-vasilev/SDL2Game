@@ -6,17 +6,17 @@
 		"shape": "circle",
 		"x": 4, "y": 4,
 		"offset": { "dx": 0, "dy": 2.7 },
-		"radius": 10
+		"radius": 8
 	},
 	"sprite_data":
 	{
 		"goblin":
 		{
-			"frame_width" : 48, "frame_height": 48,
+			"frame_width" : 24, "frame_height": 24,
 			"sprites":
 			[
-				{ "slot": "weapon", "texture": "shortsword_goblin_0", "z": -1 },
-				{ "slot": "weapon", "texture": "shortsword_goblin_1", "z": 11 }
+				{ "slot": "weapon", "texture": "shortsword_goblin_0", "z": -201 },
+				{ "slot": "weapon", "texture": "shortsword_goblin_1", "z": 201 }
 			],
 			"animations":
 			{
