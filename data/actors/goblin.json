@@ -22,8 +22,6 @@
 		"sprites":
 		[
 			{ "slot": "body", "texture": "goblin_body", "frame_width" : 48, "frame_height" : 48, "z": 0 },
-			{ "slot": "pants", "texture": "pants_goblin_0", "frame_width" : 48, "frame_height" : 48, "z": 1 },
-			{ "slot": "shirt", "texture": "goblin_shirt_0", "frame_width" : 48, "frame_height" : 48, "z": 2 },
 			{ "slot": "ears", "texture": "goblin_ears_0", "frame_width" : 48, "frame_height" : 48, "z": 99 },
 			{ "slot": "head", "texture": "goblin_head", "frame_width" : 48, "frame_height" : 48, "z": 100 },
 			{ "slot": "face", "texture": "goblin_face_0", "frame_width" : 48, "frame_height" : 48, "z": 101 },

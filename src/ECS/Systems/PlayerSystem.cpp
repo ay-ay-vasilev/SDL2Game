@@ -6,6 +6,7 @@
 #include "KeyboardComponent.h"
 #include "HitboxComponent.h"
 #include "HealthComponent.h"
+#include "ArmorComponent.h"
 
 #include <json.hpp>
 
@@ -25,9 +26,14 @@ Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& 
 	player.addComponent<ColliderComponent>(filename, playerData["collider_rect"]);
 	player.addComponent<HitboxComponent>(filename, playerData["hitbox_rect"]);
 	player.addComponent<HealthComponent>(playerData["health"]);
+	player.addComponent<ArmorComponent>();
 
 	player.addGroup(Game::eGroupLabels::PLAYERS);
 	equipWeapon(player, "unarmed");
+	
+	equipArmor(player, "0", "pants");
+	equipArmor(player, "0", "shirt");
+
 	return &player;
 }
 
@@ -46,6 +52,21 @@ void PlayerSystem::equipWeapon(Entity& player, const std::string& weaponName)
 		player.removeComponent<WeaponComponent>();
 	}
 	player.addComponent<WeaponComponent>(weaponName, playerTag);
+}
+
+void PlayerSystem::equipArmor(Entity& player, const std::string& armorName, const std::string& slotName)
+{
+	std::string playerTag = "";
+	if (player.hasComponent<HitboxComponent>())
+	{
+		const auto hitboxComponent = player.getComponent<HitboxComponent>();
+		playerTag = hitboxComponent->getTag();
+	}
+	if (player.hasComponent<ArmorComponent>())
+	{
+		const auto armorComponent = player.getComponent<ArmorComponent>();
+		armorComponent->equipArmorElement(armorName, playerTag, slotName);
+	}
 }
 
 const Vector2D PlayerSystem::getPlayerPosition()

@@ -8,6 +8,7 @@ public:
 
 	Entity* instantiatePlayer(const Vector2D& pos, const std::string& filename);
 	void equipWeapon(Entity& player, const std::string& weaponName);
+	void equipArmor(Entity& player, const std::string& armorName, const std::string& slotName);
 
 	const Vector2D getPlayerPosition();
 

@@ -200,6 +200,9 @@
     <ClInclude Include="..\src\ECS\Components\HitboxComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\ArmorComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">

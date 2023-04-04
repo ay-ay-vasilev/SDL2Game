@@ -22,6 +22,7 @@ public:
 	std::string getActorJsonPath(const std::string& fileName);
 	std::string getProjectileJsonPath(const std::string& fileName);
 	std::string getWeaponJsonPath(const std::string& fileName);
+	std::string getArmorJsonPath(const std::string& fileName, const std::string& actorName, const std::string& slotName);
 
 	// Texture management
 	void addTexture(const std::string_view& id, const std::string& path);
@@ -35,6 +36,7 @@ public:
 	nlohmann::json getActorJson(const std::string& actorName);
 	nlohmann::json getProjectileJson(const std::string& projectileName);
 	nlohmann::json getWeaponJson(const std::string& weaponName);
+	nlohmann::json getArmorJson(const std::string& armorName, const std::string& actorName, const std::string& slotName);
 
 private:
 
