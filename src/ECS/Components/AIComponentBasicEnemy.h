@@ -60,8 +60,8 @@ public:
 		else
 		{
 			// default behavior
+			actorComponent->playAction("idle");
 		}
-
 	}
 
 	void setNewTarget(const Entity* newTarget)
