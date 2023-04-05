@@ -75,6 +75,12 @@ public:
 		sortSpritesByZ();
 	}
 
+	void addSpritesToSlot(const std::string& slotName, std::vector<std::shared_ptr<Sprite>> spritesToAdd)
+	{
+		sprites[slotName] = spritesToAdd;
+		sortSpritesByZ();
+	}
+
 	void removeSpritesFromSlot(const std::string& slotName)
 	{
 		sprites.erase(slotName);

@@ -3,6 +3,7 @@
 #include "ActorComponent.h"
 #include "TransformComponent.h"
 #include "HitboxComponent.h"
+#include "ArmorComponent.h"
 #include "Observer.h"
 
 class KeyboardComponent : public Component, private Observer
@@ -44,6 +45,12 @@ public:
 			break;
 		case SDLK_3:
 			equipWeapon("sword");
+			break;
+		case SDLK_4:
+			equipArmor();
+			break;
+		case SDLK_5:
+			unequipArmor();
 			break;
 		}
 
@@ -121,6 +128,32 @@ private:
 			entity->removeComponent<WeaponComponent>();
 		}
 		entity->addComponent<WeaponComponent>(weaponName, entityTag);
+	}
+
+	void equipArmor()
+	{
+		std::string playerTag = "";
+		if (entity->hasComponent<HitboxComponent>())
+		{
+			const auto hitboxComponent = entity->getComponent<HitboxComponent>();
+			playerTag = hitboxComponent->getTag();
+		}
+		if (entity->hasComponent<ArmorComponent>())
+		{
+			const auto armorComponent = entity->getComponent<ArmorComponent>();
+			armorComponent->equipArmorToSlot("0", playerTag, "pants");
+			armorComponent->equipArmorToSlot("0", playerTag, "shirt");
+		}
+	}
+
+	void unequipArmor()
+	{
+		if (entity->hasComponent<ArmorComponent>())
+		{
+			const auto armorComponent = entity->getComponent<ArmorComponent>();
+			armorComponent->unequipArmorFromSlot("pants");
+			armorComponent->unequipArmorFromSlot("shirt");
+		}
 	}
 
 	eState state = eState::IDLE;

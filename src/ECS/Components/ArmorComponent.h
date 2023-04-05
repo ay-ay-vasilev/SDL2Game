@@ -4,7 +4,7 @@
 class ArmorComponent : public Component
 {
 public:
-	ArmorComponent() : damageReduction(0) {}
+	ArmorComponent() : armorValue(0) {}
 
 	~ArmorComponent() {}
 
@@ -13,37 +13,40 @@ public:
 		spriteComponent = entity->getComponent<SpriteComponent>();
 	}
 
-	void equipArmorElement(const std::string& armorName, const std::string& actorName, const std::string& slotName)
+	void equipArmorToSlot(const std::string& armorName, const std::string& actorName, const std::string& slotName)
 	{
 		const auto armorData = Game::assets->getArmorJson(armorName, actorName, slotName);
 
-		damageReduction += armorData.value("damage_reduction", 0);
-		if (armorData.contains("sprite_data"))
-		{
-			const auto armorSpriteData = armorData["sprite_data"]["sprites"];
-			const auto armorFrameWidth = armorData["sprite_data"].value("frame_width", 0);
-			const auto armorFrameHeight = armorData["sprite_data"].value("frame_height", 0);
+		const auto slotArmorValue = armorData.value("damage_reduction", 0);
+		armorValue += slotArmorValue;
+		slotArmorValues[slotName] = slotArmorValue;
 
-			for (const auto& data : armorSpriteData)
-			{
-				const auto spriteFrameWidth = data.value("frame_width", armorFrameWidth);
-				const auto spriteFrameHeight = data.value("frame_height", armorFrameHeight);
-				const auto tempZ = data.value("z", 0);
-				tempSprites[data["slot"]].emplace_back((std::make_shared<Sprite>(data["texture"], spriteFrameWidth, spriteFrameHeight, tempZ)));
-			}
-		}
+		const auto& spriteData = armorData.value("sprite_data", nlohmann::json{});
+		const auto frameWidth = spriteData.value("frame_width", 0);
+		const auto frameHeight = spriteData.value("frame_height", 0);
 
-		if (tempSprites.empty())
-			spriteComponent->removeSpritesFromSlot(slotName);
-		for (auto& [slotName, tempSpriteVec] : tempSprites)
+		std::vector<std::shared_ptr<Sprite>> spritesToAdd;
+		const auto& armorSpriteData = spriteData.value("sprites", nlohmann::json::array());
+		for (const auto& data : armorSpriteData)
 		{
-			spriteComponent->removeSpritesFromSlot(slotName);
-			for (auto& tempSprite : tempSpriteVec)
-			{
-				spriteComponent->addSprite(slotName, tempSprite);
-			}
+			const auto& textureName = data.value("texture", "");
+			const int spriteFrameWidth = data.value("frame_width", frameWidth);
+			const int spriteFrameHeight = data.value("frame_height", frameHeight);
+			const int z = data.value("z", 0);
+			spritesToAdd.emplace_back(std::make_shared<Sprite>(textureName, spriteFrameWidth, spriteFrameHeight, z));
 		}
-		tempSprites.clear();
+		spriteComponent->addSpritesToSlot(slotName, spritesToAdd);
+
+		if (armorSpriteData.empty()) {
+			spriteComponent->removeSpritesFromSlot(slotName);
+		}
+	}
+
+	void unequipArmorFromSlot(const std::string& slotName)
+	{
+		armorValue -= slotArmorValues[slotName];
+		slotArmorValues.erase(slotName);
+		spriteComponent->removeSpritesFromSlot(slotName);
 	}
 
 	void update() {}
@@ -51,6 +54,7 @@ public:
 private:
 	std::shared_ptr<SpriteComponent> spriteComponent;
 	std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> tempSprites;
+	std::unordered_map<std::string, int> slotArmorValues;
 
-	int damageReduction;
+	int armorValue;
 };

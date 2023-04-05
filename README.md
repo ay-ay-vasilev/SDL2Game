@@ -13,8 +13,10 @@ My plan:
 - Add armor.
 	* Remove head into a separate spritesheet DONE
 	* Create an Armor class and draw clothing on actors DONE
+	* Refactor ArmorComponent!!! Add unequip method + optimize the equip method DONE
+	* Calculate damage through ArmorComponent and fix damageReduction logic.
 	* Reparse actor spritesheets ALMOST
-	* Refactor ArmorComponent!!! Add unequip method + optimize the equip method. Also calculate damage through ArmorComponent and fix damageReduction logic.
+
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
@@ -27,7 +29,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Remove string_view reference parameters if they are casted to strings.
+- Remove string_view reference parameters if they are casted to strings!
 - Fix new warnings.
 - Delete textures properly ?
 - Add implementation files for Components.
