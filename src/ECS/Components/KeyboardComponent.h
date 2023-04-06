@@ -143,6 +143,7 @@ private:
 			const auto armorComponent = entity->getComponent<ArmorComponent>();
 			armorComponent->equipArmorToSlot("0", playerTag, "pants");
 			armorComponent->equipArmorToSlot("0", playerTag, "shirt");
+			armorComponent->equipArmorToSlot("0", playerTag, "jacket");
 		}
 	}
 
@@ -153,6 +154,7 @@ private:
 			const auto armorComponent = entity->getComponent<ArmorComponent>();
 			armorComponent->unequipArmorFromSlot("pants");
 			armorComponent->unequipArmorFromSlot("shirt");
+			armorComponent->unequipArmorFromSlot("jacket");
 		}
 	}
 

@@ -30,10 +30,6 @@ Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& 
 
 	player.addGroup(Game::eGroupLabels::PLAYERS);
 	equipWeapon(player, "unarmed");
-	
-	equipArmor(player, "0", "pants");
-	equipArmor(player, "0", "shirt");
-
 	return &player;
 }
 
