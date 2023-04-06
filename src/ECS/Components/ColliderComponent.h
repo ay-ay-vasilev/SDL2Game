@@ -12,35 +12,35 @@
 class ColliderComponent : public Component
 {
 public:
-	ColliderComponent(const std::string_view& tag) :
+	ColliderComponent(const std::string& tag) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		collider(),
 		colliderOffset() {};
 
-	ColliderComponent(const std::string_view& tag, const Vector2D& position, const float radius, const Vector2D& colliderOffset = Vector2D()) :
+	ColliderComponent(const std::string& tag, const Vector2D& position, const float radius, const Vector2D& colliderOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		collider(std::make_shared<CircleCollider>(position, radius)),
 		colliderOffset(colliderOffset) {};
 
-	ColliderComponent(const std::string_view& tag, const Vector2D& position, const float width, const float height, const Vector2D& colliderOffset = Vector2D()) :
+	ColliderComponent(const std::string& tag, const Vector2D& position, const float width, const float height, const Vector2D& colliderOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		collider(std::make_shared<RectangleCollider>(position, width, height)),
 		colliderOffset(colliderOffset) {};
 
-	ColliderComponent(const std::string_view& tag, const std::shared_ptr<ColliderShape>& colliderShape, const Vector2D& colliderOffset = Vector2D()) :
+	ColliderComponent(const std::string& tag, const std::shared_ptr<ColliderShape>& colliderShape, const Vector2D& colliderOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		collider(colliderShape),
 		colliderOffset(colliderOffset) {};
 
-	ColliderComponent(const std::string_view& tag, const nlohmann::json& colliderData) :
+	ColliderComponent(const std::string& tag, const nlohmann::json& colliderData) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),

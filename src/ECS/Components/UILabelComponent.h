@@ -10,7 +10,7 @@
 class UILabelComponent : public Component
 {
 public:
-	UILabelComponent(const int xpos, const int ypos, const std::string_view& text, const std::string_view& font, const SDL_Color& color) :
+	UILabelComponent(const int xpos, const int ypos, const std::string& text, const std::string& font, const SDL_Color& color) :
 		position({xpos, ypos, 0, 0}),
 		labelText(text),
 		labelFont(font),

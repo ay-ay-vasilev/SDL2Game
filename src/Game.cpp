@@ -98,11 +98,11 @@ void Game::init()
 	label0.addComponent<UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
 	const std::string projectileFile = "test_projectile";
-	projectileSystem->instantiateProjectile(Vector2D(83.33, 100), Vector2D(-2, -2), projectileFile);
-	projectileSystem->instantiateProjectile(Vector2D(50, 83.33), Vector2D(2, -2), projectileFile);
-	projectileSystem->instantiateProjectile(Vector2D(66.67, 66.67), Vector2D(-2, 0), projectileFile);
-	projectileSystem->instantiateProjectile(Vector2D(33.33, 50), Vector2D(2, 2), projectileFile);
-	projectileSystem->instantiateProjectile(Vector2D(100, 33.33), Vector2D(-2, 2), projectileFile);
+	projectileSystem->instantiateProjectile(Vector2D(83.33f, 100.f), Vector2D(-2.f, -2.f), projectileFile);
+	projectileSystem->instantiateProjectile(Vector2D(50.f, 83.33f), Vector2D(2.f, -2.f), projectileFile);
+	projectileSystem->instantiateProjectile(Vector2D(66.67f, 66.67f), Vector2D(-2.f, 0.f), projectileFile);
+	projectileSystem->instantiateProjectile(Vector2D(33.33f, 50.f), Vector2D(2.f, 2.f), projectileFile);
+	projectileSystem->instantiateProjectile(Vector2D(100.f, 33.33f), Vector2D(-2.f, 2.f), projectileFile);
 
 	auto player = playerSystem->instantiatePlayer(constants->PLAYER_POS, "goblin");
 

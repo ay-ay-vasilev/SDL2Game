@@ -29,8 +29,6 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Remove string_view reference parameters if they are casted to strings!
-- Fix new warnings.
 - Delete textures properly ?
 - Add implementation files for Components.
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)

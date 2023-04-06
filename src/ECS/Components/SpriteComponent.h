@@ -146,7 +146,12 @@ public:
 		for (auto& sprite : sortedSprites)
 		{
 			sprite->setSrcRectYForAnim(animName, animIndex);
-			sprite->setDestRect(transform->getPosition(), Vector2D(Game::camera.x, Game::camera.y), transform->getScale());
+			sprite->setDestRect
+			(
+				transform->getPosition(),
+				Vector2D(static_cast<float>(Game::camera.x), static_cast<float>(Game::camera.y)),
+				transform->getScale()
+			);
 		}
 	}
 

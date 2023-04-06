@@ -55,10 +55,10 @@ public:
 		srcRect.y = (index != -1 ? index : animIndex) * frameHeight;
 	}
 
-	void setDestRect(const Vector2D& transformPosition, const Vector2D& cameraPosition, const int transformScale)
+	void setDestRect(const Vector2D& transformPosition, const Vector2D& cameraPosition, const float transformScale)
 	{
-		destRect.x = static_cast<int>(transformPosition.x - static_cast<float>(frameWidth) * transformScale / 2) - cameraPosition.x;
-		destRect.y = static_cast<int>(transformPosition.y - static_cast<float>(frameHeight) * transformScale / 2) - cameraPosition.y;
+		destRect.x = static_cast<int>(transformPosition.x - static_cast<float>(frameWidth) * transformScale / 2.f - cameraPosition.x);
+		destRect.y = static_cast<int>(transformPosition.y - static_cast<float>(frameHeight) * transformScale / 2.f - cameraPosition.y);
 		destRect.w = static_cast<int>(frameWidth * transformScale);
 		destRect.h = static_cast<int>(frameHeight * transformScale);
 	}

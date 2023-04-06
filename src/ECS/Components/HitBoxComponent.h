@@ -7,35 +7,35 @@
 class HitboxComponent : public Component
 {
 public:
-	HitboxComponent(const std::string_view& tag) :
+	HitboxComponent(const std::string& tag) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		hitbox(),
 		hitboxOffset() {};
 
-	HitboxComponent(const std::string_view& tag, const Vector2D& position, const float radius, const Vector2D& hitboxOffset = Vector2D()) :
+	HitboxComponent(const std::string& tag, const Vector2D& position, const float radius, const Vector2D& hitboxOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		hitbox(std::make_shared<CircleCollider>(position, radius)),
 		hitboxOffset(hitboxOffset) {};
 
-	HitboxComponent(const std::string_view& tag, const Vector2D& position, const float width, const float height, const Vector2D& hitboxOffset = Vector2D()) :
+	HitboxComponent(const std::string& tag, const Vector2D& position, const float width, const float height, const Vector2D& hitboxOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		hitbox(std::make_shared<RectangleCollider>(position, width, height)),
 		hitboxOffset(hitboxOffset) {};
 
-	HitboxComponent(const std::string_view& tag, const std::shared_ptr<ColliderShape>& hitboxShape, const Vector2D& hitboxOffset = Vector2D()) :
+	HitboxComponent(const std::string& tag, const std::shared_ptr<ColliderShape>& hitboxShape, const Vector2D& hitboxOffset = Vector2D()) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),
 		hitbox(hitboxShape),
 		hitboxOffset(hitboxOffset) {};
 
-	HitboxComponent(const std::string_view& tag, const nlohmann::json& colliderData) :
+	HitboxComponent(const std::string& tag, const nlohmann::json& colliderData) :
 		tag(tag),
 		transform(nullptr), texture(nullptr),
 		srcRect(), destRect(),

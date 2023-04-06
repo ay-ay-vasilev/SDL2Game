@@ -7,11 +7,10 @@
 class ActorComponent : public Component, public Observer, public Subject
 {
 public:
-	ActorComponent(const std::string_view& name)
+	ActorComponent(const std::string& name)
 	{
-		const auto actorName = std::string(name);
 		nlohmann::json actorData;
-		actorData = Game::assets->getActorJson(actorName)["actor_data"];
+		actorData = Game::assets->getActorJson(name)["actor_data"];
 
 		if (actorData.contains("weapon_type_animations"))
 		{

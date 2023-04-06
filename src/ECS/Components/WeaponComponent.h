@@ -10,7 +10,7 @@
 class WeaponComponent : public Component, private Observer
 {
 public:
-	WeaponComponent(const std::string_view& name, const std::string_view& ownerName, bool isProjectile = false) :
+	WeaponComponent(const std::string& name, const std::string& ownerName, bool isProjectile = false) :
 		tag(name),
 		ownerTag(ownerName),
 		texture(nullptr),
