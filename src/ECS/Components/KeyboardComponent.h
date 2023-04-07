@@ -177,6 +177,7 @@ private:
 			armorComponent->equipArmorToSlot("0", playerTag, "jacket");
 			armorComponent->equipArmorToSlot("eyepatch_0", playerTag, "eyewear");
 			armorComponent->equipArmorToSlot("scarf_0", playerTag, "mask");
+			armorComponent->equipArmorToSlot("cloak_0", playerTag, "overcoat");
 		}
 	}
 
@@ -190,6 +191,7 @@ private:
 			armorComponent->unequipArmorFromSlot("jacket");
 			armorComponent->unequipArmorFromSlot("eyewear");
 			armorComponent->unequipArmorFromSlot("mask");
+			armorComponent->unequipArmorFromSlot("overcoat");
 		}
 	}
 

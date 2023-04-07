@@ -1,0 +1,13 @@
+{
+	"damage_reduction": 1,
+	"sprite_data":
+	{
+		"frame_width" : 48, "frame_height": 48,
+		"sprites":
+		[
+			{ "slot": "overcoat", "texture": "cloak_goblin_0", "z": 4 },
+			{ "slot": "overcoat", "texture": "cloak_goblin_0_hands_0", "z": 201 },
+			{ "slot": "overcoat", "texture": "cloak_goblin_0_head", "z": 104 }
+		]
+	}
+}
