@@ -17,6 +17,8 @@ void AssetManager::loadTextures()
 	addTexture("pants_goblin_0", "assets/images/spritesheets/actors/goblin/armor/pants/spritesheet_0.png");
 	addTexture("shirt_goblin_0", "assets/images/spritesheets/actors/goblin/armor/shirt/spritesheet_0.png");
 	addTexture("jacket_goblin_0", "assets/images/spritesheets/actors/goblin/armor/jacket/spritesheet_0.png");
+	addTexture("eyewear_goblin_eyepatch_0", "assets/images/spritesheets/actors/goblin/armor/eyewear/eyepatch_0.png");
+	addTexture("mask_goblin_scarf_0", "assets/images/spritesheets/actors/goblin/armor/mask/scarf_0.png");
 
 	addTexture("goblin_hands_0", "assets/images/spritesheets/actors/goblin/hands/spritesheet_0.png");
 	addTexture("goblin_hands_1", "assets/images/spritesheets/actors/goblin/hands/spritesheet_1.png");

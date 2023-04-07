@@ -1,0 +1,11 @@
+{
+	"damage_reduction": 0,
+	"sprite_data":
+	{
+		"frame_width" : 48, "frame_height": 48,
+		"sprites":
+		[
+			{ "slot": "eyewear", "texture": "eyewear_goblin_eyepatch_0", "z": 103 }
+		]
+	}
+}

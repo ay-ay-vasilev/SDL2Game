@@ -28,30 +28,61 @@ public:
 	void update() override
 	{
 		const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
-
 		switch (Game::gameEvent.key.keysym.sym)
 		{
 		case SDLK_ESCAPE:
 			Game::isRunning = false;
+			pressed = true;
 			break;
 		case SDLK_o:
 			Game::constants->ReloadSettings();
+			pressed = true;
 			break;
 		case SDLK_1:
-			equipWeapon("unarmed");
+			if (!pressed)
+			{
+				equipWeapon("unarmed");
+				pressed = true;
+			}
 			break;
 		case SDLK_2:
-			equipWeapon("shortsword");
+			if (!pressed)
+			{
+				equipWeapon("shortsword");
+				pressed = true;
+			}
 			break;
 		case SDLK_3:
-			equipWeapon("sword");
+			if (!pressed)
+			{
+				equipWeapon("sword");
+				pressed = true;
+			}
 			break;
 		case SDLK_4:
-			equipArmor();
+			if (!pressed)
+			{
+				equipArmor();
+				pressed = true;
+			}
 			break;
 		case SDLK_5:
-			unequipArmor();
+			if (!pressed)
+			{
+				unequipArmor();
+				pressed = true;
+			}
 			break;
+		default:
+			break;
+		}
+
+		if (!keyboardState[SDL_SCANCODE_ESCAPE] && !keyboardState[SDL_SCANCODE_O] &&
+			!keyboardState[SDL_SCANCODE_1] && !keyboardState[SDL_SCANCODE_2] &&
+			!keyboardState[SDL_SCANCODE_3] && !keyboardState[SDL_SCANCODE_4] &&
+			!keyboardState[SDL_SCANCODE_5])
+		{
+			pressed = false;
 		}
 
 		int x = 0, y = 0;
@@ -144,6 +175,8 @@ private:
 			armorComponent->equipArmorToSlot("0", playerTag, "pants");
 			armorComponent->equipArmorToSlot("0", playerTag, "shirt");
 			armorComponent->equipArmorToSlot("0", playerTag, "jacket");
+			armorComponent->equipArmorToSlot("eyepatch_0", playerTag, "eyewear");
+			armorComponent->equipArmorToSlot("scarf_0", playerTag, "mask");
 		}
 	}
 
@@ -155,9 +188,12 @@ private:
 			armorComponent->unequipArmorFromSlot("pants");
 			armorComponent->unequipArmorFromSlot("shirt");
 			armorComponent->unequipArmorFromSlot("jacket");
+			armorComponent->unequipArmorFromSlot("eyewear");
+			armorComponent->unequipArmorFromSlot("mask");
 		}
 	}
 
+	bool pressed = false;
 	eState state = eState::IDLE;
 	std::shared_ptr<TransformComponent> transform;
 	std::shared_ptr<ActorComponent> actorComponent;
