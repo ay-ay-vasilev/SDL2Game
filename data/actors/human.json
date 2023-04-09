@@ -21,7 +21,9 @@
 		"frame_width": 64, "frame_height": 64,
 		"sprites":
 		[
-			{ "slot": "body", "texture": "human", "z": 0 },
+			{ "slot": "body", "texture": "human_body", "z": 0 },
+			{ "slot": "head", "texture": "human_head", "z": 100 },
+			{ "slot": "face", "texture": "human_face_0", "z": 101 },
 			{ "slot": "hands", "texture": "human_hands_0", "z": -200 },
 			{ "slot": "hands", "texture": "human_hands_1", "z": 200 }
 		],
