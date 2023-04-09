@@ -61,6 +61,11 @@ public:
 
 	void update() {}
 
+	int applyDamageReduction(int damage) const
+	{
+		return std::clamp(damage - armorValue, 0, damage);
+	}
+
 private:
 	std::shared_ptr<SpriteComponent> spriteComponent;
 	std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> tempSprites;

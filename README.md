@@ -14,7 +14,7 @@ My plan:
 	* Remove head into a separate spritesheet DONE
 	* Create an Armor class and draw clothing on actors DONE
 	* Refactor ArmorComponent!!! Add unequip method + optimize the equip method DONE
-	* Calculate damage through ArmorComponent and fix damageReduction logic.
+	* Calculate damage through ArmorComponent and fix damageReduction logic DONE
 	* Reparse actor spritesheets ALMOST
 
 - Ranged weapon for player.

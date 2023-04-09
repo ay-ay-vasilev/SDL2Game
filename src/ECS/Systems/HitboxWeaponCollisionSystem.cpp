@@ -2,6 +2,7 @@
 #include "HitboxComponent.h"
 #include "WeaponComponent.h"
 #include "HealthComponent.h"
+#include "ArmorComponent.h"
 #include "Collision.h"
 #include "Vector2D.h"
 
@@ -38,8 +39,10 @@ void HitboxWeaponCollisionSystem::update()
 			{
 				weaponCollider->addAffectedTarget(hitboxCollider->getId());
 				auto actorHealthComponent = hitboxEntity->getComponent<HealthComponent>();
+				auto actorArmorComponent = hitboxEntity->getComponent<ArmorComponent>();
 
-				const int damage = weaponCollider->getDamage();
+				const auto weaponDamage = weaponCollider->getDamage();
+				const auto damage = actorArmorComponent ? actorArmorComponent->applyDamageReduction(weaponDamage) : weaponDamage;
 				actorHealthComponent->changeHealth(-damage);
 				const int currentHealth = actorHealthComponent->getHealth();
 
