@@ -5,7 +5,7 @@
 #include "ColliderShape.h"
 
 #include <SDL.h>
-#include <json.hpp>
+#include <wrappedJson.h>
 
 #include <string>
 

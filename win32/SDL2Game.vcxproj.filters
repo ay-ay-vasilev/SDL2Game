@@ -19,9 +19,6 @@
     <Filter Include="Source Files\Constants">
       <UniqueIdentifier>{70685c18-418e-4185-a76d-15b19d5d27f9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Libs">
-      <UniqueIdentifier>{3feb355a-8af4-49ae-8569-03ea1665442f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Managers">
       <UniqueIdentifier>{97ec02f7-3bce-471b-8b89-1838b35029b3}</UniqueIdentifier>
     </Filter>
@@ -33,6 +30,9 @@
     </Filter>
     <Filter Include="Source Files\Common">
       <UniqueIdentifier>{c6240737-179a-4973-babd-3747ed409827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LibWrappers">
+      <UniqueIdentifier>{9daf7f5d-5539-4c03-ab03-fd7771d3ad46}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -100,9 +100,6 @@
     </ClInclude>
     <ClInclude Include="..\src\Constants\Constants.h">
       <Filter>Source Files\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Libs\json.hpp">
-      <Filter>Source Files\Libs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
@@ -203,6 +200,9 @@
     <ClInclude Include="..\src\ECS\Components\ArmorComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\LibWrappers\wrappedJson.h">
+      <Filter>Source Files\LibWrappers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">
@@ -227,5 +227,6 @@
     <None Include="..\art\map_Tiles.csv">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

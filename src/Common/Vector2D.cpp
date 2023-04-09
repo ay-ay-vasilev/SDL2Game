@@ -28,28 +28,24 @@ Vector2D& Vector2D::Divide(const Vector2D& vec)
 	return *this;
 }
 
-Vector2D& Vector2D::operator+(const Vector2D& v2)
+Vector2D Vector2D::operator+(const Vector2D& v2) const
 {
-	Vector2D result = { x + v2.x, y + v2.y };
-	return result;
+	return Vector2D(x + v2.x, y + v2.y);
 }
 
-Vector2D& Vector2D::operator-(const Vector2D& v2)
+Vector2D Vector2D::operator-(const Vector2D& v2) const
 {
-	Vector2D result = { x - v2.x, y - v2.y };
-	return result;
+	return Vector2D(x - v2.x, y - v2.y);
 }
 
-Vector2D& Vector2D::operator*(const Vector2D& v2)
+Vector2D Vector2D::operator*(const Vector2D& v2) const
 {
-	Vector2D result = { x * v2.x, y * v2.y };
-	return result;
+	return Vector2D (x * v2.x, y * v2.y);
 }
 
-Vector2D& Vector2D::operator/(const Vector2D& v2)
+Vector2D Vector2D::operator/(const Vector2D& v2) const
 {
-	Vector2D result = { x / v2.x, y / v2.y };
-	return result;
+	return Vector2D(x / v2.x, y / v2.y);
 }
 
 Vector2D& Vector2D::operator+=(const Vector2D& vec)

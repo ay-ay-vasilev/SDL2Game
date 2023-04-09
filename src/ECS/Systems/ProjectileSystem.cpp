@@ -7,7 +7,7 @@
 #include "WeaponComponent.h"
 #include "HealthComponent.h"
 
-#include <json.hpp>
+#include <wrappedJson.h>
 
 void ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D velocity, const std::string& filename) const
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL_pixels.h>
 #pragma warning(push, 0)
-#include <json.hpp>
+#include <wrappedJson.h>
 #pragma warning(pop)
 
 #include "Vector2D.h"

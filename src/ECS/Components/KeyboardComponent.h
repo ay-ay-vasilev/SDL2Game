@@ -172,12 +172,12 @@ private:
 		if (entity->hasComponent<ArmorComponent>())
 		{
 			const auto armorComponent = entity->getComponent<ArmorComponent>();
-			armorComponent->equipArmorToSlot("0", playerTag, "pants");
-			armorComponent->equipArmorToSlot("0", playerTag, "shirt");
-			armorComponent->equipArmorToSlot("0", playerTag, "jacket");
-			armorComponent->equipArmorToSlot("eyepatch_0", playerTag, "eyewear");
-			armorComponent->equipArmorToSlot("scarf_0", playerTag, "mask");
-			armorComponent->equipArmorToSlot("cloak_0", playerTag, "overcoat");
+			armorComponent->equipArmorToSlot("pants_brown", playerTag, "pants");
+			armorComponent->equipArmorToSlot("shirt_light", playerTag, "shirt");
+			armorComponent->equipArmorToSlot("jacket_jet", playerTag, "jacket");
+			armorComponent->equipArmorToSlot("eyepatch_black", playerTag, "eyewear");
+			armorComponent->equipArmorToSlot("scarf_black", playerTag, "mask");
+			//armorComponent->equipArmorToSlot("cloak_0", playerTag, "overcoat");
 		}
 	}
 
@@ -186,12 +186,7 @@ private:
 		if (entity->hasComponent<ArmorComponent>())
 		{
 			const auto armorComponent = entity->getComponent<ArmorComponent>();
-			armorComponent->unequipArmorFromSlot("pants");
-			armorComponent->unequipArmorFromSlot("shirt");
-			armorComponent->unequipArmorFromSlot("jacket");
-			armorComponent->unequipArmorFromSlot("eyewear");
-			armorComponent->unequipArmorFromSlot("mask");
-			armorComponent->unequipArmorFromSlot("overcoat");
+			armorComponent->unequipAllArmor();
 		}
 	}
 

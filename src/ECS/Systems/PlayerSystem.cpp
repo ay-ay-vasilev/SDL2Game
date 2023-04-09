@@ -8,7 +8,7 @@
 #include "HealthComponent.h"
 #include "ArmorComponent.h"
 
-#include <json.hpp>
+#include <wrappedJson.h>
 
 Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& filename)
 {

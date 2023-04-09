@@ -7,7 +7,7 @@
 #include "Sprite.h"
 #include "Subject.h"
 
-#include <json.hpp>
+#include <wrappedJson.h>
 
 #include <map>
 

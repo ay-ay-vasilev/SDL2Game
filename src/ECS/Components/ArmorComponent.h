@@ -49,6 +49,16 @@ public:
 		spriteComponent->removeSpritesFromSlot(slotName);
 	}
 
+	void unequipAllArmor()
+	{
+		armorValue = 0;
+		for (const auto [slotArmor, slotArmorValue] : slotArmorValues)
+		{
+			spriteComponent->removeSpritesFromSlot(slotArmor);
+		}
+		slotArmorValues.clear();
+	}
+
 	void update() {}
 
 private:

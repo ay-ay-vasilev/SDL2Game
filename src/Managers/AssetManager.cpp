@@ -13,18 +13,18 @@ void AssetManager::loadTextures()
 	addTexture("goblin_head", "assets/images/spritesheets/actors/goblin/head/spritesheet.png");
 	addTexture("goblin_face_0", "assets/images/spritesheets/actors/goblin/head/face/spritesheet_0.png");
 	addTexture("goblin_ears_0", "assets/images/spritesheets/actors/goblin/head/ears/spritesheet_0.png");
+	addTexture("goblin_hands_0", "assets/images/spritesheets/actors/goblin/hands/spritesheet_0.png");
+	addTexture("goblin_hands_1", "assets/images/spritesheets/actors/goblin/hands/spritesheet_1.png");
 
-	addTexture("pants_goblin_0", "assets/images/spritesheets/actors/goblin/armor/pants/spritesheet_0.png");
-	addTexture("shirt_goblin_0", "assets/images/spritesheets/actors/goblin/armor/shirt/spritesheet_0.png");
-	addTexture("jacket_goblin_0", "assets/images/spritesheets/actors/goblin/armor/jacket/spritesheet_0.png");
-	addTexture("eyewear_goblin_eyepatch_0", "assets/images/spritesheets/actors/goblin/armor/eyewear/eyepatch_0.png");
-	addTexture("mask_goblin_scarf_0", "assets/images/spritesheets/actors/goblin/armor/mask/scarf_0.png");
+	addTexture("pants_goblin_brown", "assets/images/spritesheets/actors/goblin/armor/pants/pants_brown.png");
+	addTexture("shirt_goblin_light", "assets/images/spritesheets/actors/goblin/armor/shirt/shirt_light.png");
+	addTexture("jacket_goblin_jet", "assets/images/spritesheets/actors/goblin/armor/jacket/jacket_jet.png");
+	addTexture("eyewear_goblin_eyepatch_black", "assets/images/spritesheets/actors/goblin/armor/eyewear/eyepatch_black.png");
+	addTexture("mask_goblin_scarf_black", "assets/images/spritesheets/actors/goblin/armor/mask/scarf_black.png");
 	addTexture("cloak_goblin_0", "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0.png");
 	addTexture("cloak_goblin_0_hands_0", "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_hands_0.png");
 	addTexture("cloak_goblin_0_head", "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_head.png");
 
-	addTexture("goblin_hands_0", "assets/images/spritesheets/actors/goblin/hands/spritesheet_0.png");
-	addTexture("goblin_hands_1", "assets/images/spritesheets/actors/goblin/hands/spritesheet_1.png");
 
 	addTexture("human", "assets/images/spritesheets/actors/human/body/spritesheet.png");
 	addTexture("human_hands_0", "assets/images/spritesheets/actors/human/hands/spritesheet_0.png");

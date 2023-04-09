@@ -29,7 +29,6 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Delete textures properly ?
 - Add implementation files for Components.
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - JSON files for AI.
@@ -43,7 +42,6 @@ Maintenance:
 - Specific weapon stats for actors in weapon json files?
 
 Future plans:
-- Different clothes
 - Customization for characters
 - Actor randomization
 - Player randomization
