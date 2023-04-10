@@ -67,7 +67,6 @@ void PlayerSystem::equipArmor(Entity& player, const std::string& armorName, cons
 
 void PlayerSystem::unequipArmor(Entity& player, const std::string& slotName)
 {
-	std::string playerTag = "";
 	if (player.hasComponent<ArmorComponent>())
 	{
 		const auto armorComponent = player.getComponent<ArmorComponent>();

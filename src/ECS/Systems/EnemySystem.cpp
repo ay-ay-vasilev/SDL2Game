@@ -6,6 +6,7 @@
 #include "HitboxComponent.h"
 #include "HealthComponent.h"
 #include "AIComponentBasicEnemy.h"
+#include "ArmorComponent.h"
 
 Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filename)
 {
@@ -22,10 +23,13 @@ Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& fi
 	enemy.addComponent<ColliderComponent>(filename, enemyData["collider_rect"]);
 	enemy.addComponent<HitboxComponent>(filename, enemyData["hitbox_rect"]);
 	enemy.addComponent<HealthComponent>(enemyData["health"]);
+	enemy.addComponent<ArmorComponent>();
 	enemy.addComponent<AIComponentBasicEnemy>();
 
 	enemy.addGroup(Game::eGroupLabels::ENEMIES);
 	equipWeapon(enemy, "unarmed");
+	equipArmor(enemy, "pants_brown", "pants");
+	equipArmor(enemy, "shirt_light", "shirt");
 
 	return &enemy;
 }
@@ -46,6 +50,40 @@ void EnemySystem::equipWeapon(Entity& enemy, const std::string& weaponName)
 	}
 	enemy.addComponent<WeaponComponent>(weaponName, enemyTag);
 }
+
+void EnemySystem::equipArmor(Entity& enemy, const std::string& armorName, const std::string& slotName)
+{
+	std::string enemyTag = "";
+	if (enemy.hasComponent<HitboxComponent>())
+	{
+		const auto hitboxComponent = enemy.getComponent<HitboxComponent>();
+		enemyTag = hitboxComponent->getTag();
+	}
+	if (enemy.hasComponent<ArmorComponent>())
+	{
+		const auto armorComponent = enemy.getComponent<ArmorComponent>();
+		armorComponent->equipArmorToSlot(armorName, enemyTag, slotName);
+	}
+}
+
+void EnemySystem::unequipArmorPiece(Entity& enemy, const std::string& slotName)
+{
+	if (enemy.hasComponent<ArmorComponent>())
+	{
+		const auto armorComponent = enemy.getComponent<ArmorComponent>();
+		armorComponent->unequipArmorFromSlot(slotName);
+	}
+}
+
+void EnemySystem::unequipAllArmor(Entity& enemy)
+{
+	if (enemy.hasComponent<ArmorComponent>())
+	{
+		const auto armorComponent = enemy.getComponent<ArmorComponent>();
+		armorComponent->unequipAllArmor();
+	}
+}
+
 
 void EnemySystem::update()
 {

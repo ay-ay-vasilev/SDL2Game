@@ -5,7 +5,7 @@
 		"frame_width" : 48, "frame_height": 48,
 		"sprites":
 		[
-			{ "slot": "mask", "texture": "mask_goblin_scarf_black", "z": 102 }
+			{ "slot": "mask", "texture": "goblin_mask_scarf_black", "z": 102 }
 		]
 	}
 }

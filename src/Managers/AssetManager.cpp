@@ -16,20 +16,25 @@ void AssetManager::loadTextures()
 	addTexture("goblin_hands_0", "assets/images/spritesheets/actors/goblin/hands/spritesheet_0.png");
 	addTexture("goblin_hands_1", "assets/images/spritesheets/actors/goblin/hands/spritesheet_1.png");
 
-	addTexture("pants_goblin_brown", "assets/images/spritesheets/actors/goblin/armor/pants/pants_brown.png");
-	addTexture("shirt_goblin_light", "assets/images/spritesheets/actors/goblin/armor/shirt/shirt_light.png");
-	addTexture("jacket_goblin_jet", "assets/images/spritesheets/actors/goblin/armor/jacket/jacket_jet.png");
-	addTexture("eyewear_goblin_eyepatch_black", "assets/images/spritesheets/actors/goblin/armor/eyewear/eyepatch_black.png");
-	addTexture("mask_goblin_scarf_black", "assets/images/spritesheets/actors/goblin/armor/mask/scarf_black.png");
-	addTexture("cloak_goblin_0", "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0.png");
-	addTexture("cloak_goblin_0_hands_0", "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_hands_0.png");
-	addTexture("cloak_goblin_0_head", "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_head.png");
+	addTexture("goblin_pants_brown", "assets/images/spritesheets/actors/goblin/armor/pants/pants_brown.png");
+	addTexture("goblin_shirt_light", "assets/images/spritesheets/actors/goblin/armor/shirt/shirt_light.png");
+	addTexture("goblin_jacket_jet", "assets/images/spritesheets/actors/goblin/armor/jacket/jacket_jet.png");
+	addTexture("goblin_eyewear_eyepatch_black", "assets/images/spritesheets/actors/goblin/armor/eyewear/eyepatch_black.png");
+	addTexture("goblin_mask_scarf_black", "assets/images/spritesheets/actors/goblin/armor/mask/scarf_black.png");
+	addTexture("goblin_cloak_0", "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0.png");
+	addTexture("goblin_cloak_0_hands_0", "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_hands_0.png");
+	addTexture("goblin_cloak_0_head", "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_head.png");
 
 	addTexture("human_body", "assets/images/spritesheets/actors/human/body/spritesheet.png");
 	addTexture("human_head", "assets/images/spritesheets/actors/human/head/spritesheet.png");
 	addTexture("human_face_0", "assets/images/spritesheets/actors/human/head/face/spritesheet_0.png");
 	addTexture("human_hands_0", "assets/images/spritesheets/actors/human/hands/spritesheet_0.png");
 	addTexture("human_hands_1", "assets/images/spritesheets/actors/human/hands/spritesheet_1.png");
+
+	addTexture("human_pants_brown", "assets/images/spritesheets/actors/human/armor/pants/pants_brown.png");
+	addTexture("human_shirt_light", "assets/images/spritesheets/actors/human/armor/shirt/shirt_light.png");
+	addTexture("human_shirt_light_hands_0", "assets/images/spritesheets/actors/human/armor/shirt/shirt_light_hands_0.png");
+	addTexture("human_shirt_light_hands_1", "assets/images/spritesheets/actors/human/armor/shirt/shirt_light_hands_1.png");
 
 	addTexture("shortsword_goblin_0", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_0.png");
 	addTexture("shortsword_goblin_1", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_1.png");

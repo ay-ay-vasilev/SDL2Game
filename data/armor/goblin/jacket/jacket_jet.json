@@ -5,7 +5,7 @@
 		"frame_width" : 48, "frame_height": 48,
 		"sprites":
 		[
-			{ "slot": "jacket", "texture": "jacket_goblin_jet", "z": 3 }
+			{ "slot": "jacket", "texture": "goblin_jacket_jet", "z": 3 }
 		]
 	}
 }

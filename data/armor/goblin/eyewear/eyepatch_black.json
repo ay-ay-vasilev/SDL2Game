@@ -5,7 +5,7 @@
 		"frame_width" : 48, "frame_height": 48,
 		"sprites":
 		[
-			{ "slot": "eyewear", "texture": "eyewear_goblin_eyepatch_black", "z": 103 }
+			{ "slot": "eyewear", "texture": "goblin_eyewear_eyepatch_black", "z": 103 }
 		]
 	}
 }
