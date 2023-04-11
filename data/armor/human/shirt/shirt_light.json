@@ -6,8 +6,8 @@
 		"sprites":
 		[
 			{ "slot": "shirt", "texture": "human_shirt_light", "z": 2 },
-			{ "slot": "shirt", "texture": "human_shirt_light_hands_0", "z": -199 },
-			{ "slot": "shirt", "texture": "human_shirt_light_hands_1", "z": 201 }
+			{ "slot": "shirt", "texture": "human_shirt_light_hands_back", "z": -199 },
+			{ "slot": "shirt", "texture": "human_shirt_light_hands_front", "z": 201 }
 		]
 	}
 }
