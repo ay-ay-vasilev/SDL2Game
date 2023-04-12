@@ -43,6 +43,7 @@ Maintenance:
 
 Future plans:
 - Customization for characters
+- Hair-headwear interaction for human actor
 - Actor randomization
 - Player randomization
 - Looting

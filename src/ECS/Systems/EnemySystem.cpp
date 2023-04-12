@@ -31,6 +31,7 @@ Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& fi
 	equipArmor(enemy, "pants_brown", "pants");
 	equipArmor(enemy, "shirt_light", "shirt");
 	equipArmor(enemy, "chainmail", "jacket");
+	equipArmor(enemy, "surcoat", "overcoat");
 
 	return &enemy;
 }
