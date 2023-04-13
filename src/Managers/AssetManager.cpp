@@ -41,6 +41,7 @@ void AssetManager::loadTextures()
 	addTexture("human_chainmail_hands_front", "assets/images/spritesheets/actors/human/armor/jacket/chainmail_hands_front.png");
 	addTexture("human_surcoat", "assets/images/spritesheets/actors/human/armor/overcoat/surcoat.png");
 	addTexture("human_surcoat_hands", "assets/images/spritesheets/actors/human/armor/overcoat/surcoat_hands.png");
+	addTexture("human_helmet", "assets/images/spritesheets/actors/human/armor/headwear/helmet.png");
 
 	addTexture("shortsword_goblin_0", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_0.png");
 	addTexture("shortsword_goblin_1", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_1.png");

@@ -54,6 +54,19 @@ public:
 			}
 		}
 
+		if (spritesData.contains("block_slots"))
+		{
+			for (const auto& blockedSlotData : spritesData["block_slots"])
+			{
+				std::vector<std::string> blockedSlotsToAdd;
+				for (const auto& blockedSlotName : blockedSlotData["blocked_slots"])
+				{
+					blockedSlotsToAdd.push_back(blockedSlotName);
+				}
+				addBlockedSlots(blockedSlotData["blocker_slot"], blockedSlotsToAdd);
+			}
+		}
+
 		if (animated)
 		{
 			addAnimationsFromJson(spritesData["animations"]);
@@ -81,9 +94,23 @@ public:
 		sortSpritesByZ();
 	}
 
+	void addBlockedSlot(const std::string& blockerName, const std::string& blockedSlotName)
+	{
+		blockedSlots[blockerName].push_back(blockedSlotName);
+		sortSpritesByZ();
+	}
+
+	void addBlockedSlots(const std::string& blockerName, const std::vector<std::string>& blockedSlotNames)
+	{
+		for (const auto& slot : blockedSlotNames)
+			blockedSlots[blockerName].push_back(slot);
+		sortSpritesByZ();
+	}
+
 	void removeSpritesFromSlot(const std::string& slotName)
 	{
 		sprites.erase(slotName);
+		blockedSlots.erase(slotName);
 		sortSpritesByZ();
 	}
 
@@ -92,6 +119,19 @@ public:
 		sortedSprites.clear();
 		for (auto& [slot, spriteVec] : sprites)
 		{
+			// check if slot is blocked
+			bool isBlocked = false;
+			for (auto& [blockerSlotName, blockedSlotNames] : blockedSlots)
+			{
+				if (std::find(blockedSlotNames.begin(), blockedSlotNames.end(), slot) != blockedSlotNames.end())
+				{
+					isBlocked = true;
+					break;
+				}
+			}
+			if (isBlocked)
+				continue;
+
 			for (auto& sprite : spriteVec)
 			{
 				sortedSprites.emplace_back(sprite);
@@ -238,8 +278,9 @@ private:
 
 	std::map<std::string, Animation> animations;
 
-	std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> sprites;
+	std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> sprites; // *key* - slot name, *value* - vector of sprites in a slot
 	std::vector<std::shared_ptr<Sprite>> sortedSprites;
+	std::unordered_map<std::string, std::vector<std::string>> blockedSlots; // *key* - blocker slot name, *value* - vector of blocked slots
 
 	eAnimState animState = eAnimState::NONE;
 	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;

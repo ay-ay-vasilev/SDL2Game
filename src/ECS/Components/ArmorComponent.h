@@ -35,7 +35,23 @@ public:
 			const int z = data.value("z", 0);
 			spritesToAdd.emplace_back(std::make_shared<Sprite>(textureName, spriteFrameWidth, spriteFrameHeight, z));
 		}
+
+		std::unordered_map<std::string, std::vector<std::string>> blockedSlots;
+		const auto& armorSpriteBlockData = spriteData.value("block_slots", nlohmann::json::array());
+		for (const auto& blockedSlotData : armorSpriteBlockData)
+		{
+			const std::string blockerSlotName = blockedSlotData["blocker_slot"];
+			std::vector<std::string> blockedSlotNames;
+			for (const auto& blockedSlotName : blockedSlotData["blocked_slots"])
+				blockedSlotNames.push_back(blockedSlotName);
+			blockedSlots[blockerSlotName] = blockedSlotNames;
+		}
+
 		spriteComponent->addSpritesToSlot(slotName, spritesToAdd);
+		for (const auto& [blockerSlotName, blockedSlotNames] : blockedSlots)
+		{
+			spriteComponent->addBlockedSlots(blockerSlotName, blockedSlotNames);
+		}
 
 		if (armorSpriteData.empty()) {
 			spriteComponent->removeSpritesFromSlot(slotName);
