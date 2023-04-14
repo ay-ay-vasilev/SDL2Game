@@ -17,8 +17,12 @@ void AssetManager::loadTextures()
 	addTexture("goblin_hands_1", "assets/images/spritesheets/actors/goblin/hands/spritesheet_1.png");
 
 	addTexture("goblin_pants_brown", "assets/images/spritesheets/actors/goblin/armor/pants/pants_brown.png");
+	addTexture("goblin_pants_light", "assets/images/spritesheets/actors/goblin/armor/pants/pants_light.png");
 	addTexture("goblin_shirt_light", "assets/images/spritesheets/actors/goblin/armor/shirt/shirt_light.png");
-	addTexture("goblin_jacket_jet", "assets/images/spritesheets/actors/goblin/armor/jacket/jacket_jet.png");
+	addTexture("goblin_long_sleeve_light", "assets/images/spritesheets/actors/goblin/armor/shirt/long_sleeve_light.png");
+	addTexture("goblin_long_sleeve_light_hands_0", "assets/images/spritesheets/actors/goblin/armor/shirt/long_sleeve_light_hands_0.png");
+	addTexture("goblin_jacket_dark", "assets/images/spritesheets/actors/goblin/armor/jacket/jacket_dark.png");
+	addTexture("goblin_light_jacket_brown", "assets/images/spritesheets/actors/goblin/armor/jacket/light_jacket_brown.png");
 	addTexture("goblin_eyewear_eyepatch_black", "assets/images/spritesheets/actors/goblin/armor/eyewear/eyepatch_black.png");
 	addTexture("goblin_mask_scarf_black", "assets/images/spritesheets/actors/goblin/armor/mask/scarf_black.png");
 	addTexture("goblin_cloak_0", "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0.png");
@@ -41,6 +45,8 @@ void AssetManager::loadTextures()
 	addTexture("human_chainmail_hands_front", "assets/images/spritesheets/actors/human/armor/jacket/chainmail_hands_front.png");
 	addTexture("human_surcoat", "assets/images/spritesheets/actors/human/armor/overcoat/surcoat.png");
 	addTexture("human_surcoat_hands", "assets/images/spritesheets/actors/human/armor/overcoat/surcoat_hands.png");
+	addTexture("human_eyepatch_black", "assets/images/spritesheets/actors/human/armor/eyewear/eyepatch_black.png");
+	addTexture("human_scarf_black", "assets/images/spritesheets/actors/human/armor/mask/scarf_black.png");
 	addTexture("human_helmet", "assets/images/spritesheets/actors/human/armor/headwear/helmet.png");
 
 	addTexture("shortsword_goblin_0", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_0.png");
