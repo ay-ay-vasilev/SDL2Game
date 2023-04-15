@@ -175,8 +175,8 @@ private:
 			armorComponent->equipArmorToSlot("pants_light", playerTag, "pants");
 			armorComponent->equipArmorToSlot("long_sleeve_light", playerTag, "shirt");
 			armorComponent->equipArmorToSlot("light_jacket_brown", playerTag, "jacket");
-			armorComponent->equipArmorToSlot("eyepatch_black", playerTag, "eyewear");
-			armorComponent->equipArmorToSlot("scarf_black", playerTag, "mask");
+			//armorComponent->equipArmorToSlot("eyepatch_black", playerTag, "eyewear");
+			//armorComponent->equipArmorToSlot("scarf_black", playerTag, "mask");
 			//armorComponent->equipArmorToSlot("cloak_0", playerTag, "overcoat");
 		}
 	}

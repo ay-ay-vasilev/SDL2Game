@@ -181,14 +181,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\projects\Personal\SDL2Game\src;C:\projects\Personal\SDL2Game\src\Common;C:\projects\Personal\SDL2Game\src\Constants;C:\projects\Personal\SDL2Game\src\ECS;C:\projects\Personal\SDL2Game\src\ECS\Systems;C:\projects\Personal\SDL2Game\src\ECS\Components;C:\projects\Personal\SDL2Game\src\Managers;C:\projects\Personal\SDL2Game\src\LibWrappers;C:\Boost\include\boost-1_81;C:\projects\Personal\SDL2Game\lib\nlohmann\include;C:\projects\Personal\SDL2Game\lib\SDL2_ttf\include;C:\projects\Personal\SDL2Game\lib\SDL2_image\include;C:\projects\Personal\SDL2Game\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\projects\Personal\SDL2Game\src;C:\projects\Personal\SDL2Game\src\Common;C:\projects\Personal\SDL2Game\src\Constants;C:\projects\Personal\SDL2Game\src\ECS;C:\projects\Personal\SDL2Game\src\ECS\Systems;C:\projects\Personal\SDL2Game\src\ECS\Components;C:\projects\Personal\SDL2Game\src\Managers;C:\projects\Personal\SDL2Game\src\LibWrappers;C:\Boost\include\boost-1_81;C:\projects\Personal\SDL2Game\lib\nlohmann\include;C:\projects\Personal\SDL2Game\lib\SDL2_ttf\include;C:\projects\Personal\SDL2Game\lib\SDL2_image\include;C:\projects\Personal\SDL2Game\lib\SDL2\include;C:\projects\Personal\SDL2Game\lib\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Boost\lib;C:\projects\Personal\SDL2Game\lib\SDL2_ttf\lib\x64;C:\projects\Personal\SDL2Game\lib\SDL2_image\lib\x64;C:\projects\Personal\SDL2Game\lib\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\projects\Personal\SDL2Game\lib\glew-2.1.0\lib\Release\x64;C:\Boost\lib;C:\projects\Personal\SDL2Game\lib\SDL2_ttf\lib\x64;C:\projects\Personal\SDL2Game\lib\SDL2_image\lib\x64;C:\projects\Personal\SDL2Game\lib\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

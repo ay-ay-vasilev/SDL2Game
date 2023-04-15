@@ -10,6 +10,7 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
+- Outline for actors?
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
@@ -43,4 +44,4 @@ Future plans:
 - Death animation
 - Hit feedback
 - Add ids to entities (UUID or simple ids?)
-- Outline for actors?
+- Add body parts and body parts damage and armor ?
