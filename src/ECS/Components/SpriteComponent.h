@@ -80,6 +80,7 @@ public:
 
 	~SpriteComponent()
 	{
+		SDL_DestroyTexture(texture);
 	}
 
 	void addSprite(const std::string& slotName, std::shared_ptr<Sprite> sprite)
@@ -138,6 +139,11 @@ public:
 			}
 		}
 		std::sort(sortedSprites.begin(), sortedSprites.end(), [](auto& a, auto& b) { return a->getZ() < b->getZ(); });
+
+		for (const auto& sprite : sortedSprites)
+		{
+			texture = TextureManager::getTextureFromSurface(sprite->getSurface());
+		}
 	}
 
 	void init() override
@@ -198,7 +204,9 @@ public:
 	void draw() override
 	{
 		for (const auto& sprite : sortedSprites)
-			TextureManager::draw(sprite->getTexture(), sprite->getSrcRect(), sprite->getDestRect(), spriteFlip);
+		{
+			TextureManager::draw(texture, sprite->getSrcRect(), sprite->getDestRect(), spriteFlip);
+		}
 	}
 
 	void play(const std::string& newAnimPlay)
@@ -285,6 +293,7 @@ private:
 	eAnimState animState = eAnimState::NONE;
 	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 
+	SDL_Texture* texture;
 	std::shared_ptr<TransformComponent> transform;
 
 	std::string animName;

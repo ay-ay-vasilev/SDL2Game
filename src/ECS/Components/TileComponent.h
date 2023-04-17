@@ -17,7 +17,7 @@ public:
 
 	TileComponent(const int srcX, const int srcY, const int xpos, const int ypos, const int tileSize, const std::string_view& textureId)
 	{
-		texture = Game::assets->getTexture(textureId);
+		texture = TextureManager::getTextureFromSurface(Game::assets->getSurface(textureId));
 		position = { static_cast<float>(xpos), static_cast<float>(ypos) };
 		srcRect = { srcX, srcY, tileSize, tileSize };
 		destRect = { xpos, ypos, static_cast<int>(tileSize * Game::manager->getScale()), static_cast<int>(tileSize * Game::manager->getScale()) };

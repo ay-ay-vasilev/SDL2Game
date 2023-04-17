@@ -15,7 +15,7 @@ public:
 	AssetManager(std::shared_ptr<Manager> manager);
 	~AssetManager();
 
-	void loadTextures();
+	void loadSurfaces();
 	void loadFonts();
 	
 	std::filesystem::path getDataPath();
@@ -24,9 +24,9 @@ public:
 	std::string getWeaponJsonPath(const std::string& fileName);
 	std::string getArmorJsonPath(const std::string& fileName, const std::string& actorName, const std::string& slotName);
 
-	// Texture management
-	void addTexture(const std::string_view& id, const std::string& path);
-	SDL_Texture* getTexture(const std::string_view& id) const;
+	// Surface management
+	void addSurface(const std::string_view& id, const std::string& path);
+	SDL_Surface* getSurface(const std::string_view& id) const;
 
 	// Font management
 	void addFont(const std::string_view& id, const std::string& path, const int fontSize);
@@ -41,7 +41,7 @@ public:
 private:
 
 	std::shared_ptr<Manager> manager;
-	std::map<const std::string_view, SDL_Texture*> textures;
+	std::map<const std::string_view, SDL_Surface*> surfaces;
 	std::map<const std::string_view, TTF_Font*> fonts;
 	std::shared_ptr<Constants> constants;
 };

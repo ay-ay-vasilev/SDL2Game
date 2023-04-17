@@ -4,7 +4,7 @@
 class Sprite
 {
 public:
-	Sprite(SDL_Texture* texture, int frameWidth, int frameHeight, double z) : texture(texture), frameWidth(frameWidth), frameHeight(frameHeight), z(z)
+	Sprite(SDL_Surface* surface, int frameWidth, int frameHeight, double z) : surface(surface), frameWidth(frameWidth), frameHeight(frameHeight), z(z)
 	{
 		srcRect.x = 0;
 		srcRect.y = 0;
@@ -16,7 +16,7 @@ public:
 
 	Sprite(const std::string_view& textureId, int frameWidth, int frameHeight, int z) : frameWidth(frameWidth), frameHeight(frameHeight), z(z)
 	{
-		texture = Game::assets->getTexture(textureId);
+		surface = Game::assets->getSurface(textureId);
 
 		srcRect.x = 0;
 		srcRect.y = 0;
@@ -42,7 +42,7 @@ public:
 	const double getZ() const { return z; }
 	const SDL_Rect getSrcRect() const { return srcRect; }
 	const SDL_Rect getDestRect() const { return destRect; }
-	SDL_Texture* getTexture() const { return texture; }
+	SDL_Surface* getSurface() const { return surface; }
 
 	void setSrcRectXForFrame(const int frameNum)
 	{
@@ -70,6 +70,6 @@ private:
 
 	std::unordered_map<std::string, int> animNameIndex;
 
-	SDL_Texture* texture;
+	SDL_Surface* surface;
 	SDL_Rect srcRect, destRect;
 };

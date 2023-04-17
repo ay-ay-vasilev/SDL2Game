@@ -17,9 +17,35 @@ SDL_Texture* TextureManager::loadTexture(const std::string& fileName)
 	auto texture = SDL_CreateTextureFromSurface(Game::renderer, tempSurface);
 	if (texture == nullptr)
 	{
-		throw std::runtime_error("Failder to create texture from surface: " + fileName + " Error: " + SDL_GetError());
+		throw std::runtime_error("Failed to create texture from surface: " + fileName + " Error: " + SDL_GetError());
 	}
 	SDL_FreeSurface(tempSurface);
+	return texture;
+}
+
+SDL_Surface* TextureManager::loadSurface(const std::string& fileName)
+{
+	std::string imagePath = SDL_GetBasePath();
+#ifdef _WIN32
+	imagePath = "../";
+#endif
+	imagePath += fileName;
+
+	SDL_Surface* surface = IMG_Load(imagePath.c_str());
+	if (surface == nullptr)
+	{
+		throw std::runtime_error("Failed to load image: " + fileName + " Error: " + IMG_GetError());
+	}
+	return surface;
+}
+
+SDL_Texture* TextureManager::getTextureFromSurface(SDL_Surface* surface)
+{
+	auto texture = SDL_CreateTextureFromSurface(Game::renderer, surface);
+	if (texture == nullptr)
+	{
+		throw std::runtime_error(std::string("Failed to create texture from surface! Error: ") + SDL_GetError());
+	}
 	return texture;
 }
 

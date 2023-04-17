@@ -31,7 +31,7 @@ public:
 
 	void draw() override
 	{
-		auto blackTexture = Game::assets->getTexture("black");
+		auto blackTexture = TextureManager::getTextureFromSurface(Game::assets->getSurface("black"));
 		TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(0, 0, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT), SDL_FLIP_NONE);
 
 		for (const auto& tile : tiles) tile->draw();

@@ -92,7 +92,7 @@ void Game::init()
 	if (TTF_Init() == -1) std::cout << "Error: SDL_TTF\n";
 
 	manager->setScale(constants->SCALE);
-	assets->loadTextures();
+	assets->loadSurfaces();
 	assets->loadFonts();
 
 	label0.addComponent<UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
