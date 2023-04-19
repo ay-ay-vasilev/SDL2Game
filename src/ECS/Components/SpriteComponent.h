@@ -70,10 +70,6 @@ public:
 		if (animated)
 		{
 			addAnimationsFromJson(spritesData["animations"]);
-			for (const auto& sprite : sortedSprites)
-			{
-				sprite->setAnimNameIndexes(spritesData["animations"]);
-			}
 			play("idle");
 		}
 	}
@@ -298,21 +294,21 @@ public:
 
 	void draw() override
 	{
-		SDL_Rect originalDestRect = sortedSprites[0]->getDestRect();
+		SDL_Rect originalDestRect = sortedSprites.back()->getDestRect();
 		SDL_Rect destRect = originalDestRect;
 		destRect.x = originalDestRect.x + transform->getScale();
-		TextureManager::draw(blackTexture, sortedSprites[0]->getSrcRect(), destRect, spriteFlip);
+		TextureManager::draw(blackTexture, sortedSprites.back()->getSrcRect(), destRect, spriteFlip);
 		destRect = originalDestRect;
 		destRect.x = originalDestRect.x - transform->getScale();
-		TextureManager::draw(blackTexture, sortedSprites[0]->getSrcRect(), destRect, spriteFlip);
+		TextureManager::draw(blackTexture, sortedSprites.back()->getSrcRect(), destRect, spriteFlip);
 		destRect = originalDestRect;
 		destRect.y = originalDestRect.y + transform->getScale();
-		TextureManager::draw(blackTexture, sortedSprites[0]->getSrcRect(), destRect, spriteFlip);
+		TextureManager::draw(blackTexture, sortedSprites.back()->getSrcRect(), destRect, spriteFlip);
 		destRect = originalDestRect;
 		destRect.y = originalDestRect.y - transform->getScale();
-		TextureManager::draw(blackTexture, sortedSprites[0]->getSrcRect(), destRect, spriteFlip);
+		TextureManager::draw(blackTexture, sortedSprites.back()->getSrcRect(), destRect, spriteFlip);
 
-		TextureManager::draw(texture, sortedSprites[0]->getSrcRect(), originalDestRect, spriteFlip);
+		TextureManager::draw(texture, sortedSprites.back()->getSrcRect(), originalDestRect, spriteFlip);
 	}
 
 	void play(const std::string& newAnimPlay)

@@ -69,17 +69,6 @@ public:
 					const auto tempZ = data.value("z", 0);
 					tempSprites[data["slot"]].emplace_back((std::make_shared<Sprite>(data["texture"], spriteFrameWidth, spriteFrameHeight, tempZ)));
 				}
-
-				for (const auto& tempSprite : tempSprites)
-				{
-					for (auto& [slotName, tempSpriteVec] : tempSprites)
-					{
-						for (auto& tempSprite : tempSpriteVec)
-						{
-							tempSprite->setAnimNameIndexes(ownerWeaponData["animations"]);
-						}
-					}
-				}
 			}
 		}
 	}

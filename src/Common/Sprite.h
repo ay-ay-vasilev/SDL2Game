@@ -25,19 +25,6 @@ public:
 
 		destRect = SDL_Rect();
 	}
-	
-	void setAnimNameIndexes(const nlohmann::json& animData)
-	{
-		for (auto& [name, animData] : animData.items())
-			animNameIndex[name] = animData.value("anim_index", -1);
-	}
-
-	int getIndexByAnimName(const std::string& animName)
-	{
-		if (animNameIndex.count(animName) != 0)
-			return animNameIndex[animName];
-		return -1;
-	}
 
 	const double getZ() const { return z; }
 	const SDL_Rect getSrcRect() const { return srcRect; }
@@ -51,8 +38,7 @@ public:
 	
 	void setSrcRectYForAnim(const std::string& animName, const int animIndex)
 	{
-		const auto index = getIndexByAnimName(animName); // in case a Sprite has a different mapping of animIndex-animName than the general SpriteComponent mapping
-		srcRect.y = (index != -1 ? index : animIndex) * frameHeight;
+		srcRect.y = (animIndex) * frameHeight;
 	}
 
 	void setDestRect(const Vector2D& transformPosition, const Vector2D& cameraPosition, const float transformScale)
@@ -67,8 +53,6 @@ private:
 	const int frameWidth;
 	const int frameHeight;
 	const double z;
-
-	std::unordered_map<std::string, int> animNameIndex;
 
 	SDL_Surface* surface;
 	SDL_Rect srcRect, destRect;

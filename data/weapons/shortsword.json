@@ -12,18 +12,12 @@
 	{
 		"goblin":
 		{
-			"frame_width" : 24, "frame_height": 24,
+			"frame_width" : 48, "frame_height": 48,
 			"sprites":
 			[
 				{ "slot": "weapon", "texture": "shortsword_goblin_0", "z": -201 },
 				{ "slot": "weapon", "texture": "shortsword_goblin_1", "z": 201 }
-			],
-			"animations":
-			{
-				"melee_light_idle": { "anim_index": 0, "num_of_frames": 4, "anim_speed": 100 },
-				"melee_light_walk": { "anim_index": 1, "num_of_frames": 8, "anim_speed": 60 },
-				"melee_light_attack": { "anim_index": 2, "num_of_frames": 5, "trigger_frames": [1, 2, 3], "anim_speed": 85 }
-			}
+			]
 		},
 		"human": {}
 	}

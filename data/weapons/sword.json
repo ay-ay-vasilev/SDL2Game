@@ -15,14 +15,8 @@
 			"frame_width" : 48, "frame_height": 48,
 			"sprites":
 			[
-				{ "slot": "weapon", "texture": "sword_goblin_0", "z": 201 }
-			],
-			"animations":
-			{
-				"melee_medium_idle": { "anim_index": 0, "num_of_frames": 4, "anim_speed": 100 },
-				"melee_medium_walk": { "anim_index": 1, "num_of_frames": 8, "anim_speed": 60 },
-				"melee_medium_attack": { "anim_index": 2, "num_of_frames": 5, "trigger_frames": [1, 2, 3], "anim_speed": 85 }
-			}
+				{ "slot": "weapon", "texture": "sword_goblin_0", "z": 202 }
+			]
 		},
 		"human":
 		{
@@ -31,13 +25,7 @@
 			[
 				{ "slot": "weapon", "texture": "sword_human_0", "z": -201 },
 				{ "slot": "weapon", "texture": "sword_human_1", "z": 201 }
-			],
-			"animations":
-			{
-				"melee_medium_idle": { "anim_index": 0, "num_of_frames": 4, "anim_speed": 100 },
-				"melee_medium_walk": { "anim_index": 1, "num_of_frames": 8, "anim_speed": 100 },
-				"melee_medium_attack": { "anim_index": 2, "num_of_frames": 5, "trigger_frames": [2], "anim_speed": 100 }
-			}
+			]
 		}
 	}
 }
