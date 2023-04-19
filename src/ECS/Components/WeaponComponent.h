@@ -57,17 +57,12 @@ public:
 			if (weaponData["sprite_data"].contains(ownerTag))
 			{
 				const auto ownerWeaponData = weaponData["sprite_data"][ownerTag];
-
 				const auto weaponSpriteData = ownerWeaponData["sprites"];
-				const auto weaponFrameWidth = ownerWeaponData.value("frame_width", 0);
-				const auto weaponFrameHeight = ownerWeaponData.value("frame_height", 0);
 
 				for (const auto data : weaponSpriteData)
 				{
-					const auto spriteFrameWidth = data.value("frame_width", weaponFrameWidth);
-					const auto spriteFrameHeight = data.value("frame_height", weaponFrameHeight);
 					const auto tempZ = data.value("z", 0);
-					tempSprites[data["slot"]].emplace_back((std::make_shared<Sprite>(data["texture"], spriteFrameWidth, spriteFrameHeight, tempZ)));
+					tempSprites[data["slot"]].emplace_back((std::make_shared<Sprite>(data["texture"], tempZ)));
 				}
 			}
 		}

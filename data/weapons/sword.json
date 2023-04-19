@@ -12,7 +12,6 @@
 	{
 		"goblin":
 		{
-			"frame_width" : 48, "frame_height": 48,
 			"sprites":
 			[
 				{ "slot": "weapon", "texture": "sword_goblin_0", "z": 202 }
@@ -20,7 +19,6 @@
 		},
 		"human":
 		{
-			"frame_width" : 64, "frame_height": 64,
 			"sprites":
 			[
 				{ "slot": "weapon", "texture": "sword_human_0", "z": -201 },

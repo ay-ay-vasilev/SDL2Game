@@ -21,12 +21,12 @@
 		"frame_width": 48, "frame_height": 48,
 		"sprites":
 		[
-			{ "slot": "body", "texture": "goblin_body", "frame_width" : 48, "frame_height" : 48, "z": 0 },
-			{ "slot": "ears", "texture": "goblin_ears_0", "frame_width" : 48, "frame_height" : 48, "z": 99 },
-			{ "slot": "head", "texture": "goblin_head", "frame_width" : 48, "frame_height" : 48, "z": 100 },
-			{ "slot": "face", "texture": "goblin_face_0", "frame_width" : 48, "frame_height" : 48, "z": 101 },
-			{ "slot": "hands", "texture": "goblin_hands_0", "frame_width" : 48, "frame_height" : 48, "z": -200 },
-			{ "slot": "hands", "texture": "goblin_hands_1", "frame_width" : 48, "frame_height" : 48, "z": 200 }
+			{ "slot": "body", "texture": "goblin_body", "z": 0 },
+			{ "slot": "ears", "texture": "goblin_ears_0", "z": 99 },
+			{ "slot": "head", "texture": "goblin_head", "z": 100 },
+			{ "slot": "face", "texture": "goblin_face_0", "z": 101 },
+			{ "slot": "hands", "texture": "goblin_hands_0", "z": -200 },
+			{ "slot": "hands", "texture": "goblin_hands_1", "z": 200 }
 		],
 		"animations":
 		{

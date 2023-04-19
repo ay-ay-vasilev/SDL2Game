@@ -12,7 +12,6 @@
 	{
 		"goblin":
 		{
-			"frame_width" : 48, "frame_height": 48,
 			"sprites":
 			[
 				{ "slot": "weapon", "texture": "shortsword_goblin_0", "z": -201 },

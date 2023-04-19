@@ -2,7 +2,6 @@
 	"damage_reduction": 0,
 	"sprite_data":
 	{
-		"frame_width" : 48, "frame_height": 48,
 		"sprites":
 		[
 			{ "slot": "mask", "texture": "goblin_mask_scarf_black", "z": 102 }

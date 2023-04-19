@@ -22,33 +22,27 @@ public:
 	};
 
 	SpriteComponent() = default;
-	SpriteComponent(const std::string_view& textureId)
+	SpriteComponent(const std::string_view& textureId) : frameWidth(0), frameHeight(0)
 	{
-		addSprite("body", std::make_shared<Sprite>(textureId, 0, 0, 0));
+		addSprite("body", std::make_shared<Sprite>(textureId, 0));
 	}
-	SpriteComponent(const std::string_view& textureId, int width, int height)
+	SpriteComponent(const std::string_view& textureId, int width, int height) : frameWidth(width), frameHeight(height)
 	{
-		addSprite("body", std::make_shared<Sprite>(textureId, width, height, 0));
+		addSprite("body", std::make_shared<Sprite>(textureId, 0));
 	}
-	SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated) : animated(isAnimated), animStartTime(0)
+	SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated) :
+		animated(isAnimated), animStartTime(0),
+		frameWidth(spritesData["frame_width"]), frameHeight(spritesData["frame_height"])
 	{
-		const auto frameWidth = spritesData["frame_width"];
-		const auto frameHeight = spritesData["frame_height"];
-		
 		if (spritesData.contains("sprites"))
 		{
 			for (const auto& spriteData : spritesData["sprites"])
 			{
-				const auto spriteFrameWidth = spriteData.value("frame_width", frameWidth);
-				const auto spriteFrameHeight = spriteData.value("frame_height", frameHeight);
-
 				addSprite
 				(
 					spriteData["slot"],
 					std::make_shared<Sprite>
 					(spriteData["texture"],
-					spriteFrameWidth,
-					spriteFrameHeight,
 					spriteData.value("z", 0))
 				);
 			}
@@ -241,6 +235,9 @@ public:
 	{
 		animStartTime = 0;
 		transform = entity->getComponent<TransformComponent>();
+
+		srcRect.w = frameWidth;
+		srcRect.h = frameHeight;
 	}
 
 	void update() override
@@ -273,42 +270,35 @@ public:
 				}
 			}
 
-			for (auto& sprite : sortedSprites)
-			{
-				sprite->setSrcRectXForFrame(static_cast<int>(frameNum % numOfFrames));
-			}
+			srcRect.x = srcRect.w * frameNum;
 			spriteFlip = transform->getDirection().x > 0 ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 		}
 
-		for (auto& sprite : sortedSprites)
-		{
-			sprite->setSrcRectYForAnim(animName, animIndex);
-			sprite->setDestRect
-			(
-				transform->getPosition(),
-				Vector2D(static_cast<float>(Game::camera.x), static_cast<float>(Game::camera.y)),
-				transform->getScale()
-			);
-		}
+		srcRect.y = (animIndex)*frameHeight;
+		const auto cameraPosition = Vector2D(static_cast<float>(Game::camera.x), static_cast<float>(Game::camera.y));
+		destRect.x = static_cast<int>(transform->getPosition().x - static_cast<float>(frameWidth) * transform->getScale() / 2.f - cameraPosition.x);
+		destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(frameHeight) * transform->getScale() / 2.f - cameraPosition.y);
+		destRect.w = static_cast<int>(frameWidth * transform->getScale());
+		destRect.h = static_cast<int>(frameHeight * transform->getScale());
 	}
 
 	void draw() override
 	{
-		SDL_Rect originalDestRect = sortedSprites.back()->getDestRect();
+		SDL_Rect originalDestRect = destRect;
 		SDL_Rect destRect = originalDestRect;
 		destRect.x = originalDestRect.x + transform->getScale();
-		TextureManager::draw(blackTexture, sortedSprites.back()->getSrcRect(), destRect, spriteFlip);
+		TextureManager::draw(blackTexture, srcRect, destRect, spriteFlip);
 		destRect = originalDestRect;
 		destRect.x = originalDestRect.x - transform->getScale();
-		TextureManager::draw(blackTexture, sortedSprites.back()->getSrcRect(), destRect, spriteFlip);
+		TextureManager::draw(blackTexture, srcRect, destRect, spriteFlip);
 		destRect = originalDestRect;
 		destRect.y = originalDestRect.y + transform->getScale();
-		TextureManager::draw(blackTexture, sortedSprites.back()->getSrcRect(), destRect, spriteFlip);
+		TextureManager::draw(blackTexture, srcRect, destRect, spriteFlip);
 		destRect = originalDestRect;
 		destRect.y = originalDestRect.y - transform->getScale();
-		TextureManager::draw(blackTexture, sortedSprites.back()->getSrcRect(), destRect, spriteFlip);
+		TextureManager::draw(blackTexture, srcRect, destRect, spriteFlip);
 
-		TextureManager::draw(texture, sortedSprites.back()->getSrcRect(), originalDestRect, spriteFlip);
+		TextureManager::draw(texture, srcRect, originalDestRect, spriteFlip);
 	}
 
 	void play(const std::string& newAnimPlay)
@@ -399,6 +389,9 @@ private:
 	SDL_Texture* blackTexture;
 	std::shared_ptr<TransformComponent> transform;
 
+	SDL_Rect srcRect, destRect;
+	const int frameWidth;
+	const int frameHeight;
 	std::string animName;
 	std::string actionName;
 	bool animated = false;

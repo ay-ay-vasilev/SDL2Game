@@ -2,7 +2,6 @@
 	"damage_reduction": 1,
 	"sprite_data":
 	{
-		"frame_width" : 64, "frame_height": 64,
 		"sprites":
 		[
 			{ "slot": "jacket", "texture": "human_chainmail", "z": 3 },

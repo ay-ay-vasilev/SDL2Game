@@ -11,9 +11,7 @@ Stuff to remember:
 
 My plan:
 - Outline for actors?
-    * Understand what is a Surface
-    * Try to color non-transparent pixels black
-    * Bake multiple sprites into a single sprite ?
+    - Move outline drawing into its own class
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.

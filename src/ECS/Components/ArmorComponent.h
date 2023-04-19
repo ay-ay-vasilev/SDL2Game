@@ -22,18 +22,14 @@ public:
 		slotArmorValues[slotName] = slotArmorValue;
 
 		const auto& spriteData = armorData.value("sprite_data", nlohmann::json{});
-		const auto frameWidth = spriteData.value("frame_width", 0);
-		const auto frameHeight = spriteData.value("frame_height", 0);
 
 		std::vector<std::shared_ptr<Sprite>> spritesToAdd;
 		const auto& armorSpriteData = spriteData.value("sprites", nlohmann::json::array());
 		for (const auto& data : armorSpriteData)
 		{
 			const auto& textureName = data.value("texture", "");
-			const int spriteFrameWidth = data.value("frame_width", frameWidth);
-			const int spriteFrameHeight = data.value("frame_height", frameHeight);
 			const int z = data.value("z", 0);
-			spritesToAdd.emplace_back(std::make_shared<Sprite>(textureName, spriteFrameWidth, spriteFrameHeight, z));
+			spritesToAdd.emplace_back(std::make_shared<Sprite>(textureName, z));
 		}
 
 		std::unordered_map<std::string, std::vector<std::string>> blockedSlots;
