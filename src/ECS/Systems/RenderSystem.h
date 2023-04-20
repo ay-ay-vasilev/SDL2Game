@@ -1,6 +1,9 @@
 #pragma once
 #include "ECS.h"
 #include "ColliderComponent.h"
+#include "SpriteComponent.h"
+#include "SpriteOutlineComponent.h"
+
 #include "AssetManager.h"
 #include "Map.h"
 
@@ -35,7 +38,15 @@ public:
 		TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(0, 0, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT), SDL_FLIP_NONE);
 
 		for (const auto& tile : tiles) tile->draw();
-		for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();
+
+		for (const auto& entityZValue : sortedEntities)
+		{
+			auto outlineComponent = entityZValue.entity->getComponent<SpriteOutlineComponent>();
+			if (outlineComponent) outlineComponent->draw();
+
+			auto spriteComponent = entityZValue.entity->getComponent<SpriteComponent>();
+			if (spriteComponent) spriteComponent->draw();
+		}
 	}
 
 private:

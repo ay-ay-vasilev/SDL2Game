@@ -1,6 +1,7 @@
 #include "PlayerSystem.h"
 #include "TransformComponent.h"
 #include "SpriteComponent.h"
+#include "SpriteOutlineComponent.h"
 #include "ColliderComponent.h"
 #include "ActorComponent.h"
 #include "KeyboardComponent.h"
@@ -21,6 +22,7 @@ Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& 
 		manager.getScale(), playerData["speed"]
 	);
 	player.addComponent<SpriteComponent>(playerData["sprite_data"], true);
+	player.addComponent<SpriteOutlineComponent>();
 	player.addComponent<ActorComponent>(filename);
 	player.addComponent<KeyboardComponent>();
 	player.addComponent<ColliderComponent>(filename, playerData["collider_rect"]);

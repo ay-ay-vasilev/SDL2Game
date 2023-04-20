@@ -5,7 +5,6 @@
 #include "AssetManager.h"
 #include "Animation.h"
 #include "Sprite.h"
-#include "SpriteOutline.h"
 #include "Subject.h"
 
 #include <wrappedJson.h>
@@ -25,19 +24,16 @@ public:
 	SpriteComponent() = default;
 	SpriteComponent(const std::string_view& textureId) : frameWidth(0), frameHeight(0)
 	{
-		spriteOutline = std::make_unique<SpriteOutline>();
 		addSprite("body", std::make_shared<Sprite>(textureId, 0));
 	}
 	SpriteComponent(const std::string_view& textureId, int width, int height) : frameWidth(width), frameHeight(height)
 	{
-		spriteOutline = std::make_unique<SpriteOutline>();
 		addSprite("body", std::make_shared<Sprite>(textureId, 0));
 	}
 	SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated) :
 		animated(isAnimated), animStartTime(0),
 		frameWidth(spritesData["frame_width"]), frameHeight(spritesData["frame_height"])
 	{
-		spriteOutline = std::make_unique<SpriteOutline>();
 		if (spritesData.contains("sprites"))
 		{
 			for (const auto& spriteData : spritesData["sprites"])
@@ -135,7 +131,7 @@ public:
 		std::sort(sortedSprites.begin(), sortedSprites.end(), [](auto& a, auto& b) { return a->getZ() < b->getZ(); });
 
 		texture = TextureManager::getCombinedTexture(sortedSprites);
-		spriteOutline->setTexture(TextureManager::getCombinedTexture(sortedSprites, SDL_Color(0, 0, 0, 255)));
+		notify("update_textures");
 	}
 
 	void init() override
@@ -191,7 +187,6 @@ public:
 
 	void draw() override
 	{
-		spriteOutline->draw(srcRect, destRect, transform->getScale(), spriteFlip);
 		TextureManager::draw(texture, srcRect, destRect, spriteFlip);
 	}
 
@@ -266,6 +261,11 @@ public:
 		notify(action + "_" + eventName);
 	}
 
+	const auto getSrcRect() const { return srcRect; }
+	const auto getDestRect() const { return destRect; }
+	const auto getSpriteFlip() const { return spriteFlip; }
+	const auto getSortedSprites() const { return sortedSprites; }
+
 private:
 	Uint32 animStartTime;
 	int animIndex = 0;
@@ -275,8 +275,6 @@ private:
 	std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> sprites; // *key* - slot name, *value* - vector of sprites in a slot
 	std::vector<std::shared_ptr<Sprite>> sortedSprites;
 	std::unordered_map<std::string, std::vector<std::string>> blockedSlots; // *key* - blocker slot name, *value* - vector of blocked slots
-
-	std::unique_ptr<SpriteOutline> spriteOutline;
 
 	eAnimState animState = eAnimState::NONE;
 	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;

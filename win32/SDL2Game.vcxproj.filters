@@ -203,8 +203,8 @@
     <ClInclude Include="..\src\LibWrappers\wrappedJson.h">
       <Filter>Source Files\LibWrappers</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Common\SpriteOutline.h">
-      <Filter>Source Files\Common</Filter>
+    <ClInclude Include="..\src\ECS\Components\SpriteOutlineComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

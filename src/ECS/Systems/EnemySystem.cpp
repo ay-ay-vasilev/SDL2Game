@@ -1,6 +1,7 @@
 #include "EnemySystem.h"
 #include "TransformComponent.h"
 #include "SpriteComponent.h"
+#include "SpriteOutlineComponent.h"
 #include "ColliderComponent.h"
 #include "ActorComponent.h"
 #include "HitboxComponent.h"
@@ -19,6 +20,7 @@ Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& fi
 		manager.getScale(), enemyData["speed"]
 	);
 	enemy.addComponent<SpriteComponent>(enemyData["sprite_data"], true);
+	enemy.addComponent<SpriteOutlineComponent>();
 	enemy.addComponent<ActorComponent>(filename);
 	enemy.addComponent<ColliderComponent>(filename, enemyData["collider_rect"]);
 	enemy.addComponent<HitboxComponent>(filename, enemyData["hitbox_rect"]);
