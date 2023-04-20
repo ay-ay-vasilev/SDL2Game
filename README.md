@@ -11,7 +11,9 @@ Stuff to remember:
 
 My plan:
 - Outline for actors?
-    - Move outline drawing into its own class
+    - Move outline drawing into its own class DONE
+    - Redo SpriteOutline into a Component instead
+    - Add outline info to JSON files
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
@@ -24,6 +26,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
+- Remove logic from Component constructors!!!
 - Add implementation files for Components.
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - JSON files for AI.
@@ -37,6 +40,7 @@ Maintenance:
 - Specific weapon stats for actors in weapon json files?
 
 Future plans:
+- Add a second container for Sprites that should not be outlined? (sword swings)
 - Customization for characters
 - Actor randomization
 - Player randomization

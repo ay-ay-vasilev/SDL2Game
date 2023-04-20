@@ -1,4 +1,6 @@
 #pragma once
+#include "AssetManager.h"
+
 #include <SDL.h>
 
 class Sprite
@@ -16,6 +18,5 @@ public:
 
 private:
 	const double z;
-
 	SDL_Surface* surface;
 };
