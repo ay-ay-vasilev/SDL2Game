@@ -22,7 +22,7 @@ Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& 
 		manager.getScale(), playerData["speed"]
 	);
 	player.addComponent<SpriteComponent>(playerData["sprite_data"], true);
-	player.addComponent<SpriteOutlineComponent>();
+	player.addComponent<SpriteOutlineComponent>(playerData["sprite_data"].contains("outline") ? playerData["sprite_data"]["outline"] : nullptr);
 	player.addComponent<ActorComponent>(filename);
 	player.addComponent<KeyboardComponent>();
 	player.addComponent<ColliderComponent>(filename, playerData["collider_rect"]);

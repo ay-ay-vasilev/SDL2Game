@@ -20,7 +20,7 @@ Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& fi
 		manager.getScale(), enemyData["speed"]
 	);
 	enemy.addComponent<SpriteComponent>(enemyData["sprite_data"], true);
-	enemy.addComponent<SpriteOutlineComponent>();
+	enemy.addComponent<SpriteOutlineComponent>(enemyData["sprite_data"].contains("outline") ? enemyData["sprite_data"]["outline"] : nullptr);
 	enemy.addComponent<ActorComponent>(filename);
 	enemy.addComponent<ColliderComponent>(filename, enemyData["collider_rect"]);
 	enemy.addComponent<HitboxComponent>(filename, enemyData["hitbox_rect"]);

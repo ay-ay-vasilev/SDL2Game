@@ -13,8 +13,8 @@ My plan:
 - Outline for actors?
     - Move outline drawing into its own class DONE
     - Redo SpriteOutline into a Component instead DONE
-    - Add outline info to JSON files
-    - Fix debug outline draw
+    - Add outline info to JSON files DONE
+    - Fix debug outline draw 
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
@@ -28,6 +28,7 @@ My plan:
 
 Maintenance:
 - Remove logic from Component constructors!!!
+- Add an abstract DrawableComponent class ?
 - Add implementation files for Components.
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - JSON files for AI.
