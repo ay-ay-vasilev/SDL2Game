@@ -1,6 +1,6 @@
 {
-	"debug_draw_colliders": true,
-	"debug_draw_hitboxes": true,
+	"debug_draw_colliders": false,
+	"debug_draw_hitboxes": false,
 
 	"fullscreen": false,
 

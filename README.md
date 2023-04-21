@@ -10,11 +10,6 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
-- Outline for actors?
-    - Move outline drawing into its own class DONE
-    - Redo SpriteOutline into a Component instead DONE
-    - Add outline info to JSON files DONE
-    - Fix debug outline draw 
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.

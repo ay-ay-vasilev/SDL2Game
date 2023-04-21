@@ -128,8 +128,7 @@ public:
 		if (!enabled)
 			return;
 
-		if (debugDraw)
-			TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+		TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
 
 	void onNotify(const std::string_view& observedEvent) override
@@ -152,7 +151,6 @@ public:
 	std::shared_ptr<ColliderShape> getCollider() const { return weaponCollider; }
 
 	void addAffectedTarget(int id) { affectedTargets.emplace_back(id); }
-	void setDebugDraw(bool value) { debugDraw = value; }
 
 	std::string getOwnerTag() const { return ownerTag; }
 	std::string getTag() const { return tag; }
@@ -185,7 +183,6 @@ private:
 
 	bool enabled;
 	bool destroyOnHit;
-	bool debugDraw = false;
 
 	int damage;
 };

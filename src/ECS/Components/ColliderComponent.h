@@ -100,8 +100,7 @@ public:
 
 	void draw() override
 	{
-		if (debugDraw)
-			TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+		TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
 
 	std::shared_ptr<ColliderShape> getCollider() const { return collider; }
@@ -109,7 +108,6 @@ public:
 	void moveColliderPos(float dx, float dy) { collider->movePosition(Vector2D(dx, dy)); }
 
 	float getLowestPoint() const { return collider->getLowestPoint(); }
-	void setDebugDraw(bool value) { debugDraw = value; }
 
 private:
 	std::shared_ptr<TransformComponent> transform;
@@ -120,5 +118,4 @@ private:
 
 	std::shared_ptr<ColliderShape> collider;
 	std::string tag;
-	bool debugDraw = false;
 };

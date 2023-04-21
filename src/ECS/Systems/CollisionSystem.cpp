@@ -8,10 +8,6 @@
 void CollisionSystem::update()
 {
 	auto entitiesWithColliders = manager.getEntitiesWithComponent<ColliderComponent>();
-	for (auto entity : entitiesWithColliders)
-	{
-		entity->getComponent<ColliderComponent>()->setDebugDraw(manager.getConstants()->DRAW_COLLIDERS);
-	}
 
 	movingEntities = manager.getEntitiesWithComponents<TransformComponent, ColliderComponent>();
 	colliderEntities = manager.getGroup(Game::eGroupLabels::COLLIDERS);

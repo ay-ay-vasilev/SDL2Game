@@ -92,16 +92,13 @@ public:
 
 	void draw() override
 	{
-		if (debugDraw)
-			TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+		TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 	}
 
 	std::shared_ptr<ColliderShape> getHitbox() const { return hitbox; }
 
 	std::string getTag() const { return tag; }
 	int getId() const { return id; }
-
-	void setDebugDraw(bool value) { debugDraw = value; }
 
 private:
 	std::shared_ptr<TransformComponent> transform;
@@ -112,7 +109,6 @@ private:
 
 	std::shared_ptr<ColliderShape> hitbox;
 	std::string tag;
-	bool debugDraw = false;
 
 	int id = 0;
 };

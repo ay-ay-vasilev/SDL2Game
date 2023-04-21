@@ -1,8 +1,10 @@
 #pragma once
 #include "ECS.h"
-#include "ColliderComponent.h"
 #include "SpriteComponent.h"
 #include "SpriteOutlineComponent.h"
+#include "ColliderComponent.h"
+#include "HitboxComponent.h"
+#include "WeaponComponent.h"
 
 #include "AssetManager.h"
 #include "Map.h"
@@ -41,11 +43,32 @@ public:
 
 		for (const auto& entityZValue : sortedEntities)
 		{
-			auto outlineComponent = entityZValue.entity->getComponent<SpriteOutlineComponent>();
+			const auto outlineComponent = entityZValue.entity->getComponent<SpriteOutlineComponent>();
 			if (outlineComponent) outlineComponent->draw();
 
-			auto spriteComponent = entityZValue.entity->getComponent<SpriteComponent>();
+			const auto spriteComponent = entityZValue.entity->getComponent<SpriteComponent>();
 			if (spriteComponent) spriteComponent->draw();
+		}
+
+		if (Game::constants->DRAW_COLLIDERS)
+		{
+			for (const auto& entityZValue : sortedEntities)
+			{
+				const auto colliderComponent = entityZValue.entity->getComponent<ColliderComponent>();
+				if (colliderComponent) colliderComponent->draw();
+			}
+		}
+
+		if (Game::constants->DRAW_HITBOXES)
+		{
+			for (const auto& entityZValue : sortedEntities)
+			{
+				const auto hitboxComponent = entityZValue.entity->getComponent<HitboxComponent>();
+				if (hitboxComponent) hitboxComponent->draw();
+
+				const auto weaponComponent = entityZValue.entity->getComponent<WeaponComponent>();
+				if (weaponComponent) weaponComponent->draw();
+			}
 		}
 	}
 
