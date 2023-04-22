@@ -1,79 +1,34 @@
 #pragma once
-#include "TransformComponent.h"
-#include "SpriteComponent.h"
-
+#include "ECS.h"
 #include "Observer.h"
 
 #include <SDL.h>
 #include <optional>
 
+class TransformComponent;
+class SpriteComponent;
 class SpriteOutlineComponent : public Component, public Observer
 {
 public:
 	SpriteOutlineComponent() = default;
-	SpriteOutlineComponent(const std::optional<nlohmann::json>& outlineData = std::nullopt)
-	{
-		if (!outlineData)
-			return;
+	SpriteOutlineComponent(const std::optional<nlohmann::json>& outlineData = std::nullopt);
 
-		if (outlineData->contains("positions"))
-		{
-			const auto outlinePositionsData = outlineData.value()["positions"];
-			for (const auto& outlinePositionData : outlinePositionsData)
-				outlinePositions.emplace_back(Vector2D(outlinePositionData["x"], outlinePositionData["y"]));
-		}
+	~SpriteOutlineComponent();
 
-		if (outlineData->contains("color"))
-		{
-			const auto outlineColorData = outlineData.value()["color"];
-			outlineColor = SDL_Color(outlineColorData["r"], outlineColorData["g"], outlineColorData["b"], outlineColorData["a"]);
-		}
-	}
+	void inline setTexture(SDL_Texture* texture) { this->texture = texture; }
 
-	~SpriteOutlineComponent()
-	{
-		SDL_DestroyTexture(texture);
-	}
-
-	void setTexture(SDL_Texture* texture) { this->texture = texture; }
-
-	void init() override
-	{
-		transformComponent = entity->getComponent<TransformComponent>();
-		spriteComponent = entity->getComponent<SpriteComponent>();
-		registerWithSubject(spriteComponent);
-	}
-
-	void update() override
-	{
-		srcRect = spriteComponent->getSrcRect();
-		destRect = spriteComponent->getDestRect();
-		spriteFlip = spriteComponent->getSpriteFlip();
-	}
-
-	void draw() override
-	{
-		SDL_Rect tempDestRect = destRect;
-		const auto scale = transformComponent->getScale();
-		for (const auto& outlinePosition : outlinePositions)
-		{
-			tempDestRect = SDL_Rect(destRect.x + outlinePosition.x * scale, destRect.y + outlinePosition.y * scale, destRect.w, destRect.h);
-			TextureManager::draw(texture, srcRect, tempDestRect, spriteFlip);
-		}
-	}
-
-	void onNotify(const std::string_view& observedEvent) override
-	{
-		if (observedEvent == "update_textures")
-		{
-			setTexture(TextureManager::getCombinedTexture(spriteComponent->getSortedSprites(), outlineColor));
-		}
-	}
+	// Component
+	void init() override;
+	void update() override;
+	void draw() override;
+	// Observer
+	void onNotify(const std::string_view& observedEvent) override;
 
 private:
 	SDL_Texture* texture{ nullptr };
 
-	SDL_Rect srcRect, destRect;
+	SDL_Rect srcRect{}, destRect{};
+
 	SDL_RendererFlip spriteFlip;
 	std::shared_ptr<TransformComponent> transformComponent;
 	std::shared_ptr<SpriteComponent> spriteComponent;

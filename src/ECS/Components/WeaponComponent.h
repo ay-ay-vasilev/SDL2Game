@@ -1,171 +1,40 @@
 #pragma once
-#include "TransformComponent.h"
-#include "SpriteComponent.h"
-#include "HealthComponent.h"
-
+#include "ECS.h"
 #include "Observer.h"
-#include "ColliderShape.h"
-#include "Sprite.h"
 
+#include "ColliderShape.h"
+
+class Sprite;
+class TransformComponent;
+class SpriteComponent;
+class HealthComponent;
 class WeaponComponent : public Component, private Observer
 {
 public:
-	WeaponComponent(const std::string& name, const std::string& ownerName, bool isProjectile = false) :
-		tag(name),
-		ownerTag(ownerName),
-		texture(nullptr),
-		srcRect(), destRect(),
-		weaponColliderDirectionCoefficient({ 0, 0 }),
-		weaponColliderOffset({ 0, 0 }),
-		enabled(isProjectile),
-		destroyOnHit(isProjectile),
-		damage(0)
-	{
-		const auto weaponName = std::string(name);
-		nlohmann::json weaponData;
-		if (isProjectile)
-		{
-			weaponData = Game::assets->getProjectileJson(weaponName)["weapon"];
-		}
-		else
-		{
-			weaponData = Game::assets->getWeaponJson(weaponName);
-		}
+	WeaponComponent(const std::string& name, const std::string& ownerName, bool isProjectile = false);
+	~WeaponComponent() override;
 
-		damage = weaponData.value("damage", 0);
-		weaponType = weaponData.value("weapon_type", "unarmed");
+	// Component
+	void init() override;
+	void update() override;
+	void draw() override;
+	// Observer
+	void onNotify(const std::string_view& observedEvent) override;
 
-		if (weaponData.contains("collider"))
-		{
-			const auto& weaponColliderData = weaponData["collider"];
-			if (weaponColliderData["shape"] == "circle")
-			{
-				weaponCollider = std::make_shared<CircleCollider>(Vector2D(0, 0), weaponColliderData["radius"]);
-			}
-			if (weaponColliderData["shape"] == "rectangle")
-			{
-				weaponCollider = std::make_shared<RectangleCollider>(Vector2D(0, 0), weaponColliderData["w"], weaponColliderData["h"]);
-			}
-			if (weaponColliderData.contains("offset")) {
-				weaponColliderOffset = { weaponColliderData["offset"]["dx"], weaponColliderData["offset"]["dy"] };
-			}
-			weaponColliderDirectionCoefficient = { weaponColliderData.value("x", 0.f), weaponColliderData.value("y", 0.f)};
-		}
+	std::shared_ptr<ColliderShape> inline getCollider() const { return weaponCollider; }
 
-		if (weaponData.contains("sprite_data"))
-		{
-			if (weaponData["sprite_data"].contains(ownerTag))
-			{
-				const auto ownerWeaponData = weaponData["sprite_data"][ownerTag];
-				const auto weaponSpriteData = ownerWeaponData["sprites"];
+	std::string inline getOwnerTag() const { return ownerTag; }
+	std::string inline getTag() const { return tag; }
+	const std::string inline getWeaponType() const { return weaponType; }
 
-				for (const auto data : weaponSpriteData)
-				{
-					const auto tempZ = data.value("z", 0);
-					tempSprites[data["slot"]].emplace_back((std::make_shared<Sprite>(data["texture"], tempZ)));
-				}
-			}
-		}
-	}
+	void inline addAffectedTarget(int id) { affectedTargets.emplace_back(id); }
+	bool inline isInAffectedTargets(int id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
 
-	virtual ~WeaponComponent() {}
+	int inline getDamage() const { return damage; }
 
-	void init() override
-	{
-		if (entity->hasComponent<TransformComponent>())
-		{
-			transform = entity->getComponent<TransformComponent>();
-			weaponColliderDirectionCoefficient.x *= transform->getScale();
-			weaponColliderDirectionCoefficient.y *= transform->getScale();
-			weaponColliderOffset.x *= transform->getScale();
-			weaponColliderOffset.y *= transform->getScale();
-
-			weaponCollider->setScale(transform->getScale());
-			const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
-			const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
-			weaponCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
-		}
-		destRect = weaponCollider->getDrawRect();
-
-		std::string texturePath;
-		if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(weaponCollider)) {
-			texturePath = "assets/images/misc/weapon_collider_rect.png";
-		}
-		else if (auto circleCollider = std::dynamic_pointer_cast<CircleCollider>(weaponCollider)) {
-			texturePath = "assets/images/misc/weapon_collider_circle.png";
-		}
-		texture = TextureManager::loadTexture(texturePath);
-		srcRect = { 0, 0, 32, 32 };
-
-		spriteComponent = entity->getComponent<SpriteComponent>();
-		registerWithSubject(spriteComponent);
-		if (tempSprites.empty())
-			spriteComponent->removeSpritesFromSlot("weapon");
-		for (auto& [slotName, tempSpriteVec] : tempSprites)
-		{
-			spriteComponent->removeSpritesFromSlot(slotName);
-			for (auto& tempSprite : tempSpriteVec)
-			{
-				spriteComponent->addSprite(slotName, tempSprite);
-			}
-		}
-		tempSprites.clear();
-	}
-
-	void update() override
-	{
-		const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
-		const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
-		weaponCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
-
-		destRect = weaponCollider->getDrawRect();
-		destRect.x -= Game::camera.x;
-		destRect.y -= Game::camera.y;
-	}
-
-	void draw() override
-	{
-		if (!enabled)
-			return;
-
-		TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
-	}
-
-	void onNotify(const std::string_view& observedEvent) override
-	{
-		if (observedEvent == "attack_action_start")
-		{
-			enabled = true;
-		}
-		if (observedEvent == "attack_action_stop")
-		{
-			enabled = false;
-			affectedTargets.clear();
-		}
-		if (observedEvent == "idle_start" || observedEvent == "walk_start")
-		{
-			enabled = false;
-		}
-	}
-
-	std::shared_ptr<ColliderShape> getCollider() const { return weaponCollider; }
-
-	void addAffectedTarget(int id) { affectedTargets.emplace_back(id); }
-
-	std::string getOwnerTag() const { return ownerTag; }
-	std::string getTag() const { return tag; }
-	const std::string getWeaponType() const { return weaponType; }
-
-	bool isInAffectedTargets(int id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
-
-	int getDamage() const { return damage; }
-
-	bool isEnabled() const { return enabled; }
-	bool isDestroyedOnHit() const { return destroyOnHit; }
-	bool isInRange(const std::shared_ptr<ColliderShape>& targetHitbox) const
-	{
-		return weaponCollider->collidesWith(targetHitbox);
-	}
+	bool inline isEnabled() const { return enabled; }
+	bool inline  isDestroyedOnHit() const { return destroyOnHit; }
+	bool inline isInRange(const std::shared_ptr<ColliderShape>& targetHitbox) const { return weaponCollider->collidesWith(targetHitbox); }
 
 private:
 	std::shared_ptr<TransformComponent> transform;

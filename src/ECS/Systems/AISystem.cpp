@@ -1,5 +1,8 @@
 #include "AISystem.h"
 #include "AIComponentBasicEnemy.h"
+#include "TransformComponent.h"
+
+#include "Game.h"
 
 void AISystem::update()
 {

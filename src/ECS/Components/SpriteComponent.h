@@ -1,16 +1,16 @@
 #pragma once
-#include "TransformComponent.h"
-
-#include "TextureManager.h"
-#include "AssetManager.h"
-#include "Animation.h"
-#include "Sprite.h"
+#include "ECS.h"
 #include "Subject.h"
+#include "Sprite.h"
 
+#include <SDL_render.h>
 #include <wrappedJson.h>
-
 #include <map>
 
+class TextureManager;
+class AssetManager;
+class Animation;
+class TransformComponent;
 class SpriteComponent : public Component, public Subject
 {
 public:
@@ -22,253 +22,41 @@ public:
 	};
 
 	SpriteComponent() = default;
-	SpriteComponent(const std::string_view& textureId) : frameWidth(0), frameHeight(0)
-	{
-		addSprite("body", std::make_shared<Sprite>(textureId, 0));
-	}
-	SpriteComponent(const std::string_view& textureId, int width, int height) : frameWidth(width), frameHeight(height)
-	{
-		addSprite("body", std::make_shared<Sprite>(textureId, 0));
-	}
-	SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated) :
-		animated(isAnimated), animStartTime(0),
-		frameWidth(spritesData["frame_width"]), frameHeight(spritesData["frame_height"])
-	{
-		if (spritesData.contains("sprites"))
-		{
-			for (const auto& spriteData : spritesData["sprites"])
-			{
-				addSprite
-				(
-					spriteData["slot"],
-					std::make_shared<Sprite>
-					(spriteData["texture"],
-					spriteData.value("z", 0))
-				);
-			}
-		}
+	SpriteComponent(const std::string_view& surfaceId);
+	SpriteComponent(const std::string_view& surfaceId, int width, int height);
+	SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated);
+	~SpriteComponent() override;
 
-		if (spritesData.contains("block_slots"))
-		{
-			for (const auto& blockedSlotData : spritesData["block_slots"])
-			{
-				std::vector<std::string> blockedSlotsToAdd;
-				for (const auto& blockedSlotName : blockedSlotData["blocked_slots"])
-				{
-					blockedSlotsToAdd.push_back(blockedSlotName);
-				}
-				addBlockedSlots(blockedSlotData["blocker_slot"], blockedSlotsToAdd);
-			}
-		}
+	// Component
+	void init() override;
+	void update() override;
+	void draw() override;
 
-		if (animated)
-		{
-			addAnimationsFromJson(spritesData["animations"]);
-			play("idle");
-		}
-	}
-
-	~SpriteComponent()
-	{
-		SDL_DestroyTexture(texture);
-	}
-
-	void addSprite(const std::string& slotName, std::shared_ptr<Sprite> sprite)
-	{
-		sprites[slotName].emplace_back(sprite);
-		sortSpritesByZ();
-	}
-
-	void addSpritesToSlot(const std::string& slotName, std::vector<std::shared_ptr<Sprite>> spritesToAdd)
-	{
-		sprites[slotName] = spritesToAdd;
-		sortSpritesByZ();
-	}
-
-	void addBlockedSlot(const std::string& blockerName, const std::string& blockedSlotName)
-	{
-		blockedSlots[blockerName].push_back(blockedSlotName);
-		sortSpritesByZ();
-	}
-
-	void addBlockedSlots(const std::string& blockerName, const std::vector<std::string>& blockedSlotNames)
-	{
-		for (const auto& slot : blockedSlotNames)
-			blockedSlots[blockerName].push_back(slot);
-		sortSpritesByZ();
-	}
-
-	void removeSpritesFromSlot(const std::string& slotName)
-	{
-		sprites.erase(slotName);
-		blockedSlots.erase(slotName);
-		sortSpritesByZ();
-	}
-
-	void sortSpritesByZ()
-	{
-		sortedSprites.clear();
-		for (auto& [slot, spriteVec] : sprites)
-		{
-			// check if slot is blocked
-			bool isBlocked = false;
-			for (auto& [blockerSlotName, blockedSlotNames] : blockedSlots)
-			{
-				if (std::find(blockedSlotNames.begin(), blockedSlotNames.end(), slot) != blockedSlotNames.end())
-				{
-					isBlocked = true;
-					break;
-				}
-			}
-			if (isBlocked)
-				continue;
-
-			for (auto& sprite : spriteVec)
-			{
-				sortedSprites.emplace_back(sprite);
-			}
-		}
-		std::sort(sortedSprites.begin(), sortedSprites.end(), [](auto& a, auto& b) { return a->getZ() < b->getZ(); });
-
-		texture = TextureManager::getCombinedTexture(sortedSprites);
-		notify("update_textures");
-	}
-
-	void init() override
-	{
-		animStartTime = 0;
-		transform = entity->getComponent<TransformComponent>();
-
-		srcRect.w = frameWidth;
-		srcRect.h = frameHeight;
-	}
-
-	void update() override
-	{
-		if (animated && numOfFrames)
-		{
-			const Uint32 ticks = SDL_GetTicks();
-			const Uint32 elapsed = ticks - animStartTime;
-			int frameNum = static_cast<int>(elapsed) / animSpeed;
-			// check if anim ended
-			if (frameNum >= numOfFrames && frameNum % numOfFrames == 0)
-			{
-				animStartTime = ticks;
-				frameNum = 0;
-				incAnimState();
-			}
-			// check for trigger events
-			if (!triggerFrames.empty())
-			{
-				const auto isTriggerFrame = std::find(triggerFrames.begin(), triggerFrames.end(), frameNum) != triggerFrames.end();
-				if (!triggered && isTriggerFrame)
-				{
-					triggered = true;
-					sendSignal("action_start");
-				}
-				else if (triggered && !isTriggerFrame)
-				{
-					triggered = false;
-					sendSignal("action_stop");
-				}
-			}
-
-			srcRect.x = srcRect.w * frameNum;
-			spriteFlip = transform->getDirection().x > 0 ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-		}
-
-		srcRect.y = (animIndex)*frameHeight;
-		const auto cameraPosition = Vector2D(static_cast<float>(Game::camera.x), static_cast<float>(Game::camera.y));
-		destRect.x = static_cast<int>(transform->getPosition().x - static_cast<float>(frameWidth) * transform->getScale() / 2.f - cameraPosition.x);
-		destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(frameHeight) * transform->getScale() / 2.f - cameraPosition.y);
-		destRect.w = static_cast<int>(frameWidth * transform->getScale());
-		destRect.h = static_cast<int>(frameHeight * transform->getScale());
-	}
-
-	void draw() override
-	{
-		TextureManager::draw(texture, srcRect, destRect, spriteFlip);
-	}
-
-	void play(const std::string& newAnimPlay)
-	{
-		if (animName == newAnimPlay)
-			return;
-		if (animations.count(newAnimPlay) == 0)
-			return;
-
-		animName = newAnimPlay;
-		animStartTime = SDL_GetTicks();
-		const auto animData = animations[animName];
-		actionName = animData.getActionName();
-		numOfFrames = animData.getNumOfFrames();
-		animIndex = animData.getAnimIndex();
-		animSpeed = animData.getAnimSpeed();
-		triggerFrames = animData.getTriggerFrames();
-
-		animState = eAnimState::NONE;
-		triggered = false;
-		incAnimState();
-	}
-
-	void addAnimationsFromJson(const nlohmann::json& animData)
-	{
-		for (auto& [name, animData] : animData.items())
-		{
-			const int animIndex = animData.value("anim_index", 0);
-			const int num_of_frames = animData.value("num_of_frames", 0);
-			const int animSpeed = animData.value("anim_speed", 0);
-			const auto trigger_frames = animData.count("trigger_frames") ? animData.at("trigger_frames").get<std::vector<int>>() : std::vector<int>();
-			const auto action_name = animData.value("action_name", "");
-			addAnimation(name, animIndex, num_of_frames, animSpeed, trigger_frames, action_name);
-		}
-	}
-
+	void addSprite(const std::string& slotName, std::shared_ptr<Sprite> sprite);
+	void addSpritesToSlot(const std::string& slotName, std::vector<std::shared_ptr<Sprite>> spritesToAdd);
+	void addBlockedSlot(const std::string& blockerName, const std::string& blockedSlotName);
+	void addBlockedSlots(const std::string& blockerName, const std::vector<std::string>& blockedSlotNames);
+	void removeSpritesFromSlot(const std::string& slotName);
+	void sortSpritesByZ();
+	void play(const std::string& newAnimPlay);
+	void addAnimationsFromJson(const nlohmann::json& animData);
 	void addAnimation(
 		const std::string_view& name,
 		const int index, const int numOfFrames, const int speed,
 		const std::span<const int>& triggerFrames = {},
-		const std::string& actionName = "")
-	{
-		animations.emplace(name, Animation(index, numOfFrames, speed, triggerFrames, actionName));
-	}
+		const std::string& actionName = "");
+	void incAnimState();
+	void sendSignal(const std::string& eventName);
 
-	void incAnimState()
-	{
-		if (static_cast<int>(animState) + 1 > static_cast<int>(eAnimState::END))
-		{
-			animState = eAnimState::NONE;
-		}
-
-		animState = static_cast<eAnimState>(static_cast<int>(animState) + 1);
-
-		std::string stateStr;
-		switch (animState)
-		{
-		case eAnimState::START:
-			stateStr = "start";
-			break;
-		case eAnimState::END:
-			stateStr = "end";
-			break;
-		}
-		sendSignal(stateStr);
-	}
-
-	void sendSignal(const std::string& eventName)
-	{
-		const auto action = actionName.empty() ? animName : actionName;
-		notify(action + "_" + eventName);
-	}
-
-	const auto getSrcRect() const { return srcRect; }
-	const auto getDestRect() const { return destRect; }
-	const auto getSpriteFlip() const { return spriteFlip; }
-	const auto getSortedSprites() const { return sortedSprites; }
+	const auto inline getSrcRect() const { return srcRect; }
+	const auto inline getDestRect() const { return destRect; }
+	const auto inline getSpriteFlip() const { return spriteFlip; }
+	const auto inline getSortedSprites() const { return sortedSprites; }
 
 private:
 	Uint32 animStartTime;
 	int animIndex = 0;
+	std::string surfaceId;
 
 	std::map<std::string, Animation> animations;
 
@@ -279,15 +67,15 @@ private:
 	eAnimState animState = eAnimState::NONE;
 	SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;
 
-	SDL_Texture* texture{nullptr};
+	SDL_Texture* texture;
 	std::shared_ptr<TransformComponent> transform;
 
-	SDL_Rect srcRect{}, destRect{};
+	SDL_Rect srcRect, destRect;
 	const int frameWidth = 0;
 	const int frameHeight = 0;
+	bool animated = false;
 	std::string animName;
 	std::string actionName;
-	bool animated = false;
 	int numOfFrames = 0;
 	int animSpeed = 100;
 	std::vector<int> triggerFrames;

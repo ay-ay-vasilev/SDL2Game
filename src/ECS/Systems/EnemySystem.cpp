@@ -8,6 +8,7 @@
 #include "HealthComponent.h"
 #include "AIComponentBasicEnemy.h"
 #include "ArmorComponent.h"
+#include "WeaponComponent.h"
 
 Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filename)
 {

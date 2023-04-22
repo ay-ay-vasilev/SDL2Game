@@ -10,6 +10,7 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
+- Add an undead enemy
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
@@ -24,7 +25,7 @@ My plan:
 Maintenance:
 - Remove logic from Component constructors!!!
 - Add an abstract DrawableComponent class ?
-- Add implementation files for Components.
+- Add explicit to constructors
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - JSON files for AI.
 - Add map json.
@@ -35,6 +36,7 @@ Maintenance:
 - Better WeaponComponent implementation (add an object for weapon stats).
 - i-frames ?
 - Specific weapon stats for actors in weapon json files?
+- Delete textures and surfaces properly! Also rename "texture" to "surface" in JSON files (maybe ?)
 
 Future plans:
 - Add a second container for Sprites that should not be outlined? (sword swings)

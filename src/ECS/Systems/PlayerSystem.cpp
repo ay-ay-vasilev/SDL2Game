@@ -8,6 +8,7 @@
 #include "HitboxComponent.h"
 #include "HealthComponent.h"
 #include "ArmorComponent.h"
+#include "WeaponComponent.h"
 
 #include <wrappedJson.h>
 

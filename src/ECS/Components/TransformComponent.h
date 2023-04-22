@@ -1,4 +1,5 @@
 #pragma once
+#include "ECS.h"
 #include "Vector2D.h"
 
 class TransformComponent : public Component
@@ -23,35 +24,35 @@ public:
 		position.y += velocity.y * speed;
 	}
 
-	const Vector2D getPosition() const { return position; }
-	const Vector2D getVelocity() const { return velocity; }
-	const Vector2D getDirection() const { return direction; }
+	const inline Vector2D getPosition() const { return position; }
+	const inline Vector2D getVelocity() const { return velocity; }
+	const inline Vector2D getDirection() const { return direction; }
 
-	void setVeloctiy(float x, float y) { velocity.x = x; velocity.y = y; }
-	void setVeloctiy(const Vector2D& newVelocity) { velocity = newVelocity; }
-	void setPosition(float x, float y) { position.x = x; position.y = y; }
-	void setPosition(const Vector2D& newPosition) { position = newPosition; }
-	void movePosition(float dx, float dy) { position.x += dx; position.y += dy; }
-	void movePosition(const Vector2D& positionDelta) { position += positionDelta; }
-	void setDirection(float x, float y)
+	void inline setVeloctiy(float x, float y) { velocity.x = x; velocity.y = y; }
+	void inline setVeloctiy(const Vector2D& newVelocity) { velocity = newVelocity; }
+	void inline setPosition(float x, float y) { position.x = x; position.y = y; }
+	void inline setPosition(const Vector2D& newPosition) { position = newPosition; }
+	void inline movePosition(float dx, float dy) { position.x += dx; position.y += dy; }
+	void inline movePosition(const Vector2D& positionDelta) { position += positionDelta; }
+	void inline setDirection(float x, float y)
 	{
 		direction.x = x; direction.y = y;
 		direction.Normalize();
 	}
-	void setDirection(const Vector2D& newDirection)
+	void inline setDirection(const Vector2D& newDirection)
 	{
 		direction = newDirection;
 		direction.Normalize();
 	}
-	void setDirectionX(float x) { direction.x = x; }
-	void setDirectionY(float y) { direction.y = y; }
+	void inline setDirectionX(float x) { direction.x = x; }
+	void inline setDirectionY(float y) { direction.y = y; }
 
-	const int getWidth() const { return width; }
-	const int getHeight() const { return height; }
-	const float getScale() const { return scale; }
+	const int inline getWidth() const { return width; }
+	const int inline getHeight() const { return height; }
+	const float inline getScale() const { return scale; }
 
-	const float getSpeed() const{ return speed; }
-	void setSpeed(float newSpeed) { speed = newSpeed; }
+	const float inline getSpeed() const{ return speed; }
+	void inline setSpeed(float newSpeed) { speed = newSpeed; }
 
 private:
 	Vector2D position;

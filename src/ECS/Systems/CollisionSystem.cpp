@@ -2,6 +2,7 @@
 #include "ColliderComponent.h"
 #include "Collision.h"
 #include "Vector2D.h"
+#include "Game.h"
 
 #include <cmath>
 

@@ -3,7 +3,13 @@
 
 AssetManager::AssetManager(std::shared_ptr<Manager> manager) : manager(manager), constants(manager->getConstants()) {}
 
-AssetManager::~AssetManager() {}
+AssetManager::~AssetManager()
+{
+	for (auto& pair : surfaces) {
+		SDL_FreeSurface(pair.second);
+	}
+	surfaces.clear();
+}
 
 void AssetManager::loadSurfaces()
 {

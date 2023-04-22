@@ -1,55 +1,26 @@
 #pragma once
 #include "ECS.h"
-#include "HitboxComponent.h"
 #include "Subject.h"
 
+class HitboxComponent;
 class HealthComponent : public Component, public Subject
 {
 public:
-	HealthComponent(const nlohmann::json& healthData)
-	{
-		maxHealthValue = healthData.value("max_health", 0);
-		healthValue = maxHealthValue;
-	}
+	HealthComponent(const nlohmann::json& healthData);
 
-	~HealthComponent()
-	{
-	}
+	// Component
+	void update() override;
 
-	void update() override
-	{
-		if (healthValue <= 0)
-		{
-			// move tag to entity instead?
-			sendSignal(entity->getComponent<HitboxComponent>()->getTag() + "_died");
-			entity->destroy();
-		}
-	}
+	// Subject
+	void sendSignal(const std::string& eventName);
 
-	bool changeHealth(int value)
-	{
-		healthValue = std::clamp(healthValue + value, 0, maxHealthValue);
-		return true;
-	}
+	bool changeHealth(int value);
+	bool changeMaxHealth(int value);
 
-	bool changeMaxHealth(int value)
-	{
-		maxHealthValue += value;
-		if (maxHealthValue <= 0)
-			maxHealthValue = 0;
-		return true;
-	}
-
-	int getHealth() const { return healthValue; }
-	int getMaxHealth() const { return maxHealthValue; }
-
-	void sendSignal(const std::string& eventName)
-	{
-		std::cout << eventName << "\n";
-		notify(eventName);
-	}
+	const int inline getHealth() const { return healthValue; }
+	const int inline getMaxHealth() const { return maxHealthValue; }
 
 private:
-	int healthValue;
 	int maxHealthValue;
+	int healthValue;
 };
