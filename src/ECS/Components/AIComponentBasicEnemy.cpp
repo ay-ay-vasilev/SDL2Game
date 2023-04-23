@@ -17,8 +17,8 @@ void AIComponentBasicEnemy::init()
 	transform = entity->getComponent<TransformComponent>();
 	weapon = entity->getComponent<WeaponComponent>();
 	// todo: read from json
-	aggroDistance = 100 * transform->getScale();
-	loseAggroDistance = 120 * transform->getScale();
+	aggroDistance = 80 * transform->getScale();
+	loseAggroDistance = 100 * transform->getScale();
 }
 
 void AIComponentBasicEnemy::update()

@@ -65,7 +65,8 @@ public:
 
 	// start positions
 	Vector2D PLAYER_POS{200, 200};
-	Vector2D ENEMY_POS{ 100, 200 };
+	Vector2D ENEMY_0_POS{ 100, 200 };
+	Vector2D ENEMY_1_POS{ 100, 300 };
 
 	bool DRAW_COLLIDERS{ false };
 	bool DRAW_HITBOXES{ false };
@@ -137,8 +138,8 @@ private:
 		}
 		if (constantsJson.find("enemy_pos") != constantsJson.end())
 		{
-			ENEMY_POS.x = constantsJson["enemy_pos"]["x"];
-			ENEMY_POS.y = constantsJson["enemy_pos"]["y"];
+			ENEMY_0_POS.x = constantsJson["enemy_pos"]["x"];
+			ENEMY_0_POS.y = constantsJson["enemy_pos"]["y"];
 		}
 		if (constantsJson.find("debug_draw_colliders") != constantsJson.end())
 		{

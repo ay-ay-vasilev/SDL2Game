@@ -24,6 +24,14 @@
 				{ "slot": "weapon", "texture": "sword_human_0", "z": -201 },
 				{ "slot": "weapon", "texture": "sword_human_1", "z": 201 }
 			]
+		},
+		"skeleton":
+		{
+			"sprites":
+			[
+				{ "slot": "weapon", "texture": "sword_skeleton_0", "z": -201 },
+				{ "slot": "weapon", "texture": "sword_skeleton_1", "z": 201 }
+			]
 		}
 	}
 }

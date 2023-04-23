@@ -10,7 +10,6 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
-- Add an undead enemy
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.

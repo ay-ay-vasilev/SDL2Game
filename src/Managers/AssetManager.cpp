@@ -55,12 +55,20 @@ void AssetManager::loadSurfaces()
 	addSurface("human_scarf_black", "assets/images/spritesheets/actors/human/armor/mask/scarf_black.png");
 	addSurface("human_helmet", "assets/images/spritesheets/actors/human/armor/headwear/helmet.png");
 
+	addSurface("skeleton_body", "assets/images/spritesheets/actors/skeleton/body/spritesheet.png");
+	addSurface("skeleton_head", "assets/images/spritesheets/actors/skeleton/head/spritesheet.png");
+	addSurface("skeleton_hands_0", "assets/images/spritesheets/actors/skeleton/hands/spritesheet_0.png");
+	addSurface("skeleton_hands_1", "assets/images/spritesheets/actors/skeleton/hands/spritesheet_1.png");
+
+
 	addSurface("shortsword_goblin_0", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_0.png");
 	addSurface("shortsword_goblin_1", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_1.png");
 
 	addSurface("sword_goblin_0", "assets/images/spritesheets/weapons/melee_medium/sword/goblin/spritesheet_0.png");
 	addSurface("sword_human_0", "assets/images/spritesheets/weapons/melee_medium/sword/human/spritesheet_0.png");
 	addSurface("sword_human_1", "assets/images/spritesheets/weapons/melee_medium/sword/human/spritesheet_1.png");
+	addSurface("sword_skeleton_0", "assets/images/spritesheets/weapons/melee_medium/sword/skeleton/spritesheet_0.png");
+	addSurface("sword_skeleton_1", "assets/images/spritesheets/weapons/melee_medium/sword/skeleton/spritesheet_1.png");
 
 	addSurface("test_projectile", "assets/images/misc/test_projectile.png");
 	addSurface("black", "assets/images/misc/black.png");

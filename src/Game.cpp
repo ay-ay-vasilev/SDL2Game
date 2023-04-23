@@ -106,8 +106,20 @@ void Game::init()
 
 	auto player = playerSystem->instantiatePlayer(constants->PLAYER_POS, "goblin");
 
-	auto enemy = enemySystem->instantiateEnemy(constants->ENEMY_POS, "human");
-	enemySystem->equipWeapon(*enemy, "sword");
+	auto enemy0 = enemySystem->instantiateEnemy(constants->ENEMY_0_POS, "human");
+
+	enemySystem->equipWeapon(*enemy0, "sword");
+	enemySystem->equipArmor(*enemy0, "pants_brown", "pants");
+	enemySystem->equipArmor(*enemy0, "shirt_light", "shirt");
+	enemySystem->equipArmor(*enemy0, "chainmail", "jacket");
+	enemySystem->equipArmor(*enemy0, "surcoat", "overcoat");
+	enemySystem->equipArmor(*enemy0, "scarf_black", "mask");
+	enemySystem->equipArmor(*enemy0, "eyepatch_black", "eyewear");
+	enemySystem->equipArmor(*enemy0, "helmet", "headwear");
+
+	auto enemy1 = enemySystem->instantiateEnemy(constants->ENEMY_1_POS, "skeleton");
+
+	enemySystem->equipWeapon(*enemy1, "sword");
 
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
 }
