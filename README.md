@@ -26,6 +26,7 @@ Maintenance:
 - Add an abstract DrawableComponent class ?
 - Add explicit to constructors
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
+- Refactor KeyboardComponent
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.
@@ -48,3 +49,4 @@ Future plans:
 - Hit feedback
 - Add ids to entities (UUID or simple ids?)
 - Add body parts and body parts damage and armor ?
+- More animations for AI actors ?
