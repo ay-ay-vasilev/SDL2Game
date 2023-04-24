@@ -67,33 +67,7 @@ public:
 	}
 	void draw() 
 	{
-		// TODO : move sorting to addComponent method!!!
-
-		// Create a vector of drawable components
-		std::vector<std::shared_ptr<DrawableComponent>> drawableComponents;
-
-		// Iterate over all components and add the drawable ones to the vector
-		for (auto& component : components)
-		{
-			auto drawable = std::dynamic_pointer_cast<DrawableComponent>(component);
-			if (drawable)
-			{
-				drawableComponents.push_back(drawable);
-			}
-		}
-
-		// Sort the drawable components by their rendering order
-		std::sort(drawableComponents.begin(), drawableComponents.end(),
-			[](const auto& lhs, const auto& rhs)
-			{
-				return lhs->getRenderOrder() < rhs->getRenderOrder();
-			});
-
-		// Draw the drawable components in order
-		for (auto& drawable : drawableComponents)
-		{
-			drawable->draw();
-		}
+		for (auto& drawable : drawableComponents) drawable->draw();
 	}
 	bool isActive() { return active; }
 	void destroy() { active = false; }
@@ -125,6 +99,16 @@ public:
 		std::shared_ptr<T> component = std::make_shared<T>(std::forward<TArgs>(mArgs)...);
 		component->entity = this;
 		components.emplace_back(component);
+		auto drawable = std::dynamic_pointer_cast<DrawableComponent>(component);
+		if (drawable)
+		{
+			drawableComponents.emplace_back(drawable);
+			std::sort(drawableComponents.begin(), drawableComponents.end(),
+				[](const auto& lhs, const auto& rhs)
+				{
+					return lhs->getRenderOrder() < rhs->getRenderOrder();
+				});
+		}
 
 		componentArray[getComponentTypeID<T>()] = component;
 		componentBitSet[getComponentTypeID<T>()] = true;
@@ -140,6 +124,21 @@ public:
 		{
 			componentBitSet[getComponentTypeID<T>()] = false;
 			componentArray[getComponentTypeID<T>()] = nullptr;
+			auto drawableIt = std::find_if(drawableComponents.begin(), drawableComponents.end(),
+				[](const std::shared_ptr<DrawableComponent>& c)
+				{
+					return std::dynamic_pointer_cast<T>(c) != nullptr;
+				});
+			if (drawableIt != drawableComponents.end())
+			{
+				drawableComponents.erase(drawableIt);
+				std::sort(drawableComponents.begin(), drawableComponents.end(),
+					[](const auto& lhs, const auto& rhs)
+					{
+						return lhs->getRenderOrder() < rhs->getRenderOrder();
+					});
+			}
+
 			auto it = std::find_if(components.begin(), components.end(),
 				[](const std::shared_ptr<Component>& c)
 				{
@@ -169,6 +168,7 @@ private:
 	Manager& manager;
 	bool active = true;
 	std::vector<std::shared_ptr<Component>> components;
+	std::vector<std::shared_ptr<DrawableComponent>> drawableComponents;
 
 	ComponentArray componentArray;
 	ComponentBitSet componentBitSet;
