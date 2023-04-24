@@ -22,7 +22,7 @@ public:
 	};
 
 	SpriteComponent() = default;
-	SpriteComponent(const std::string_view& surfaceId);
+	explicit SpriteComponent(const std::string_view& surfaceId);
 	SpriteComponent(const std::string_view& surfaceId, int width, int height);
 	SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated);
 	~SpriteComponent() override;
@@ -54,7 +54,7 @@ public:
 	const auto inline getSortedSprites() const { return sortedSprites; }
 
 private:
-	Uint32 animStartTime;
+	Uint32 animStartTime = 0;
 	int animIndex = 0;
 	std::string surfaceId;
 

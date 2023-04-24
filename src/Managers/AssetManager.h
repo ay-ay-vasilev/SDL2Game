@@ -12,7 +12,7 @@ class Constants;
 class AssetManager
 {
 public:
-	AssetManager(std::shared_ptr<Manager> manager);
+	explicit AssetManager(std::shared_ptr<Manager> manager);
 	~AssetManager();
 
 	void loadSurfaces();

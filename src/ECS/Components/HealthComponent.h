@@ -6,7 +6,7 @@ class HitboxComponent;
 class HealthComponent : public Component, public Subject
 {
 public:
-	HealthComponent(const nlohmann::json& healthData);
+	explicit HealthComponent(const nlohmann::json& healthData);
 
 	// Component
 	void update() override;

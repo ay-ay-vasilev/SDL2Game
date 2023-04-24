@@ -6,7 +6,7 @@
 class CameraSystem : public System
 {
 public:
-	CameraSystem(Manager& manager);
+	explicit CameraSystem(Manager& manager);
 
 	void init() override;
 	void update() override;

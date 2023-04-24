@@ -29,6 +29,7 @@
     <ClCompile Include="..\src\ECS\Components\AIComponentBasicEnemy.cpp" />
     <ClCompile Include="..\src\ECS\Components\ArmorComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ColliderComponent.cpp" />
+    <ClCompile Include="..\src\ECS\Components\DrawableComponent.h" />
     <ClCompile Include="..\src\ECS\Components\HealthComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\HitboxComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\KeyboardComponent.cpp" />

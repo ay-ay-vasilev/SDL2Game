@@ -11,7 +11,7 @@ class SpriteOutlineComponent : public Component, public Observer
 {
 public:
 	SpriteOutlineComponent() = default;
-	SpriteOutlineComponent(const std::optional<nlohmann::json>& outlineData = std::nullopt);
+	explicit SpriteOutlineComponent(const std::optional<nlohmann::json>& outlineData = std::nullopt);
 
 	~SpriteOutlineComponent();
 

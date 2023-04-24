@@ -13,7 +13,7 @@ class TransformComponent;
 class ColliderComponent : public Component
 {
 public:
-	ColliderComponent(const std::string& tag);
+	explicit ColliderComponent(const std::string& tag);
 	ColliderComponent(const std::string& tag, const Vector2D& position, const float radius, const Vector2D& colliderOffset = Vector2D());
 	ColliderComponent(const std::string& tag, const Vector2D& position, const float width, const float height, const Vector2D& colliderOffset = Vector2D());
 	ColliderComponent(const std::string& tag, const std::shared_ptr<ColliderShape>& colliderShape, const Vector2D& colliderOffset = Vector2D());

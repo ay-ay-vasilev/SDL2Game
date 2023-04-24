@@ -12,7 +12,7 @@
 class RenderSystem : public System
 {
 public:
-	RenderSystem(Manager& manager) : System(manager) {}
+	explicit RenderSystem(Manager& manager) : System(manager) {}
 
 	void update() override
 	{

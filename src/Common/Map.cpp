@@ -10,8 +10,8 @@
 #include <string>
 #include <sstream>
 
-Map::Map(const std::string_view& textureId, const int tileSize) :
-	textureId(textureId),
+Map::Map(const std::string_view& surfaceId, const int tileSize) :
+	surfaceId(surfaceId),
 	tileSize(tileSize),
 	scaledSize(Game::manager->getScale() * tileSize)
 {
@@ -30,7 +30,7 @@ void Map::loadMap(const std::string& path, const int sizeX, const int sizeY)
 void Map::addTile(const int srcX, const int srcY, const int xpos, const int ypos)
 {
 	auto& tile(Game::manager->addEntity());
-	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, tileSize, textureId);
+	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, tileSize, surfaceId);
 	tile.addGroup(Game::eGroupLabels::MAP);
 }
 

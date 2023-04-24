@@ -3,13 +3,13 @@
 #include "TextureManager.h"
 #include "AssetManager.h"
 
-TileComponent::TileComponent(const int srcX, const int srcY, const int xpos, const int ypos, const int tileSize, const std::string_view& textureId) :
+TileComponent::TileComponent(const int srcX, const int srcY, const int xpos, const int ypos, const int tileSize, const std::string_view& surfaceId) :
 	texture(nullptr),
 	srcRect{ srcX, srcY, tileSize, tileSize },
 	destRect{ xpos, ypos, static_cast<int>(tileSize * Game::manager->getScale()), static_cast<int>(tileSize * Game::manager->getScale()) },
 	position { static_cast<float>(xpos), static_cast<float>(ypos) }
 {
-	texture = TextureManager::getTextureFromSurface(Game::assets->getSurface(textureId));
+	texture = TextureManager::getTextureFromSurface(Game::assets->getSurface(surfaceId));
 }
 
 TileComponent::~TileComponent()

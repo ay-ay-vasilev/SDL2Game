@@ -8,7 +8,7 @@ class WeaponComponent;
 class ActorComponent : public Component, public Observer, public Subject
 {
 public:
-	ActorComponent(const std::string& name);
+	explicit ActorComponent(const std::string& name);
 	virtual ~ActorComponent() {}
 
 	// Component

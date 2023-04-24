@@ -5,7 +5,7 @@
 class TransformComponent : public Component
 {
 public:
-	TransformComponent() : position() {}
+	explicit TransformComponent() : position() {}
 	TransformComponent(const float x, const float y) : position(x, y) {}
 	TransformComponent(const float x, const float y, const int w, const int h, const float scale, const float speed = 0) :
 		position(x, y), width(w), height(h), scale(scale), speed(speed) {}

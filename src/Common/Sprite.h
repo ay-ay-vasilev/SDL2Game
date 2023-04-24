@@ -8,9 +8,9 @@ class Sprite
 public:
 	Sprite(SDL_Surface* surface, double z) : surface(surface), z(z) {}
 
-	Sprite(const std::string_view& textureId, int z) : z(z)
+	Sprite(const std::string_view& surfaceId, int z) : z(z)
 	{
-		surface = Game::assets->getSurface(textureId);
+		surface = Game::assets->getSurface(surfaceId);
 	}
 
 	const double getZ() const { return z; }

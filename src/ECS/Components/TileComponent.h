@@ -7,7 +7,7 @@ class TileComponent : public Component
 {
 public:
 	TileComponent() = default;
-	TileComponent(const int srcX, const int srcY, const int xpos, const int ypos, const int tileSize, const std::string_view& textureId);
+	TileComponent(const int srcX, const int srcY, const int xpos, const int ypos, const int tileSize, const std::string_view& surfaceId);
 	~TileComponent();
 
 	// Component

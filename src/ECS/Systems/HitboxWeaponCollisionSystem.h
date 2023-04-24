@@ -4,7 +4,7 @@
 class HitboxWeaponCollisionSystem : public System
 {
 public:
-	HitboxWeaponCollisionSystem(Manager& manager) : System(manager) {}
+	explicit HitboxWeaponCollisionSystem(Manager& manager) : System(manager) {}
 
 	void update() override;
 	void draw() override;

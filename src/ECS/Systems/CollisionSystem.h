@@ -7,7 +7,7 @@
 class CollisionSystem : public System
 {
 public:
-	CollisionSystem(Manager& manager) : System(manager) {}
+	explicit CollisionSystem(Manager& manager) : System(manager) {}
 
 	void update() override;
 	void draw() override;

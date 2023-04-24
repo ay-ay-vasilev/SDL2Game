@@ -23,9 +23,9 @@ void ArmorComponent::equipArmorToSlot(const std::string& armorName, const std::s
 	const auto& armorSpriteData = spriteData.value("sprites", nlohmann::json::array());
 	for (const auto& data : armorSpriteData)
 	{
-		const auto& textureName = data.value("texture", "");
+		const auto& surfaceName = data.value("texture", "");
 		const int z = data.value("z", 0);
-		spritesToAdd.emplace_back(std::make_shared<Sprite>(textureName, z));
+		spritesToAdd.emplace_back(std::make_shared<Sprite>(surfaceName, z));
 	}
 
 	std::unordered_map<std::string, std::vector<std::string>> blockedSlots;

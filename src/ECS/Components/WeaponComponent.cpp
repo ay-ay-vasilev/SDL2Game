@@ -14,16 +14,9 @@ WeaponComponent::WeaponComponent(const std::string& name, const std::string& own
 	destroyOnHit(isProjectile),
 	damage(0)
 {
-	const auto weaponName = std::string(name);
 	nlohmann::json weaponData;
-	if (isProjectile)
-	{
-		weaponData = Game::assets->getProjectileJson(weaponName)["weapon"];
-	}
-	else
-	{
-		weaponData = Game::assets->getWeaponJson(weaponName);
-	}
+	if (isProjectile) weaponData = Game::assets->getProjectileJson(name)["weapon"];
+	else weaponData = Game::assets->getWeaponJson(name);
 
 	damage = weaponData.value("damage", 0);
 	weaponType = weaponData.value("weapon_type", "unarmed");
@@ -32,16 +25,11 @@ WeaponComponent::WeaponComponent(const std::string& name, const std::string& own
 	{
 		const auto& weaponColliderData = weaponData["collider"];
 		if (weaponColliderData["shape"] == "circle")
-		{
 			weaponCollider = std::make_shared<CircleCollider>(Vector2D(0, 0), weaponColliderData["radius"]);
-		}
 		if (weaponColliderData["shape"] == "rectangle")
-		{
 			weaponCollider = std::make_shared<RectangleCollider>(Vector2D(0, 0), weaponColliderData["w"], weaponColliderData["h"]);
-		}
-		if (weaponColliderData.contains("offset")) {
+		if (weaponColliderData.contains("offset"))
 			weaponColliderOffset = { weaponColliderData["offset"]["dx"], weaponColliderData["offset"]["dy"] };
-		}
 		weaponColliderDirectionCoefficient = { weaponColliderData.value("x", 0.f), weaponColliderData.value("y", 0.f) };
 	}
 

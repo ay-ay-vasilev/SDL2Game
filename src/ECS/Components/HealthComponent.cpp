@@ -1,11 +1,10 @@
 #include "HealthComponent.h"
 #include "HitboxComponent.h"
 
-HealthComponent::HealthComponent(const nlohmann::json& healthData)
-{
-	maxHealthValue = healthData.value("max_health", 0);
-	healthValue = maxHealthValue;
-}
+HealthComponent::HealthComponent(const nlohmann::json& healthData) :
+	maxHealthValue(healthData.value("max_health", 0)),
+	healthValue(maxHealthValue)
+{}
 
 void HealthComponent::update()
 {

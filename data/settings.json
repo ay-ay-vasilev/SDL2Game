@@ -1,13 +1,13 @@
 {
-	"debug_draw_colliders": true,
-	"debug_draw_hitboxes": true,
+	"debug_draw_colliders": false,
+	"debug_draw_hitboxes": false,
 
 	"fullscreen": false,
 
 	"window_title": "Goblin Mode",
 	"screen_width": 1280,
 	"screen_height": 800,
-	"scale":3.0,
+	"scale":4.0,
 	"map_tile_width": 16,
 	"map_tile_height": 16,
 	"tile_size": 32,

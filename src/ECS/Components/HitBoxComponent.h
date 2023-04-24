@@ -9,7 +9,7 @@ class TransformComponent;
 class HitboxComponent : public Component
 {
 public:
-	HitboxComponent(const std::string& tag);
+	explicit HitboxComponent(const std::string& tag);
 	HitboxComponent(const std::string& tag, const Vector2D& position, const float radius, const Vector2D& hitboxOffset = Vector2D());
 	HitboxComponent(const std::string& tag, const Vector2D& position, const float width, const float height, const Vector2D& hitboxOffset = Vector2D());
 	HitboxComponent(const std::string& tag, const std::shared_ptr<ColliderShape>& hitboxShape, const Vector2D& hitboxOffset = Vector2D());
