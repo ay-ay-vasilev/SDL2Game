@@ -86,5 +86,5 @@ void ColliderComponent::update()
 
 void ColliderComponent::draw()
 {
-	TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+	if (enableDraw) TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 }

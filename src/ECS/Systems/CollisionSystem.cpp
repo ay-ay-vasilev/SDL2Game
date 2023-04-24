@@ -10,6 +10,12 @@ void CollisionSystem::update()
 {
 	auto entitiesWithColliders = manager.getEntitiesWithComponent<ColliderComponent>();
 
+	for (const auto entityWithCollider : entitiesWithColliders)
+	{
+		const auto colliderComponent = entityWithCollider->getComponent<ColliderComponent>();
+		colliderComponent->setEnableDraw(Game::constants->DRAW_COLLIDERS);
+	}
+
 	movingEntities = manager.getEntitiesWithComponents<TransformComponent, ColliderComponent>();
 	colliderEntities = manager.getGroup(Game::eGroupLabels::COLLIDERS);
 

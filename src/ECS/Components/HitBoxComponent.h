@@ -25,6 +25,7 @@ public:
 	std::string inline getTag() const { return tag; }
 	const int inline getId() const { return id; }
 
+	void inline setEnableDraw(bool value) { enableDraw = value; }
 private:
 	int id = 0;
 	std::string tag;
@@ -34,4 +35,6 @@ private:
 	SDL_Rect srcRect, destRect;
 	std::shared_ptr<ColliderShape> hitbox;
 	Vector2D hitboxOffset;
+
+	bool enableDraw{ false };
 };

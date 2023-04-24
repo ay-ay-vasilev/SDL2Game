@@ -36,6 +36,8 @@ public:
 	bool inline  isDestroyedOnHit() const { return destroyOnHit; }
 	bool inline isInRange(const std::shared_ptr<ColliderShape>& targetHitbox) const { return weaponCollider->collidesWith(targetHitbox); }
 
+	void inline setEnableDraw(bool value) { enableDraw = value; }
+
 private:
 	std::shared_ptr<TransformComponent> transform;
 	std::shared_ptr<SpriteComponent> spriteComponent;
@@ -54,4 +56,6 @@ private:
 	bool destroyOnHit;
 
 	int damage;
+
+	bool enableDraw{ false };
 };

@@ -38,35 +38,8 @@ public:
 	{
 		auto blackTexture = TextureManager::getTextureFromSurface(Game::assets->getSurface("black"));
 		TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(0, 0, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT), SDL_FLIP_NONE);
-
 		for (const auto& tile : tiles) tile->draw();
-
-		for (const auto& entityZValue : sortedEntities)
-		{
-			entityZValue.entity->draw();
-		}
-
-		// TODO: remove this!
-		if (Game::constants->DRAW_COLLIDERS)
-		{
-			for (const auto& entityZValue : sortedEntities)
-			{
-				const auto colliderComponent = entityZValue.entity->getComponent<ColliderComponent>();
-				if (colliderComponent) colliderComponent->draw();
-			}
-		}
-
-		if (Game::constants->DRAW_HITBOXES)
-		{
-			for (const auto& entityZValue : sortedEntities)
-			{
-				const auto hitboxComponent = entityZValue.entity->getComponent<HitboxComponent>();
-				if (hitboxComponent) hitboxComponent->draw();
-
-				const auto weaponComponent = entityZValue.entity->getComponent<WeaponComponent>();
-				if (weaponComponent) weaponComponent->draw();
-			}
-		}
+		for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();
 	}
 
 private:

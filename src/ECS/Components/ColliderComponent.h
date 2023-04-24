@@ -29,6 +29,7 @@ public:
 	void inline moveColliderPos(float dx, float dy) { collider->movePosition(Vector2D(dx, dy)); }
 	float inline getLowestPoint() const { return collider->getLowestPoint(); }
 
+	void inline setEnableDraw(bool value) { enableDraw = value; }
 private:
 	std::string tag;
 
@@ -38,4 +39,5 @@ private:
 	SDL_Rect srcRect{}, destRect{};
 	std::shared_ptr<TransformComponent> transform{ nullptr };
 	SDL_Texture* texture{ nullptr };
+	bool enableDraw{ false };
 };

@@ -113,7 +113,7 @@ void WeaponComponent::draw()
 	if (!enabled)
 		return;
 
-	TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+	if (enableDraw) TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 }
 
 void WeaponComponent::onNotify(const std::string_view& observedEvent)

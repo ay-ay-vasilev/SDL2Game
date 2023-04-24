@@ -11,6 +11,18 @@ void HitboxWeaponCollisionSystem::update()
 	hitboxes = manager.getEntitiesWithComponent<HitboxComponent>();
 	weapons = manager.getEntitiesWithComponent<WeaponComponent>();
 
+	for (const auto hitbox : hitboxes)
+	{
+		const auto hitboxComponent = hitbox->getComponent<HitboxComponent>();
+		hitboxComponent->setEnableDraw(Game::constants->DRAW_HITBOXES);
+	}
+
+	for (const auto weapon : weapons)
+	{
+		const auto weaponComponent = weapon->getComponent<WeaponComponent>();
+		weaponComponent->setEnableDraw(Game::constants->DRAW_HITBOXES);
+	}
+
 	for (auto hitboxEntity : hitboxes)
 	{
 		auto hitboxCollider = hitboxEntity->getComponent<HitboxComponent>();
