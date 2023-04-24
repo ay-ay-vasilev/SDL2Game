@@ -3,7 +3,7 @@
 #include "Vector2D.h"
 #include <SDL_render.h>
 
-class TileComponent : public Component
+class TileComponent : public DrawableComponent
 {
 public:
 	TileComponent() = default;
@@ -11,6 +11,7 @@ public:
 	~TileComponent();
 
 	// Component
+	void init() override;
 	void update() override;
 	void draw() override;
 

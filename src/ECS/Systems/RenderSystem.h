@@ -43,13 +43,10 @@ public:
 
 		for (const auto& entityZValue : sortedEntities)
 		{
-			const auto outlineComponent = entityZValue.entity->getComponent<SpriteOutlineComponent>();
-			if (outlineComponent) outlineComponent->draw();
-
-			const auto spriteComponent = entityZValue.entity->getComponent<SpriteComponent>();
-			if (spriteComponent) spriteComponent->draw();
+			entityZValue.entity->draw();
 		}
 
+		// TODO: remove this!
 		if (Game::constants->DRAW_COLLIDERS)
 		{
 			for (const auto& entityZValue : sortedEntities)

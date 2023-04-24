@@ -56,6 +56,7 @@ WeaponComponent::~WeaponComponent()
 
 void WeaponComponent::init()
 {
+	setRenderOrder(5);
 	if (entity->hasComponent<TransformComponent>())
 	{
 		transform = entity->getComponent<TransformComponent>();

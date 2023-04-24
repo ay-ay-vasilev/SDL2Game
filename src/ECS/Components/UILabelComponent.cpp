@@ -14,6 +14,11 @@ UILabelComponent::UILabelComponent(const int xpos, const int ypos, const std::st
 	SetLabelText(labelText, labelFont);
 }
 
+void UILabelComponent::init()
+{
+	setRenderOrder(10);
+}
+
 void UILabelComponent::draw()
 {
 	SDL_RenderCopy(Game::renderer, labelTexture, nullptr, &position);

@@ -11,7 +11,7 @@ class TextureManager;
 class AssetManager;
 class Animation;
 class TransformComponent;
-class SpriteComponent : public Component, public Subject
+class SpriteComponent : public DrawableComponent, public Subject
 {
 public:
 	enum class eAnimState : int

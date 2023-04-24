@@ -10,6 +10,7 @@
 #include <array>
 
 class Component;
+class DrawableComponent;
 class Entity;
 class System;
 class Manager;
@@ -42,9 +43,18 @@ public:
 	Entity* entity = nullptr;
 	virtual void init() {}
 	virtual void update() {}
-	virtual void draw() {}
 
 	virtual ~Component() {}
+};
+
+class DrawableComponent : public Component
+{
+public:
+	virtual void draw() {}
+	void setRenderOrder(int renderOrder) { this->renderOrder = renderOrder; }
+	const int getRenderOrder() const { return renderOrder; }
+private:
+	int renderOrder = 0;
 };
 
 class Entity
@@ -57,7 +67,33 @@ public:
 	}
 	void draw() 
 	{
-		for (auto component : components) component->draw();
+		// TODO : move sorting to addComponent method!!!
+
+		// Create a vector of drawable components
+		std::vector<std::shared_ptr<DrawableComponent>> drawableComponents;
+
+		// Iterate over all components and add the drawable ones to the vector
+		for (auto& component : components)
+		{
+			auto drawable = std::dynamic_pointer_cast<DrawableComponent>(component);
+			if (drawable)
+			{
+				drawableComponents.push_back(drawable);
+			}
+		}
+
+		// Sort the drawable components by their rendering order
+		std::sort(drawableComponents.begin(), drawableComponents.end(),
+			[](const auto& lhs, const auto& rhs)
+			{
+				return lhs->getRenderOrder() < rhs->getRenderOrder();
+			});
+
+		// Draw the drawable components in order
+		for (auto& drawable : drawableComponents)
+		{
+			drawable->draw();
+		}
 	}
 	bool isActive() { return active; }
 	void destroy() { active = false; }

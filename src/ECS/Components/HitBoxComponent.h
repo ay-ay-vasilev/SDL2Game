@@ -6,7 +6,7 @@
 class ColliderShape;
 class TextureManager;
 class TransformComponent;
-class HitboxComponent : public Component
+class HitboxComponent : public DrawableComponent
 {
 public:
 	explicit HitboxComponent(const std::string& tag);

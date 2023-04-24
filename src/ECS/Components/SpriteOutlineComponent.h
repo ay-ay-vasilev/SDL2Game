@@ -7,7 +7,7 @@
 
 class TransformComponent;
 class SpriteComponent;
-class SpriteOutlineComponent : public Component, public Observer
+class SpriteOutlineComponent : public DrawableComponent, public Observer
 {
 public:
 	SpriteOutlineComponent() = default;

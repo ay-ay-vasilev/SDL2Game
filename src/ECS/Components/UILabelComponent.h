@@ -3,12 +3,13 @@
 #include <SDL.h>
 #include <string>
 
-class UILabelComponent : public Component
+class UILabelComponent : public DrawableComponent
 {
 public:
 	UILabelComponent(const int xpos, const int ypos, const std::string& text, const std::string& font, const SDL_Color& color);
 
 	// Component
+	void init() override;
 	void draw() override;
 
 	void SetLabelText(const std::string& text, const std::string_view& font);

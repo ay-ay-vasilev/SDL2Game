@@ -46,6 +46,7 @@ HitboxComponent::~HitboxComponent()
 
 void HitboxComponent::init()
 {
+	setRenderOrder(5);
 	id = entity->getID();
 	if (entity->hasComponent<TransformComponent>())
 	{

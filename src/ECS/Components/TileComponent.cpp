@@ -17,6 +17,11 @@ TileComponent::~TileComponent()
 	SDL_DestroyTexture(texture);
 }
 
+void TileComponent::init()
+{
+	setRenderOrder(0);
+}
+
 void TileComponent::update()
 {
 	destRect.x = static_cast<int>(position.x - Game::camera.x);

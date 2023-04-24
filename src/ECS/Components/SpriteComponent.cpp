@@ -64,6 +64,7 @@ SpriteComponent::~SpriteComponent()
 
 void SpriteComponent::init()
 {
+	setRenderOrder(0);
 	addSprite("body", std::make_shared<Sprite>(surfaceId, 0));
 
 	animStartTime = 0;

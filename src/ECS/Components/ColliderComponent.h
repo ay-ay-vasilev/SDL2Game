@@ -10,7 +10,7 @@
 
 class TextureManager;
 class TransformComponent;
-class ColliderComponent : public Component
+class ColliderComponent : public DrawableComponent
 {
 public:
 	explicit ColliderComponent(const std::string& tag);

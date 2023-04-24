@@ -30,6 +30,7 @@ SpriteOutlineComponent::~SpriteOutlineComponent()
 
 void SpriteOutlineComponent::init()
 {
+	setRenderOrder(-1);
 	transformComponent = entity->getComponent<TransformComponent>();
 	spriteComponent = entity->getComponent<SpriteComponent>();
 	registerWithSubject(spriteComponent);

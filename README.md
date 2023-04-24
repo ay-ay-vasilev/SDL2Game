@@ -22,9 +22,8 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Add an abstract DrawableComponent class ?
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
-- Refactor KeyboardComponent
+- Refactor KeyboardComponent (make it a system instead ?)
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.
@@ -34,6 +33,8 @@ Maintenance:
 - Better WeaponComponent implementation (add an object for weapon stats).
 - i-frames ?
 - Specific weapon stats for actors in weapon json files?
+- Refactor ECS.h (uninline some methods, inline explicitly the rest)
+- Refactor the debug draw methods!!!
 
 Future plans:
 - Add a second container for Sprites that should not be outlined? (sword swings)

@@ -8,7 +8,7 @@ class Sprite;
 class TransformComponent;
 class SpriteComponent;
 class HealthComponent;
-class WeaponComponent : public Component, private Observer
+class WeaponComponent : public DrawableComponent, private Observer
 {
 public:
 	WeaponComponent(const std::string& name, const std::string& ownerName, bool isProjectile = false);
