@@ -30,6 +30,7 @@
     <ClCompile Include="..\src\ECS\Components\ArmorComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ColliderComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\DrawableComponent.h" />
+    <ClCompile Include="..\src\ECS\Components\FactionComponent.h" />
     <ClCompile Include="..\src\ECS\Components\HealthComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\HitboxComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\KeyboardComponent.cpp" />
@@ -44,6 +45,8 @@
     <ClCompile Include="..\src\ECS\Systems\CameraSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\EnemySystem.cpp" />
+    <ClCompile Include="..\src\ECS\Systems\FactionSystem.cpp" />
+    <ClCompile Include="..\src\ECS\Systems\FactionSystem.h" />
     <ClCompile Include="..\src\ECS\Systems\HitboxWeaponCollisionSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\MapSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\PlayerSystem.cpp" />

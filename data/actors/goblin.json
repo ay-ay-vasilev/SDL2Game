@@ -54,6 +54,7 @@
 	},
 	"actor_data":
 	{
+		"faction": "goblins",
 		"weapon_type_animations":
 		{
 			"unarmed":

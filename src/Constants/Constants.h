@@ -65,8 +65,8 @@ public:
 
 	// start positions
 	Vector2D PLAYER_POS{200, 200};
-	Vector2D ENEMY_0_POS{ 100, 200 };
-	Vector2D ENEMY_1_POS{ 100, 300 };
+	std::vector<Vector2D> HUMAN_ENEMY_POS;
+	std::vector<Vector2D> SKELETON_ENEMY_POS;
 
 	bool DRAW_COLLIDERS{ false };
 	bool DRAW_HITBOXES{ false };
@@ -136,11 +136,21 @@ private:
 			PLAYER_POS.x = constantsJson["player_pos"]["x"];
 			PLAYER_POS.y = constantsJson["player_pos"]["y"];
 		}
-		if (constantsJson.find("enemy_pos") != constantsJson.end())
+		if (constantsJson.find("human_positions") != constantsJson.end())
 		{
-			ENEMY_0_POS.x = constantsJson["enemy_pos"]["x"];
-			ENEMY_0_POS.y = constantsJson["enemy_pos"]["y"];
+			for (const auto& posData : constantsJson["human_positions"])
+			{
+				HUMAN_ENEMY_POS.push_back({ posData["x"], posData["y"] });
+			}
 		}
+		if (constantsJson.find("skeleton_positions") != constantsJson.end())
+		{
+			for (const auto& posData : constantsJson["skeleton_positions"])
+			{
+				SKELETON_ENEMY_POS.push_back({ posData["x"], posData["y"] });
+			}
+		}
+
 		if (constantsJson.find("debug_draw_colliders") != constantsJson.end())
 		{
 			DRAW_COLLIDERS = constantsJson["debug_draw_colliders"];

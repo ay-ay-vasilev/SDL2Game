@@ -54,6 +54,7 @@
 	},
 	"actor_data":
 	{
+		"faction": "undead",
 		"weapon_type_animations":
 		{
 			"unarmed":

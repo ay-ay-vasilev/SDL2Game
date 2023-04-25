@@ -1,13 +1,13 @@
 {
-	"debug_draw_colliders": true,
+	"debug_draw_colliders": false,
 	"debug_draw_hitboxes": false,
 
 	"fullscreen": false,
 
-	"window_title": "Goblin Mode",
+	"window_title": "The Goblin Saga",
 	"screen_width": 1280,
 	"screen_height": 800,
-	"scale":1.0,
+	"scale":3.0,
 	"map_tile_width": 16,
 	"map_tile_height": 16,
 	"tile_size": 32,
@@ -20,9 +20,36 @@
 		"x": 270,
 		"y": 270
 	},
-	"enemy_pos":
-	{
-		"x": 100,
-		"y": 270
-	}
+
+	"human_positions":
+	[
+		{
+			"x": 100,
+			"y": 270
+		},
+		{
+			"x": 80,
+			"y": 280
+		},
+		{
+			"x": 110,
+			"y": 270
+		}
+	],
+
+	"skeleton_positions":
+	[
+		{
+			"x": 400,
+			"y": 270
+		},
+		{
+			"x": 420,
+			"y": 280
+		},
+		{
+			"x": 390,
+			"y": 270
+		}
+	]
 }

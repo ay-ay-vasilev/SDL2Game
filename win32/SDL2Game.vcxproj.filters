@@ -132,6 +132,15 @@
     <ClCompile Include="..\src\ECS\Components\DrawableComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ECS\Components\FactionComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ECS\Systems\FactionSystem.h">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ECS\Systems\FactionSystem.cpp">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">

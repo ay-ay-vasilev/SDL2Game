@@ -54,6 +54,7 @@
 	},
 	"actor_data":
 	{
+		"faction": "humans",
 		"weapon_type_animations":
 		{
 			"unarmed":

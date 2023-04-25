@@ -12,7 +12,8 @@ Stuff to remember:
 My plan:
 - Make AI fight each other
     - Add ids to entities DONE
-    - Add enemy factions ?
+    - Add enemy factions DONE
+    - Implement faction logic
     - Add enemy spawners ?
 
 - Ranged weapon for player.

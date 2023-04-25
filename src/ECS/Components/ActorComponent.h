@@ -25,5 +25,6 @@ private:
 	std::shared_ptr<SpriteComponent> spriteComponent;
 	std::weak_ptr<WeaponComponent> weaponComponent;
 	std::unordered_map<std::string, std::unordered_map<std::string, std::string>> actionAnimationsByWeaponType;
+
 	std::string actorType;
 };

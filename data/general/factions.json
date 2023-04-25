@@ -1,0 +1,29 @@
+{
+    "factions":
+    [
+        {
+            "id": "goblins",
+            "relations":
+            [
+                {"faction": "humans", "value": -100},
+                {"faction": "undead", "value": -100}
+            ]
+        },
+        {
+            "id": "humans",
+            "relations":
+            [
+                {"faction": "goblins", "value": -80},
+                {"faction": "undead", "value": -100}
+            ]
+        },
+        {
+            "id": "undead",
+            "relations":
+            [
+                {"faction": "goblins", "value": -80},
+                {"faction": "humans", "value": -100}
+            ]
+        }
+    ]
+}

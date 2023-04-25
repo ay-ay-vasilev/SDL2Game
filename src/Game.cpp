@@ -106,20 +106,24 @@ void Game::init()
 
 	auto player = playerSystem->instantiatePlayer(constants->PLAYER_POS, "goblin");
 
-	auto enemy0 = enemySystem->instantiateEnemy(constants->ENEMY_0_POS, "human");
+	for (const auto& humanData : constants->HUMAN_ENEMY_POS)
+	{
+		auto enemy = enemySystem->instantiateEnemy(humanData, "human");
+		enemySystem->equipWeapon(*enemy, "sword");
+		enemySystem->equipArmor(*enemy, "pants_brown", "pants");
+		enemySystem->equipArmor(*enemy, "shirt_light", "shirt");
+		enemySystem->equipArmor(*enemy, "chainmail", "jacket");
+		enemySystem->equipArmor(*enemy, "surcoat", "overcoat");
+		enemySystem->equipArmor(*enemy, "scarf_black", "mask");
+		enemySystem->equipArmor(*enemy, "eyepatch_black", "eyewear");
+		enemySystem->equipArmor(*enemy, "helmet", "headwear");
+	}
 
-	enemySystem->equipWeapon(*enemy0, "sword");
-	enemySystem->equipArmor(*enemy0, "pants_brown", "pants");
-	enemySystem->equipArmor(*enemy0, "shirt_light", "shirt");
-	enemySystem->equipArmor(*enemy0, "chainmail", "jacket");
-	enemySystem->equipArmor(*enemy0, "surcoat", "overcoat");
-	enemySystem->equipArmor(*enemy0, "scarf_black", "mask");
-	enemySystem->equipArmor(*enemy0, "eyepatch_black", "eyewear");
-	enemySystem->equipArmor(*enemy0, "helmet", "headwear");
-
-	auto enemy1 = enemySystem->instantiateEnemy(constants->ENEMY_1_POS, "skeleton");
-
-	enemySystem->equipWeapon(*enemy1, "sword");
+	for (const auto& skeletonData : constants->SKELETON_ENEMY_POS)
+	{
+		auto enemy = enemySystem->instantiateEnemy(skeletonData, "skeleton");
+		enemySystem->equipWeapon(*enemy, "sword");
+	}
 
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
 }
