@@ -38,33 +38,28 @@ Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& 
 
 void PlayerSystem::equipWeapon(Entity& player, const std::string& weaponName)
 {
-	std::string playerTag = "";
-	if (player.hasComponent<HitboxComponent>())
-	{
-		const auto hitboxComponent = player.getComponent<HitboxComponent>();
-		playerTag = hitboxComponent->getTag();
-	}
+	if (!player.hasComponent<ActorComponent>()) return;
+
+	const std::string playerType = player.getComponent<ActorComponent>()->getActorType();
+
 	if (player.hasComponent<WeaponComponent>())
 	{
-		if (player.getComponent<WeaponComponent>()->getTag() == weaponName)
-			return;
+		if (player.getComponent<WeaponComponent>()->getTag() == weaponName) return;
 		player.removeComponent<WeaponComponent>();
 	}
-	player.addComponent<WeaponComponent>(weaponName, playerTag);
+	player.addComponent<WeaponComponent>(weaponName, playerType);
 }
 
 void PlayerSystem::equipArmor(Entity& player, const std::string& armorName, const std::string& slotName)
 {
-	std::string playerTag = "";
-	if (player.hasComponent<HitboxComponent>())
-	{
-		const auto hitboxComponent = player.getComponent<HitboxComponent>();
-		playerTag = hitboxComponent->getTag();
-	}
+	if (!player.hasComponent<ActorComponent>()) return;
+
+	const std::string playerType = player.getComponent<ActorComponent>()->getActorType();
+
 	if (player.hasComponent<ArmorComponent>())
 	{
 		const auto armorComponent = player.getComponent<ArmorComponent>();
-		armorComponent->equipArmorToSlot(armorName, playerTag, slotName);
+		armorComponent->equipArmorToSlot(armorName, playerType, slotName);
 	}
 }
 

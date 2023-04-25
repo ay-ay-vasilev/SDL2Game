@@ -23,7 +23,6 @@ public:
 
 	std::shared_ptr<ColliderShape> inline getCollider() const { return weaponCollider; }
 
-	std::string inline getOwnerTag() const { return ownerTag; }
 	std::string inline getTag() const { return tag; }
 	const std::string inline getWeaponType() const { return weaponType; }
 
@@ -46,7 +45,6 @@ private:
 	Vector2D weaponColliderDirectionCoefficient;
 	Vector2D weaponColliderOffset;
 	std::string tag;
-	std::string ownerTag;
 	std::string weaponType;
 	SDL_Texture* texture;
 	std::vector<int> affectedTargets;

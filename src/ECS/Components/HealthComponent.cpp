@@ -10,8 +10,7 @@ void HealthComponent::update()
 {
 	if (healthValue <= 0)
 	{
-		// move tag to entity instead?
-		sendSignal(entity->getComponent<HitboxComponent>()->getTag() + "_died");
+		sendSignal(entity->getID() + "_died");
 		entity->destroy();
 	}
 }

@@ -132,29 +132,25 @@ void KeyboardComponent::onNotify(const std::string_view& observedEvent)
 
 void KeyboardComponent::equipWeapon(const std::string& weaponName)
 {
-	std::string entityTag = "";
-	if (entity->hasComponent<HitboxComponent>())
-	{
-		const auto hitboxComponent = entity->getComponent<HitboxComponent>();
-		entityTag = hitboxComponent->getTag();
-	}
+	if (!entity->hasComponent<ActorComponent>()) return;
+
+	const std::string entityType = entity->getComponent<ActorComponent>()->getActorType();
+
 	if (entity->hasComponent<WeaponComponent>())
 	{
 		if (entity->getComponent<WeaponComponent>()->getTag() == weaponName)
 			return;
 		entity->removeComponent<WeaponComponent>();
 	}
-	entity->addComponent<WeaponComponent>(weaponName, entityTag);
+	entity->addComponent<WeaponComponent>(weaponName, entityType);
 }
 
 void KeyboardComponent::equipArmor()
 {
-	std::string playerTag = "";
-	if (entity->hasComponent<HitboxComponent>())
-	{
-		const auto hitboxComponent = entity->getComponent<HitboxComponent>();
-		playerTag = hitboxComponent->getTag();
-	}
+	if (!entity->hasComponent<ActorComponent>()) return;
+
+	const std::string entityType = entity->getComponent<ActorComponent>()->getActorType();
+
 	if (entity->hasComponent<ArmorComponent>())
 	{
 		const auto armorComponent = entity->getComponent<ArmorComponent>();
@@ -162,12 +158,12 @@ void KeyboardComponent::equipArmor()
 		//armorComponent->equipArmorToSlot("long_sleeve_light", playerTag, "shirt");
 		//armorComponent->equipArmorToSlot("light_jacket_brown", playerTag, "jacket");
 
-		armorComponent->equipArmorToSlot("pants_brown", playerTag, "pants");
-		armorComponent->equipArmorToSlot("shirt_light", playerTag, "shirt");
-		armorComponent->equipArmorToSlot("jacket_dark", playerTag, "jacket");
+		armorComponent->equipArmorToSlot("pants_brown", entityType, "pants");
+		armorComponent->equipArmorToSlot("shirt_light", entityType, "shirt");
+		armorComponent->equipArmorToSlot("jacket_dark", entityType, "jacket");
 
-		armorComponent->equipArmorToSlot("eyepatch_black", playerTag, "eyewear");
-		armorComponent->equipArmorToSlot("scarf_black", playerTag, "mask");
+		armorComponent->equipArmorToSlot("eyepatch_black", entityType, "eyewear");
+		armorComponent->equipArmorToSlot("scarf_black", entityType, "mask");
 		//armorComponent->equipArmorToSlot("cloak_0", playerTag, "overcoat");
 	}
 }

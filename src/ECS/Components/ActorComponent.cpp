@@ -5,7 +5,7 @@
 
 #include "AssetManager.h"
 
-ActorComponent::ActorComponent(const std::string& name)
+ActorComponent::ActorComponent(const std::string& name) : actorType(name)
 {
 	nlohmann::json actorData;
 	actorData = Game::assets->getActorJson(name)["actor_data"];

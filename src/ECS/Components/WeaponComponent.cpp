@@ -5,7 +5,6 @@
 
 WeaponComponent::WeaponComponent(const std::string& name, const std::string& ownerName, bool isProjectile) :
 	tag(name),
-	ownerTag(ownerName),
 	texture(nullptr),
 	srcRect(), destRect(),
 	weaponColliderDirectionCoefficient({ 0, 0 }),
@@ -35,9 +34,9 @@ WeaponComponent::WeaponComponent(const std::string& name, const std::string& own
 
 	if (weaponData.contains("sprite_data"))
 	{
-		if (weaponData["sprite_data"].contains(ownerTag))
+		if (weaponData["sprite_data"].contains(ownerName))
 		{
-			const auto ownerWeaponData = weaponData["sprite_data"][ownerTag];
+			const auto ownerWeaponData = weaponData["sprite_data"][ownerName];
 			const auto weaponSpriteData = ownerWeaponData["sprites"];
 
 			for (const auto data : weaponSpriteData)

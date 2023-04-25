@@ -3,6 +3,7 @@
 #include "WeaponComponent.h"
 #include "HealthComponent.h"
 #include "ArmorComponent.h"
+#include "ActorComponent.h"
 #include "Collision.h"
 #include "Vector2D.h"
 
@@ -29,18 +30,19 @@ void HitboxWeaponCollisionSystem::update()
 
 		for (auto weaponWieldingEntity : weapons)
 		{
+			if (hitboxEntity->getID() == weaponWieldingEntity->getID())
+				continue;
+
 			auto weaponCollider = weaponWieldingEntity->getComponent<WeaponComponent>();
 			
 			if (!weaponCollider->isEnabled())
 				continue;
-			if (weaponCollider->getOwnerTag() == hitboxCollider->getTag())
-				continue;
-			if (weaponCollider->isInAffectedTargets(hitboxCollider->getId()))
+			if (weaponCollider->isInAffectedTargets(hitboxEntity->getID()))
 				continue;
 
 			if (weaponCollider->getCollider()->collidesWith(hitboxCollider->getHitbox()))
 			{
-				weaponCollider->addAffectedTarget(hitboxCollider->getId());
+				weaponCollider->addAffectedTarget(hitboxEntity->getID());
 				auto actorHealthComponent = hitboxEntity->getComponent<HealthComponent>();
 				auto actorArmorComponent = hitboxEntity->getComponent<ArmorComponent>();
 
@@ -49,9 +51,17 @@ void HitboxWeaponCollisionSystem::update()
 				actorHealthComponent->changeHealth(-damage);
 				const int currentHealth = actorHealthComponent->getHealth();
 
+				// =========== LOGGING ===========
+				auto entityName = weaponCollider->getTag() + "_" + std::to_string(hitboxEntity->getID());
+				if (hitboxEntity->hasComponent<ActorComponent>())
+				{
+					const auto actorComponent = hitboxEntity->getComponent<ActorComponent>();
+					entityName = actorComponent->getActorType() + "_" + std::to_string(hitboxEntity->getID());
+				}
 				std::cout
-					<< hitboxCollider->getTag() << " got hit by " << weaponCollider->getTag() << " for " << damage << " damage!"
-					<< hitboxCollider->getTag() << " has " << currentHealth << " hp left!\n";
+					<< entityName << " got hit by " << weaponCollider->getTag() << " for " << damage << " damage!"
+					<< entityName << " has " << currentHealth << " hp left!\n";
+				// ===============================
 
 				if (weaponCollider->isDestroyedOnHit())
 				{

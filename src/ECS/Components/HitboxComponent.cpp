@@ -4,31 +4,26 @@
 #include "ColliderShape.h"
 
 HitboxComponent::HitboxComponent(const std::string& tag) :
-	tag(tag),
 	texture(nullptr),
 	srcRect(), destRect(),
 	hitbox(), hitboxOffset() {};
 
 HitboxComponent::HitboxComponent(const std::string& tag, const Vector2D& position, const float radius, const Vector2D& hitboxOffset) :
-	tag(tag),
 	texture(nullptr),
 	srcRect(), destRect(),
 	hitbox(std::make_shared<CircleCollider>(position, radius)), hitboxOffset(hitboxOffset) {};
 
 HitboxComponent::HitboxComponent(const std::string& tag, const Vector2D& position, const float width, const float height, const Vector2D& hitboxOffset) :
-	tag(tag),
 	texture(nullptr),
 	srcRect(), destRect(),
 	hitbox(std::make_shared<RectangleCollider>(position, width, height)), hitboxOffset(hitboxOffset) {};
 
 HitboxComponent::HitboxComponent(const std::string& tag, const std::shared_ptr<ColliderShape>& hitboxShape, const Vector2D& hitboxOffset) :
-	tag(tag),
 	texture(nullptr),
 	srcRect(), destRect(),
 	hitbox(hitboxShape), hitboxOffset(hitboxOffset) {};
 
 HitboxComponent::HitboxComponent(const std::string& tag, const nlohmann::json& colliderData) :
-	tag(tag),
 	texture(nullptr),
 	srcRect(), destRect(),
 	hitboxOffset({ colliderData["dx"], colliderData["dy"] })
@@ -47,7 +42,6 @@ HitboxComponent::~HitboxComponent()
 void HitboxComponent::init()
 {
 	setRenderOrder(5);
-	id = entity->getID();
 	if (entity->hasComponent<TransformComponent>())
 	{
 		transform = entity->getComponent<TransformComponent>();

@@ -22,14 +22,9 @@ public:
 	void draw() override;
 
 	std::shared_ptr<ColliderShape> inline getHitbox() const { return hitbox; }
-	std::string inline getTag() const { return tag; }
-	const int inline getId() const { return id; }
 
 	void inline setEnableDraw(bool value) { enableDraw = value; }
 private:
-	int id = 0;
-	std::string tag;
-
 	std::shared_ptr<TransformComponent> transform{nullptr};
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;

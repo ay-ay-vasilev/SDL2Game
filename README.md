@@ -10,6 +10,11 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
+- Make AI fight each other
+    - Add ids to entities DONE
+    - Add enemy factions ?
+    - Add enemy spawners ?
+
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
@@ -34,7 +39,7 @@ Maintenance:
 - i-frames ?
 - Specific weapon stats for actors in weapon json files?
 - Refactor ECS.h (uninline some methods, inline explicitly the rest)
-- Refactor the debug draw methods!!!
+- Refactor the debug draw methods
 
 Future plans:
 - Add a second container for Sprites that should not be outlined? (sword swings)
@@ -45,6 +50,5 @@ Future plans:
 - Inventory system
 - Death animation
 - Hit feedback
-- Add ids to entities (UUID or simple ids?)
 - Add body parts and body parts damage and armor ?
 - More animations for AI actors ?

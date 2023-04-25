@@ -41,7 +41,7 @@ private:
 	};
 
 	const Entity* target;
-	std::string targetTag;
+	int targetID;
 
 	std::shared_ptr<ActorComponent> actorComponent;
 	std::weak_ptr<WeaponComponent> weapon;

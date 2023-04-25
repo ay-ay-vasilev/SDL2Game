@@ -65,7 +65,7 @@ void AIComponentBasicEnemy::onNotify(const std::string_view& observedEvent)
 		actorComponent->playAction("idle");
 		state = eState::IDLE;
 	}
-	if (observedEvent == targetTag + "_died")
+	if (observedEvent == targetID + "_died")
 	{
 		targetDestroyed();
 	}
@@ -80,7 +80,7 @@ void AIComponentBasicEnemy::setNewTarget(const Entity* newTarget)
 	registerWithSubject(targetHealth);
 	targetTransform = target->getComponent<TransformComponent>();
 	targetHitbox = target->getComponent<HitboxComponent>();
-	targetTag = targetHitbox->getTag();
+	targetID = target->getID();
 }
 
 void AIComponentBasicEnemy::resetTarget()
@@ -89,7 +89,7 @@ void AIComponentBasicEnemy::resetTarget()
 	targetTransform.reset();
 	targetHitbox.reset();
 	target = nullptr;
-	targetTag.clear();
+	targetID = -1;
 
 	transform->setVeloctiy(0, 0);
 	distance = 0.f;
