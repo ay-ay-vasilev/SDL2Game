@@ -23,8 +23,6 @@
 		[
 			{ "slot": "body", "texture": "skeleton_body", "z": 0 },
 			{ "slot": "head", "texture": "skeleton_head", "z": 100 },
-			{ "slot": "face", "texture": "skeleton_face_0", "z": 101 },
-			{ "slot": "hair", "texture": "skeleton_hair_3", "z": 102 },
 			{ "slot": "hands", "texture": "skeleton_hands_0", "z": -200 },
 			{ "slot": "hands", "texture": "skeleton_hands_1", "z": 200 }
 		],

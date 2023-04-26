@@ -8,14 +8,20 @@
 SpriteComponent::SpriteComponent(const std::string_view& surfaceId) :
 	surfaceId(surfaceId),
 	texture(nullptr),
-	srcRect(), destRect() {}
+	srcRect(), destRect()
+{
+	addSprite("body", std::make_shared<Sprite>(surfaceId, 0));
+}
 
 SpriteComponent::SpriteComponent(const std::string_view& surfaceId, int width, int height) :
 	surfaceId(surfaceId),
 	texture(nullptr),
 	srcRect(), destRect(),
 	frameWidth(width),
-	frameHeight(height) {}
+	frameHeight(height)
+{
+	addSprite("body", std::make_shared<Sprite>(surfaceId, 0));
+}
 
 SpriteComponent::SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated) :
 	texture(nullptr),
@@ -65,8 +71,6 @@ SpriteComponent::~SpriteComponent()
 void SpriteComponent::init()
 {
 	setRenderOrder(0);
-	addSprite("body", std::make_shared<Sprite>(surfaceId, 0));
-
 	animStartTime = 0;
 	transform = entity->getComponent<TransformComponent>();
 

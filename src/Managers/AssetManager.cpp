@@ -146,6 +146,12 @@ std::string AssetManager::getArmorJsonPath(const std::string& fileName, const st
 	return armorPath.string();
 }
 
+std::string AssetManager::getGeneralDataJsonPath(const std::string& fileName)
+{
+	std::filesystem::path generalPath = getDataPath() / "general" / (fileName + ".json");
+	return generalPath.string();
+}
+
 nlohmann::json AssetManager::getJsonData(const std::string& filePath)
 {
 	std::ifstream file(filePath);
@@ -179,5 +185,11 @@ nlohmann::json AssetManager::getWeaponJson(const std::string& weaponName)
 nlohmann::json AssetManager::getArmorJson(const std::string& armorName, const std::string& actorName, const std::string& slotName)
 {
 	const std::string filePath = getArmorJsonPath(armorName, actorName, slotName);
+	return getJsonData(filePath);
+}
+
+nlohmann::json AssetManager::getGeneralDataJson(const std::string& dataName)
+{
+	const std::string filePath = getGeneralDataJsonPath(dataName);
 	return getJsonData(filePath);
 }

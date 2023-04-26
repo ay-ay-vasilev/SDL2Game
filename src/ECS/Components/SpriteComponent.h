@@ -56,7 +56,7 @@ public:
 private:
 	Uint32 animStartTime = 0;
 	int animIndex = 0;
-	std::string surfaceId;
+	std::string surfaceId = "";
 
 	std::map<std::string, Animation> animations;
 

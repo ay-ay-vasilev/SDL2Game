@@ -11,5 +11,5 @@ public:
 	void draw() override;
 
 private:
-	std::unordered_map<std::string, std::unordered_map<std::string, int>> factionRelationships;
+	std::unordered_map<std::string, std::unordered_map<std::string, int>> factions;
 };

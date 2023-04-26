@@ -7,6 +7,7 @@
 #include "EnemySystem.h"
 #include "ProjectileSystem.h"
 #include "AISystem.h"
+#include "FactionSystem.h"
 
 #include "UILabelComponent.h"
 
@@ -28,6 +29,7 @@ auto playerSystem(Game::manager->addSystem<PlayerSystem>());
 auto enemySystem(Game::manager->addSystem<EnemySystem>());
 auto projectileSystem(Game::manager->addSystem<ProjectileSystem>());
 auto aiSystem(Game::manager->addSystem<AISystem>());
+auto factionSystem(Game::manager->addSystem<FactionSystem>());
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
