@@ -15,6 +15,14 @@ public:
 	explicit AssetManager(std::shared_ptr<Manager> manager);
 	~AssetManager();
 
+	// Disallow copy
+	AssetManager(const AssetManager&) = delete;
+	AssetManager& operator=(const AssetManager&) = delete;
+
+	// Disallow move
+	AssetManager(AssetManager&&) = delete;
+	AssetManager& operator=(AssetManager&&) = delete;
+
 	void loadSurfaces();
 	void loadFonts();
 	

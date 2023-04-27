@@ -40,16 +40,16 @@ using GroupBitSet = std::bitset<maxGroups>;
 class Component
 {
 public:
+	virtual ~Component() {}
 	Entity* entity = nullptr;
 	virtual void init() {}
 	virtual void update() {}
-
-	virtual ~Component() {}
 };
 
 class DrawableComponent : public Component
 {
 public:
+	virtual ~DrawableComponent() {}
 	virtual void draw() {}
 	void setRenderOrder(int renderOrder) { this->renderOrder = renderOrder; }
 	const int getRenderOrder() const { return renderOrder; }
@@ -179,12 +179,19 @@ class System
 {
 public:
 	System(Manager& manager) : manager(manager) {}
+	virtual ~System() {}
+
+	// Disallow copy
+	System(const System&) = delete;
+	System& operator=(const System&) = delete;
+
+	// Disallow move
+	System(System&&) = delete;
+	System& operator=(System&&) = delete;
+
 	virtual void init() {}
 	virtual void update() {}
 	virtual void draw() {}
-
-	virtual ~System() {}
-
 protected:
 	Manager& manager;
 };

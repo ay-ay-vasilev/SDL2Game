@@ -132,6 +132,8 @@ void Game::init()
 		enemySystem->equipArmor(*enemy, "pants_brown", "pants");
 		enemySystem->equipArmor(*enemy, "shirt_light", "shirt");
 		enemySystem->equipArmor(*enemy, "jacket_dark", "jacket");
+		enemySystem->equipArmor(*enemy, "eyepatch_black", "eyewear");
+		enemySystem->equipArmor(*enemy, "scarf_black", "mask");
 		enemySystem->equipArmor(*enemy, "cloak_0", "overcoat");
 	}
 
