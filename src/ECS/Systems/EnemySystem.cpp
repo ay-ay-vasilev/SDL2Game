@@ -9,6 +9,7 @@
 #include "AIComponentBasicEnemy.h"
 #include "ArmorComponent.h"
 #include "WeaponComponent.h"
+#include "FactionComponent.h"
 
 Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& filename)
 {
@@ -28,6 +29,7 @@ Entity* EnemySystem::instantiateEnemy(const Vector2D& pos, const std::string& fi
 	enemy.addComponent<HealthComponent>(enemyData["health"]);
 	enemy.addComponent<ArmorComponent>();
 	enemy.addComponent<AIComponentBasicEnemy>();
+	enemy.addComponent<FactionComponent>(enemyData.contains("faction") ? enemyData["faction"] : "neutral");
 
 	enemy.addGroup(Game::eGroupLabels::ENEMIES);
 

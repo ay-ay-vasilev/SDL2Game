@@ -10,6 +10,8 @@ public:
 	void update() override;
 	void draw() override;
 
+	void updateRelations();
+
 private:
 	std::unordered_map<std::string, std::unordered_map<std::string, int>> factions;
 };

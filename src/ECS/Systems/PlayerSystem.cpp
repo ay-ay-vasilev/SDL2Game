@@ -9,6 +9,7 @@
 #include "HealthComponent.h"
 #include "ArmorComponent.h"
 #include "WeaponComponent.h"
+#include "FactionComponent.h"
 
 #include <wrappedJson.h>
 
@@ -30,6 +31,7 @@ Entity* PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& 
 	player.addComponent<HitboxComponent>(filename, playerData["hitbox_rect"]);
 	player.addComponent<HealthComponent>(playerData["health"]);
 	player.addComponent<ArmorComponent>();
+	player.addComponent<FactionComponent>(playerData.contains("faction") ? playerData["faction"] : "neutral");
 
 	player.addGroup(Game::eGroupLabels::PLAYERS);
 	equipWeapon(player, "unarmed");

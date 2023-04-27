@@ -4,6 +4,7 @@
 #include "HealthComponent.h"
 #include "ArmorComponent.h"
 #include "ActorComponent.h"
+#include "FactionComponent.h"
 #include "Collision.h"
 #include "Vector2D.h"
 
@@ -27,14 +28,21 @@ void HitboxWeaponCollisionSystem::update()
 	for (auto hitboxEntity : hitboxes)
 	{
 		auto hitboxCollider = hitboxEntity->getComponent<HitboxComponent>();
+		auto hitboxFaction = hitboxEntity->getComponent<FactionComponent>();
 
 		for (auto weaponWieldingEntity : weapons)
 		{
+			// check if hits itself
 			if (hitboxEntity->getID() == weaponWieldingEntity->getID())
 				continue;
 
+			// check if hits friend
+			auto weaponWielderFaction = weaponWieldingEntity->getComponent<FactionComponent>();
+			if (hitboxFaction && weaponWielderFaction && !hitboxFaction->checkIfFactionHostile(weaponWielderFaction->getFaction()))
+				continue;
+
 			auto weaponCollider = weaponWieldingEntity->getComponent<WeaponComponent>();
-			
+
 			if (!weaponCollider->isEnabled())
 				continue;
 			if (weaponCollider->isInAffectedTargets(hitboxEntity->getID()))
@@ -59,7 +67,7 @@ void HitboxWeaponCollisionSystem::update()
 					entityName = actorComponent->getActorType() + "_" + std::to_string(hitboxEntity->getID());
 				}
 				std::cout
-					<< entityName << " got hit by " << weaponCollider->getTag() << " for " << damage << " damage!"
+					<< entityName << " got hit by " << weaponCollider->getTag() << " for " << damage << " damage! "
 					<< entityName << " has " << currentHealth << " hp left!\n";
 				// ===============================
 

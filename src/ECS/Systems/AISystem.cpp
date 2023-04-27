@@ -1,42 +1,49 @@
 #include "AISystem.h"
 #include "AIComponentBasicEnemy.h"
+#include "FactionComponent.h"
 #include "TransformComponent.h"
 
 #include "Game.h"
 
 void AISystem::update()
 {
-	players = manager.getGroup(Game::eGroupLabels::PLAYERS);
-	basicEnemies = manager.getEntitiesWithComponent<AIComponentBasicEnemy>();
+	entitiesWithFactions = manager.getEntitiesWithComponents<FactionComponent>();
+	aiActors = manager.getEntitiesWithComponent<AIComponentBasicEnemy>();
 
-	for (const auto& basicEnemy : basicEnemies)
+	for (const auto& aiActor : aiActors)
 	{
-		const auto& basicEnemyTransform = basicEnemy->getComponent<TransformComponent>();
-		const auto& basicEnemyAI = basicEnemy->getComponent<AIComponentBasicEnemy>();
+		const auto& aiActorTransform = aiActor->getComponent<TransformComponent>();
+		const auto& aiActorAI = aiActor->getComponent<AIComponentBasicEnemy>();
+		const auto& aiActorFaction = aiActor->getComponent<FactionComponent>();
 
-		bool enemyHasTarget = basicEnemyAI->hasTarget();
+		bool enemyHasTarget = aiActorAI->hasTarget();
 
-		if (basicEnemyAI->hasTarget() && basicEnemyAI->getDistance() > basicEnemyAI->getLoseAggroDistance())
+		if (aiActorAI->hasTarget() && aiActorAI->getDistance() > aiActorAI->getLoseAggroDistance())
 		{
-			basicEnemyAI->loseTarget();
+			aiActorAI->loseTarget();
 			enemyHasTarget = false;
 		}
-		for (const auto& player : players)
+		for (const auto& entityWithFaction : entitiesWithFactions)
 		{
-			if (!player->isActive())
+			if (!entityWithFaction->isActive())
 				continue;
-			const auto& playerTransform = player->getComponent<TransformComponent>();
-			const auto distance = Vector2D::Distance(playerTransform->getPosition(), basicEnemyTransform->getPosition());
+
+			const auto& entityFaction = entityWithFaction->getComponent<FactionComponent>();
+			if (!aiActorFaction->checkIfFactionHostile(entityFaction->getFaction()))
+				continue;
+
+			const auto& playerTransform = entityWithFaction->getComponent<TransformComponent>();
+			const auto distance = Vector2D::Distance(playerTransform->getPosition(), aiActorTransform->getPosition());
 
 			if (!enemyHasTarget)
 			{
-				if (distance < basicEnemyAI->getAggroDistance())
-					basicEnemyAI->setNewTarget(player);
+				if (distance < aiActorAI->getAggroDistance())
+					aiActorAI->setNewTarget(entityWithFaction);
 			}
 			else if (enemyHasTarget)
 			{
-				if (distance < basicEnemyAI->getAggroDistance() && distance < basicEnemyAI->getDistance())
-					basicEnemyAI->setNewTarget(player);
+				if (distance < aiActorAI->getAggroDistance() && distance < aiActorAI->getDistance())
+					aiActorAI->setNewTarget(entityWithFaction);
 			}
 		}
 	}

@@ -94,7 +94,7 @@ void AIComponentBasicEnemy::resetTarget()
 	transform->setVeloctiy(0, 0);
 	distance = 0.f;
 
-	std::cout << "target lost!\n";
+	std::cout << actorComponent->getActorType() << "_" << entity->getID() << " AI: target lost!\n";
 }
 
 void AIComponentBasicEnemy::loseTarget()

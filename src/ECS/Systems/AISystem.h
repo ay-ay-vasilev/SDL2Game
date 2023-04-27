@@ -10,6 +10,6 @@ public:
 	void draw() override;
 
 private:
-	std::vector<Entity*> basicEnemies;
-	std::vector<Entity*> players;
+	std::vector<Entity*> aiActors;
+	std::vector<Entity*> entitiesWithFactions;
 };

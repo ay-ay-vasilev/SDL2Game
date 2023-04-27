@@ -2,7 +2,7 @@
 	"speed": 1,
 	"health":
 	{
-		"max_health": 20
+		"max_health": 50
 	},
 	"collider_rect":
 	{
@@ -52,7 +52,6 @@
 	},
 	"actor_data":
 	{
-		"faction": "undead",
 		"weapon_type_animations":
 		{
 			"unarmed":
@@ -74,5 +73,6 @@
 				"attack": "melee_medium_attack"
 			}
 		}
-	}
+	},
+	"faction": "undead"
 }

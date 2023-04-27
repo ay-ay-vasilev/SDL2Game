@@ -13,7 +13,7 @@ My plan:
 - Make AI fight each other
     - Add ids to entities DONE
     - Add enemy factions DONE
-    - Implement faction logic
+    - Implement faction logic DONE
     - Add enemy spawners ?
 
 - Ranged weapon for player.
@@ -41,6 +41,7 @@ Maintenance:
 - Specific weapon stats for actors in weapon json files?
 - Refactor ECS.h (uninline some methods, inline explicitly the rest)
 - Refactor the debug draw methods
+- Refactor FactionSystem (make it a manager instead ? avoid duplication but worsen encapsulation)
 
 Future plans:
 - Add a second container for Sprites that should not be outlined? (sword swings)

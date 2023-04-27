@@ -54,7 +54,6 @@
 	},
 	"actor_data":
 	{
-		"faction": "humans",
 		"weapon_type_animations":
 		{
 			"unarmed":
@@ -76,5 +75,6 @@
 				"attack": "melee_medium_attack"
 			}
 		}
-	}
+	},
+	"faction": "humans"
 }
