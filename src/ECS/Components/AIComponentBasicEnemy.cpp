@@ -7,6 +7,7 @@
 
 AIComponentBasicEnemy::AIComponentBasicEnemy() :
 	target(nullptr),
+	targetID(-1),
 	distance(0.f), aggroDistance(0.f), loseAggroDistance(0.f),
 	state(eState::IDLE) {}
 

@@ -108,7 +108,7 @@ void Game::init()
 
 	auto player = playerSystem->instantiatePlayer(constants->PLAYER_POS, "goblin");
 
-	for (const auto& humanData : constants->HUMAN_ENEMY_POS)
+	for (const auto& humanData : constants->HUMAN_POS)
 	{
 		auto enemy = enemySystem->instantiateEnemy(humanData, "human");
 		enemySystem->equipWeapon(*enemy, "sword");
@@ -116,15 +116,23 @@ void Game::init()
 		enemySystem->equipArmor(*enemy, "shirt_light", "shirt");
 		enemySystem->equipArmor(*enemy, "chainmail", "jacket");
 		enemySystem->equipArmor(*enemy, "surcoat", "overcoat");
-		enemySystem->equipArmor(*enemy, "scarf_black", "mask");
-		enemySystem->equipArmor(*enemy, "eyepatch_black", "eyewear");
 		enemySystem->equipArmor(*enemy, "helmet", "headwear");
 	}
 
-	for (const auto& skeletonData : constants->SKELETON_ENEMY_POS)
+	for (const auto& skeletonData : constants->SKELETON_POS)
 	{
 		auto enemy = enemySystem->instantiateEnemy(skeletonData, "skeleton");
 		enemySystem->equipWeapon(*enemy, "sword");
+	}
+
+	for (const auto& goblinData : constants->GOBLIN_POS)
+	{
+		auto enemy = enemySystem->instantiateEnemy(goblinData, "goblin");
+		enemySystem->equipWeapon(*enemy, "shortsword");
+		enemySystem->equipArmor(*enemy, "pants_brown", "pants");
+		enemySystem->equipArmor(*enemy, "shirt_light", "shirt");
+		enemySystem->equipArmor(*enemy, "jacket_dark", "jacket");
+		enemySystem->equipArmor(*enemy, "cloak_0", "overcoat");
 	}
 
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);

@@ -10,11 +10,9 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
-- Make AI fight each other
-    - Add ids to entities DONE
-    - Add enemy factions DONE
-    - Implement faction logic DONE
-    - Add enemy spawners ?
+- Add random customization for actors
+    - Add skeleton armor and face
+    - Add a CustomizationComponent ?
 
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.

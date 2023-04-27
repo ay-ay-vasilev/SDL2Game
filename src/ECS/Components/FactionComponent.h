@@ -19,6 +19,10 @@ public:
 	{
 		return checkIfHostile(getFactionRelation(factionName));
 	}
+	bool inline checkIfFactionFriendly(const std::string factionName)
+	{
+		return checkIfFriendly(getFactionRelation(factionName));
+	}
 
 private:
 	const int inline getFactionRelation(const std::string factionName)

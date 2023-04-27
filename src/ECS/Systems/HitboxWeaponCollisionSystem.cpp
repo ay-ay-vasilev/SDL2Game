@@ -38,7 +38,7 @@ void HitboxWeaponCollisionSystem::update()
 
 			// check if hits friend
 			auto weaponWielderFaction = weaponWieldingEntity->getComponent<FactionComponent>();
-			if (hitboxFaction && weaponWielderFaction && !hitboxFaction->checkIfFactionHostile(weaponWielderFaction->getFaction()))
+			if (hitboxFaction && weaponWielderFaction && hitboxFaction->checkIfFactionFriendly(weaponWielderFaction->getFaction()))
 				continue;
 
 			auto weaponCollider = weaponWieldingEntity->getComponent<WeaponComponent>();

@@ -65,8 +65,9 @@ public:
 
 	// start positions
 	Vector2D PLAYER_POS{200, 200};
-	std::vector<Vector2D> HUMAN_ENEMY_POS;
-	std::vector<Vector2D> SKELETON_ENEMY_POS;
+	std::vector<Vector2D> HUMAN_POS;
+	std::vector<Vector2D> SKELETON_POS;
+	std::vector<Vector2D> GOBLIN_POS;
 
 	bool DRAW_COLLIDERS{ false };
 	bool DRAW_HITBOXES{ false };
@@ -136,18 +137,26 @@ private:
 			PLAYER_POS.x = constantsJson["player_pos"]["x"];
 			PLAYER_POS.y = constantsJson["player_pos"]["y"];
 		}
+		
 		if (constantsJson.find("human_positions") != constantsJson.end())
 		{
 			for (const auto& posData : constantsJson["human_positions"])
 			{
-				HUMAN_ENEMY_POS.push_back({ posData["x"], posData["y"] });
+				HUMAN_POS.push_back({ posData["x"], posData["y"] });
 			}
 		}
 		if (constantsJson.find("skeleton_positions") != constantsJson.end())
 		{
 			for (const auto& posData : constantsJson["skeleton_positions"])
 			{
-				SKELETON_ENEMY_POS.push_back({ posData["x"], posData["y"] });
+				SKELETON_POS.push_back({ posData["x"], posData["y"] });
+			}
+		}
+		if (constantsJson.find("goblin_positions") != constantsJson.end())
+		{
+			for (const auto& posData : constantsJson["goblin_positions"])
+			{
+				GOBLIN_POS.push_back({ posData["x"], posData["y"] });
 			}
 		}
 
