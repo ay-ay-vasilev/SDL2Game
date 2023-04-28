@@ -30,7 +30,7 @@ void Map::loadMap(const std::string& path, const int sizeX, const int sizeY)
 void Map::addTile(const int srcX, const int srcY, const int xpos, const int ypos)
 {
 	auto& tile(Game::manager->addEntity());
-	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, tileSize, surfaceId);
+	tile.addComponent<ecs::TileComponent>(srcX, srcY, xpos, ypos, tileSize, surfaceId);
 	tile.addGroup(Game::eGroupLabels::MAP);
 }
 
@@ -94,7 +94,7 @@ void Map::loadCollisions(const std::string& path, const int sizeX, const int siz
 			if (tileNum == 1)
 			{
 				auto & tileCollider(Game::manager->addEntity());
-				tileCollider.addComponent<ColliderComponent>("terrain", Vector2D(static_cast<float>(x * scaledSize + scaledSize / 2), static_cast<float>(y * scaledSize + scaledSize / 2)), scaledSize*1.f, scaledSize*1.f);
+				tileCollider.addComponent<ecs::ColliderComponent>("terrain", Vector2D(static_cast<float>(x * scaledSize + scaledSize / 2), static_cast<float>(y * scaledSize + scaledSize / 2)), scaledSize*1.f, scaledSize*1.f);
 				tileCollider.addGroup(Game::COLLIDERS);
 			}
 

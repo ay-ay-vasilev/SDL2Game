@@ -1,23 +1,26 @@
 #pragma once
 #include "ECS.h"
 
-class PlayerSystem : public System
+namespace ecs
 {
-public:
-	explicit PlayerSystem(Manager& manager) : System(manager), lastPlayerPosition(0, 0) {}
+	class PlayerSystem : public System
+	{
+	public:
+		explicit PlayerSystem(Manager& manager) : System(manager), lastPlayerPosition(0, 0) {}
 
-	Entity* instantiatePlayer(const Vector2D& pos, const std::string& filename);
-	void equipWeapon(Entity& player, const std::string& weaponName);
-	
-	void equipArmor(Entity& player, const std::string& armorName, const std::string& slotName);
-	void unequipArmor(Entity& player, const std::string& slotName);
+		Entity* instantiatePlayer(const Vector2D& pos, const std::string& filename);
+		void equipWeapon(Entity& player, const std::string& weaponName);
+		
+		void equipArmor(Entity& player, const std::string& armorName, const std::string& slotName);
+		void unequipArmor(Entity& player, const std::string& slotName);
 
-	const Vector2D getPlayerPosition();
+		const Vector2D getPlayerPosition();
 
-	void update() override;
-	void draw() override;
+		void update() override;
+		void draw() override;
 
-private:
-	std::vector<Entity*> players;
-	Vector2D lastPlayerPosition;
-};
+	private:
+		std::vector<Entity*> players;
+		Vector2D lastPlayerPosition;
+	};
+}

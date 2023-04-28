@@ -1,16 +1,19 @@
 #pragma once
 #include "ECS.h"
 
-class ProjectileSystem : public System
+namespace ecs
 {
-public:
-	explicit ProjectileSystem(Manager& manager) : System(manager) {}
+	class ProjectileSystem : public System
+	{
+	public:
+		explicit ProjectileSystem(Manager& manager) : System(manager) {}
 
-	void instantiateProjectile(const Vector2D pos, const Vector2D velocity, const std::string& filename) const;
+		void instantiateProjectile(const Vector2D pos, const Vector2D velocity, const std::string& filename) const;
 
-	void update() override;
-	void draw() override;
+		void update() override;
+		void draw() override;
 
-private:
-	std::vector<Entity*> projectiles;
-};
+	private:
+		std::vector<Entity*> projectiles;
+	};
+}

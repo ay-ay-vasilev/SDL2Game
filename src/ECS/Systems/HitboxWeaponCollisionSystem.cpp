@@ -8,27 +8,27 @@
 #include "Collision.h"
 #include "Vector2D.h"
 
-void HitboxWeaponCollisionSystem::update()
+void ecs::HitboxWeaponCollisionSystem::update()
 {
-	hitboxes = manager.getEntitiesWithComponent<HitboxComponent>();
-	weapons = manager.getEntitiesWithComponent<WeaponComponent>();
+	hitboxes = manager.getEntitiesWithComponent<ecs::HitboxComponent>();
+	weapons = manager.getEntitiesWithComponent<ecs::WeaponComponent>();
 
 	for (const auto hitbox : hitboxes)
 	{
-		const auto hitboxComponent = hitbox->getComponent<HitboxComponent>();
+		const auto hitboxComponent = hitbox->getComponent<ecs::HitboxComponent>();
 		hitboxComponent->setEnableDraw(Game::constants->DRAW_HITBOXES);
 	}
 
 	for (const auto weapon : weapons)
 	{
-		const auto weaponComponent = weapon->getComponent<WeaponComponent>();
+		const auto weaponComponent = weapon->getComponent<ecs::WeaponComponent>();
 		weaponComponent->setEnableDraw(Game::constants->DRAW_HITBOXES);
 	}
 
 	for (auto hitboxEntity : hitboxes)
 	{
-		auto hitboxCollider = hitboxEntity->getComponent<HitboxComponent>();
-		auto hitboxFaction = hitboxEntity->getComponent<FactionComponent>();
+		auto hitboxCollider = hitboxEntity->getComponent<ecs::HitboxComponent>();
+		auto hitboxFaction = hitboxEntity->getComponent<ecs::FactionComponent>();
 
 		for (auto weaponWieldingEntity : weapons)
 		{
@@ -37,11 +37,11 @@ void HitboxWeaponCollisionSystem::update()
 				continue;
 
 			// check if hits friend
-			auto weaponWielderFaction = weaponWieldingEntity->getComponent<FactionComponent>();
+			auto weaponWielderFaction = weaponWieldingEntity->getComponent<ecs::FactionComponent>();
 			if (hitboxFaction && weaponWielderFaction && hitboxFaction->checkIfFactionFriendly(weaponWielderFaction->getFaction()))
 				continue;
 
-			auto weaponCollider = weaponWieldingEntity->getComponent<WeaponComponent>();
+			auto weaponCollider = weaponWieldingEntity->getComponent<ecs::WeaponComponent>();
 
 			if (!weaponCollider->isEnabled())
 				continue;
@@ -51,8 +51,8 @@ void HitboxWeaponCollisionSystem::update()
 			if (weaponCollider->getCollider()->collidesWith(hitboxCollider->getHitbox()))
 			{
 				weaponCollider->addAffectedTarget(hitboxEntity->getID());
-				auto actorHealthComponent = hitboxEntity->getComponent<HealthComponent>();
-				auto actorArmorComponent = hitboxEntity->getComponent<ArmorComponent>();
+				auto actorHealthComponent = hitboxEntity->getComponent<ecs::HealthComponent>();
+				auto actorArmorComponent = hitboxEntity->getComponent<ecs::ArmorComponent>();
 
 				const auto weaponDamage = weaponCollider->getDamage();
 				const auto damage = actorArmorComponent ? actorArmorComponent->applyDamageReduction(weaponDamage) : weaponDamage;
@@ -61,9 +61,9 @@ void HitboxWeaponCollisionSystem::update()
 
 				// =========== LOGGING ===========
 				auto entityName = weaponCollider->getTag() + "_" + std::to_string(hitboxEntity->getID());
-				if (hitboxEntity->hasComponent<ActorComponent>())
+				if (hitboxEntity->hasComponent<ecs::ActorComponent>())
 				{
-					const auto actorComponent = hitboxEntity->getComponent<ActorComponent>();
+					const auto actorComponent = hitboxEntity->getComponent<ecs::ActorComponent>();
 					entityName = actorComponent->getActorType() + "_" + std::to_string(hitboxEntity->getID());
 				}
 				std::cout
@@ -80,6 +80,6 @@ void HitboxWeaponCollisionSystem::update()
 	}
 }
 
-void HitboxWeaponCollisionSystem::draw()
+void ecs::HitboxWeaponCollisionSystem::draw()
 {
 }

@@ -2,27 +2,27 @@
 #include "TextureManager.h"
 #include "TransformComponent.h"
 
-ColliderComponent::ColliderComponent(const std::string& tag) :
+ecs::ColliderComponent::ColliderComponent(const std::string& tag) :
 	tag(tag),
 	collider(),
 	colliderOffset() {};
 
-ColliderComponent::ColliderComponent(const std::string& tag, const Vector2D& position, const float radius, const Vector2D& colliderOffset) :
+ecs::ColliderComponent::ColliderComponent(const std::string& tag, const Vector2D& position, const float radius, const Vector2D& colliderOffset) :
 	tag(tag),
 	collider(std::make_shared<CircleCollider>(position, radius)),
 	colliderOffset(colliderOffset) {};
 
-ColliderComponent::ColliderComponent(const std::string& tag, const Vector2D& position, const float width, const float height, const Vector2D& colliderOffset) :
+ecs::ColliderComponent::ColliderComponent(const std::string& tag, const Vector2D& position, const float width, const float height, const Vector2D& colliderOffset) :
 	tag(tag),
 	collider(std::make_shared<RectangleCollider>(position, width, height)),
 	colliderOffset(colliderOffset) {};
 
-ColliderComponent::ColliderComponent(const std::string& tag, const std::shared_ptr<ColliderShape>& colliderShape, const Vector2D& colliderOffset) :
+ecs::ColliderComponent::ColliderComponent(const std::string& tag, const std::shared_ptr<ColliderShape>& colliderShape, const Vector2D& colliderOffset) :
 	tag(tag),
 	collider(colliderShape),
 	colliderOffset(colliderOffset) {};
 
-ColliderComponent::ColliderComponent(const std::string& tag, const nlohmann::json& colliderData) :
+ecs::ColliderComponent::ColliderComponent(const std::string& tag, const nlohmann::json& colliderData) :
 	tag(tag),
 	colliderOffset({ colliderData["dx"], colliderData["dy"] })
 {
@@ -36,17 +36,17 @@ ColliderComponent::ColliderComponent(const std::string& tag, const nlohmann::jso
 	}
 }
 
-ColliderComponent::~ColliderComponent()
+ecs::ColliderComponent::~ColliderComponent()
 {
 	SDL_DestroyTexture(texture);
 }
 
-void ColliderComponent::init()
+void ecs::ColliderComponent::init()
 {
 	setRenderOrder(5);
-	if (entity->hasComponent<TransformComponent>())
+	if (entity->hasComponent<ecs::TransformComponent>())
 	{
-		transform = entity->getComponent<TransformComponent>();
+		transform = entity->getComponent<ecs::TransformComponent>();
 		colliderOffset.x *= transform->getScale();
 		colliderOffset.y *= transform->getScale();
 
@@ -70,7 +70,7 @@ void ColliderComponent::init()
 	srcRect = { 0, 0, 32, 32 };
 }
 
-void ColliderComponent::update()
+void ecs::ColliderComponent::update()
 {
 	if (tag != "terrain")
 	{
@@ -84,7 +84,7 @@ void ColliderComponent::update()
 	destRect.y -= Game::camera.y;
 }
 
-void ColliderComponent::draw()
+void ecs::ColliderComponent::draw()
 {
 	if (enableDraw) TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 }

@@ -18,18 +18,18 @@
 
 std::shared_ptr<Constants> Game::constants = std::make_shared<Constants>("../data/settings.json");
 
-std::shared_ptr<Manager> Game::manager = std::make_shared<Manager>(constants);
+std::shared_ptr<ecs::Manager> Game::manager = std::make_shared<ecs::Manager>(constants);
 std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(manager);
 
-auto renderSystem(Game::manager->addSystem<RenderSystem>());
-auto mapSystem(Game::manager->addSystem<MapSystem>());
-auto collisionSystem(Game::manager->addSystem<CollisionSystem>());
-auto hitboxWeaponCollisionSystem(Game::manager->addSystem<HitboxWeaponCollisionSystem>());
-auto playerSystem(Game::manager->addSystem<PlayerSystem>());
-auto enemySystem(Game::manager->addSystem<EnemySystem>());
-auto projectileSystem(Game::manager->addSystem<ProjectileSystem>());
-auto aiSystem(Game::manager->addSystem<AISystem>());
-auto factionSystem(Game::manager->addSystem<FactionSystem>());
+auto renderSystem(Game::manager->addSystem<ecs::RenderSystem>());
+auto mapSystem(Game::manager->addSystem<ecs::MapSystem>());
+auto collisionSystem(Game::manager->addSystem<ecs::CollisionSystem>());
+auto hitboxWeaponCollisionSystem(Game::manager->addSystem<ecs::HitboxWeaponCollisionSystem>());
+auto playerSystem(Game::manager->addSystem<ecs::PlayerSystem>());
+auto enemySystem(Game::manager->addSystem<ecs::EnemySystem>());
+auto projectileSystem(Game::manager->addSystem<ecs::ProjectileSystem>());
+auto aiSystem(Game::manager->addSystem<ecs::AISystem>());
+auto factionSystem(Game::manager->addSystem<ecs::FactionSystem>());
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
@@ -97,7 +97,7 @@ void Game::init()
 	assets->loadSurfaces();
 	assets->loadFonts();
 
-	label0.addComponent<UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
+	label0.addComponent<ecs::UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
 	const std::string projectileFile = "test_projectile";
 	projectileSystem->instantiateProjectile(Vector2D(83.33f, 100.f), Vector2D(-2.f, -2.f), projectileFile);
@@ -167,7 +167,7 @@ void Game::update()
 
 		std::stringstream ss0;
 		ss0 << "Player position: " << playerPosition;
-		label0.getComponent<UILabelComponent>()->SetLabelText(ss0.str(), "arial");
+		label0.getComponent<ecs::UILabelComponent>()->SetLabelText(ss0.str(), "arial");
 	}
 }
 

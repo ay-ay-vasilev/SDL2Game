@@ -3,19 +3,22 @@
 
 #include "SDL.h"
 
-class CameraSystem : public System
+namespace ecs
 {
-public:
-	explicit CameraSystem(Manager& manager);
+	class CameraSystem : public System
+	{
+	public:
+		explicit CameraSystem(Manager& manager);
 
-	void init() override;
-	void update() override;
-	void draw() override;
+		void init() override;
+		void update() override;
+		void draw() override;
 
-private:
-	SDL_Rect camera;
-	SDL_Rect cameraBounds;
+	private:
+		SDL_Rect camera;
+		SDL_Rect cameraBounds;
 
-	std::vector<Entity*> players;
-	Vector2D lastPlayerPosition;
-};
+		std::vector<Entity*> players;
+		Vector2D lastPlayerPosition;
+	};
+}

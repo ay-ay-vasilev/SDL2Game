@@ -6,23 +6,23 @@
 
 #include <cmath>
 
-void CollisionSystem::update()
+void ecs::CollisionSystem::update()
 {
-	auto entitiesWithColliders = manager.getEntitiesWithComponent<ColliderComponent>();
+	auto entitiesWithColliders = manager.getEntitiesWithComponent<ecs::ColliderComponent>();
 
 	for (const auto entityWithCollider : entitiesWithColliders)
 	{
-		const auto colliderComponent = entityWithCollider->getComponent<ColliderComponent>();
+		const auto colliderComponent = entityWithCollider->getComponent<ecs::ColliderComponent>();
 		colliderComponent->setEnableDraw(Game::constants->DRAW_COLLIDERS);
 	}
 
-	movingEntities = manager.getEntitiesWithComponents<TransformComponent, ColliderComponent>();
+	movingEntities = manager.getEntitiesWithComponents<ecs::TransformComponent, ecs::ColliderComponent>();
 	colliderEntities = manager.getGroup(Game::eGroupLabels::COLLIDERS);
 
 	for (auto movingEntity : movingEntities)
 	{
-		auto movingEntityColliderComponent = movingEntity->getComponent<ColliderComponent>();
-		auto movingEntityTransformComponent = movingEntity->getComponent<TransformComponent>();
+		auto movingEntityColliderComponent = movingEntity->getComponent<ecs::ColliderComponent>();
+		auto movingEntityTransformComponent = movingEntity->getComponent<ecs::TransformComponent>();
 		auto movingEntityCollider = movingEntityColliderComponent->getCollider();
 
 		for (auto colliderEntity : colliderEntities)
@@ -30,7 +30,7 @@ void CollisionSystem::update()
 			if (colliderEntity == movingEntity)
 				continue;
 
-			const auto colliderEntityCollider = colliderEntity->getComponent<ColliderComponent>()->getCollider();
+			const auto colliderEntityCollider = colliderEntity->getComponent<ecs::ColliderComponent>()->getCollider();
 			float overlapX, overlapY;
 			if (overlap(movingEntityCollider, colliderEntityCollider, overlapX, overlapY))
 			{
@@ -40,11 +40,11 @@ void CollisionSystem::update()
 	}
 }
 
-void CollisionSystem::draw()
+void ecs::CollisionSystem::draw()
 {
 }
 
-bool CollisionSystem::overlap(const std::shared_ptr<ColliderShape>& collider1, const std::shared_ptr<ColliderShape>& collider2, float& overlapX, float& overlapY) {
+bool ecs::CollisionSystem::overlap(const std::shared_ptr<ColliderShape>& collider1, const std::shared_ptr<ColliderShape>& collider2, float& overlapX, float& overlapY) {
 	if (!collider1->collidesWith(collider2))
 		return false;
 
@@ -54,7 +54,7 @@ bool CollisionSystem::overlap(const std::shared_ptr<ColliderShape>& collider1, c
 	return true;
 }
 
-void CollisionSystem::adjustPosition(const float overlapX, const float overlapY, const Vector2D& colliderPosition, std::shared_ptr<TransformComponent> transformComponent, std::shared_ptr<ColliderComponent> colliderComponent)
+void ecs::CollisionSystem::adjustPosition(const float overlapX, const float overlapY, const Vector2D& colliderPosition, std::shared_ptr<ecs::TransformComponent> transformComponent, std::shared_ptr<ecs::ColliderComponent> colliderComponent)
 {
 	const auto position = transformComponent->getPosition();
 

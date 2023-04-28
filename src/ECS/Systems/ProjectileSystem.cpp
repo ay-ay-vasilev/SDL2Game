@@ -9,7 +9,7 @@
 
 #include <wrappedJson.h>
 
-void ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D velocity, const std::string& filename) const
+void ecs::ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D velocity, const std::string& filename) const
 {
 	std::string filenameString(Game::assets->getProjectileJsonPath(filename));
 	std::ifstream file(filenameString);
@@ -22,27 +22,27 @@ void ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D 
 	file >> projectileData;
 
 	auto& projectile(manager.addEntity());
-	projectile.addComponent<TransformComponent>
+	projectile.addComponent<ecs::TransformComponent>
 	(
 		pos.x * manager.getScale(), pos.y * manager.getScale(),
 		projectileData.value("width", 0), projectileData.value("height", 0),
 		manager.getScale(), projectileData["speed"]
 	);
-	projectile.addComponent<SpriteComponent>(projectileData["sprite_data"], false);
-	projectile.addComponent<ProjectileComponent>(velocity, projectileData["projectile_data"]["range"]);
-	projectile.addComponent<HitboxComponent>(filename, projectileData["hitbox_rect"]);
-	projectile.addComponent<WeaponComponent>(filename, "", true);
-	projectile.addComponent<ColliderComponent>(filename, projectileData["collider_rect"]);
-	projectile.addComponent<HealthComponent>(projectileData["projectile_data"]["health"]);
+	projectile.addComponent<ecs::SpriteComponent>(projectileData["sprite_data"], false);
+	projectile.addComponent<ecs::ProjectileComponent>(velocity, projectileData["projectile_data"]["range"]);
+	projectile.addComponent<ecs::HitboxComponent>(filename, projectileData["hitbox_rect"]);
+	projectile.addComponent<ecs::WeaponComponent>(filename, "", true);
+	projectile.addComponent<ecs::ColliderComponent>(filename, projectileData["collider_rect"]);
+	projectile.addComponent<ecs::HealthComponent>(projectileData["projectile_data"]["health"]);
 
 	projectile.addGroup(Game::PROJECTILES);
 }
 
-void ProjectileSystem::update()
+void ecs::ProjectileSystem::update()
 {
 	projectiles = manager.getGroup(Game::eGroupLabels::PROJECTILES);
 }
 
-void ProjectileSystem::draw()
+void ecs::ProjectileSystem::draw()
 {
 }

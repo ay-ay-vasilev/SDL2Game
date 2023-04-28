@@ -2,7 +2,7 @@
 #include "AssetManager.h"
 #include "FactionComponent.h"
 
-void FactionSystem::init()
+void ecs::FactionSystem::init()
 {
 	const auto factionData = Game::assets->getGeneralDataJson("factions")["factions"];
 	for (const auto faction : factionData)
@@ -17,22 +17,22 @@ void FactionSystem::init()
 	}
 }
 
-void FactionSystem::update()
+void ecs::FactionSystem::update()
 {
 	updateRelations();
 }
 
-void FactionSystem::draw()
+void ecs::FactionSystem::draw()
 {
 }
 
-void FactionSystem::updateRelations()
+void ecs::FactionSystem::updateRelations()
 {
-	auto entitiesWithFactions = manager.getEntitiesWithComponent<FactionComponent>();
+	auto entitiesWithFactions = manager.getEntitiesWithComponent<ecs::FactionComponent>();
 
 	for (const auto entityWithFaction : entitiesWithFactions)
 	{
-		auto factionComponent = entityWithFaction->getComponent<FactionComponent>();
+		auto factionComponent = entityWithFaction->getComponent<ecs::FactionComponent>();
 		
 		if (factions.count(factionComponent->getFaction()))
 		{

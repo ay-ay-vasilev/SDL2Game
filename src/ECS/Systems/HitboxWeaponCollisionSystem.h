@@ -1,16 +1,19 @@
 #pragma once
 #include "ECS.h"
 
-class HitboxWeaponCollisionSystem : public System
+namespace ecs
 {
-public:
-	explicit HitboxWeaponCollisionSystem(Manager& manager) : System(manager) {}
+	class HitboxWeaponCollisionSystem : public System
+	{
+	public:
+		explicit HitboxWeaponCollisionSystem(Manager& manager) : System(manager) {}
 
-	void update() override;
-	void draw() override;
+		void update() override;
+		void draw() override;
 
-private:
+	private:
 
-	std::vector<Entity*> hitboxes;
-	std::vector<Entity*> weapons;
-};
+		std::vector<Entity*> hitboxes;
+		std::vector<Entity*> weapons;
+	};
+}

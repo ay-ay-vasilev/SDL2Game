@@ -4,7 +4,7 @@
 
 #include "TextureManager.h"
 
-SpriteOutlineComponent::SpriteOutlineComponent(const std::optional<nlohmann::json>& outlineData)
+ecs::SpriteOutlineComponent::SpriteOutlineComponent(const std::optional<nlohmann::json>& outlineData)
 {
 	if (!outlineData)
 		return;
@@ -23,27 +23,27 @@ SpriteOutlineComponent::SpriteOutlineComponent(const std::optional<nlohmann::jso
 	}
 }
 
-SpriteOutlineComponent::~SpriteOutlineComponent()
+ecs::SpriteOutlineComponent::~SpriteOutlineComponent()
 {
 	SDL_DestroyTexture(texture);
 }
 
-void SpriteOutlineComponent::init()
+void ecs::SpriteOutlineComponent::init()
 {
 	setRenderOrder(-1);
-	transformComponent = entity->getComponent<TransformComponent>();
-	spriteComponent = entity->getComponent<SpriteComponent>();
+	transformComponent = entity->getComponent<ecs::TransformComponent>();
+	spriteComponent = entity->getComponent<ecs::SpriteComponent>();
 	registerWithSubject(spriteComponent);
 }
 
-void SpriteOutlineComponent::update()
+void ecs::SpriteOutlineComponent::update()
 {
 	srcRect = spriteComponent->getSrcRect();
 	destRect = spriteComponent->getDestRect();
 	spriteFlip = spriteComponent->getSpriteFlip();
 }
 
-void SpriteOutlineComponent::draw()
+void ecs::SpriteOutlineComponent::draw()
 {
 	SDL_Rect tempDestRect = destRect;
 	const auto scale = transformComponent->getScale();
@@ -57,7 +57,7 @@ void SpriteOutlineComponent::draw()
 	}
 }
 
-void SpriteOutlineComponent::onNotify(const std::string_view& observedEvent)
+void ecs::SpriteOutlineComponent::onNotify(const std::string_view& observedEvent)
 {
 	if (observedEvent == "update_textures")
 		setTexture(TextureManager::getCombinedTexture(spriteComponent->getSortedSprites(), outlineColor));

@@ -3,28 +3,31 @@
 #include "Observer.h"
 #include "Subject.h"
 
-class SpriteComponent;
-class WeaponComponent;
-class ActorComponent : public Component, public Observer, public Subject
+namespace ecs
 {
-public:
-	explicit ActorComponent(const std::string& name);
-	virtual ~ActorComponent() {}
+	class SpriteComponent;
+	class WeaponComponent;
+	class ActorComponent : public Component, public Observer, public Subject
+	{
+	public:
+		explicit ActorComponent(const std::string& name);
+		virtual ~ActorComponent() {}
 
-	// Component
-	void init() override;
+		// Component
+		void init() override;
 
-	// Observer
-	void onNotify(const std::string_view& observedEvent) override;
+		// Observer
+		void onNotify(const std::string_view& observedEvent) override;
 
-	void playAction(const std::string& actionName);
+		void playAction(const std::string& actionName);
 
-	const std::string inline getActorType() const { return actorType; }
+		const std::string inline getActorType() const { return actorType; }
 
-private:
-	std::shared_ptr<SpriteComponent> spriteComponent;
-	std::weak_ptr<WeaponComponent> weaponComponent;
-	std::unordered_map<std::string, std::unordered_map<std::string, std::string>> actionAnimationsByWeaponType;
+	private:
+		std::shared_ptr<ecs::SpriteComponent> spriteComponent;
+		std::weak_ptr<ecs::WeaponComponent> weaponComponent;
+		std::unordered_map<std::string, std::unordered_map<std::string, std::string>> actionAnimationsByWeaponType;
 
-	std::string actorType;
-};
+		std::string actorType;
+	};
+}

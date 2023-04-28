@@ -3,27 +3,27 @@
 #include "TextureManager.h"
 #include "ColliderShape.h"
 
-HitboxComponent::HitboxComponent(const std::string& tag) :
+ecs::HitboxComponent::HitboxComponent(const std::string& tag) :
 	texture(nullptr),
 	srcRect(), destRect(),
 	hitbox(), hitboxOffset() {};
 
-HitboxComponent::HitboxComponent(const std::string& tag, const Vector2D& position, const float radius, const Vector2D& hitboxOffset) :
+ecs::HitboxComponent::HitboxComponent(const std::string& tag, const Vector2D& position, const float radius, const Vector2D& hitboxOffset) :
 	texture(nullptr),
 	srcRect(), destRect(),
 	hitbox(std::make_shared<CircleCollider>(position, radius)), hitboxOffset(hitboxOffset) {};
 
-HitboxComponent::HitboxComponent(const std::string& tag, const Vector2D& position, const float width, const float height, const Vector2D& hitboxOffset) :
+ecs::HitboxComponent::HitboxComponent(const std::string& tag, const Vector2D& position, const float width, const float height, const Vector2D& hitboxOffset) :
 	texture(nullptr),
 	srcRect(), destRect(),
 	hitbox(std::make_shared<RectangleCollider>(position, width, height)), hitboxOffset(hitboxOffset) {};
 
-HitboxComponent::HitboxComponent(const std::string& tag, const std::shared_ptr<ColliderShape>& hitboxShape, const Vector2D& hitboxOffset) :
+ecs::HitboxComponent::HitboxComponent(const std::string& tag, const std::shared_ptr<ColliderShape>& hitboxShape, const Vector2D& hitboxOffset) :
 	texture(nullptr),
 	srcRect(), destRect(),
 	hitbox(hitboxShape), hitboxOffset(hitboxOffset) {};
 
-HitboxComponent::HitboxComponent(const std::string& tag, const nlohmann::json& colliderData) :
+ecs::HitboxComponent::HitboxComponent(const std::string& tag, const nlohmann::json& colliderData) :
 	texture(nullptr),
 	srcRect(), destRect(),
 	hitboxOffset({ colliderData["dx"], colliderData["dy"] })
@@ -34,17 +34,17 @@ HitboxComponent::HitboxComponent(const std::string& tag, const nlohmann::json& c
 		hitbox = std::make_shared<RectangleCollider>(Vector2D(0, 0), colliderData["w"], colliderData["h"]);
 }
 
-HitboxComponent::~HitboxComponent()
+ecs::HitboxComponent::~HitboxComponent()
 {
 	SDL_DestroyTexture(texture);
 }
 
-void HitboxComponent::init()
+void ecs::HitboxComponent::init()
 {
 	setRenderOrder(5);
-	if (entity->hasComponent<TransformComponent>())
+	if (entity->hasComponent<ecs::TransformComponent>())
 	{
-		transform = entity->getComponent<TransformComponent>();
+		transform = entity->getComponent<ecs::TransformComponent>();
 		hitboxOffset.x *= transform->getScale();
 		hitboxOffset.y *= transform->getScale();
 
@@ -67,7 +67,7 @@ void HitboxComponent::init()
 	srcRect = { 0, 0, 32, 32 };
 }
 
-void HitboxComponent::update()
+void ecs::HitboxComponent::update()
 {
 	const auto x = transform->getPosition().x + hitboxOffset.x;
 	const auto y = transform->getPosition().y + hitboxOffset.y;
@@ -78,7 +78,7 @@ void HitboxComponent::update()
 	destRect.y -= Game::camera.y;
 }
 
-void HitboxComponent::draw()
+void ecs::HitboxComponent::draw()
 {
 	if (enableDraw) TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 }

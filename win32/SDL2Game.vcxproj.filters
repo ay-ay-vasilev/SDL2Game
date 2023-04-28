@@ -129,9 +129,6 @@
     <ClCompile Include="..\src\ECS\Components\WeaponComponent.cpp">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ECS\Components\DrawableComponent.h">
-      <Filter>Source Files\ECS\Components</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\ECS\Components\FactionComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>

@@ -5,7 +5,7 @@
 #include "AssetManager.h"
 #include "Animation.h"
 
-SpriteComponent::SpriteComponent(const std::string_view& surfaceId) :
+ecs::SpriteComponent::SpriteComponent(const std::string_view& surfaceId) :
 	surfaceId(surfaceId),
 	texture(nullptr),
 	srcRect(), destRect()
@@ -13,7 +13,7 @@ SpriteComponent::SpriteComponent(const std::string_view& surfaceId) :
 	addSprite("body", std::make_shared<Sprite>(surfaceId, 0));
 }
 
-SpriteComponent::SpriteComponent(const std::string_view& surfaceId, int width, int height) :
+ecs::SpriteComponent::SpriteComponent(const std::string_view& surfaceId, int width, int height) :
 	surfaceId(surfaceId),
 	texture(nullptr),
 	srcRect(), destRect(),
@@ -23,7 +23,7 @@ SpriteComponent::SpriteComponent(const std::string_view& surfaceId, int width, i
 	addSprite("body", std::make_shared<Sprite>(surfaceId, 0));
 }
 
-SpriteComponent::SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated) :
+ecs::SpriteComponent::SpriteComponent(const nlohmann::json& spritesData, const bool isAnimated) :
 	texture(nullptr),
 	srcRect(), destRect(),
 	frameWidth(spritesData["frame_width"]), frameHeight(spritesData["frame_height"]),
@@ -63,22 +63,22 @@ SpriteComponent::SpriteComponent(const nlohmann::json& spritesData, const bool i
 	}
 }
 
-SpriteComponent::~SpriteComponent()
+ecs::SpriteComponent::~SpriteComponent()
 {
 	SDL_DestroyTexture(texture);
 }
 
-void SpriteComponent::init()
+void ecs::SpriteComponent::init()
 {
 	setRenderOrder(0);
 	animStartTime = 0;
-	transform = entity->getComponent<TransformComponent>();
+	transform = entity->getComponent<ecs::TransformComponent>();
 
 	srcRect.w = frameWidth;
 	srcRect.h = frameHeight;
 }
 
-void SpriteComponent::update()
+void ecs::SpriteComponent::update()
 {
 	if (animated && numOfFrames)
 	{
@@ -120,44 +120,44 @@ void SpriteComponent::update()
 	destRect.h = static_cast<int>(frameHeight * transform->getScale());
 }
 
-void SpriteComponent::draw()
+void ecs::SpriteComponent::draw()
 {
 	TextureManager::draw(texture, srcRect, destRect, spriteFlip);
 }
 
-void SpriteComponent::addSprite(const std::string& slotName, std::shared_ptr<Sprite> sprite)
+void ecs::SpriteComponent::addSprite(const std::string& slotName, std::shared_ptr<Sprite> sprite)
 {
 	sprites[slotName].emplace_back(sprite);
 	sortSpritesByZ();
 }
 
-void SpriteComponent::addSpritesToSlot(const std::string& slotName, std::vector<std::shared_ptr<Sprite>> spritesToAdd)
+void ecs::SpriteComponent::addSpritesToSlot(const std::string& slotName, std::vector<std::shared_ptr<Sprite>> spritesToAdd)
 {
 	sprites[slotName] = spritesToAdd;
 	sortSpritesByZ();
 }
 
-void SpriteComponent::addBlockedSlot(const std::string& blockerName, const std::string& blockedSlotName)
+void ecs::SpriteComponent::addBlockedSlot(const std::string& blockerName, const std::string& blockedSlotName)
 {
 	blockedSlots[blockerName].push_back(blockedSlotName);
 	sortSpritesByZ();
 }
 
-void SpriteComponent::addBlockedSlots(const std::string& blockerName, const std::vector<std::string>& blockedSlotNames)
+void ecs::SpriteComponent::addBlockedSlots(const std::string& blockerName, const std::vector<std::string>& blockedSlotNames)
 {
 	for (const auto& slot : blockedSlotNames)
 		blockedSlots[blockerName].push_back(slot);
 	sortSpritesByZ();
 }
 
-void SpriteComponent::removeSpritesFromSlot(const std::string& slotName)
+void ecs::SpriteComponent::removeSpritesFromSlot(const std::string& slotName)
 {
 	sprites.erase(slotName);
 	blockedSlots.erase(slotName);
 	sortSpritesByZ();
 }
 
-void SpriteComponent::sortSpritesByZ()
+void ecs::SpriteComponent::sortSpritesByZ()
 {
 	sortedSprites.clear();
 	for (auto& [slot, spriteVec] : sprites)
@@ -186,7 +186,7 @@ void SpriteComponent::sortSpritesByZ()
 	notify("update_textures");
 }
 
-void SpriteComponent::play(const std::string& newAnimPlay)
+void ecs::SpriteComponent::play(const std::string& newAnimPlay)
 {
 	if (animName == newAnimPlay)
 		return;
@@ -207,7 +207,7 @@ void SpriteComponent::play(const std::string& newAnimPlay)
 	incAnimState();
 }
 
-void SpriteComponent::addAnimationsFromJson(const nlohmann::json& animData)
+void ecs::SpriteComponent::addAnimationsFromJson(const nlohmann::json& animData)
 {
 	for (auto& [name, animData] : animData.items())
 	{
@@ -220,7 +220,7 @@ void SpriteComponent::addAnimationsFromJson(const nlohmann::json& animData)
 	}
 }
 
-void SpriteComponent::addAnimation(
+void ecs::SpriteComponent::addAnimation(
 	const std::string_view& name,
 	const int index, const int numOfFrames, const int speed,
 	const std::span<const int>& triggerFrames,
@@ -229,7 +229,7 @@ void SpriteComponent::addAnimation(
 	animations.emplace(name, Animation(index, numOfFrames, speed, triggerFrames, actionName));
 }
 
-void SpriteComponent::incAnimState()
+void ecs::SpriteComponent::incAnimState()
 {
 	if (static_cast<int>(animState) + 1 > static_cast<int>(eAnimState::END))
 	{
@@ -251,7 +251,7 @@ void SpriteComponent::incAnimState()
 	sendSignal(stateStr);
 }
 
-void SpriteComponent::sendSignal(const std::string& eventName)
+void ecs::SpriteComponent::sendSignal(const std::string& eventName)
 {
 	const auto action = actionName.empty() ? animName : actionName;
 	notify(action + "_" + eventName);

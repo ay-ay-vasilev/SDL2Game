@@ -14,10 +14,14 @@
 #include <functional>
 #include <vector>
 
-class ColliderComponent;
+namespace ecs
+{
+	class Manager;
+}
+
+
 class AssetManager;
 class EnemyManager;
-class Manager;
 class Constants;
 
 class Game {
@@ -44,7 +48,7 @@ public:
 
 	static std::unique_ptr<AssetManager> assets;
 	static std::unique_ptr<EnemyManager> enemyManager;
-	static std::shared_ptr<Manager> manager;
+	static std::shared_ptr<ecs::Manager> manager;
 
 	enum eGroupLabels : std::size_t
 	{

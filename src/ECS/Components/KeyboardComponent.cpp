@@ -5,14 +5,14 @@
 #include "ArmorComponent.h"
 #include "WeaponComponent.h"
 
-void KeyboardComponent::init()
+void ecs::KeyboardComponent::init()
 {
-	actorComponent = entity->getComponent<ActorComponent>();
+	actorComponent = entity->getComponent<ecs::ActorComponent>();
 	registerWithSubject(actorComponent);
-	transform = entity->getComponent<TransformComponent>();
+	transform = entity->getComponent<ecs::TransformComponent>();
 }
 
-void KeyboardComponent::update()
+void ecs::KeyboardComponent::update()
 {
 	const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
 	switch (Game::gameEvent.key.keysym.sym)
@@ -121,7 +121,7 @@ void KeyboardComponent::update()
 	transform->setVeloctiy(static_cast<float>(x), static_cast<float>(y));
 }
 
-void KeyboardComponent::onNotify(const std::string_view& observedEvent)
+void ecs::KeyboardComponent::onNotify(const std::string_view& observedEvent)
 {
 	if (observedEvent == "attack_end")
 	{
@@ -130,30 +130,30 @@ void KeyboardComponent::onNotify(const std::string_view& observedEvent)
 	}
 }
 
-void KeyboardComponent::equipWeapon(const std::string& weaponName)
+void ecs::KeyboardComponent::equipWeapon(const std::string& weaponName)
 {
-	if (!entity->hasComponent<ActorComponent>()) return;
+	if (!entity->hasComponent<ecs::ActorComponent>()) return;
 
-	const std::string entityType = entity->getComponent<ActorComponent>()->getActorType();
+	const std::string entityType = entity->getComponent<ecs::ActorComponent>()->getActorType();
 
-	if (entity->hasComponent<WeaponComponent>())
+	if (entity->hasComponent<ecs::WeaponComponent>())
 	{
-		if (entity->getComponent<WeaponComponent>()->getTag() == weaponName)
+		if (entity->getComponent<ecs::WeaponComponent>()->getTag() == weaponName)
 			return;
-		entity->removeComponent<WeaponComponent>();
+		entity->removeComponent<ecs::WeaponComponent>();
 	}
-	entity->addComponent<WeaponComponent>(weaponName, entityType);
+	entity->addComponent<ecs::WeaponComponent>(weaponName, entityType);
 }
 
-void KeyboardComponent::equipArmor()
+void ecs::KeyboardComponent::equipArmor()
 {
-	if (!entity->hasComponent<ActorComponent>()) return;
+	if (!entity->hasComponent<ecs::ActorComponent>()) return;
 
-	const std::string entityType = entity->getComponent<ActorComponent>()->getActorType();
+	const std::string entityType = entity->getComponent<ecs::ActorComponent>()->getActorType();
 
-	if (entity->hasComponent<ArmorComponent>())
+	if (entity->hasComponent<ecs::ArmorComponent>())
 	{
-		const auto armorComponent = entity->getComponent<ArmorComponent>();
+		const auto armorComponent = entity->getComponent<ecs::ArmorComponent>();
 		//armorComponent->equipArmorToSlot("pants_light", playerTag, "pants");
 		//armorComponent->equipArmorToSlot("long_sleeve_light", playerTag, "shirt");
 		//armorComponent->equipArmorToSlot("light_jacket_brown", playerTag, "jacket");
@@ -168,11 +168,11 @@ void KeyboardComponent::equipArmor()
 	}
 }
 
-void KeyboardComponent::unequipArmor()
+void ecs::KeyboardComponent::unequipArmor()
 {
-	if (entity->hasComponent<ArmorComponent>())
+	if (entity->hasComponent<ecs::ArmorComponent>())
 	{
-		const auto armorComponent = entity->getComponent<ArmorComponent>();
+		const auto armorComponent = entity->getComponent<ecs::ArmorComponent>();
 		armorComponent->unequipAllArmor();
 	}
 }

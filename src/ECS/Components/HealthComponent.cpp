@@ -1,12 +1,12 @@
 #include "HealthComponent.h"
 #include "HitboxComponent.h"
 
-HealthComponent::HealthComponent(const nlohmann::json& healthData) :
+ecs::HealthComponent::HealthComponent(const nlohmann::json& healthData) :
 	maxHealthValue(healthData.value("max_health", 0)),
 	healthValue(maxHealthValue)
 {}
 
-void HealthComponent::update()
+void ecs::HealthComponent::update()
 {
 	if (healthValue <= 0)
 	{
@@ -15,19 +15,19 @@ void HealthComponent::update()
 	}
 }
 
-void HealthComponent::sendSignal(const std::string& eventName)
+void ecs::HealthComponent::sendSignal(const std::string& eventName)
 {
 	std::cout << eventName << "\n";
 	notify(eventName);
 }
 
-bool HealthComponent::changeHealth(int value)
+bool ecs::HealthComponent::changeHealth(int value)
 {
 	healthValue = std::clamp(healthValue + value, 0, maxHealthValue);
 	return true;
 }
 
-bool HealthComponent::changeMaxHealth(int value)
+bool ecs::HealthComponent::changeMaxHealth(int value)
 {
 	maxHealthValue += value;
 	if (maxHealthValue <= 0)

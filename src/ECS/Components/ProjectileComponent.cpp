@@ -1,20 +1,20 @@
 #include "ProjectileComponent.h"
 #include "TransformComponent.h"
 
-ProjectileComponent::ProjectileComponent(Vector2D velocity, float range) :
+ecs::ProjectileComponent::ProjectileComponent(Vector2D velocity, float range) :
 	transform(nullptr),
 	velocity(velocity),
 	range(range) {}
 
-void ProjectileComponent::init()
+void ecs::ProjectileComponent::init()
 {
-	transform = entity->getComponent<TransformComponent>();
+	transform = entity->getComponent<ecs::TransformComponent>();
 	transform->setVeloctiy(velocity);
 	speed = transform->getSpeed();
 	range *= transform->getScale();
 }
 
-void ProjectileComponent::update()
+void ecs::ProjectileComponent::update()
 {
 	distance += speed;
 	if (distance > range)

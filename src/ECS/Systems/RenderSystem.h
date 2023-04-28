@@ -9,45 +9,48 @@
 #include "AssetManager.h"
 #include "Map.h"
 
-class RenderSystem : public System
+namespace ecs
 {
-public:
-	explicit RenderSystem(Manager& manager) : System(manager) {}
-
-	void update() override
+	class RenderSystem : public System
 	{
-		sortedEntities.clear();
-		tiles = manager.getGroup(Game::eGroupLabels::MAP);
-		const auto entitiesWithCollision = manager.getEntitiesWithComponent<ColliderComponent>();
+	public:
+		explicit RenderSystem(Manager& manager) : System(manager) {}
 
-		for (auto& entity : entitiesWithCollision)
+		void update() override
 		{
-			const auto colliderComponent = entity->getComponent<ColliderComponent>();
-			const double z = colliderComponent->getLowestPoint();
-			sortedEntities.push_back({ entity, z });
+			sortedEntities.clear();
+			tiles = manager.getGroup(Game::eGroupLabels::MAP);
+			const auto entitiesWithCollision = manager.getEntitiesWithComponent<ecs::ColliderComponent>();
+
+			for (auto& entity : entitiesWithCollision)
+			{
+				const auto colliderComponent = entity->getComponent<ecs::ColliderComponent>();
+				const double z = colliderComponent->getLowestPoint();
+				sortedEntities.push_back({ entity, z });
+			}
+
+			std::sort(sortedEntities.begin(), sortedEntities.end(),
+				[](const EntityZValue& a, const EntityZValue& b)
+				{
+					return a.entityZ < b.entityZ;
+				});
 		}
 
-		std::sort(sortedEntities.begin(), sortedEntities.end(),
-			[](const EntityZValue& a, const EntityZValue& b)
-			{
-				return a.entityZ < b.entityZ;
-			});
-	}
+		void draw() override
+		{
+			auto blackTexture = TextureManager::getTextureFromSurface(Game::assets->getSurface("black"));
+			TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(0, 0, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT), SDL_FLIP_NONE);
+			for (const auto& tile : tiles) tile->draw();
+			for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();
+		}
 
-	void draw() override
-	{
-		auto blackTexture = TextureManager::getTextureFromSurface(Game::assets->getSurface("black"));
-		TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(0, 0, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT), SDL_FLIP_NONE);
-		for (const auto& tile : tiles) tile->draw();
-		for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();
-	}
-
-private:
-	struct EntityZValue
-	{
-		Entity* entity;
-		double entityZ;
+	private:
+		struct EntityZValue
+		{
+			ecs::Entity* entity;
+			double entityZ;
+		};
+		std::vector<ecs::Entity*> tiles;
+		std::vector<EntityZValue> sortedEntities;
 	};
-	std::vector<Entity*> tiles;
-	std::vector<EntityZValue> sortedEntities;
-};
+}

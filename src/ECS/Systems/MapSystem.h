@@ -2,17 +2,20 @@
 #include "ECS.h"
 #include "Map.h"
 
-class MapSystem : public System
+namespace ecs
 {
-public:
-	explicit MapSystem(Manager& manager) : System(manager) {}
+	class MapSystem : public System
+	{
+	public:
+		explicit MapSystem(Manager& manager) : System(manager) {}
 
-	void instantiateMap(const std::string surfaceId, const int tileSize, const std::string mapFilePath, const int mapWidth, const int mapHeight);
+		void instantiateMap(const std::string surfaceId, const int tileSize, const std::string mapFilePath, const int mapWidth, const int mapHeight);
 
-	void update() override;
-	void draw() override;
+		void update() override;
+		void draw() override;
 
-private:
-	std::vector<Entity*> tiles;
-	std::unique_ptr<Map> map;
-};
+	private:
+		std::vector<Entity*> tiles;
+		std::unique_ptr<Map> map;
+	};
+}

@@ -2,35 +2,38 @@
 #include "ECS.h"
 #include "Observer.h"
 
-class ActorComponent;
-class TransformComponent;
-class HitboxComponent;
-class ArmorComponent;
-class KeyboardComponent : public Component, private Observer
+namespace ecs
 {
-public:
-	virtual ~KeyboardComponent() {}
-
-	enum class eState
+	class ActorComponent;
+	class TransformComponent;
+	class HitboxComponent;
+	class ArmorComponent;
+	class KeyboardComponent : public Component, private Observer
 	{
-		IDLE,
-		WALK,
-		ATTACK
+	public:
+		virtual ~KeyboardComponent() {}
+
+		enum class eState
+		{
+			IDLE,
+			WALK,
+			ATTACK
+		};
+
+		// Component
+		void init() override;
+		void update() override;
+		// Observer
+		void onNotify(const std::string_view& observedEvent);
+
+	private:
+		void equipWeapon(const std::string& weaponName);
+		void equipArmor();
+		void unequipArmor();
+
+		bool pressed = false;
+		eState state = eState::IDLE;
+		std::shared_ptr<TransformComponent> transform;
+		std::shared_ptr<ActorComponent> actorComponent;
 	};
-
-	// Component
-	void init() override;
-	void update() override;
-	// Observer
-	void onNotify(const std::string_view& observedEvent);
-
-private:
-	void equipWeapon(const std::string& weaponName);
-	void equipArmor();
-	void unequipArmor();
-
-	bool pressed = false;
-	eState state = eState::IDLE;
-	std::shared_ptr<TransformComponent> transform;
-	std::shared_ptr<ActorComponent> actorComponent;
-};
+}

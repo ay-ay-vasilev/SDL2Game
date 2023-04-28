@@ -1,7 +1,8 @@
+#include "ECS.h"
 #include "AssetManager.h"
 #include "Constants.h"
 
-AssetManager::AssetManager(std::shared_ptr<Manager> manager) : manager(manager), constants(manager->getConstants()) {}
+AssetManager::AssetManager(std::shared_ptr<ecs::Manager> manager) : manager(manager), constants(manager->getConstants()) {}
 
 AssetManager::~AssetManager()
 {

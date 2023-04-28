@@ -1,15 +1,18 @@
 #pragma once
 #include "ECS.h"
 
-class AISystem : public System
+namespace ecs
 {
-public:
-	explicit AISystem(Manager& manager) : System(manager) {}
+	class AISystem : public System
+	{
+	public:
+		explicit AISystem(Manager& manager) : System(manager) {}
 
-	void update() override;
-	void draw() override;
+		void update() override;
+		void draw() override;
 
-private:
-	std::vector<Entity*> aiActors;
-	std::vector<Entity*> entitiesWithFactions;
-};
+	private:
+		std::vector<Entity*> aiActors;
+		std::vector<Entity*> entitiesWithFactions;
+	};
+}

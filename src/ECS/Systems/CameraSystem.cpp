@@ -2,9 +2,9 @@
 #include "TransformComponent.h"
 #include "Game.h"
 
-CameraSystem::CameraSystem(Manager& manager) : System(manager), camera(), cameraBounds(), lastPlayerPosition(0, 0) {}
+ecs::CameraSystem::CameraSystem(Manager& manager) : System(manager), camera(), cameraBounds(), lastPlayerPosition(0, 0) {}
 
-void CameraSystem::init()
+void ecs::CameraSystem::init()
 {
 	camera =
 	{
@@ -22,16 +22,16 @@ void CameraSystem::init()
 	cameraBounds.h = std::max(0, static_cast<int>(mapHeight - manager.getConstants()->SCREEN_HEIGHT));
 }
 
-void CameraSystem::update()
+void ecs::CameraSystem::update()
 {
 	players = manager.getGroup(Game::eGroupLabels::PLAYERS);
 	if (!players.empty())
-		lastPlayerPosition = (*players.begin())->getComponent<TransformComponent>()->getPosition();
+		lastPlayerPosition = (*players.begin())->getComponent<ecs::TransformComponent>()->getPosition();
 
 	camera.x = std::clamp(static_cast<int>(lastPlayerPosition.x - manager.getConstants()->SCREEN_WIDTH / 2), cameraBounds.x, cameraBounds.x + cameraBounds.w);
 	camera.y = std::clamp(static_cast<int>(lastPlayerPosition.y - manager.getConstants()->SCREEN_HEIGHT / 2), cameraBounds.y, cameraBounds.y + cameraBounds.h);
 }
 
-void CameraSystem::draw()
+void ecs::CameraSystem::draw()
 {
 }

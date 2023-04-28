@@ -5,7 +5,7 @@
 
 #include "AssetManager.h"
 
-ActorComponent::ActorComponent(const std::string& name) : actorType(name)
+ecs::ActorComponent::ActorComponent(const std::string& name) : actorType(name)
 {
 	nlohmann::json actorData;
 	actorData = Game::assets->getActorJson(name)["actor_data"];
@@ -18,19 +18,19 @@ ActorComponent::ActorComponent(const std::string& name) : actorType(name)
 	}
 }
 
-void ActorComponent::init()
+void ecs::ActorComponent::init()
 {
-	spriteComponent = entity->getComponent<SpriteComponent>();
+	spriteComponent = entity->getComponent<ecs::SpriteComponent>();
 	registerWithSubject(spriteComponent);
-	weaponComponent = entity->getComponent<WeaponComponent>();
+	weaponComponent = entity->getComponent<ecs::WeaponComponent>();
 }
 
-void ActorComponent::playAction(const std::string& actionName)
+void ecs::ActorComponent::playAction(const std::string& actionName)
 {
 	auto lockedWeapon = weaponComponent.lock();
 	if (!lockedWeapon)
 	{
-		lockedWeapon = entity->getComponent<WeaponComponent>();
+		lockedWeapon = entity->getComponent<ecs::WeaponComponent>();
 		weaponComponent = lockedWeapon;
 	}
 	if (lockedWeapon)
@@ -46,7 +46,7 @@ void ActorComponent::playAction(const std::string& actionName)
 	spriteComponent->play(actionName);
 }
 
-void ActorComponent::onNotify(const std::string_view& observedEvent)
+void ecs::ActorComponent::onNotify(const std::string_view& observedEvent)
 {
 	if (observedEvent == "attack_end")
 	{

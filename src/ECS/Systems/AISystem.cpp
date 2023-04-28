@@ -5,7 +5,7 @@
 
 #include "Game.h"
 
-void AISystem::update()
+void ecs::AISystem::update()
 {
 	entitiesWithFactions = manager.getEntitiesWithComponents<FactionComponent>();
 	aiActors = manager.getEntitiesWithComponent<AIComponentBasicEnemy>();
@@ -49,6 +49,6 @@ void AISystem::update()
 	}
 }
 
-void AISystem::draw()
+void ecs::AISystem::draw()
 {
 }

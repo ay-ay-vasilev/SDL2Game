@@ -2,14 +2,14 @@
 #include "Game.h"
 #include "AssetManager.h"
 
-ArmorComponent::ArmorComponent() : armorValue(0) {}
+ecs::ArmorComponent::ArmorComponent() : armorValue(0) {}
 
-void ArmorComponent::init()
+void ecs::ArmorComponent::init()
 {
 	spriteComponent = entity->getComponent<SpriteComponent>();
 }
 
-void ArmorComponent::equipArmorToSlot(const std::string& armorName, const std::string& actorName, const std::string& slotName)
+void ecs::ArmorComponent::equipArmorToSlot(const std::string& armorName, const std::string& actorName, const std::string& slotName)
 {
 	const auto armorData = Game::assets->getArmorJson(armorName, actorName, slotName);
 
@@ -50,14 +50,14 @@ void ArmorComponent::equipArmorToSlot(const std::string& armorName, const std::s
 	}
 }
 
-void ArmorComponent::unequipArmorFromSlot(const std::string& slotName)
+void ecs::ArmorComponent::unequipArmorFromSlot(const std::string& slotName)
 {
 	armorValue -= slotArmorValues[slotName];
 	slotArmorValues.erase(slotName);
 	spriteComponent->removeSpritesFromSlot(slotName);
 }
 
-void ArmorComponent::unequipAllArmor()
+void ecs::ArmorComponent::unequipAllArmor()
 {
 	armorValue = 0;
 	for (const auto [slotArmor, slotArmorValue] : slotArmorValues)
@@ -67,7 +67,7 @@ void ArmorComponent::unequipAllArmor()
 	slotArmorValues.clear();
 }
 
-const int ArmorComponent::applyDamageReduction(int damage) const
+const int ecs::ArmorComponent::applyDamageReduction(int damage) const
 {
 	return std::clamp(damage - armorValue, 0, damage);
 }

@@ -3,7 +3,7 @@
 #include "SpriteComponent.h"
 #include "HealthComponent.h"
 
-WeaponComponent::WeaponComponent(const std::string& name, const std::string& ownerName, bool isProjectile) :
+ecs::WeaponComponent::WeaponComponent(const std::string& name, const std::string& ownerName, bool isProjectile) :
 	tag(name),
 	texture(nullptr),
 	srcRect(), destRect(),
@@ -48,17 +48,17 @@ WeaponComponent::WeaponComponent(const std::string& name, const std::string& own
 	}
 }
 
-WeaponComponent::~WeaponComponent()
+ecs::WeaponComponent::~WeaponComponent()
 {
 	SDL_DestroyTexture(texture);
 }
 
-void WeaponComponent::init()
+void ecs::WeaponComponent::init()
 {
 	setRenderOrder(5);
-	if (entity->hasComponent<TransformComponent>())
+	if (entity->hasComponent<ecs::TransformComponent>())
 	{
-		transform = entity->getComponent<TransformComponent>();
+		transform = entity->getComponent<ecs::TransformComponent>();
 		weaponColliderDirectionCoefficient.x *= transform->getScale();
 		weaponColliderDirectionCoefficient.y *= transform->getScale();
 		weaponColliderOffset.x *= transform->getScale();
@@ -81,7 +81,7 @@ void WeaponComponent::init()
 	texture = TextureManager::loadTexture(texturePath);
 	srcRect = { 0, 0, 32, 32 };
 
-	spriteComponent = entity->getComponent<SpriteComponent>();
+	spriteComponent = entity->getComponent<ecs::SpriteComponent>();
 	registerWithSubject(spriteComponent);
 	if (tempSprites.empty())
 		spriteComponent->removeSpritesFromSlot("weapon");
@@ -96,7 +96,7 @@ void WeaponComponent::init()
 	tempSprites.clear();
 }
 
-void WeaponComponent::update()
+void ecs::WeaponComponent::update()
 {
 	const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
 	const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
@@ -107,7 +107,7 @@ void WeaponComponent::update()
 	destRect.y -= Game::camera.y;
 }
 
-void WeaponComponent::draw()
+void ecs::WeaponComponent::draw()
 {
 	if (!enabled)
 		return;
@@ -115,7 +115,7 @@ void WeaponComponent::draw()
 	if (enableDraw) TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
 }
 
-void WeaponComponent::onNotify(const std::string_view& observedEvent)
+void ecs::WeaponComponent::onNotify(const std::string_view& observedEvent)
 {
 	if (observedEvent == "attack_action_start")
 	{

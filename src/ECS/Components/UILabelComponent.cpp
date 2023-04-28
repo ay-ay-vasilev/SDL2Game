@@ -4,7 +4,7 @@
 
 #include <SDL_ttf.h>
 
-UILabelComponent::UILabelComponent(const int xpos, const int ypos, const std::string& text, const std::string& font, const SDL_Color& color) :
+ecs::UILabelComponent::UILabelComponent(const int xpos, const int ypos, const std::string& text, const std::string& font, const SDL_Color& color) :
 	position({ xpos, ypos, 0, 0 }),
 	labelText(text),
 	labelFont(font),
@@ -14,18 +14,18 @@ UILabelComponent::UILabelComponent(const int xpos, const int ypos, const std::st
 	SetLabelText(labelText, labelFont);
 }
 
-void UILabelComponent::init()
+void ecs::UILabelComponent::init()
 {
 	setRenderOrder(10);
 }
 
-void UILabelComponent::draw()
+void ecs::UILabelComponent::draw()
 {
 	SDL_RenderCopy(Game::renderer, labelTexture, nullptr, &position);
 	SDL_DestroyTexture(labelTexture);
 }
 
-void UILabelComponent::SetLabelText(const std::string& text, const std::string_view& font)
+void ecs::UILabelComponent::SetLabelText(const std::string& text, const std::string_view& font)
 {
 	SDL_Surface* surf = TTF_RenderText_Blended(Game::assets->getFont(font), text.c_str(), textColor);
 	labelTexture = SDL_CreateTextureFromSurface(Game::renderer, surf);

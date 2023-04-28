@@ -1,18 +1,23 @@
 #pragma once
 #include "TextureManager.h"
 #include "Vector2D.h"
-#include "ECS.h"
 #include <SDL_ttf.h>
+#include "wrappedJson.h"
 
 #include <map>
 #include <string>
 #include <filesystem>
 
+namespace ecs
+{
+	class Manager;
+}
+
 class Constants;
 class AssetManager
 {
 public:
-	explicit AssetManager(std::shared_ptr<Manager> manager);
+	explicit AssetManager(std::shared_ptr<ecs::Manager> manager);
 	~AssetManager();
 
 	// Disallow copy
@@ -50,7 +55,7 @@ public:
 
 private:
 
-	std::shared_ptr<Manager> manager;
+	std::shared_ptr<ecs::Manager> manager;
 	std::map<const std::string_view, SDL_Surface*> surfaces;
 	std::map<const std::string_view, TTF_Font*> fonts;
 	std::shared_ptr<Constants> constants;

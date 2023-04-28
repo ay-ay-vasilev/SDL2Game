@@ -50,5 +50,6 @@ Future plans:
 - Inventory system
 - Death animation
 - Hit feedback
+- Hit cooldown ?
 - Add body parts and body parts damage and armor ?
 - More animations for AI actors ?

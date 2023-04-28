@@ -5,13 +5,13 @@
 #include "HealthComponent.h"
 #include "WeaponComponent.h"
 
-AIComponentBasicEnemy::AIComponentBasicEnemy() :
+ecs::AIComponentBasicEnemy::AIComponentBasicEnemy() :
 	target(nullptr),
 	targetID(-1),
 	distance(0.f), aggroDistance(0.f), loseAggroDistance(0.f),
 	state(eState::IDLE) {}
 
-void AIComponentBasicEnemy::init()
+void ecs::AIComponentBasicEnemy::init()
 {
 	actorComponent = entity->getComponent<ActorComponent>();
 	registerWithSubject(actorComponent);
@@ -22,7 +22,7 @@ void AIComponentBasicEnemy::init()
 	loseAggroDistance = 100 * transform->getScale();
 }
 
-void AIComponentBasicEnemy::update()
+void ecs::AIComponentBasicEnemy::update()
 {
 	if (target)
 	{
@@ -59,7 +59,7 @@ void AIComponentBasicEnemy::update()
 	}
 }
 
-void AIComponentBasicEnemy::onNotify(const std::string_view& observedEvent)
+void ecs::AIComponentBasicEnemy::onNotify(const std::string_view& observedEvent)
 {
 	if (observedEvent == "attack_end")
 	{
@@ -72,7 +72,7 @@ void AIComponentBasicEnemy::onNotify(const std::string_view& observedEvent)
 	}
 }
 
-void AIComponentBasicEnemy::setNewTarget(const Entity* newTarget)
+void ecs::AIComponentBasicEnemy::setNewTarget(const Entity* newTarget)
 {
 	if (!newTarget || target == newTarget)
 		return;
@@ -84,7 +84,7 @@ void AIComponentBasicEnemy::setNewTarget(const Entity* newTarget)
 	targetID = target->getID();
 }
 
-void AIComponentBasicEnemy::resetTarget()
+void ecs::AIComponentBasicEnemy::resetTarget()
 {
 	targetHealth.reset();
 	targetTransform.reset();
@@ -98,12 +98,12 @@ void AIComponentBasicEnemy::resetTarget()
 	std::cout << actorComponent->getActorType() << "_" << entity->getID() << " AI: target lost!\n";
 }
 
-void AIComponentBasicEnemy::loseTarget()
+void ecs::AIComponentBasicEnemy::loseTarget()
 {
 	resetTarget();
 }
 
-void AIComponentBasicEnemy::targetDestroyed()
+void ecs::AIComponentBasicEnemy::targetDestroyed()
 {
 	resetTarget();
 }
