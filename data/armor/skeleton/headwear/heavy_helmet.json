@@ -1,0 +1,10 @@
+{
+	"damage_reduction": 2,
+	"sprite_data":
+	{
+		"sprites":
+		[
+			{ "slot": "headwear", "texture": "skeleton_heavy_helmet", "z": 105 }
+		]
+	}
+}

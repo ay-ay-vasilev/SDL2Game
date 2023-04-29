@@ -57,10 +57,20 @@ void AssetManager::loadSurfaces()
 	addSurface("human_helmet", "assets/images/spritesheets/actors/human/armor/headwear/helmet.png");
 
 	addSurface("skeleton_body", "assets/images/spritesheets/actors/skeleton/body/spritesheet.png");
-	addSurface("skeleton_head", "assets/images/spritesheets/actors/skeleton/head/spritesheet.png");
+	addSurface("skeleton_head_0", "assets/images/spritesheets/actors/skeleton/head/spritesheet_0.png");
+	addSurface("skeleton_head_1", "assets/images/spritesheets/actors/skeleton/head/spritesheet_1.png");
 	addSurface("skeleton_hands_0", "assets/images/spritesheets/actors/skeleton/hands/spritesheet_0.png");
 	addSurface("skeleton_hands_1", "assets/images/spritesheets/actors/skeleton/hands/spritesheet_1.png");
 
+	addSurface("skeleton_pants_brown", "assets/images/spritesheets/actors/skeleton/armor/pants/pants_brown.png");
+	addSurface("skeleton_shirt_torn_gray", "assets/images/spritesheets/actors/skeleton/armor/shirt/shirt_torn_gray.png");
+	addSurface("skeleton_chainmail", "assets/images/spritesheets/actors/skeleton/armor/jacket/chainmail.png");
+	addSurface("skeleton_chainmail_hands_back", "assets/images/spritesheets/actors/skeleton/armor/jacket/chainmail_hands_back.png");
+	addSurface("skeleton_chainmail_hands_front", "assets/images/spritesheets/actors/skeleton/armor/jacket/chainmail_hands_front.png");
+	addSurface("skeleton_heavy_armor", "assets/images/spritesheets/actors/skeleton/armor/armorplate/heavy_armor.png");
+	addSurface("skeleton_heavy_armor_hands_back", "assets/images/spritesheets/actors/skeleton/armor/armorplate/heavy_armor_hands_back.png");
+	addSurface("skeleton_heavy_armor_hands_front", "assets/images/spritesheets/actors/skeleton/armor/armorplate/heavy_armor_hands_front.png");
+	addSurface("skeleton_heavy_helmet", "assets/images/spritesheets/actors/skeleton/armor/headwear/heavy_helmet.png");
 
 	addSurface("shortsword_goblin_0", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_0.png");
 	addSurface("shortsword_goblin_1", "assets/images/spritesheets/weapons/melee_light/shortsword/goblin/spritesheet_1.png");

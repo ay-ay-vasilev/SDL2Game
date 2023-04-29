@@ -1,4 +1,5 @@
 {
+	"faction": "humans",
 	"speed": 1,
 	"health":
 	{
@@ -75,6 +76,5 @@
 				"attack": "melee_medium_attack"
 			}
 		}
-	},
-	"faction": "humans"
+	}
 }

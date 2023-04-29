@@ -1,0 +1,29 @@
+{
+	"goblin":
+	{
+		"eyewear"	: ["eyepatch_black"],
+		"jacket"	: ["jacket_dark", "light_jacket_brown"],
+		"mask"		: ["scarf_black"],
+		"overcoat"	: ["cloak_0"],
+		"pants"		: ["pants_brown", "pants_light"],
+		"shirt"		: ["long_sleeve_light", "shirt_light"]
+	},
+	"skeleton":
+	{
+		"armorplate": ["heavy_armor"],
+		"headwear"	: ["heavy_helmet"],
+		"jacket"	: ["chainmail"],
+		"pants"		: ["pants_brown"],
+		"shirt"		: ["shirt_torn_gray"]
+	},
+	"human":
+	{
+		"eyewear"	: ["eyepatch_black"],
+		"headwear"	: ["helmet"],
+		"jacket"	: ["chainmail"],
+		"mask"		: ["scarf_black"],
+		"overcoat"	: ["surcoat"],
+		"pants"		: ["pants_brown"],
+		"shirt"		: ["shirt_light"]
+	}
+}

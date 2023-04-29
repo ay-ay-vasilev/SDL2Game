@@ -123,6 +123,11 @@ void Game::init()
 	{
 		auto enemy = enemySystem->instantiateEnemy(skeletonData, "skeleton");
 		enemySystem->equipWeapon(*enemy, "sword");
+		enemySystem->equipArmor(*enemy, "pants_brown", "pants");
+		enemySystem->equipArmor(*enemy, "shirt_torn_gray", "shirt");
+		enemySystem->equipArmor(*enemy, "chainmail", "jacket");
+		enemySystem->equipArmor(*enemy, "heavy_armor", "armorplate");
+		//enemySystem->equipArmor(*enemy, "heavy_helmet", "headwear");
 	}
 
 	for (const auto& goblinData : constants->GOBLIN_POS)
@@ -134,7 +139,7 @@ void Game::init()
 		enemySystem->equipArmor(*enemy, "jacket_dark", "jacket");
 		enemySystem->equipArmor(*enemy, "eyepatch_black", "eyewear");
 		enemySystem->equipArmor(*enemy, "scarf_black", "mask");
-		enemySystem->equipArmor(*enemy, "cloak_0", "overcoat");
+		//enemySystem->equipArmor(*enemy, "cloak_0", "overcoat");
 	}
 
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);

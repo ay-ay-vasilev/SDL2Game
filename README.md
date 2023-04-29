@@ -11,8 +11,8 @@ Stuff to remember:
 
 My plan:
 - Add random customization for actors
-    - Add skeleton armor and face
-    - Add a CustomizationComponent ?
+    - Add a RandomEquipment Component/System/Manager ?
+    - Add random appearance features
 
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
@@ -53,3 +53,5 @@ Future plans:
 - Hit cooldown ?
 - Add body parts and body parts damage and armor ?
 - More animations for AI actors ?
+- Divide pants into boots and pants ?
+- Add armor condition ?
