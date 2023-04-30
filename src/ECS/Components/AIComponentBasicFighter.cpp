@@ -1,17 +1,17 @@
-#include "AIComponentBasicEnemy.h"
+#include "AIComponentBasicFighter.h"
 #include "ActorComponent.h"
 #include "TransformComponent.h"
 #include "HitboxComponent.h"
 #include "HealthComponent.h"
 #include "WeaponComponent.h"
 
-ecs::AIComponentBasicEnemy::AIComponentBasicEnemy() :
+ecs::AIComponentBasicFighter::AIComponentBasicFighter() :
 	target(nullptr),
 	targetID(-1),
 	distance(0.f), aggroDistance(0.f), loseAggroDistance(0.f),
 	state(eState::IDLE) {}
 
-void ecs::AIComponentBasicEnemy::init()
+void ecs::AIComponentBasicFighter::init()
 {
 	actorComponent = entity->getComponent<ActorComponent>();
 	registerWithSubject(actorComponent);
@@ -22,7 +22,7 @@ void ecs::AIComponentBasicEnemy::init()
 	loseAggroDistance = 100 * transform->getScale();
 }
 
-void ecs::AIComponentBasicEnemy::update()
+void ecs::AIComponentBasicFighter::update()
 {
 	if (target)
 	{
@@ -59,7 +59,7 @@ void ecs::AIComponentBasicEnemy::update()
 	}
 }
 
-void ecs::AIComponentBasicEnemy::onNotify(const std::string_view& observedEvent)
+void ecs::AIComponentBasicFighter::onNotify(const std::string_view& observedEvent)
 {
 	if (observedEvent == "attack_end")
 	{
@@ -72,7 +72,7 @@ void ecs::AIComponentBasicEnemy::onNotify(const std::string_view& observedEvent)
 	}
 }
 
-void ecs::AIComponentBasicEnemy::setNewTarget(const Entity* newTarget)
+void ecs::AIComponentBasicFighter::setNewTarget(const Entity* newTarget)
 {
 	if (!newTarget || target == newTarget)
 		return;
@@ -84,7 +84,7 @@ void ecs::AIComponentBasicEnemy::setNewTarget(const Entity* newTarget)
 	targetID = target->getID();
 }
 
-void ecs::AIComponentBasicEnemy::resetTarget()
+void ecs::AIComponentBasicFighter::resetTarget()
 {
 	targetHealth.reset();
 	targetTransform.reset();
@@ -98,12 +98,12 @@ void ecs::AIComponentBasicEnemy::resetTarget()
 	std::cout << actorComponent->getActorType() << "_" << entity->getID() << " AI: target lost!\n";
 }
 
-void ecs::AIComponentBasicEnemy::loseTarget()
+void ecs::AIComponentBasicFighter::loseTarget()
 {
 	resetTarget();
 }
 
-void ecs::AIComponentBasicEnemy::targetDestroyed()
+void ecs::AIComponentBasicFighter::targetDestroyed()
 {
 	resetTarget();
 }

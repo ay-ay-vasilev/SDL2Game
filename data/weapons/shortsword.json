@@ -14,8 +14,8 @@
 		{
 			"sprites":
 			[
-				{ "slot": "weapon", "texture": "shortsword_goblin_0", "z": -201 },
-				{ "slot": "weapon", "texture": "shortsword_goblin_1", "z": 201 }
+				{ "slot": "weapon", "texture": "goblin_shortsword_0", "z": -201 },
+				{ "slot": "weapon", "texture": "goblin_shortsword_1", "z": 201 }
 			]
 		},
 		"human": {},

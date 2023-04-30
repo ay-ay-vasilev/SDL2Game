@@ -23,7 +23,7 @@
 		"sprites":
 		[
 			{ "slot": "body", "texture": "skeleton_body", "z": 0 },
-			{ "slot": "head", "texture": "skeleton_head_0", "z": 100 },
+			{ "slot": "head", "texture": "skeleton_face_0", "z": 100 },
 			{ "slot": "hands", "texture": "skeleton_hands_0", "z": -200 },
 			{ "slot": "hands", "texture": "skeleton_hands_1", "z": 200 }
 		],

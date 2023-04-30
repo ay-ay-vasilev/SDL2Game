@@ -10,11 +10,11 @@ namespace ecs
 	class HitboxComponent;
 	class HealthComponent;
 	class WeaponComponent;
-	class AIComponentBasicEnemy : public AIComponent, public Observer
+	class AIComponentBasicFighter : public AIComponent, public Observer
 	{
 	public:
-		AIComponentBasicEnemy();
-		virtual ~AIComponentBasicEnemy() {}
+		AIComponentBasicFighter();
+		virtual ~AIComponentBasicFighter() {}
 
 		// Component
 		void init() override;

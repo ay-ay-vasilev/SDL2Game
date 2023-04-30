@@ -1,5 +1,5 @@
 #include "AISystem.h"
-#include "AIComponentBasicEnemy.h"
+#include "AIComponentBasicFighter.h"
 #include "FactionComponent.h"
 #include "TransformComponent.h"
 
@@ -8,20 +8,20 @@
 void ecs::AISystem::update()
 {
 	entitiesWithFactions = manager.getEntitiesWithComponents<FactionComponent>();
-	aiActors = manager.getEntitiesWithComponent<AIComponentBasicEnemy>();
+	aiActors = manager.getEntitiesWithComponent<AIComponentBasicFighter>();
 
 	for (const auto& aiActor : aiActors)
 	{
 		const auto& aiActorTransform = aiActor->getComponent<TransformComponent>();
-		const auto& aiActorAI = aiActor->getComponent<AIComponentBasicEnemy>();
+		const auto& aiActorAI = aiActor->getComponent<AIComponentBasicFighter>();
 		const auto& aiActorFaction = aiActor->getComponent<FactionComponent>();
 
-		bool enemyHasTarget = aiActorAI->hasTarget();
+		bool fighterHasTarget = aiActorAI->hasTarget();
 
 		if (aiActorAI->hasTarget() && aiActorAI->getDistance() > aiActorAI->getLoseAggroDistance())
 		{
 			aiActorAI->loseTarget();
-			enemyHasTarget = false;
+			fighterHasTarget = false;
 		}
 		for (const auto& entityWithFaction : entitiesWithFactions)
 		{
@@ -35,12 +35,12 @@ void ecs::AISystem::update()
 			const auto& playerTransform = entityWithFaction->getComponent<TransformComponent>();
 			const auto distance = Vector2D::Distance(playerTransform->getPosition(), aiActorTransform->getPosition());
 
-			if (!enemyHasTarget)
+			if (!fighterHasTarget)
 			{
 				if (distance < aiActorAI->getAggroDistance())
 					aiActorAI->setNewTarget(entityWithFaction);
 			}
-			else if (enemyHasTarget)
+			else if (fighterHasTarget)
 			{
 				if (distance < aiActorAI->getAggroDistance() && distance < aiActorAI->getDistance())
 					aiActorAI->setNewTarget(entityWithFaction);

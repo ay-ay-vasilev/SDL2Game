@@ -4,7 +4,7 @@
 #include "CollisionSystem.h"
 #include "HitboxWeaponCollisionSystem.h"
 #include "PlayerSystem.h"
-#include "EnemySystem.h"
+#include "ActorSystem.h"
 #include "ProjectileSystem.h"
 #include "AISystem.h"
 #include "FactionSystem.h"
@@ -26,7 +26,7 @@ auto mapSystem(Game::manager->addSystem<ecs::MapSystem>());
 auto collisionSystem(Game::manager->addSystem<ecs::CollisionSystem>());
 auto hitboxWeaponCollisionSystem(Game::manager->addSystem<ecs::HitboxWeaponCollisionSystem>());
 auto playerSystem(Game::manager->addSystem<ecs::PlayerSystem>());
-auto enemySystem(Game::manager->addSystem<ecs::EnemySystem>());
+auto actorSystem(Game::manager->addSystem<ecs::ActorSystem>());
 auto projectileSystem(Game::manager->addSystem<ecs::ProjectileSystem>());
 auto aiSystem(Game::manager->addSystem<ecs::AISystem>());
 auto factionSystem(Game::manager->addSystem<ecs::FactionSystem>());
@@ -110,36 +110,36 @@ void Game::init()
 
 	for (const auto& humanData : constants->HUMAN_POS)
 	{
-		auto enemy = enemySystem->instantiateEnemy(humanData, "human");
-		enemySystem->equipWeapon(*enemy, "sword");
-		enemySystem->equipArmor(*enemy, "pants_brown", "pants");
-		enemySystem->equipArmor(*enemy, "shirt_light", "shirt");
-		enemySystem->equipArmor(*enemy, "chainmail", "jacket");
-		enemySystem->equipArmor(*enemy, "surcoat", "overcoat");
-		enemySystem->equipArmor(*enemy, "helmet", "headwear");
+		auto actor = actorSystem->instantiateActor(humanData, "human");
+		actorSystem->equipWeapon(*actor, "sword");
+		actorSystem->equipArmor(*actor, "pants_brown", "pants");
+		actorSystem->equipArmor(*actor, "shirt_light", "shirt");
+		actorSystem->equipArmor(*actor, "chainmail", "jacket");
+		actorSystem->equipArmor(*actor, "surcoat", "overcoat");
+		actorSystem->equipArmor(*actor, "helmet", "headwear");
 	}
 
 	for (const auto& skeletonData : constants->SKELETON_POS)
 	{
-		auto enemy = enemySystem->instantiateEnemy(skeletonData, "skeleton");
-		enemySystem->equipWeapon(*enemy, "sword");
-		enemySystem->equipArmor(*enemy, "pants_brown", "pants");
-		enemySystem->equipArmor(*enemy, "shirt_torn_gray", "shirt");
-		enemySystem->equipArmor(*enemy, "chainmail", "jacket");
-		enemySystem->equipArmor(*enemy, "heavy_armor", "armorplate");
-		//enemySystem->equipArmor(*enemy, "heavy_helmet", "headwear");
+		auto actor = actorSystem->instantiateActor(skeletonData, "skeleton");
+		actorSystem->equipWeapon(*actor, "sword");
+		actorSystem->equipArmor(*actor, "pants_brown", "pants");
+		actorSystem->equipArmor(*actor, "shirt_torn_gray", "shirt");
+		actorSystem->equipArmor(*actor, "chainmail", "jacket");
+		actorSystem->equipArmor(*actor, "heavy_armor", "armorplate");
+		//actorSystem->equipArmor(*actor, "heavy_helmet", "headwear");
 	}
 
 	for (const auto& goblinData : constants->GOBLIN_POS)
 	{
-		auto enemy = enemySystem->instantiateEnemy(goblinData, "goblin");
-		enemySystem->equipWeapon(*enemy, "shortsword");
-		enemySystem->equipArmor(*enemy, "pants_brown", "pants");
-		enemySystem->equipArmor(*enemy, "shirt_light", "shirt");
-		enemySystem->equipArmor(*enemy, "jacket_dark", "jacket");
-		enemySystem->equipArmor(*enemy, "eyepatch_black", "eyewear");
-		enemySystem->equipArmor(*enemy, "scarf_black", "mask");
-		//enemySystem->equipArmor(*enemy, "cloak_0", "overcoat");
+		auto actor = actorSystem->instantiateActor(goblinData, "goblin");
+		actorSystem->equipWeapon(*actor, "shortsword");
+		actorSystem->equipArmor(*actor, "pants_brown", "pants");
+		actorSystem->equipArmor(*actor, "shirt_light", "shirt");
+		actorSystem->equipArmor(*actor, "jacket_dark", "jacket");
+		actorSystem->equipArmor(*actor, "eyepatch_black", "eyewear");
+		actorSystem->equipArmor(*actor, "scarf_black", "mask");
+		//actorSystem->equipArmor(*actor, "cloak_0", "overcoat");
 	}
 
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);

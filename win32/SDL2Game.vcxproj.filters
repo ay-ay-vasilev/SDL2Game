@@ -51,7 +51,7 @@
     <ClCompile Include="..\src\ECS\Systems\PlayerSystem.cpp">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ECS\Systems\EnemySystem.cpp">
+    <ClCompile Include="..\src\ECS\Systems\ActorSystem.cpp">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Managers\AssetManager.cpp">
@@ -93,7 +93,7 @@
     <ClCompile Include="..\src\ECS\Components\ActorComponent.cpp">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ECS\Components\AIComponentBasicEnemy.cpp">
+    <ClCompile Include="..\src\ECS\Components\AIComponentBasicFighter.cpp">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ECS\Components\ArmorComponent.cpp">
@@ -176,7 +176,7 @@
     <ClInclude Include="..\src\ECS\Systems\PlayerSystem.h">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ECS\Systems\EnemySystem.h">
+    <ClInclude Include="..\src\ECS\Systems\ActorSystem.h">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Managers\AssetManager.h">
@@ -224,7 +224,7 @@
     <ClInclude Include="..\src\ECS\Components\AIComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ECS\Components\AIComponentBasicEnemy.h">
+    <ClInclude Include="..\src\ECS\Components\AIComponentBasicFighter.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ECS\Systems\AISystem.h">
