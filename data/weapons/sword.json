@@ -14,23 +14,23 @@
 		{
 			"sprites":
 			[
-				{ "slot": "weapon", "texture": "goblin_sword_0", "z": 202 }
+				{ "slot": "weapon", "texture": "goblin_sword_front", "z": 202 }
 			]
 		},
 		"human":
 		{
 			"sprites":
 			[
-				{ "slot": "weapon", "texture": "human_sword_0", "z": -201 },
-				{ "slot": "weapon", "texture": "human_sword_1", "z": 201 }
+				{ "slot": "weapon", "texture": "human_sword_back", "z": -201 },
+				{ "slot": "weapon", "texture": "human_sword_front", "z": 201 }
 			]
 		},
 		"skeleton":
 		{
 			"sprites":
 			[
-				{ "slot": "weapon", "texture": "skeleton_sword_0", "z": -201 },
-				{ "slot": "weapon", "texture": "skeleton_sword_1", "z": 201 }
+				{ "slot": "weapon", "texture": "skeleton_sword_back", "z": -201 },
+				{ "slot": "weapon", "texture": "skeleton_sword_front", "z": 201 }
 			]
 		}
 	}

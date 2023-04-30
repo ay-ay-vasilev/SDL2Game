@@ -5,7 +5,7 @@
 		"sprites":
 		[
 			{ "slot": "overcoat", "texture": "goblin_cloak_0", "z": 4 },
-			{ "slot": "overcoat", "texture": "goblin_cloak_0_hands_0", "z": 202 },
+			{ "slot": "overcoat", "texture": "goblin_cloak_0_arms_back", "z": 202 },
 			{ "slot": "overcoat", "texture": "goblin_cloak_0_head", "z": 104 }
 		]
 	}

@@ -5,7 +5,7 @@
 		"sprites":
 		[
 			{ "slot": "overcoat", "texture": "human_surcoat", "z": 4 },
-			{ "slot": "overcoat", "texture": "human_surcoat_hands", "z": 203 }
+			{ "slot": "overcoat", "texture": "human_surcoat_arms_front", "z": 203 }
 		]
 	}
 }

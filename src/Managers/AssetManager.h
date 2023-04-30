@@ -35,7 +35,7 @@ public:
 	std::string getActorJsonPath(const std::string& fileName);
 	std::string getProjectileJsonPath(const std::string& fileName);
 	std::string getWeaponJsonPath(const std::string& fileName);
-	std::string getArmorJsonPath(const std::string& fileName, const std::string& actorName, const std::string& slotName);
+	std::string getEquipmentJsonPath(const std::string& fileName, const std::string& actorName, const std::string& slotName);
 	std::string getGeneralDataJsonPath(const std::string& fileName);
 
 	// Surface management
@@ -50,7 +50,7 @@ public:
 	nlohmann::json getActorJson(const std::string& actorName);
 	nlohmann::json getProjectileJson(const std::string& projectileName);
 	nlohmann::json getWeaponJson(const std::string& weaponName);
-	nlohmann::json getArmorJson(const std::string& armorName, const std::string& actorName, const std::string& slotName);
+	nlohmann::json getEquipmentJson(const std::string& equipmentName, const std::string& actorName, const std::string& slotName);
 	nlohmann::json getGeneralDataJson(const std::string& dataName);
 
 private:

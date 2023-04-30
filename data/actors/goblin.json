@@ -26,8 +26,8 @@
 			{ "slot": "ears", "texture": "goblin_ears_0", "z": 99 },
 			{ "slot": "head", "texture": "goblin_head", "z": 100 },
 			{ "slot": "face", "texture": "goblin_face_0", "z": 101 },
-			{ "slot": "hands", "texture": "goblin_hands_0", "z": -200 },
-			{ "slot": "hands", "texture": "goblin_hands_1", "z": 200 }
+			{ "slot": "arms", "texture": "goblin_arms_back", "z": -200 },
+			{ "slot": "arms", "texture": "goblin_arms_front", "z": 200 }
 		],
 		"animations":
 		{
