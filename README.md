@@ -11,7 +11,6 @@ Stuff to remember:
 
 My plan:
 - Add random customization for actors
-    - Add a RandomEquipment Component/System/Manager ?
     - Add random appearance features
 
 - Ranged weapon for player.

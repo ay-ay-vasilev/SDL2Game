@@ -7,6 +7,10 @@ namespace ecs
 	{
 	public:
 		explicit ActorSystem(Manager& manager) : System(manager) {}
+		// System
+		void init() override;
+		void update() override;
+		void draw() override;
 
 		Entity* instantiateActor(const Vector2D& pos, const std::string& filename);
 		void equipWeapon(Entity& actor, const std::string& weaponName);
@@ -15,16 +19,15 @@ namespace ecs
 		void unequipArmorPiece(Entity& actor, const std::string& slotName);
 		void unequipAllArmor(Entity& actor);
 
-		void update() override;
-		void draw() override;
+		void equipRandomArmor(Entity& actor);
+		void equipRandomWeapon(Entity& actor);
 
 	private:
 		std::vector<Entity*> actors;
 
-		// Data structure for possible equipment for actors
-		std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> actorEquipment;
-
-
-
+		// Data structure for possible armor for actors
+		std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> actorArmor;
+		// Data structure for possible weapons for actors
+		std::unordered_map<std::string, std::vector<std::string>> actorWeapons;
 	};
 }

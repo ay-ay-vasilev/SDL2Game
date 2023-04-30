@@ -111,35 +111,22 @@ void Game::init()
 	for (const auto& humanData : constants->HUMAN_POS)
 	{
 		auto actor = actorSystem->instantiateActor(humanData, "human");
-		actorSystem->equipWeapon(*actor, "sword");
-		actorSystem->equipArmor(*actor, "pants_brown", "pants");
-		actorSystem->equipArmor(*actor, "shirt_light", "shirt");
-		actorSystem->equipArmor(*actor, "chainmail", "jacket");
-		actorSystem->equipArmor(*actor, "surcoat", "overcoat");
-		actorSystem->equipArmor(*actor, "helmet", "headwear");
+		actorSystem->equipRandomArmor(*actor);
+		actorSystem->equipRandomWeapon(*actor);
 	}
 
 	for (const auto& skeletonData : constants->SKELETON_POS)
 	{
 		auto actor = actorSystem->instantiateActor(skeletonData, "skeleton");
-		actorSystem->equipWeapon(*actor, "sword");
-		actorSystem->equipArmor(*actor, "pants_brown", "pants");
-		actorSystem->equipArmor(*actor, "shirt_torn_gray", "shirt");
-		actorSystem->equipArmor(*actor, "chainmail", "jacket");
-		actorSystem->equipArmor(*actor, "heavy_armor", "armorplate");
-		//actorSystem->equipArmor(*actor, "heavy_helmet", "headwear");
+		actorSystem->equipRandomArmor(*actor);
+		actorSystem->equipRandomWeapon(*actor);
 	}
 
 	for (const auto& goblinData : constants->GOBLIN_POS)
 	{
 		auto actor = actorSystem->instantiateActor(goblinData, "goblin");
-		actorSystem->equipWeapon(*actor, "shortsword");
-		actorSystem->equipArmor(*actor, "pants_brown", "pants");
-		actorSystem->equipArmor(*actor, "shirt_light", "shirt");
-		actorSystem->equipArmor(*actor, "jacket_dark", "jacket");
-		actorSystem->equipArmor(*actor, "eyepatch_black", "eyewear");
-		actorSystem->equipArmor(*actor, "scarf_black", "mask");
-		//actorSystem->equipArmor(*actor, "cloak_0", "overcoat");
+		actorSystem->equipRandomArmor(*actor);
+		actorSystem->equipRandomWeapon(*actor);
 	}
 
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);

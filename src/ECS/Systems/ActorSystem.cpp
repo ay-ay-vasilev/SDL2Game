@@ -11,6 +11,41 @@
 #include "WeaponComponent.h"
 #include "FactionComponent.h"
 
+#include <random>
+
+void ecs::ActorSystem::init()
+{
+	const auto actorsEquipmentData = Game::assets->getGeneralDataJson("actor_equipment");
+
+	for (auto& actorEntry : actorsEquipmentData["armor"].items())
+	{
+		const std::string actorName = actorEntry.key();
+		std::unordered_map<std::string, std::vector<std::string>> actorEquipmentMap;
+
+		for (auto& equipmentEntry : actorEntry.value().items())
+		{
+			const std::string slotName = equipmentEntry.key();
+			const std::vector<std::string>& equipmentList = equipmentEntry.value();
+			actorEquipmentMap.emplace(slotName, equipmentList);
+		}
+		actorArmor.emplace(actorName, actorEquipmentMap);
+	}
+
+	for (auto& [actorName, weaponVector] : actorsEquipmentData["weapons"].items())
+	{
+		actorWeapons.emplace(actorName, weaponVector);
+	}
+}
+
+void ecs::ActorSystem::update()
+{
+	actors = manager.getGroup(Game::eGroupLabels::ACTORS);
+}
+
+void ecs::ActorSystem::draw()
+{
+}
+
 ecs::Entity* ecs::ActorSystem::instantiateActor(const Vector2D& pos, const std::string& filename)
 {
 	const auto actorData = Game::assets->getActorJson(filename);
@@ -44,8 +79,7 @@ void ecs::ActorSystem::equipWeapon(ecs::Entity& actor, const std::string& weapon
 
 	if (actor.hasComponent<ecs::WeaponComponent>())
 	{
-		if (actor.getComponent<ecs::WeaponComponent>()->getTag() == weaponName)
-			return;
+		if (actor.getComponent<ecs::WeaponComponent>()->getTag() == weaponName) return;
 		actor.removeComponent<ecs::WeaponComponent>();
 	}
 	actor.addComponent<ecs::WeaponComponent>(weaponName, actorType);
@@ -53,41 +87,73 @@ void ecs::ActorSystem::equipWeapon(ecs::Entity& actor, const std::string& weapon
 
 void ecs::ActorSystem::equipArmor(ecs::Entity& actor, const std::string& armorName, const std::string& slotName)
 {
-	if (!actor.hasComponent<ecs::ActorComponent>()) return;
-
+	if (!actor.hasComponent<ecs::ActorComponent>() || !actor.hasComponent<ecs::ArmorComponent>()) return;
 	const std::string actorType = actor.getComponent<ecs::ActorComponent>()->getActorType();
 
-	if (actor.hasComponent<ecs::ArmorComponent>())
-	{
-		const auto armorComponent = actor.getComponent<ecs::ArmorComponent>();
-		armorComponent->equipArmorToSlot(armorName, actorType, slotName);
-	}
+	const auto armorComponent = actor.getComponent<ecs::ArmorComponent>();
+	armorComponent->equipArmorToSlot(armorName, actorType, slotName);
 }
 
 void ecs::ActorSystem::unequipArmorPiece(ecs::Entity& actor, const std::string& slotName)
 {
-	if (actor.hasComponent<ecs::ArmorComponent>())
-	{
-		const auto armorComponent = actor.getComponent<ecs::ArmorComponent>();
-		armorComponent->unequipArmorFromSlot(slotName);
-	}
+	if (!actor.hasComponent<ecs::ArmorComponent>()) return;
+
+	const auto armorComponent = actor.getComponent<ecs::ArmorComponent>();
+	armorComponent->unequipArmorFromSlot(slotName);
 }
 
 void ecs::ActorSystem::unequipAllArmor(ecs::Entity& actor)
 {
-	if (actor.hasComponent<ecs::ArmorComponent>())
+	if (!actor.hasComponent<ecs::ArmorComponent>()) return;
+
+	const auto armorComponent = actor.getComponent<ecs::ArmorComponent>();
+	armorComponent->unequipAllArmor();
+}
+
+void ecs::ActorSystem::equipRandomArmor(ecs::Entity& actor)
+{
+	if (!actor.hasComponent<ecs::ArmorComponent>() || !actor.hasComponent<ecs::ActorComponent>()) return;
+
+	const std::string actorType = actor.getComponent<ecs::ActorComponent>()->getActorType();
+	const auto armorComponent = actor.getComponent<ecs::ArmorComponent>();
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+
+	for (const auto& [slotName, equipmentVector] : actorArmor[actorType])
 	{
-		const auto armorComponent = actor.getComponent<ecs::ArmorComponent>();
-		armorComponent->unequipAllArmor();
+		if (!equipmentVector.empty())
+		{
+			std::uniform_int_distribution<> dis(0, equipmentVector.size() - 1);
+			const int equipmentIndex = dis(gen);
+			const std::string& equipmentName = equipmentVector[equipmentIndex];
+			if (equipmentName != "none")
+			{
+				armorComponent->equipArmorToSlot(equipmentName, actorType, slotName);
+			}
+		}
 	}
 }
 
-
-void ecs::ActorSystem::update()
+void ecs::ActorSystem::equipRandomWeapon(ecs::Entity& actor)
 {
-	actors = manager.getGroup(Game::eGroupLabels::ACTORS);
-}
+	if (!actor.hasComponent<ecs::ActorComponent>()) return;
 
-void ecs::ActorSystem::draw()
-{
+	const std::string actorType = actor.getComponent<ecs::ActorComponent>()->getActorType();
+	if (actorWeapons[actorType].empty()) return;
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+
+	const auto weaponsVector = actorWeapons[actorType];
+	std::uniform_int_distribution<> dis(0, weaponsVector.size() - 1);
+	const int weaponIndex = dis(gen);
+	const auto weaponName = weaponsVector[weaponIndex] == "none" ? "unarmed" : weaponsVector[weaponIndex];
+
+	if (actor.hasComponent<ecs::WeaponComponent>())
+	{
+		if (actor.getComponent<ecs::WeaponComponent>()->getTag() == weaponName) return;
+		actor.removeComponent<ecs::WeaponComponent>();
+	}
+	actor.addComponent<ecs::WeaponComponent>(weaponName, actorType);
 }

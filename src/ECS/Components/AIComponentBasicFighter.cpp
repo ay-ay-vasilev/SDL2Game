@@ -18,8 +18,8 @@ void ecs::AIComponentBasicFighter::init()
 	transform = entity->getComponent<TransformComponent>();
 	weapon = entity->getComponent<WeaponComponent>();
 	// todo: read from json
-	aggroDistance = 80 * transform->getScale();
-	loseAggroDistance = 100 * transform->getScale();
+	aggroDistance = 800 * transform->getScale();
+	loseAggroDistance = 1000 * transform->getScale();
 }
 
 void ecs::AIComponentBasicFighter::update()
