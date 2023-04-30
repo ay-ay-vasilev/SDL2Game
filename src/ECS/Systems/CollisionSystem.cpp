@@ -25,12 +25,29 @@ void ecs::CollisionSystem::update()
 		auto movingEntityTransformComponent = movingEntity->getComponent<ecs::TransformComponent>();
 		auto movingEntityCollider = movingEntityColliderComponent->getCollider();
 
+		// collision with static colliders
 		for (auto colliderEntity : colliderEntities)
 		{
 			if (colliderEntity == movingEntity)
 				continue;
 
 			const auto colliderEntityCollider = colliderEntity->getComponent<ecs::ColliderComponent>()->getCollider();
+			float overlapX, overlapY;
+			if (overlap(movingEntityCollider, colliderEntityCollider, overlapX, overlapY))
+			{
+				adjustPosition(overlapX, overlapY, colliderEntityCollider->getPosition(), movingEntityTransformComponent, movingEntityColliderComponent);
+			}
+		}
+		// collision with moving actors (disabled for player for now)
+		if (movingEntity->hasGroup(Game::eGroupLabels::PLAYERS)) continue;
+		for (auto otherMovingEntity : movingEntities)
+		{
+			if (otherMovingEntity == movingEntity)
+				continue;
+			if (otherMovingEntity->hasGroup(Game::eGroupLabels::PLAYERS))
+				continue;
+
+			const auto colliderEntityCollider = otherMovingEntity->getComponent<ecs::ColliderComponent>()->getCollider();
 			float overlapX, overlapY;
 			if (overlap(movingEntityCollider, colliderEntityCollider, overlapX, overlapY))
 			{

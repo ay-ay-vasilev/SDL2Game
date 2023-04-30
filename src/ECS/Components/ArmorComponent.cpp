@@ -11,7 +11,7 @@ void ecs::ArmorComponent::init()
 
 void ecs::ArmorComponent::equipArmorToSlot(const std::string& armorName, const std::string& actorName, const std::string& slotName)
 {
-	const auto armorData = Game::assets->getEquipmentJson(armorName, actorName, slotName);
+	const auto armorData = Game::assets->getArmorJson(armorName, actorName, slotName);
 
 	const auto slotArmorValue = armorData.value("damage_reduction", 0);
 	armorValue += slotArmorValue;
