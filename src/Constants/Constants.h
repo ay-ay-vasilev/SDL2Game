@@ -69,6 +69,9 @@ public:
 	std::vector<Vector2D> SKELETON_POS;
 	std::vector<Vector2D> GOBLIN_POS;
 
+	int AI_AGGRO_DISTANCE{ 80 };
+	int AI_DEAGGRO_DISTANCE{ 100 };
+
 	bool DRAW_COLLIDERS{ false };
 	bool DRAW_HITBOXES{ false };
 
@@ -167,6 +170,14 @@ private:
 		if (constantsJson.find("debug_draw_hitboxes") != constantsJson.end())
 		{
 			DRAW_HITBOXES = constantsJson["debug_draw_hitboxes"];
+		}
+		if (constantsJson.find("ai_aggro_distance") != constantsJson.end())
+		{
+			AI_AGGRO_DISTANCE = constantsJson["ai_aggro_distance"];
+		}
+		if (constantsJson.find("ai_deaggro_distance") != constantsJson.end())
+		{
+			AI_DEAGGRO_DISTANCE = constantsJson["ai_deaggro_distance"];
 		}
 	}
 

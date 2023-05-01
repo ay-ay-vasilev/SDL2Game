@@ -16,7 +16,6 @@
 void ecs::ActorSystem::init()
 {
 	const auto actorsEquipmentData = Game::assets->getGeneralDataJson("actor_equipment");
-
 	for (auto& actorEntry : actorsEquipmentData["armor"].items())
 	{
 		const std::string actorName = actorEntry.key();
@@ -28,12 +27,29 @@ void ecs::ActorSystem::init()
 			const std::vector<std::string>& equipmentList = equipmentEntry.value();
 			actorEquipmentMap.emplace(slotName, equipmentList);
 		}
-		actorArmor.emplace(actorName, actorEquipmentMap);
+		actorArmors.emplace(actorName, actorEquipmentMap);
 	}
 
 	for (auto& [actorName, weaponVector] : actorsEquipmentData["weapons"].items())
 	{
 		actorWeapons.emplace(actorName, weaponVector);
+	}
+
+	const auto actorsCustomizationData = Game::assets->getGeneralDataJson("customization");
+	for (auto& actorEntry : actorsCustomizationData.items())
+	{
+		const std::string actorName = actorEntry.key();
+		for (auto& skinColorEntry : actorEntry.value().items())
+		{
+			const std::string skinColor = skinColorEntry.key();
+			for (auto& sprite : skinColorEntry.value())
+			{
+				std::vector<std::string> textures;
+				for (const auto texture : sprite["textures"]) textures.push_back(texture);
+				const auto customizationSprite = ActorCustomizationSprite(sprite["slot"], textures, sprite["z"]);
+				actorCustomizations[actorName][skinColor].push_back(customizationSprite);
+			}
+		}
 	}
 }
 
@@ -120,7 +136,7 @@ void ecs::ActorSystem::equipRandomArmor(ecs::Entity& actor)
 	std::random_device rd;
 	std::mt19937 gen(rd());
 
-	for (const auto& [slotName, equipmentVector] : actorArmor[actorType])
+	for (const auto& [slotName, equipmentVector] : actorArmors[actorType])
 	{
 		if (!equipmentVector.empty())
 		{
@@ -142,11 +158,12 @@ void ecs::ActorSystem::equipRandomWeapon(ecs::Entity& actor)
 	const std::string actorType = actor.getComponent<ecs::ActorComponent>()->getActorType();
 	if (actorWeapons[actorType].empty()) return;
 
+	const auto weaponsVector = actorWeapons[actorType];
+
 	std::random_device rd;
 	std::mt19937 gen(rd());
-
-	const auto weaponsVector = actorWeapons[actorType];
 	std::uniform_int_distribution<> dis(0, weaponsVector.size() - 1);
+
 	const int weaponIndex = dis(gen);
 	const auto weaponName = weaponsVector[weaponIndex] == "none" ? "unarmed" : weaponsVector[weaponIndex];
 
@@ -156,4 +173,31 @@ void ecs::ActorSystem::equipRandomWeapon(ecs::Entity& actor)
 		actor.removeComponent<ecs::WeaponComponent>();
 	}
 	actor.addComponent<ecs::WeaponComponent>(weaponName, actorType);
+}
+
+void ecs::ActorSystem::addRandomCustomization(ecs::Entity& actor)
+{
+	if (!actor.hasComponent<ecs::ActorComponent>() || !actor.hasComponent<ecs::SpriteComponent>()) return;
+
+	const std::string actorType = actor.getComponent<ecs::ActorComponent>()->getActorType();
+	const auto spriteComponent = actor.getComponent<ecs::SpriteComponent>();
+
+	auto availableCustomizations = actorCustomizations[actorType];
+	if (availableCustomizations.empty()) return;
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> availableCustomizationsDistribution(0, availableCustomizations.size() - 1);
+
+	const auto& it = std::next(availableCustomizations.begin(), availableCustomizationsDistribution(gen));
+	const auto& customizationKey = it->first;
+
+	const auto& customization = availableCustomizations[customizationKey];
+
+	for (const auto& sprite : customization)
+	{
+		std::uniform_int_distribution<> surfacesDistribution(0, sprite.availableSurfaces.size() - 1);
+		const auto surfaceId = sprite.availableSurfaces[surfacesDistribution(gen)];
+		spriteComponent->addSprite(sprite.slotName, std::make_shared<Sprite>(surfaceId, sprite.z));
+	}
 }

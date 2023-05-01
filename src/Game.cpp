@@ -107,12 +107,14 @@ void Game::init()
 	projectileSystem->instantiateProjectile(Vector2D(100.f, 33.33f), Vector2D(-2.f, 2.f), projectileFile);
 
 	auto player = playerSystem->instantiatePlayer(constants->PLAYER_POS, "goblin");
+	actorSystem->addRandomCustomization(*player);
 
 	for (const auto& humanData : constants->HUMAN_POS)
 	{
 		auto actor = actorSystem->instantiateActor(humanData, "human");
 		actorSystem->equipRandomArmor(*actor);
 		actorSystem->equipRandomWeapon(*actor);
+		actorSystem->addRandomCustomization(*actor);
 	}
 
 	for (const auto& skeletonData : constants->SKELETON_POS)
@@ -120,6 +122,7 @@ void Game::init()
 		auto actor = actorSystem->instantiateActor(skeletonData, "skeleton");
 		actorSystem->equipRandomArmor(*actor);
 		actorSystem->equipRandomWeapon(*actor);
+		actorSystem->addRandomCustomization(*actor);
 	}
 
 	for (const auto& goblinData : constants->GOBLIN_POS)
@@ -127,6 +130,7 @@ void Game::init()
 		auto actor = actorSystem->instantiateActor(goblinData, "goblin");
 		actorSystem->equipRandomArmor(*actor);
 		actorSystem->equipRandomWeapon(*actor);
+		actorSystem->addRandomCustomization(*actor);
 	}
 
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);

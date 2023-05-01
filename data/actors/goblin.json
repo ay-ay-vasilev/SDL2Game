@@ -20,15 +20,6 @@
 	"sprite_data":
 	{
 		"frame_width": 48, "frame_height": 48,
-		"sprites":
-		[
-			{ "slot": "body", "texture": "goblin_body", "z": 0 },
-			{ "slot": "ears", "texture": "goblin_ears_0", "z": 99 },
-			{ "slot": "head", "texture": "goblin_head", "z": 100 },
-			{ "slot": "face", "texture": "goblin_face_0", "z": 101 },
-			{ "slot": "arms", "texture": "goblin_arms_back", "z": -200 },
-			{ "slot": "arms", "texture": "goblin_arms_front", "z": 200 }
-		],
 		"animations":
 		{
 			"unarmed_idle": { "anim_index": 0, "num_of_frames": 4, "anim_speed": 100 },

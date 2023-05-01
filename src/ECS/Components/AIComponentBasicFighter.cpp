@@ -4,6 +4,8 @@
 #include "HitboxComponent.h"
 #include "HealthComponent.h"
 #include "WeaponComponent.h"
+// TODO: remove
+#include "Game.h"
 
 ecs::AIComponentBasicFighter::AIComponentBasicFighter() :
 	target(nullptr),
@@ -17,9 +19,9 @@ void ecs::AIComponentBasicFighter::init()
 	registerWithSubject(actorComponent);
 	transform = entity->getComponent<TransformComponent>();
 	weapon = entity->getComponent<WeaponComponent>();
-	// todo: read from json
-	aggroDistance = 800 * transform->getScale();
-	loseAggroDistance = 1000 * transform->getScale();
+	// TODO: remove
+	aggroDistance = Game::constants->AI_AGGRO_DISTANCE * transform->getScale();
+	loseAggroDistance = Game::constants->AI_DEAGGRO_DISTANCE * transform->getScale();
 }
 
 void ecs::AIComponentBasicFighter::update()
@@ -68,6 +70,7 @@ void ecs::AIComponentBasicFighter::onNotify(const std::string_view& observedEven
 	}
 	if (observedEvent == targetID + "_died")
 	{
+		std::cout << actorComponent->getActorType() << "_" << entity->getID() << " AI: target_" << targetID << " lost!\n";
 		targetDestroyed();
 	}
 }
@@ -94,8 +97,6 @@ void ecs::AIComponentBasicFighter::resetTarget()
 
 	transform->setVeloctiy(0, 0);
 	distance = 0.f;
-
-	std::cout << actorComponent->getActorType() << "_" << entity->getID() << " AI: target lost!\n";
 }
 
 void ecs::AIComponentBasicFighter::loseTarget()

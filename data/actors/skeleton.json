@@ -20,13 +20,6 @@
 	"sprite_data":
 	{
 		"frame_width": 64, "frame_height": 64,
-		"sprites":
-		[
-			{ "slot": "body", "texture": "skeleton_body", "z": 0 },
-			{ "slot": "head", "texture": "skeleton_face_0", "z": 100 },
-			{ "slot": "arms", "texture": "skeleton_arms_back", "z": -200 },
-			{ "slot": "arms", "texture": "skeleton_arms_front", "z": 200 }
-		],
 		"animations":
 		{
 			"unarmed_idle": { "anim_index": 0, "num_of_frames": 1, "anim_speed": 100 },

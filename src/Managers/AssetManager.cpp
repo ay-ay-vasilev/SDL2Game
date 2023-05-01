@@ -16,12 +16,49 @@ void AssetManager::loadSurfaces()
 {
 	addSurface("terrain", "assets/images/spritesheets/map/tiles_v0.png");
 
-	addSurface("goblin_body", "assets/images/spritesheets/actors/goblin/body_parts/body.png");
-	addSurface("goblin_head", "assets/images/spritesheets/actors/goblin/body_parts/head.png");
-	addSurface("goblin_face_0", "assets/images/spritesheets/actors/goblin/body_parts/face/0.png");
-	addSurface("goblin_ears_0", "assets/images/spritesheets/actors/goblin/body_parts/ears/0.png");
-	addSurface("goblin_arms_back", "assets/images/spritesheets/actors/goblin/body_parts/arms_back.png");
-	addSurface("goblin_arms_front", "assets/images/spritesheets/actors/goblin/body_parts/arms_front.png");
+	addSurface("goblin_green_body", "assets/images/spritesheets/actors/goblin/body_parts/green/body.png");
+	addSurface("goblin_green_head", "assets/images/spritesheets/actors/goblin/body_parts/green/head.png");
+	addSurface("goblin_green_face_0", "assets/images/spritesheets/actors/goblin/body_parts/green/face/0.png");
+	addSurface("goblin_green_face_1", "assets/images/spritesheets/actors/goblin/body_parts/green/face/1.png");
+	addSurface("goblin_green_face_2", "assets/images/spritesheets/actors/goblin/body_parts/green/face/2.png");
+	addSurface("goblin_green_ears_0", "assets/images/spritesheets/actors/goblin/body_parts/green/ears/0.png");
+	addSurface("goblin_green_ears_1", "assets/images/spritesheets/actors/goblin/body_parts/green/ears/1.png");
+	addSurface("goblin_green_ears_2", "assets/images/spritesheets/actors/goblin/body_parts/green/ears/2.png");
+	addSurface("goblin_green_arms_back", "assets/images/spritesheets/actors/goblin/body_parts/green/arms_back.png");
+	addSurface("goblin_green_arms_front", "assets/images/spritesheets/actors/goblin/body_parts/green/arms_front.png");
+
+	addSurface("goblin_yellow_body", "assets/images/spritesheets/actors/goblin/body_parts/yellow/body.png");
+	addSurface("goblin_yellow_head", "assets/images/spritesheets/actors/goblin/body_parts/yellow/head.png");
+	addSurface("goblin_yellow_face_0", "assets/images/spritesheets/actors/goblin/body_parts/yellow/face/0.png");
+	addSurface("goblin_yellow_face_1", "assets/images/spritesheets/actors/goblin/body_parts/yellow/face/1.png");
+	addSurface("goblin_yellow_face_2", "assets/images/spritesheets/actors/goblin/body_parts/yellow/face/2.png");
+	addSurface("goblin_yellow_ears_0", "assets/images/spritesheets/actors/goblin/body_parts/yellow/ears/0.png");
+	addSurface("goblin_yellow_ears_1", "assets/images/spritesheets/actors/goblin/body_parts/yellow/ears/1.png");
+	addSurface("goblin_yellow_ears_2", "assets/images/spritesheets/actors/goblin/body_parts/yellow/ears/2.png");
+	addSurface("goblin_yellow_arms_back", "assets/images/spritesheets/actors/goblin/body_parts/yellow/arms_back.png");
+	addSurface("goblin_yellow_arms_front", "assets/images/spritesheets/actors/goblin/body_parts/yellow/arms_front.png");
+
+	addSurface("goblin_dark_body", "assets/images/spritesheets/actors/goblin/body_parts/dark/body.png");
+	addSurface("goblin_dark_head", "assets/images/spritesheets/actors/goblin/body_parts/dark/head.png");
+	addSurface("goblin_dark_face_0", "assets/images/spritesheets/actors/goblin/body_parts/dark/face/0.png");
+	addSurface("goblin_dark_face_1", "assets/images/spritesheets/actors/goblin/body_parts/dark/face/1.png");
+	addSurface("goblin_dark_face_2", "assets/images/spritesheets/actors/goblin/body_parts/dark/face/2.png");
+	addSurface("goblin_dark_ears_0", "assets/images/spritesheets/actors/goblin/body_parts/dark/ears/0.png");
+	addSurface("goblin_dark_ears_1", "assets/images/spritesheets/actors/goblin/body_parts/dark/ears/1.png");
+	addSurface("goblin_dark_ears_2", "assets/images/spritesheets/actors/goblin/body_parts/dark/ears/2.png");
+	addSurface("goblin_dark_arms_back", "assets/images/spritesheets/actors/goblin/body_parts/dark/arms_back.png");
+	addSurface("goblin_dark_arms_front", "assets/images/spritesheets/actors/goblin/body_parts/dark/arms_front.png");
+
+	addSurface("goblin_white_body", "assets/images/spritesheets/actors/goblin/body_parts/white/body.png");
+	addSurface("goblin_white_head", "assets/images/spritesheets/actors/goblin/body_parts/white/head.png");
+	addSurface("goblin_white_face_0", "assets/images/spritesheets/actors/goblin/body_parts/white/face/0.png");
+	addSurface("goblin_white_face_1", "assets/images/spritesheets/actors/goblin/body_parts/white/face/1.png");
+	addSurface("goblin_white_face_2", "assets/images/spritesheets/actors/goblin/body_parts/white/face/2.png");
+	addSurface("goblin_white_ears_0", "assets/images/spritesheets/actors/goblin/body_parts/white/ears/0.png");
+	addSurface("goblin_white_ears_1", "assets/images/spritesheets/actors/goblin/body_parts/white/ears/1.png");
+	addSurface("goblin_white_ears_2", "assets/images/spritesheets/actors/goblin/body_parts/white/ears/2.png");
+	addSurface("goblin_white_arms_back", "assets/images/spritesheets/actors/goblin/body_parts/white/arms_back.png");
+	addSurface("goblin_white_arms_front", "assets/images/spritesheets/actors/goblin/body_parts/white/arms_front.png");
 
 	addSurface("goblin_pants_brown", "assets/images/spritesheets/actors/goblin/armor/pants/pants_brown.png");
 	addSurface("goblin_pants_light", "assets/images/spritesheets/actors/goblin/armor/pants/pants_light.png");
@@ -40,12 +77,17 @@ void AssetManager::loadSurfaces()
 	addSurface("goblin_shortsword_1", "assets/images/spritesheets/actors/goblin/weapons/melee_light/shortsword/shortsword_front.png");
 	addSurface("goblin_sword_front", "assets/images/spritesheets/actors/goblin/weapons/melee_medium/sword/sword_front.png");
 
-	addSurface("human_body", "assets/images/spritesheets/actors/human/body_parts/body.png");
-	addSurface("human_head", "assets/images/spritesheets/actors/human/body_parts/head.png");
-	addSurface("human_face_0", "assets/images/spritesheets/actors/human/body_parts/face/0.png");
-	addSurface("human_hair_3", "assets/images/spritesheets/actors/human/body_parts/hair/3.png");
-	addSurface("human_arms_back", "assets/images/spritesheets/actors/human/body_parts/arms_back.png");
-	addSurface("human_arms_front", "assets/images/spritesheets/actors/human/body_parts/arms_front.png");
+	addSurface("human_body", "assets/images/spritesheets/actors/human/body_parts/white/body.png");
+	addSurface("human_head", "assets/images/spritesheets/actors/human/body_parts/white/head.png");
+	addSurface("human_face_0", "assets/images/spritesheets/actors/human/body_parts/white/face/0.png");
+	addSurface("human_face_1", "assets/images/spritesheets/actors/human/body_parts/white/face/1.png");
+	addSurface("human_face_2", "assets/images/spritesheets/actors/human/body_parts/white/face/2.png");
+	addSurface("human_hair_0", "assets/images/spritesheets/actors/human/body_parts/white/hair/0.png");
+	addSurface("human_hair_1", "assets/images/spritesheets/actors/human/body_parts/white/hair/1.png");
+	addSurface("human_hair_2", "assets/images/spritesheets/actors/human/body_parts/white/hair/2.png");
+	addSurface("human_hair_3", "assets/images/spritesheets/actors/human/body_parts/white/hair/3.png");
+	addSurface("human_arms_back", "assets/images/spritesheets/actors/human/body_parts/white/arms_back.png");
+	addSurface("human_arms_front", "assets/images/spritesheets/actors/human/body_parts/white/arms_front.png");
 
 	addSurface("human_pants_brown", "assets/images/spritesheets/actors/human/armor/pants/pants_brown.png");
 	addSurface("human_shirt_light", "assets/images/spritesheets/actors/human/armor/shirt/shirt_light.png");
@@ -63,11 +105,11 @@ void AssetManager::loadSurfaces()
 	addSurface("human_sword_back", "assets/images/spritesheets/actors/human/weapons/melee_medium/sword/sword_back.png");
 	addSurface("human_sword_front", "assets/images/spritesheets/actors/human/weapons/melee_medium/sword/sword_front.png");
 
-	addSurface("skeleton_body", "assets/images/spritesheets/actors/skeleton/body_parts/body.png");
-	addSurface("skeleton_face_0", "assets/images/spritesheets/actors/skeleton/body_parts/face/0.png");
-	addSurface("skeleton_face_1", "assets/images/spritesheets/actors/skeleton/body_parts/face/1.png");
-	addSurface("skeleton_arms_back", "assets/images/spritesheets/actors/skeleton/body_parts/arms_back.png");
-	addSurface("skeleton_arms_front", "assets/images/spritesheets/actors/skeleton/body_parts/arms_front.png");
+	addSurface("skeleton_body", "assets/images/spritesheets/actors/skeleton/body_parts/regular/body.png");
+	addSurface("skeleton_face_0", "assets/images/spritesheets/actors/skeleton/body_parts/regular/face/0.png");
+	addSurface("skeleton_face_1", "assets/images/spritesheets/actors/skeleton/body_parts/regular/face/1.png");
+	addSurface("skeleton_arms_back", "assets/images/spritesheets/actors/skeleton/body_parts/regular/arms_back.png");
+	addSurface("skeleton_arms_front", "assets/images/spritesheets/actors/skeleton/body_parts/regular/arms_front.png");
 
 	addSurface("skeleton_pants_brown", "assets/images/spritesheets/actors/skeleton/armor/pants/pants_brown.png");
 	addSurface("skeleton_shirt_torn_gray", "assets/images/spritesheets/actors/skeleton/armor/shirt/shirt_torn_gray.png");

@@ -20,15 +20,6 @@
 	"sprite_data":
 	{
 		"frame_width": 64, "frame_height": 64,
-		"sprites":
-		[
-			{ "slot": "body", "texture": "human_body", "z": 0 },
-			{ "slot": "head", "texture": "human_head", "z": 100 },
-			{ "slot": "face", "texture": "human_face_0", "z": 101 },
-			{ "slot": "hair", "texture": "human_hair_3", "z": 102 },
-			{ "slot": "arms", "texture": "human_arms_back", "z": -200 },
-			{ "slot": "arms", "texture": "human_arms_front", "z": 200 }
-		],
 		"animations":
 		{
 			"unarmed_idle": { "anim_index": 0, "num_of_frames": 4, "anim_speed": 100 },

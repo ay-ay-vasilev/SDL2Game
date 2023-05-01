@@ -10,9 +10,6 @@ Stuff to remember:
 5. Scene manager to "switch" levels
 
 My plan:
-- Add random customization for actors
-    - Add random appearance features
-
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
@@ -25,6 +22,9 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
+- Optimize AIComponent reset target!!!
+- Solve the drawing bug
+- Solve the acceleration bug
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - Refactor KeyboardComponent (make it a system instead ?)
 - JSON files for AI.

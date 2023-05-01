@@ -21,7 +21,7 @@
 		"human":
 		{
 			"eyewear"	: ["none", "eyepatch_black"],
-			"headwear"	: ["none", "helmet"],
+			"headwear"	: ["none"],
 			"jacket"	: ["none", "chainmail"],
 			"mask"		: ["none", "scarf_black"],
 			"overcoat"	: ["none", "surcoat"],
