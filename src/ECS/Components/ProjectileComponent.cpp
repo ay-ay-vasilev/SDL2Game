@@ -19,7 +19,7 @@ void ecs::ProjectileComponent::update()
 	distance += speed;
 	if (distance > range)
 	{
-		entity->destroy();
 		std::cout << "projectile: out of range!\n";
+		entity->destroy();
 	}
 }

@@ -32,18 +32,21 @@ void ecs::AISystem::update()
 			if (!aiActorFaction->checkIfFactionHostile(entityFaction->getFaction()))
 				continue;
 
-			const auto& playerTransform = entityWithFaction->getComponent<TransformComponent>();
-			const auto distance = Vector2D::Distance(playerTransform->getPosition(), aiActorTransform->getPosition());
+			const auto& entityTransform = entityWithFaction->getComponent<TransformComponent>();
+			const auto distance = Vector2D::Distance(entityTransform->getPosition(), aiActorTransform->getPosition());
 
 			if (!fighterHasTarget)
 			{
 				if (distance < aiActorAI->getAggroDistance())
 					aiActorAI->setNewTarget(entityWithFaction);
+				fighterHasTarget = true;
 			}
 			else if (fighterHasTarget)
 			{
 				if (distance < aiActorAI->getAggroDistance() && distance < aiActorAI->getDistance())
+				{
 					aiActorAI->setNewTarget(entityWithFaction);
+				}
 			}
 		}
 	}

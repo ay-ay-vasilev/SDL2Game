@@ -70,7 +70,7 @@ void ecs::AIComponentBasicFighter::onNotify(const std::string_view& observedEven
 	}
 	if (observedEvent == targetID + "_died")
 	{
-		std::cout << actorComponent->getActorType() << "_" << entity->getID() << " AI: target_" << targetID << " lost!\n";
+		if (!target) return;
 		targetDestroyed();
 	}
 }
@@ -79,12 +79,14 @@ void ecs::AIComponentBasicFighter::setNewTarget(const Entity* newTarget)
 {
 	if (!newTarget || target == newTarget)
 		return;
+
 	target = newTarget;
 	targetHealth = target->getComponent<HealthComponent>();
 	registerWithSubject(targetHealth);
 	targetTransform = target->getComponent<TransformComponent>();
 	targetHitbox = target->getComponent<HitboxComponent>();
 	targetID = target->getID();
+	distance = (Vector2D::Distance(transform->getPosition(), targetTransform->getPosition()));
 }
 
 void ecs::AIComponentBasicFighter::resetTarget()

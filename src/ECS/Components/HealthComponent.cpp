@@ -8,8 +8,11 @@ ecs::HealthComponent::HealthComponent(const nlohmann::json& healthData) :
 
 void ecs::HealthComponent::update()
 {
+	if (dead) return;
+
 	if (healthValue <= 0)
 	{
+		dead = true;
 		sendSignal(entity->getID() + "_died");
 		entity->destroy();
 	}
@@ -17,18 +20,21 @@ void ecs::HealthComponent::update()
 
 void ecs::HealthComponent::sendSignal(const std::string& eventName)
 {
-	std::cout << eventName << "\n";
 	notify(eventName);
 }
 
 bool ecs::HealthComponent::changeHealth(int value)
 {
+	if (dead) return false;
+
 	healthValue = std::clamp(healthValue + value, 0, maxHealthValue);
 	return true;
 }
 
 bool ecs::HealthComponent::changeMaxHealth(int value)
 {
+	if (dead) return false;
+
 	maxHealthValue += value;
 	if (maxHealthValue <= 0)
 		maxHealthValue = 0;

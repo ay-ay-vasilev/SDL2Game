@@ -25,5 +25,6 @@ namespace ecs
 	private:
 		int maxHealthValue;
 		int healthValue;
+		bool dead{false};
 	};
 }

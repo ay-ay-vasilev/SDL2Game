@@ -22,7 +22,6 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Optimize AIComponent reset target!!!
 - Solve the drawing bug
 - Solve the acceleration bug
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
