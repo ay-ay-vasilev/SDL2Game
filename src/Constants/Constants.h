@@ -181,6 +181,10 @@ private:
 		{
 			AI_DEAGGRO_DISTANCE = constantsJson["ai_deaggro_distance"];
 		}
+		if (constantsJson.find("time_scale") != constantsJson.end())
+		{
+			TIME_SCALE = constantsJson["time_scale"];
+		}
 	}
 
 	std::string settingsFile;
