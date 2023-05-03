@@ -23,9 +23,7 @@ My plan:
 
 Maintenance:
 - Solve the drawing bug
-- Solve the acceleration bug
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
-- Refactor KeyboardComponent (make it a system instead ?)
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.
@@ -38,6 +36,7 @@ Maintenance:
 - Refactor ECS.h (uninline some methods, inline explicitly the rest)
 - Refactor the debug draw methods
 - Refactor FactionSystem (make it a manager instead ? avoid duplication but worsen encapsulation)
+- Refactor colors - implement palette swapping
 
 Future plans:
 - Add a second container for Sprites that should not be outlined? (sword swings)

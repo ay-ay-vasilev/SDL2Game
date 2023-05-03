@@ -53,6 +53,7 @@
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Managers\AssetManager.cpp" />
+    <ClCompile Include="..\src\Managers\KeyboardManager.cpp" />
     <ClCompile Include="..\src\Managers\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +94,7 @@
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\LibWrappers\wrappedJson.h" />
     <ClInclude Include="..\src\Managers\AssetManager.h" />
+    <ClInclude Include="..\src\Managers\KeyboardManager.h" />
     <ClInclude Include="..\src\Managers\TextureManager.h" />
   </ItemGroup>
   <ItemGroup>

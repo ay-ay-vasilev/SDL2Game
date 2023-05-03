@@ -13,6 +13,7 @@
 
 #include "AssetManager.h"
 #include "Constants.h"
+#include "KeyboardManager.h"
 #include <iostream>
 #include <sstream>
 
@@ -20,6 +21,7 @@ std::shared_ptr<Constants> Game::constants = std::make_shared<Constants>("../dat
 
 std::shared_ptr<ecs::Manager> Game::manager = std::make_shared<ecs::Manager>(constants);
 std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(manager);
+std::unique_ptr<KeyboardManager> Game::keyboardManager = std::make_unique<KeyboardManager>(manager);
 
 auto renderSystem(Game::manager->addSystem<ecs::RenderSystem>());
 auto mapSystem(Game::manager->addSystem<ecs::MapSystem>());
@@ -147,6 +149,8 @@ void Game::handleEvents()
 	default:
 		break;
 	}
+
+	keyboardManager->handleEvents();
 }
 
 void Game::update(double delta)
@@ -155,6 +159,7 @@ void Game::update(double delta)
 	{
 		manager->refresh();
 		manager->update(delta);
+		keyboardManager->update();
 
 		const auto& playerPosition = playerSystem->getPlayerPosition();
 		

@@ -22,9 +22,10 @@ namespace ecs
 
 		// Component
 		void init() override;
-		void update(double delta) override;
 		// Observer
 		void onNotify(const std::string_view& observedEvent);
+
+		void handleEvents();
 
 	private:
 		void equipWeapon(const std::string& weaponName);

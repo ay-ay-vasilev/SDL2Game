@@ -21,6 +21,7 @@ namespace ecs
 
 
 class AssetManager;
+class KeyboardManager;
 class Constants;
 
 class Game {
@@ -46,6 +47,7 @@ public:
 	static std::shared_ptr<Constants> constants;
 
 	static std::unique_ptr<AssetManager> assets;
+	static std::unique_ptr<KeyboardManager> keyboardManager;
 	static std::shared_ptr<ecs::Manager> manager;
 
 	enum eGroupLabels : std::size_t

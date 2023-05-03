@@ -12,7 +12,7 @@ void ecs::KeyboardComponent::init()
 	transform = entity->getComponent<ecs::TransformComponent>();
 }
 
-void ecs::KeyboardComponent::update(double delta)
+void ecs::KeyboardComponent::handleEvents()
 {
 	const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
 	switch (Game::gameEvent.key.keysym.sym)

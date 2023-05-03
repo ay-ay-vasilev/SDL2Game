@@ -15,8 +15,8 @@
 	"projecile_size": 32,
 	"projectile_range": 200,
 
-	"ai_aggro_distance": 800,
-	"ai_deaggro_distance": 1000,
+	"ai_aggro_distance": 80,
+	"ai_deaggro_distance": 100,
 
 	"player_pos":
 	{
