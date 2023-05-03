@@ -67,7 +67,7 @@ void ecs::HitboxComponent::init()
 	srcRect = { 0, 0, 32, 32 };
 }
 
-void ecs::HitboxComponent::update()
+void ecs::HitboxComponent::update(double delta)
 {
 	const auto x = transform->getPosition().x + hitboxOffset.x;
 	const auto y = transform->getPosition().y + hitboxOffset.y;

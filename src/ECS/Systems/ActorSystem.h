@@ -17,7 +17,7 @@ namespace ecs
 
 		// System
 		void init() override;
-		void update() override;
+		void update(double delta) override;
 		void draw() override;
 
 		Entity* instantiateActor(const Vector2D& pos, const std::string& filename);

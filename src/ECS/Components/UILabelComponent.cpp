@@ -14,6 +14,11 @@ ecs::UILabelComponent::UILabelComponent(const int xpos, const int ypos, const st
 	SetLabelText(labelText, labelFont);
 }
 
+ecs::UILabelComponent::~UILabelComponent()
+{
+	SDL_DestroyTexture(labelTexture);
+}
+
 void ecs::UILabelComponent::init()
 {
 	setRenderOrder(10);
@@ -22,11 +27,11 @@ void ecs::UILabelComponent::init()
 void ecs::UILabelComponent::draw()
 {
 	SDL_RenderCopy(Game::renderer, labelTexture, nullptr, &position);
-	SDL_DestroyTexture(labelTexture);
 }
 
 void ecs::UILabelComponent::SetLabelText(const std::string& text, const std::string_view& font)
 {
+	if (labelTexture) SDL_DestroyTexture(labelTexture);
 	SDL_Surface* surf = TTF_RenderText_Blended(Game::assets->getFont(font), text.c_str(), textColor);
 	labelTexture = SDL_CreateTextureFromSurface(Game::renderer, surf);
 	SDL_FreeSurface(surf);

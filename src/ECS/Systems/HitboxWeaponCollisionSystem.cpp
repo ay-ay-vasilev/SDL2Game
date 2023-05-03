@@ -8,7 +8,7 @@
 #include "Collision.h"
 #include "Vector2D.h"
 
-void ecs::HitboxWeaponCollisionSystem::update()
+void ecs::HitboxWeaponCollisionSystem::update(double delta)
 {
 	hitboxes = manager.getEntitiesWithComponent<ecs::HitboxComponent>();
 	weapons = manager.getEntitiesWithComponent<ecs::WeaponComponent>();

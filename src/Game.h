@@ -32,7 +32,7 @@ public:
 	void init();
 	
 	void handleEvents();
-	void update();
+	void update(double delta);
 	void render();
 	void clean();
 	bool running();

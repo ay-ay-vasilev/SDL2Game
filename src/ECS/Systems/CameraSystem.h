@@ -11,7 +11,7 @@ namespace ecs
 		explicit CameraSystem(Manager& manager);
 
 		void init() override;
-		void update() override;
+		void update(double delta) override;
 		void draw() override;
 
 	private:

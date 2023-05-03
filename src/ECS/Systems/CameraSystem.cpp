@@ -22,7 +22,7 @@ void ecs::CameraSystem::init()
 	cameraBounds.h = std::max(0, static_cast<int>(mapHeight - manager.getConstants()->SCREEN_HEIGHT));
 }
 
-void ecs::CameraSystem::update()
+void ecs::CameraSystem::update(double delta)
 {
 	players = manager.getGroup(Game::eGroupLabels::PLAYERS);
 	if (!players.empty())

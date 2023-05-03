@@ -11,7 +11,7 @@ namespace ecs
 
 		void instantiateMap(const std::string surfaceId, const int tileSize, const std::string mapFilePath, const int mapWidth, const int mapHeight);
 
-		void update() override;
+		void update(double delta) override;
 		void draw() override;
 
 	private:

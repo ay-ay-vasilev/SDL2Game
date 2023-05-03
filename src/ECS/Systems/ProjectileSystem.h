@@ -10,7 +10,7 @@ namespace ecs
 
 		void instantiateProjectile(const Vector2D pos, const Vector2D velocity, const std::string& filename) const;
 
-		void update() override;
+		void update(double delta) override;
 		void draw() override;
 
 	private:

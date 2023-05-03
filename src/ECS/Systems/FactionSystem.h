@@ -9,7 +9,7 @@ namespace ecs
 		explicit FactionSystem(Manager& manager) : System(manager) {}
 		// System
 		void init() override;
-		void update() override;
+		void update(double delta) override;
 		void draw() override;
 
 		void updateRelations();

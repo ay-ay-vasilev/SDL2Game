@@ -53,7 +53,7 @@ void ecs::ActorSystem::init()
 	}
 }
 
-void ecs::ActorSystem::update()
+void ecs::ActorSystem::update(double delta)
 {
 	actors = manager.getGroup(Game::eGroupLabels::ACTORS);
 }

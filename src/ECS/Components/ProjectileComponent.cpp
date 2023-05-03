@@ -14,7 +14,7 @@ void ecs::ProjectileComponent::init()
 	range *= transform->getScale();
 }
 
-void ecs::ProjectileComponent::update()
+void ecs::ProjectileComponent::update(double delta)
 {
 	distance += speed;
 	if (distance > range)

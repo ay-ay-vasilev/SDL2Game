@@ -83,7 +83,7 @@ const Vector2D ecs::PlayerSystem::getPlayerPosition()
 	return lastPlayerPosition;
 }
 
-void ecs::PlayerSystem::update()
+void ecs::PlayerSystem::update(double delta)
 {
 	players = manager.getGroup(Game::eGroupLabels::PLAYERS);
 }

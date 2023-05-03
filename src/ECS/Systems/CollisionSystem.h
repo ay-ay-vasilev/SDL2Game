@@ -11,7 +11,7 @@ namespace ecs
 	public:
 		explicit CollisionSystem(Manager& manager) : System(manager) {}
 
-		void update() override;
+		void update(double delta) override;
 		void draw() override;
 
 		bool overlap(const std::shared_ptr<ColliderShape>& collider1, const std::shared_ptr<ColliderShape>& collider2, float& overlapX, float& overlapY);

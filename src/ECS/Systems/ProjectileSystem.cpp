@@ -38,7 +38,7 @@ void ecs::ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vect
 	projectile.addGroup(Game::PROJECTILES);
 }
 
-void ecs::ProjectileSystem::update()
+void ecs::ProjectileSystem::update(double delta)
 {
 	projectiles = manager.getGroup(Game::eGroupLabels::PROJECTILES);
 }

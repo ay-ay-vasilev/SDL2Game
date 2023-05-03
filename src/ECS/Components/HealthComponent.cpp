@@ -6,7 +6,7 @@ ecs::HealthComponent::HealthComponent(const nlohmann::json& healthData) :
 	healthValue(maxHealthValue)
 {}
 
-void ecs::HealthComponent::update()
+void ecs::HealthComponent::update(double delta)
 {
 	if (dead) return;
 

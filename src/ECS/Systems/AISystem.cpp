@@ -5,7 +5,7 @@
 
 #include "Game.h"
 
-void ecs::AISystem::update()
+void ecs::AISystem::update(double delta)
 {
 	entitiesWithFactions = manager.getEntitiesWithComponents<FactionComponent>();
 	aiActors = manager.getEntitiesWithComponent<AIComponentBasicFighter>();

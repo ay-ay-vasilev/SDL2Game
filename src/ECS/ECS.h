@@ -45,7 +45,7 @@ namespace ecs
 		virtual ~Component() {}
 		Entity* entity = nullptr;
 		virtual void init() {}
-		virtual void update() {}
+		virtual void update(double delta) {}
 	};
 
 	class DrawableComponent : public Component
@@ -63,9 +63,9 @@ namespace ecs
 	{
 	public:
 		Entity(Manager& manager, int nextID) : manager(manager), id(nextID), componentArray{} {}
-		void update()
+		void update(double delta)
 		{
-			for (auto component : components) component->update();
+			for (auto component : components) component->update(delta);
 		}
 		void draw()
 		{
@@ -192,7 +192,7 @@ namespace ecs
 		System& operator=(System&&) = delete;
 
 		virtual void init() {}
-		virtual void update() {}
+		virtual void update(double delta) {}
 		virtual void draw() {}
 	protected:
 		Manager& manager;
@@ -203,10 +203,10 @@ namespace ecs
 	public:
 		Manager(std::shared_ptr<Constants> constants) : constants(constants) {}
 
-		void update()
+		void update(double delta)
 		{
-			for (const auto& entity : entities) entity->update();
-			for (const auto& system : systems) system->update();
+			for (const auto& entity : entities) entity->update(delta);
+			for (const auto& system : systems) system->update(delta);
 		}
 
 		void draw()

@@ -78,7 +78,7 @@ void ecs::SpriteComponent::init()
 	srcRect.h = frameHeight;
 }
 
-void ecs::SpriteComponent::update()
+void ecs::SpriteComponent::update(double delta)
 {
 	if (animated && numOfFrames)
 	{

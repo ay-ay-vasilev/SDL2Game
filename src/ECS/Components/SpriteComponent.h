@@ -32,7 +32,7 @@ namespace ecs
 
 		// Component
 		void init() override;
-		void update() override;
+		void update(double delta) override;
 		void draw() override;
 
 		void addSprite(const std::string& slotName, std::shared_ptr<Sprite> sprite);

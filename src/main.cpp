@@ -9,24 +9,33 @@
 #include <thread>
 
 std::unique_ptr<Game> game;
+const double FRAME_TIME = 1.0 / 60.0; // Target frame time (60 FPS)
 
 int main(int argc, char* argv[])
 {
-	const int FPS = 60;
-	const int frameDelay = 1000 / FPS;
-
 	game = std::make_unique<Game>();
 	game->init();
 
-	auto nextFrame = std::chrono::steady_clock::now();
+	auto previousTime = std::chrono::steady_clock::now();
+	double accumulator = 0.0;
+
 	while (game->running())
 	{
-		game->handleEvents();
-		game->update();
-		game->render();
+		auto currentTime = std::chrono::steady_clock::now();
+		double deltaTime = std::chrono::duration<double>(currentTime - previousTime).count();
+		previousTime = currentTime;
 
-		nextFrame += std::chrono::milliseconds(frameDelay);
-		std::this_thread::sleep_until(nextFrame);
+		accumulator += deltaTime;
+
+		game->handleEvents();
+
+		while (accumulator >= FRAME_TIME)
+		{
+			game->update(FRAME_TIME);
+			accumulator -= FRAME_TIME;
+		}
+
+		game->render();
 	}
 	game->clean();
 

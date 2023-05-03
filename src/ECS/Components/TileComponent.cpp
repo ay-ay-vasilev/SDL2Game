@@ -22,7 +22,7 @@ void ecs::TileComponent::init()
 	setRenderOrder(0);
 }
 
-void ecs::TileComponent::update()
+void ecs::TileComponent::update(double delta)
 {
 	destRect.x = static_cast<int>(position.x - Game::camera.x);
 	destRect.y = static_cast<int>(position.y - Game::camera.y);

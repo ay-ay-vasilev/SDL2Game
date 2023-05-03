@@ -21,7 +21,7 @@ namespace ecs
 
 		// Component
 		void init() override;
-		void update() override;
+		void update(double delta) override;
 		void draw() override;
 		// Observer
 		void onNotify(const std::string_view& observedEvent) override;

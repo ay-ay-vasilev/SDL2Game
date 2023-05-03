@@ -11,7 +11,7 @@ namespace ecs
 		explicit HealthComponent(const nlohmann::json& healthData);
 
 		// Component
-		void update() override;
+		void update(double delta) override;
 
 		// Subject
 		void sendSignal(const std::string& eventName);

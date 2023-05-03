@@ -17,7 +17,7 @@ void ecs::FactionSystem::init()
 	}
 }
 
-void ecs::FactionSystem::update()
+void ecs::FactionSystem::update(double delta)
 {
 	updateRelations();
 }

@@ -7,7 +7,7 @@ void ecs::MapSystem::instantiateMap(const std::string surfaceId, const int tileS
 	map->loadMap("map", mapWidth, mapHeight);
 }
 
-void ecs::MapSystem::update()
+void ecs::MapSystem::update(double delta)
 {
 	tiles = manager.getGroup(Game::eGroupLabels::MAP);
 }

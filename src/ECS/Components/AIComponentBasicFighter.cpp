@@ -24,7 +24,7 @@ void ecs::AIComponentBasicFighter::init()
 	loseAggroDistance = Game::constants->AI_DEAGGRO_DISTANCE * transform->getScale();
 }
 
-void ecs::AIComponentBasicFighter::update()
+void ecs::AIComponentBasicFighter::update(double delta)
 {
 	if (target)
 	{

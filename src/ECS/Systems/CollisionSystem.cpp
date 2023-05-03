@@ -6,7 +6,7 @@
 
 #include <cmath>
 
-void ecs::CollisionSystem::update()
+void ecs::CollisionSystem::update(double delta)
 {
 	auto entitiesWithColliders = manager.getEntitiesWithComponent<ecs::ColliderComponent>();
 

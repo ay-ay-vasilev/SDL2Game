@@ -16,7 +16,7 @@ namespace ecs
 
 		const Vector2D getPlayerPosition();
 
-		void update() override;
+		void update(double delta) override;
 		void draw() override;
 
 	private:

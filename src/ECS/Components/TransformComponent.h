@@ -2,6 +2,8 @@
 #include "ECS.h"
 #include "Vector2D.h"
 
+#include "Game.h"
+
 namespace ecs
 {
 	class TransformComponent : public Component
@@ -17,13 +19,13 @@ namespace ecs
 			velocity.Zero();
 			speed *= scale;
 		}
-		void update() override
+		void update(double delta) override
 		{
 			velocity.Normalize();
 			direction.Normalize();
 
-			position.x += velocity.x * speed;
-			position.y += velocity.y * speed;
+			position.x += velocity.x * speed * delta * Game::constants->TIME_SCALE;
+			position.y += velocity.y * speed * delta * Game::constants->TIME_SCALE;
 		}
 
 		const inline Vector2D getPosition() const { return position; }

@@ -96,7 +96,7 @@ void ecs::WeaponComponent::init()
 	tempSprites.clear();
 }
 
-void ecs::WeaponComponent::update()
+void ecs::WeaponComponent::update(double delta)
 {
 	const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
 	const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;

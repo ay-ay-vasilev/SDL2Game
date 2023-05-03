@@ -9,6 +9,7 @@ namespace ecs
 	{
 	public:
 		UILabelComponent(const int xpos, const int ypos, const std::string& text, const std::string& font, const SDL_Color& color);
+		~UILabelComponent();
 
 		// Component
 		void init() override;

@@ -70,7 +70,7 @@ void ecs::ColliderComponent::init()
 	srcRect = { 0, 0, 32, 32 };
 }
 
-void ecs::ColliderComponent::update()
+void ecs::ColliderComponent::update(double delta)
 {
 	if (tag != "terrain")
 	{

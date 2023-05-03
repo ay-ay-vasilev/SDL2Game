@@ -75,6 +75,8 @@ public:
 	bool DRAW_COLLIDERS{ false };
 	bool DRAW_HITBOXES{ false };
 
+	double TIME_SCALE{ 60.0 };
+
 private:
 
 	// helper function to load constants from JSON object

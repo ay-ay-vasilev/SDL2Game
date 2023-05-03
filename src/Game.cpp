@@ -149,12 +149,12 @@ void Game::handleEvents()
 	}
 }
 
-void Game::update()
+void Game::update(double delta)
 {
 	if (SDL_GetWindowFlags(window) & SDL_WINDOW_INPUT_FOCUS)
 	{
 		manager->refresh();
-		manager->update();
+		manager->update(delta);
 
 		const auto& playerPosition = playerSystem->getPlayerPosition();
 		
@@ -172,7 +172,7 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	manager->draw();
 
-	label0.draw();
+	//label0.draw();
 	SDL_RenderPresent(renderer);
 }
 

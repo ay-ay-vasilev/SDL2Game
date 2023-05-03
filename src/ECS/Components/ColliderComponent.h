@@ -24,7 +24,7 @@ namespace ecs
 		~ColliderComponent() override;
 		// Component
 		void init() override;
-		void update() override;
+		void update(double delta) override;
 		void draw() override;
 
 		std::shared_ptr<ColliderShape> inline getCollider() const { return collider; }

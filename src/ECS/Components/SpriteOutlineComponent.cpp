@@ -36,7 +36,7 @@ void ecs::SpriteOutlineComponent::init()
 	registerWithSubject(spriteComponent);
 }
 
-void ecs::SpriteOutlineComponent::update()
+void ecs::SpriteOutlineComponent::update(double delta)
 {
 	srcRect = spriteComponent->getSrcRect();
 	destRect = spriteComponent->getDestRect();
