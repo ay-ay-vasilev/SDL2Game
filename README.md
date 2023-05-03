@@ -22,14 +22,12 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Solve the drawing bug
+- Solve the drawing bug (in SpriteComponent for animated entities)
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.
 - Clean up in constants and settings.json.
-- Refactor actor json to an entity json ?
-- Maybe optimize the RenderSystem? (limit to only drawing entities in the view of the camera + move sorting logic from update).
 - Better WeaponComponent implementation (add an object for weapon stats).
 - i-frames ?
 - Specific weapon stats for actors in weapon json files?

@@ -32,7 +32,6 @@ namespace ecs
 		void equipArmor();
 		void unequipArmor();
 
-		bool pressed = false;
 		eState state = eState::IDLE;
 		std::shared_ptr<TransformComponent> transform;
 		std::shared_ptr<ActorComponent> actorComponent;

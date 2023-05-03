@@ -6,6 +6,7 @@ namespace ecs
 {
 	class Entity;
 	class Manager;
+	class ActorSystem;
 }
 
 class KeyboardManager
@@ -22,10 +23,16 @@ public:
 	KeyboardManager(KeyboardManager&&) = delete;
 	KeyboardManager& operator=(KeyboardManager&&) = delete;
 
+	void setActorSystem(std::shared_ptr<ecs::ActorSystem> actorSystem);
+
 	void update();
 	void handleEvents();
 
 private:
+	bool pressed = false;
+
 	std::vector<ecs::Entity*> controlledEntities;
 	std::shared_ptr<ecs::Manager> manager;
+
+	std::shared_ptr<ecs::ActorSystem> actorSystem; // bad idea maybe?
 };

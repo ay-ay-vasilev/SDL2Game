@@ -136,6 +136,7 @@ void Game::init()
 	}
 
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
+	keyboardManager->setActorSystem(actorSystem);
 }
 
 void Game::handleEvents()
