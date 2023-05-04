@@ -10,6 +10,7 @@
 #include "ArmorComponent.h"
 #include "WeaponComponent.h"
 #include "FactionComponent.h"
+#include "CameraComponent.h"
 
 #include <wrappedJson.h>
 
@@ -32,6 +33,7 @@ ecs::Entity* ecs::PlayerSystem::instantiatePlayer(const Vector2D& pos, const std
 	player.addComponent<ecs::HealthComponent>(playerData["health"]);
 	player.addComponent<ecs::ArmorComponent>();
 	player.addComponent<ecs::FactionComponent>(playerData.contains("faction") ? playerData["faction"] : "neutral");
+	player.addComponent<ecs::CameraComponent>();
 
 	player.addGroup(Game::eGroupLabels::PLAYERS);
 	equipWeapon(player, "unarmed");

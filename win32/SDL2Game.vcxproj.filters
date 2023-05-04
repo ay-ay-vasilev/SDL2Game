@@ -87,9 +87,6 @@
     <ClCompile Include="..\src\ECS\Systems\AISystem.cpp">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ECS\Systems\CameraSystem.cpp">
-      <Filter>Source Files\ECS\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\ECS\Components\ActorComponent.cpp">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
@@ -139,6 +136,9 @@
       <Filter>Source Files\ECS\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Managers\KeyboardManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Managers\CameraManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
@@ -233,9 +233,6 @@
     <ClInclude Include="..\src\ECS\Systems\AISystem.h">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ECS\Systems\CameraSystem.h">
-      <Filter>Source Files\ECS\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Common\Sprite.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
@@ -259,6 +256,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Managers\KeyboardManager.h">
       <Filter>Source Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Managers\CameraManager.h">
+      <Filter>Source Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\CameraComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

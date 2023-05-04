@@ -8,6 +8,5 @@ namespace ecs
 	public:
 		AIComponent() {}
 		virtual ~AIComponent() {}
-		virtual void update(Entity& entity) {}
 	};
 }

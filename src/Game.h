@@ -22,6 +22,7 @@ namespace ecs
 
 class AssetManager;
 class KeyboardManager;
+class CameraManager;
 class Constants;
 
 class Game {
@@ -41,13 +42,12 @@ public:
 	static SDL_Renderer* renderer;
 	static SDL_Event gameEvent;
 	static bool isRunning;
-	static SDL_Rect camera;
-	static SDL_Rect cameraBounds;
 
 	static std::shared_ptr<Constants> constants;
 
 	static std::unique_ptr<AssetManager> assets;
 	static std::unique_ptr<KeyboardManager> keyboardManager;
+	static std::unique_ptr<CameraManager> cameraManager;
 	static std::shared_ptr<ecs::Manager> manager;
 
 	enum eGroupLabels : std::size_t

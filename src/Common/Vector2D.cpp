@@ -48,6 +48,11 @@ Vector2D Vector2D::operator/(const Vector2D& v2) const
 	return Vector2D(x / v2.x, y / v2.y);
 }
 
+Vector2D Vector2D::operator/(const float scalar) const
+{
+	return Vector2D(x / scalar, y / scalar);
+}
+
 Vector2D& Vector2D::operator+=(const Vector2D& vec)
 {
 	return this->Add(vec);

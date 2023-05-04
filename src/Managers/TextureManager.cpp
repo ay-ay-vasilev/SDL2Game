@@ -1,4 +1,5 @@
 #include "TextureManager.h"
+#include "CameraManager.h"
 #include "Sprite.h"
 #include <stdexcept>
 
@@ -110,10 +111,9 @@ SDL_Texture* TextureManager::getCombinedTexture(const std::vector<std::shared_pt
 
 void TextureManager::draw(SDL_Texture* texture, const SDL_Rect source, SDL_Rect destination, const SDL_RendererFlip flip)
 {
-	destination.x -= Game::camera.x;
-	destination.y -= Game::camera.y;
+	destination.x -= Game::cameraManager->getCameraPosition().x;
+	destination.y -= Game::cameraManager->getCameraPosition().y;
 
-	if (destination.x < (Game::camera.x + Game::camera.w + destination.w) && destination.x >= ((-1) * destination.w))
-		if (destination.y < (Game::camera.y + Game::camera.h + destination.h) && destination.y >= ((-1) * destination.h))
-			SDL_RenderCopyEx(Game::renderer, texture, &source, &destination, 0, NULL, flip);
+	if (Game::cameraManager->isInView(destination))
+		SDL_RenderCopyEx(Game::renderer, texture, &source, &destination, 0, NULL, flip);
 }

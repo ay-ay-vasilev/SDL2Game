@@ -14,6 +14,7 @@
 #include "AssetManager.h"
 #include "Constants.h"
 #include "KeyboardManager.h"
+#include "CameraManager.h"
 #include <iostream>
 #include <sstream>
 
@@ -22,6 +23,7 @@ std::shared_ptr<Constants> Game::constants = std::make_shared<Constants>("../dat
 std::shared_ptr<ecs::Manager> Game::manager = std::make_shared<ecs::Manager>(constants);
 std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(manager);
 std::unique_ptr<KeyboardManager> Game::keyboardManager = std::make_unique<KeyboardManager>(manager);
+std::unique_ptr<CameraManager> Game::cameraManager = std::make_unique<CameraManager>(manager);
 
 auto renderSystem(Game::manager->addSystem<ecs::RenderSystem>());
 auto mapSystem(Game::manager->addSystem<ecs::MapSystem>());
@@ -35,21 +37,6 @@ auto factionSystem(Game::manager->addSystem<ecs::FactionSystem>());
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
-
-SDL_Rect Game::camera =
-{
-	0, 0,
-	constants->SCREEN_WIDTH,
-	constants->SCREEN_HEIGHT
-};
-
-SDL_Rect Game::cameraBounds =
-{
-	std::min(0, static_cast<int>(-(constants->SCREEN_WIDTH - (constants->MAP_TILE_WIDTH * constants->TILE_SIZE * constants->SCALE)) / 2)),
-	std::min(0, static_cast<int>(-(constants->SCREEN_HEIGHT - (constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * constants->SCALE)) / 2)),
-	std::max(0, static_cast<int>((constants->MAP_TILE_WIDTH * constants->TILE_SIZE * constants->SCALE) - constants->SCREEN_WIDTH)),
-	std::max(0, static_cast<int>((constants->MAP_TILE_HEIGHT * constants->TILE_SIZE * constants->SCALE) - constants->SCREEN_HEIGHT))
-};
 
 bool Game::isRunning = false;
 
@@ -98,6 +85,8 @@ void Game::init()
 	manager->setScale(constants->SCALE);
 	assets->loadSurfaces();
 	assets->loadFonts();
+	keyboardManager->setActorSystem(actorSystem);
+	cameraManager->init();
 
 	label0.addComponent<ecs::UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
@@ -136,7 +125,6 @@ void Game::init()
 	}
 
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
-	keyboardManager->setActorSystem(actorSystem);
 }
 
 void Game::handleEvents()
@@ -161,12 +149,10 @@ void Game::update(double delta)
 		manager->refresh();
 		manager->update(delta);
 		keyboardManager->update();
+		cameraManager->update();
 
 		const auto& playerPosition = playerSystem->getPlayerPosition();
 		
-		camera.x = std::clamp(static_cast<int>(playerPosition.x - constants->SCREEN_WIDTH / 2), cameraBounds.x, cameraBounds.x + cameraBounds.w);
-		camera.y = std::clamp(static_cast<int>(playerPosition.y - constants->SCREEN_HEIGHT / 2), cameraBounds.y, cameraBounds.y + cameraBounds.h);
-
 		std::stringstream ss0;
 		ss0 << "Player position: " << playerPosition;
 		label0.getComponent<ecs::UILabelComponent>()->SetLabelText(ss0.str(), "arial");

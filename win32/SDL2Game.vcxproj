@@ -41,7 +41,6 @@
     <ClCompile Include="..\src\ECS\Components\WeaponComponent.cpp" />
     <ClCompile Include="..\src\ECS\ECS.cpp" />
     <ClCompile Include="..\src\ECS\Systems\AISystem.cpp" />
-    <ClCompile Include="..\src\ECS\Systems\CameraSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\ActorSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\FactionSystem.cpp" />
@@ -53,6 +52,7 @@
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Managers\AssetManager.cpp" />
+    <ClCompile Include="..\src\Managers\CameraManager.cpp" />
     <ClCompile Include="..\src\Managers\KeyboardManager.cpp" />
     <ClCompile Include="..\src\Managers\TextureManager.cpp" />
   </ItemGroup>
@@ -70,6 +70,7 @@
     <ClInclude Include="..\src\ECS\Components\AIComponent.h" />
     <ClInclude Include="..\src\ECS\Components\AIComponentBasicFighter.h" />
     <ClInclude Include="..\src\ECS\Components\ArmorComponent.h" />
+    <ClInclude Include="..\src\ECS\Components\CameraComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HealthComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HitboxComponent.h" />
@@ -83,7 +84,6 @@
     <ClInclude Include="..\src\ECS\Components\WeaponComponent.h" />
     <ClInclude Include="..\src\ECS\ECS.h" />
     <ClInclude Include="..\src\ECS\Systems\AISystem.h" />
-    <ClInclude Include="..\src\ECS\Systems\CameraSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\ActorSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\HitboxWeaponCollisionSystem.h" />
@@ -94,6 +94,7 @@
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\LibWrappers\wrappedJson.h" />
     <ClInclude Include="..\src\Managers\AssetManager.h" />
+    <ClInclude Include="..\src\Managers\CameraManager.h" />
     <ClInclude Include="..\src\Managers\KeyboardManager.h" />
     <ClInclude Include="..\src\Managers\TextureManager.h" />
   </ItemGroup>

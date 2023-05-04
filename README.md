@@ -4,10 +4,8 @@
 
 Stuff to remember:
 1. UI
-2. Health
-3. Shooting tower
-4. Containers for UI elements
-5. Scene manager to "switch" levels
+2. Containers for UI elements
+3. Scene manager to "switch" levels
 
 My plan:
 - Ranged weapon for player.
@@ -22,7 +20,8 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
+- Refactor FactionSystem (make it a manager instead ? avoid duplication but worsen encapsulation)
+- Refactor colors - implement palette swapping
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.
@@ -32,14 +31,11 @@ Maintenance:
 - Specific weapon stats for actors in weapon json files?
 - Refactor ECS.h (uninline some methods, inline explicitly the rest)
 - Refactor the debug draw methods
-- Refactor FactionSystem (make it a manager instead ? avoid duplication but worsen encapsulation)
-- Refactor colors - implement palette swapping
 
 Future plans:
+- Divide pants into boots and pants ?
 - Add a second container for Sprites that should not be outlined? (sword swings)
 - Customization for characters
-- Actor randomization
-- Player randomization
 - Looting
 - Inventory system
 - Death animation
@@ -47,5 +43,4 @@ Future plans:
 - Hit cooldown ?
 - Add body parts and body parts damage and armor ?
 - More animations for AI actors ?
-- Divide pants into boots and pants ?
 - Add armor condition ?
