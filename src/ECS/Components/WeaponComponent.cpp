@@ -103,8 +103,6 @@ void ecs::WeaponComponent::update(double delta)
 	weaponCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
 
 	destRect = weaponCollider->getDrawRect();
-	destRect.x -= Game::camera.x;
-	destRect.y -= Game::camera.y;
 }
 
 void ecs::WeaponComponent::draw()

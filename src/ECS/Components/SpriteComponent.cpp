@@ -86,7 +86,7 @@ void ecs::SpriteComponent::update(double delta)
 		const Uint32 elapsed = ticks - animStartTime;
 		int frameNum = static_cast<int>(elapsed) / animSpeed;
 		// check if anim ended
-		if (frameNum >= numOfFrames && frameNum % numOfFrames == 0)
+		if (frameNum >= numOfFrames)
 		{
 			animStartTime = ticks;
 			frameNum = 0;
@@ -113,9 +113,8 @@ void ecs::SpriteComponent::update(double delta)
 	}
 
 	srcRect.y = (animIndex)*frameHeight;
-	const auto cameraPosition = Vector2D(static_cast<float>(Game::camera.x), static_cast<float>(Game::camera.y));
-	destRect.x = static_cast<int>(transform->getPosition().x - static_cast<float>(frameWidth) * transform->getScale() / 2.f - cameraPosition.x);
-	destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(frameHeight) * transform->getScale() / 2.f - cameraPosition.y);
+	destRect.x = static_cast<int>(transform->getPosition().x - static_cast<float>(frameWidth) * transform->getScale() / 2.f);
+	destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(frameHeight) * transform->getScale() / 2.f);
 	destRect.w = static_cast<int>(frameWidth * transform->getScale());
 	destRect.h = static_cast<int>(frameHeight * transform->getScale());
 }

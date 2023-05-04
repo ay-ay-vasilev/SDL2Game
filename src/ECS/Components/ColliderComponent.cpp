@@ -80,8 +80,6 @@ void ecs::ColliderComponent::update(double delta)
 	}
 
 	destRect = collider->getDrawRect();
-	destRect.x -= Game::camera.x;
-	destRect.y -= Game::camera.y;
 }
 
 void ecs::ColliderComponent::draw()

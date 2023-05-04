@@ -74,8 +74,6 @@ void ecs::HitboxComponent::update(double delta)
 	hitbox->setPosition(Vector2D(x, y));
 
 	destRect = hitbox->getDrawRect();
-	destRect.x -= Game::camera.x;
-	destRect.y -= Game::camera.y;
 }
 
 void ecs::HitboxComponent::draw()

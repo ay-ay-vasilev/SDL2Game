@@ -108,8 +108,11 @@ SDL_Texture* TextureManager::getCombinedTexture(const std::vector<std::shared_pt
 	return texture;
 }
 
-void TextureManager::draw(SDL_Texture* texture, const SDL_Rect source, const SDL_Rect destination, const SDL_RendererFlip flip)
+void TextureManager::draw(SDL_Texture* texture, const SDL_Rect source, SDL_Rect destination, const SDL_RendererFlip flip)
 {
+	destination.x -= Game::camera.x;
+	destination.y -= Game::camera.y;
+
 	if (destination.x < (Game::camera.x + Game::camera.w + destination.w) && destination.x >= ((-1) * destination.w))
 		if (destination.y < (Game::camera.y + Game::camera.h + destination.h) && destination.y >= ((-1) * destination.h))
 			SDL_RenderCopyEx(Game::renderer, texture, &source, &destination, 0, NULL, flip);

@@ -22,7 +22,6 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Solve the drawing bug (in SpriteComponent for animated entities)
 - Remove unused CameraSystem and add CameraComponent (after RenderSystem refactor)
 - JSON files for AI.
 - Add map json.
