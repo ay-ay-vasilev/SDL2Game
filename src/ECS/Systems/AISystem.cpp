@@ -38,8 +38,10 @@ void ecs::AISystem::update(double delta)
 			if (!fighterHasTarget)
 			{
 				if (distance < aiActorAI->getAggroDistance())
+				{
 					aiActorAI->setNewTarget(entityWithFaction);
-				fighterHasTarget = true;
+					fighterHasTarget = true;
+				}
 			}
 			else if (fighterHasTarget)
 			{
