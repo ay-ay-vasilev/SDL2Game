@@ -198,6 +198,24 @@ void ecs::ActorSystem::addRandomCustomization(ecs::Entity& actor)
 	{
 		std::uniform_int_distribution<> surfacesDistribution(0, sprite.availableSurfaces.size() - 1);
 		const auto surfaceId = sprite.availableSurfaces[surfacesDistribution(gen)];
-		spriteComponent->addSprite(sprite.slotName, std::make_shared<Sprite>(surfaceId, sprite.z));
+
+		SDL_Color test0 = { 165, 131, 112, 255 };
+		SDL_Color test1 = { 0, 255, 0, 255 };
+
+		SDL_Color test2 = { 131, 98, 80, 255 };
+		SDL_Color test3 = { 78, 47, 51, 255 };
+
+		SDL_Color test4 = { 251, 242, 54, 255 };
+		SDL_Color test5 = { 255, 0, 0, 255 };
+
+		SDL_Color test6 = { 246, 223, 86, 255 };
+		SDL_Color test7 = { 66, 255, 248, 255 };
+
+		SDL_Color test8 = { 69, 50, 41, 255 };
+		SDL_Color test9 = { 56, 56, 55, 255 };
+
+		std::vector<std::pair<SDL_Color, SDL_Color>> colorMapping = { {test0, test1}, {test2, test3}, {test4, test5}, {test6, test7}, {test8, test9} };
+
+		spriteComponent->addSprite(sprite.slotName, std::make_shared<Sprite>(surfaceId, sprite.z, colorMapping));
 	}
 }

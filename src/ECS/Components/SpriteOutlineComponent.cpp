@@ -60,5 +60,8 @@ void ecs::SpriteOutlineComponent::draw()
 void ecs::SpriteOutlineComponent::onNotify(const std::string_view& observedEvent)
 {
 	if (observedEvent == "update_textures")
-		setTexture(TextureManager::getCombinedTexture(spriteComponent->getSortedSprites(), outlineColor));
+	{
+		SDL_DestroyTexture(texture);
+		texture = TextureManager::getCombinedTexture(spriteComponent->getSortedSprites(), outlineColor);
+	}
 }

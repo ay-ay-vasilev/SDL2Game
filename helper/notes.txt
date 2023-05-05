@@ -1,35 +1,52 @@
-assets/images/spritesheets
-|-- actors/
-|   |-- goblin/
-|   |   |-- body/
-|   |   |   |-- spritesheet.png
-|   |   |-- hands/
-|   |   |   |-- melee_light
-|   |   |   |   |-- spritesheet.png
-|   |   |   |-- melee_medium
-|   |   |   |   |-- spritesheet.png
-|   |   |   |-- melee_unarmed
-|   |   |   |   |-- spritesheet.png
-|   |-- human/
-|   |   |-- body/
-|   |   |   |-- spritesheet.png
-|   |   |-- hands/
-|   |   |   |-- melee_light
-|   |   |   |   |-- spritesheet.png
-|   |   |   |-- melee_medium
-|   |   |   |   |-- spritesheet.png
-|   |   |   |-- melee_unarmed
-|   |   |   |   |-- spritesheet.png
-|-- weapons/
-|   |-- melee_light
-|   |   |-- shortsword/
-|   |   |   |-- goblin/
-|   |   |   |   |-- spritesheet.png
-|   |   |   |-- human/
-|   |   |   |   |-- spritesheet.png
-|   |-- melee_medium/
-|   |   |-- sword/
-|   |   |   |-- goblin/
-|   |   |   |   |-- spritesheet.png
-|   |   |   |-- human/
-|   |   |   |   |-- spritesheet.png
+    "human_positions":
+	[
+		{ "x": 90, "y": 360 },
+		{ "x": 100, "y": 360 },
+		{ "x": 110, "y": 360 },
+		{ "x": 90, "y": 370 },
+		{ "x": 100, "y": 370 },
+		{ "x": 110, "y": 370 },
+		{ "x": 90, "y": 380 },
+		{ "x": 100, "y": 380 },
+		{ "x": 110, "y": 380 }
+	],
+
+	"skeleton_positions":
+	[
+		{ "x": 90, "y": 240 },
+		{ "x": 100, "y": 240 },
+		{ "x": 110, "y": 240 },
+		{ "x": 120, "y": 240 },
+		{ "x": 90, "y": 250 },
+		{ "x": 100, "y": 250 },
+		{ "x": 110, "y": 250 },
+		{ "x": 120, "y": 250 },
+		{ "x": 130, "y": 250 }
+	],
+	"goblin_positions":
+	[
+		{ "x": 380, "y": 220 },
+		{ "x": 390, "y": 220 },
+		{ "x": 400, "y": 220 },
+		{ "x": 410, "y": 220 },
+		{ "x": 420, "y": 220 },
+		{ "x": 430, "y": 220 },
+		{ "x": 380, "y": 230 },
+		{ "x": 390, "y": 230 },
+		{ "x": 400, "y": 230 },
+		{ "x": 410, "y": 230 },
+		{ "x": 420, "y": 230 },
+		{ "x": 430, "y": 240 },
+		{ "x": 380, "y": 240 },
+		{ "x": 390, "y": 240 },
+		{ "x": 400, "y": 240 },
+		{ "x": 410, "y": 240 },
+		{ "x": 420, "y": 240 },
+		{ "x": 430, "y": 240 },
+		{ "x": 380, "y": 250 },
+		{ "x": 390, "y": 250 },
+		{ "x": 400, "y": 250 },
+		{ "x": 410, "y": 250 },
+		{ "x": 420, "y": 250 },
+		{ "x": 430, "y": 250 }
+	]

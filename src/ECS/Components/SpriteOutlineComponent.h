@@ -14,10 +14,7 @@ namespace ecs
 	public:
 		SpriteOutlineComponent() = default;
 		explicit SpriteOutlineComponent(const std::optional<nlohmann::json>& outlineData = std::nullopt);
-
 		~SpriteOutlineComponent();
-
-		void inline setTexture(SDL_Texture* texture) { this->texture = texture; }
 
 		// Component
 		void init() override;

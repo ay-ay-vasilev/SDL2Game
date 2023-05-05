@@ -181,6 +181,7 @@ void ecs::SpriteComponent::sortSpritesByZ()
 	}
 	std::sort(sortedSprites.begin(), sortedSprites.end(), [](auto& a, auto& b) { return a->getZ() < b->getZ(); });
 
+	SDL_DestroyTexture(texture);
 	texture = TextureManager::getCombinedTexture(sortedSprites);
 	notify("update_textures");
 }

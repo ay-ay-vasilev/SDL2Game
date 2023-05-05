@@ -15,10 +15,19 @@ namespace ecs
 	class RenderSystem : public System
 	{
 	public:
-		explicit RenderSystem(Manager& manager) : System(manager) {}
+		explicit RenderSystem(Manager& manager) : System(manager), blackTexture(nullptr) {}
+		~RenderSystem() override
+		{
+			SDL_DestroyTexture(blackTexture);
+		}
 
 		void update(double delta) override
 		{
+			if (!blackTexture)
+			{
+				blackTexture = TextureManager::getTextureFromSurface(Game::assets->getSurface("black"));
+			}
+
 			sortedEntities.clear();
 			tiles = manager.getGroup(Game::eGroupLabels::MAP);
 			const auto entitiesWithCollision = manager.getEntitiesWithComponent<ecs::ColliderComponent>();
@@ -39,7 +48,6 @@ namespace ecs
 
 		void draw() override
 		{
-			auto blackTexture = TextureManager::getTextureFromSurface(Game::assets->getSurface("black"));
 			TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(0, 0, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT), SDL_FLIP_NONE);
 			for (const auto& tile : tiles) tile->draw();
 			for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();
@@ -56,5 +64,7 @@ namespace ecs
 		};
 		std::vector<ecs::Entity*> tiles;
 		std::vector<EntityZValue> sortedEntities;
+
+		SDL_Texture* blackTexture; // todo: remove
 	};
 }

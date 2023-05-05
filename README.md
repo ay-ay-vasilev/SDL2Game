@@ -20,8 +20,10 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Refactor FactionSystem (make it a manager instead ? avoid duplication but worsen encapsulation)
 - Refactor colors - implement palette swapping
+    - Add color json files, remove useless spritesheets
+    - Store colored surfaces in the map to reduce loading times for equipping/deequipping
+    - Refactor get texture (make it safer)
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.
@@ -31,6 +33,7 @@ Maintenance:
 - Specific weapon stats for actors in weapon json files?
 - Refactor ECS.h (uninline some methods, inline explicitly the rest)
 - Refactor the debug draw methods
+- Refactor FactionSystem (make it a manager instead ? avoid duplication but worsen encapsulation)
 
 Future plans:
 - Divide pants into boots and pants ?
