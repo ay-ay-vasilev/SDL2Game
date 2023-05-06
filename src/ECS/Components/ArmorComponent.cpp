@@ -26,25 +26,7 @@ void ecs::ArmorComponent::equipArmorToSlot(const std::string& armorName, const s
 	{
 		const auto& surfaceName = data.value("texture", "");
 		const int z = data.value("z", 0);
-
-		SDL_Color test0 = { 165, 131, 112, 255 };
-		SDL_Color test1 = { 102, 57, 49, 255 };
-
-		SDL_Color test2 = { 131, 98, 80, 255 };
-		SDL_Color test3 = { 78, 47, 51, 255 };
-
-		SDL_Color test4 = { 251, 242, 54, 255 };
-		SDL_Color test5 = { 255, 0, 0, 255 };
-
-		SDL_Color test6 = { 246, 223, 86, 255 };
-		SDL_Color test7 = { 66, 255, 248, 255 };
-
-		SDL_Color test8 = { 69, 50, 41, 255 };
-		SDL_Color test9 = { 56, 56, 55, 255 };
-
-		std::vector<std::pair<SDL_Color, SDL_Color>> colorMapping = { {test0, test1}, {test2, test3}, {test4, test5}, {test6, test7}, {test8, test9} };
-
-		spritesToAdd.emplace_back(std::make_shared<Sprite>(surfaceName, z, colorMapping));
+		spritesToAdd.emplace_back(std::make_shared<Sprite>(surfaceName, z));
 	}
 
 	std::unordered_map<std::string, std::vector<std::string>> blockedSlots;

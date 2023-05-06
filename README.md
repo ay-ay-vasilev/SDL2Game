@@ -21,9 +21,8 @@ My plan:
 
 Maintenance:
 - Refactor colors - implement palette swapping
-    - Add color json files, remove useless spritesheets
-    - Store colored surfaces in the map to reduce loading times for equipping/deequipping
-    - Refactor get texture (make it safer)
+	- Store colored surfaces in the map to reduce loading times for equipping/deequipping
+	- Add colors to armor + add variation to humans and skeles
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.

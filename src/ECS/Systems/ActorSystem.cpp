@@ -39,15 +39,26 @@ void ecs::ActorSystem::init()
 	for (auto& actorEntry : actorsCustomizationData.items())
 	{
 		const std::string actorName = actorEntry.key();
-		for (auto& skinColorEntry : actorEntry.value().items())
+		for (const auto& sprite : actorEntry.value()["sprites"])
 		{
-			const std::string skinColor = skinColorEntry.key();
-			for (auto& sprite : skinColorEntry.value())
+			std::vector<std::string> textures;
+			for (const auto& texture : sprite["textures"]) textures.push_back(texture);
+			auto customizationSprite = ActorCustomizationSprite(sprite["slot"], textures, sprite["z"]);
+			actorCustomizations[actorName].push_back(customizationSprite);
+		}
+		for (const auto& colorMapping : actorEntry.value()["color_variations"].items())
+		{
+			const std::string colorName = colorMapping.key();
+			colorMappings[actorName][colorName].push_back({});
+			for (const auto& color : colorMapping.value())
 			{
-				std::vector<std::string> textures;
-				for (const auto texture : sprite["textures"]) textures.push_back(texture);
-				const auto customizationSprite = ActorCustomizationSprite(sprite["slot"], textures, sprite["z"]);
-				actorCustomizations[actorName][skinColor].push_back(customizationSprite);
+				const auto& srcColorData = color["source_color"];
+				SDL_Color srcColor{ srcColorData[0], srcColorData[1], srcColorData[2], srcColorData[3] };
+				
+				const auto& targetColorData = color["target_color"];
+				SDL_Color targetColor{ targetColorData[0], targetColorData[1], targetColorData[2], targetColorData[3] };
+
+				colorMappings[actorName][colorName].push_back({ srcColor, targetColor });
 			}
 		}
 	}
@@ -182,40 +193,26 @@ void ecs::ActorSystem::addRandomCustomization(ecs::Entity& actor)
 	const std::string actorType = actor.getComponent<ecs::ActorComponent>()->getActorType();
 	const auto spriteComponent = actor.getComponent<ecs::SpriteComponent>();
 
-	auto availableCustomizations = actorCustomizations[actorType];
-	if (availableCustomizations.empty()) return;
+	const auto& customization = actorCustomizations[actorType];
+	const auto& colorVariations = colorMappings[actorType];
+
+	if (customization.empty()) return;
 
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> availableCustomizationsDistribution(0, availableCustomizations.size() - 1);
 
-	const auto& it = std::next(availableCustomizations.begin(), availableCustomizationsDistribution(gen));
-	const auto& customizationKey = it->first;
+	std::uniform_int_distribution<int> dist(0, colorVariations.size() - 1);
+	int index = dist(gen);
 
-	const auto& customization = availableCustomizations[customizationKey];
+	// select the random color variation
+	auto it = std::begin(colorVariations);
+	std::advance(it, index);
+	const auto& randomColorVariation = it->second;
 
 	for (const auto& sprite : customization)
 	{
 		std::uniform_int_distribution<> surfacesDistribution(0, sprite.availableSurfaces.size() - 1);
 		const auto surfaceId = sprite.availableSurfaces[surfacesDistribution(gen)];
-
-		SDL_Color test0 = { 165, 131, 112, 255 };
-		SDL_Color test1 = { 0, 255, 0, 255 };
-
-		SDL_Color test2 = { 131, 98, 80, 255 };
-		SDL_Color test3 = { 78, 47, 51, 255 };
-
-		SDL_Color test4 = { 251, 242, 54, 255 };
-		SDL_Color test5 = { 255, 0, 0, 255 };
-
-		SDL_Color test6 = { 246, 223, 86, 255 };
-		SDL_Color test7 = { 66, 255, 248, 255 };
-
-		SDL_Color test8 = { 69, 50, 41, 255 };
-		SDL_Color test9 = { 56, 56, 55, 255 };
-
-		std::vector<std::pair<SDL_Color, SDL_Color>> colorMapping = { {test0, test1}, {test2, test3}, {test4, test5}, {test6, test7}, {test8, test9} };
-
-		spriteComponent->addSprite(sprite.slotName, std::make_shared<Sprite>(surfaceId, sprite.z, colorMapping));
+		spriteComponent->addSprite(sprite.slotName, std::make_shared<Sprite>(surfaceId, sprite.z, randomColorVariation));
 	}
 }
