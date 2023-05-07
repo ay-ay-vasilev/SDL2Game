@@ -113,24 +113,9 @@ SDL_Texture* TextureManager::getCombinedTexture(const std::vector<std::shared_pt
 				throw std::runtime_error("Failed to create combined surface: " + std::string(SDL_GetError()));
 			}
 		}
-		// if this sprite is not an outline and has a color mapping
-		if (!textureColor && !sprite->getColorMapping().empty())
+		if (SDL_BlitSurface(surface, nullptr, combinedSurface, nullptr) != 0)
 		{
-			SDL_Surface* tempSurface = nullptr;
-			tempSurface = SDL_ConvertSurface(surface, surface->format, surface->flags);
-			applyColorMapping(tempSurface, sprite->getColorMapping());
-			if (SDL_BlitSurface(tempSurface, nullptr, combinedSurface, nullptr) != 0)
-			{
-				throw std::runtime_error("Failed to blit surface: " + std::string(SDL_GetError()));
-			}
-			if (tempSurface != nullptr) SDL_FreeSurface(tempSurface);
-		}
-		else
-		{
-			if (SDL_BlitSurface(surface, nullptr, combinedSurface, nullptr) != 0)
-			{
-				throw std::runtime_error("Failed to blit surface: " + std::string(SDL_GetError()));
-			}
+			throw std::runtime_error("Failed to blit surface: " + std::string(SDL_GetError()));
 		}
 	}
 

@@ -35,8 +35,11 @@ namespace ecs
 		std::vector<Entity*> actors;
 
 		// Data structure for possible customization options for actors
-		std::unordered_map<std::string, std::vector<ActorCustomizationSprite>> actorCustomizations;
-		std::unordered_map <std::string, std::unordered_map<std::string, std::vector<std::pair<SDL_Color, SDL_Color>>>> colorMappings;
+		// actor name, sprite group, vector of sprites
+		std::unordered_map<std::string, std::unordered_map<std::string, std::vector<ActorCustomizationSprite>>> actorCustomizations;
+		// actor name, sprite group, vector of available colors
+		std::unordered_map <std::string, std::unordered_map<std::string, std::vector<std::string>>> actorCustomizationColors;
+
 
 		// Data structure for possible armor for actors
 		std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> actorArmors;

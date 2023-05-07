@@ -32,31 +32,35 @@ public:
 	void loadFonts();
 	
 	std::filesystem::path getDataPath();
-	std::string getActorJsonPath(const std::string& fileName);
-	std::string getProjectileJsonPath(const std::string& fileName);
-	std::string getWeaponJsonPath(const std::string& fileName);
-	std::string getArmorJsonPath(const std::string& fileName, const std::string& actorName, const std::string& slotName);
-	std::string getGeneralDataJsonPath(const std::string& fileName);
+	std::string getActorJsonPath(const std::string fileName);
+	std::string getProjectileJsonPath(const std::string fileName);
+	std::string getWeaponJsonPath(const std::string fileName);
+	std::string getArmorJsonPath(const std::string fileName, const std::string actorName, const std::string slotName);
+	std::string getGeneralDataJsonPath(const std::string fileName);
 
 	// Surface management
-	void addSurface(const std::string_view& id, const std::string& path);
-	SDL_Surface* getSurface(const std::string_view& id) const;
+	void addSurface(const std::string id, const std::string path, const std::string color = "default");
+	SDL_Surface* getSurface(const std::string id, const std::string color = "default") const;
 
 	// Font management
-	void addFont(const std::string_view& id, const std::string& path, const int fontSize);
-	TTF_Font* getFont(const std::string_view& id) const;
+	void addFont(const std::string id, const std::string path, const int fontSize);
+	TTF_Font* getFont(const std::string id) const;
 
-	nlohmann::json getJsonData(const std::string& filePath);
-	nlohmann::json getActorJson(const std::string& actorName);
-	nlohmann::json getProjectileJson(const std::string& projectileName);
-	nlohmann::json getWeaponJson(const std::string& weaponName);
-	nlohmann::json getArmorJson(const std::string& armorName, const std::string& actorName, const std::string& slotName);
-	nlohmann::json getGeneralDataJson(const std::string& dataName);
+	nlohmann::json getJsonData(const std::string filePath);
+	nlohmann::json getActorJson(const std::string actorName);
+	nlohmann::json getProjectileJson(const std::string projectileName);
+	nlohmann::json getWeaponJson(const std::string weaponName);
+	nlohmann::json getArmorJson(const std::string armorName, const std::string actorName, const std::string slotName);
+	nlohmann::json getGeneralDataJson(const std::string dataName);
 
 private:
-
 	std::shared_ptr<ecs::Manager> manager;
-	std::map<const std::string_view, SDL_Surface*> surfaces;
-	std::map<const std::string_view, TTF_Font*> fonts;
+
+	// texture name, then color name, then the surface
+	std::map<std::string, std::unordered_map<std::string, SDL_Surface*>> coloredSurfaces;
+	// texture name, then color name, then color variation - maybe optimize into groups later ?
+	std::map<std::string, std::unordered_map<std::string, std::vector<std::pair<SDL_Color, SDL_Color>>>> colorVariations;
+
+	std::map<std::string, TTF_Font*> fonts;
 	std::shared_ptr<Constants> constants;
 };

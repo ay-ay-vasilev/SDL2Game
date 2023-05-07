@@ -1,74 +1,61 @@
 {
 	"goblin":
 	{
-		"sprites":
-		[
-			{ "slot": "body", "textures": ["goblin_body"], "z": 0 },
-			{ "slot": "ears", "textures": ["goblin_ears_0", "goblin_ears_1", "goblin_ears_2"], "z": 99 },
-			{ "slot": "head", "textures": ["goblin_head"], "z": 100 },
-			{ "slot": "face", "textures": ["goblin_face_0", "goblin_face_1", "goblin_face_2"], "z": 101 },
-			{ "slot": "arms", "textures": ["goblin_arms_back"], "z": -200 },
-			{ "slot": "arms", "textures": ["goblin_arms_front"], "z": 200 }
-		],
-		"color_variations":
+		"body":
 		{
-			"green": [],
-			"yellow":
+			"sprites":
 			[
-				{ "source_color": [251, 242, 54, 255], "target_color": [255, 219, 0, 255] },
-				{ "source_color": [79, 108, 68, 255], "target_color": [104, 108, 68, 255] },
-				{ "source_color": [49, 82, 49, 255], "target_color": [74, 82, 49, 255] },
-				{ "source_color": [43, 56, 43, 255], "target_color": [56, 56, 43, 255] }
+				{ "slot": "body", "textures": ["goblin_body"], "z": 0 },
+				{ "slot": "ears", "textures": ["goblin_ears_0", "goblin_ears_1", "goblin_ears_2"], "z": 99 },
+				{ "slot": "head", "textures": ["goblin_head"], "z": 100 },
+				{ "slot": "face", "textures": ["goblin_face_0", "goblin_face_1", "goblin_face_2"], "z": 101 },
+				{ "slot": "arms", "textures": ["goblin_arms_back"], "z": -200 },
+				{ "slot": "arms", "textures": ["goblin_arms_front"], "z": 200 }
 			],
-			"dark":
-			[
-				{ "source_color": [251, 242, 54, 255], "target_color": [255, 179, 0, 255] },
-				{ "source_color": [79, 108, 68, 255], "target_color": [61, 73, 48, 255] },
-				{ "source_color": [49, 82, 49, 255], "target_color": [36, 52, 30, 255] },
-				{ "source_color": [43, 56, 43, 255], "target_color": [24, 30, 24, 255] }
-			],
-			"white":
-			[
-				{ "source_color": [251, 242, 54, 255], "target_color": [246, 223, 86, 255] },
-				{ "source_color": [79, 108, 68, 255], "target_color": [131, 160, 145, 255] },
-				{ "source_color": [49, 82, 49, 255], "target_color": [103, 130, 120, 255] },
-				{ "source_color": [43, 56, 43, 255], "target_color": [77, 82, 80, 255] }
-			]
+			"colors":["green", "yellow", "dark", "white"]
 		}
 	},
 	"human":
 	{
-		"sprites":
-		[
-			{ "slot": "body", "textures": ["human_body"], "z": 0 },
-			{ "slot": "head", "textures": ["human_head"], "z": 100 },
-			{ "slot": "face", "textures": ["human_face_0", "human_face_1", "human_face_2"], "z": 101 },
-			{ "slot": "hair", "textures": ["human_hair_0", "human_hair_1", "human_hair_2", "human_hair_3"], "z": 102 },
-			{ "slot": "arms", "textures": ["human_arms_back"], "z": -200 },
-			{ "slot": "arms", "textures": ["human_arms_front"], "z": 200 }
-		],
-		"color_variations":
+		"body":
 		{
-			"white": [],
-			"dark":
+			"sprites":
 			[
-				{ "source_color": [165, 131, 112, 255], "target_color": [102, 57, 49, 255] },
-				{ "source_color": [131, 98, 80, 255], "target_color": [78, 47, 51, 255] }
-			]
+				{ "slot": "body", "textures": ["human_body"], "z": 0 },
+				{ "slot": "head", "textures": ["human_head"], "z": 100 },
+				{ "slot": "arms", "textures": ["human_arms_back"], "z": -200 },
+				{ "slot": "arms", "textures": ["human_arms_front"], "z": 200 }
+			],
+			"colors":["white", "dark"]
+		},
+		"hair":
+		{
+			"sprites":
+			[
+				{ "slot": "hair", "textures": ["human_hair_0"], "z": 102 }
+			],
+			"colors":["black", "blonde", "brown", "red"]
+		},
+		"face":
+		{
+			"sprites":
+			[
+				{ "slot": "face", "textures": ["human_face_0"], "z": 101 }
+			],
+			"colors":["green", "blue", "brown"]
 		}
 	},
 	"skeleton":
 	{
-		"sprites":
-		[
-			{ "slot": "body", "textures": ["skeleton_body"], "z": 0 },
-			{ "slot": "head", "textures": ["skeleton_face_0", "skeleton_face_1"], "z": 100 },
-			{ "slot": "arms", "textures": ["skeleton_arms_back"], "z": -200 },
-			{ "slot": "arms", "textures": ["skeleton_arms_front"], "z": 200 }
-		],
-		"color_variations":
+		"body":
 		{
-			"regular": []
+			"sprites":
+			[
+				{ "slot": "body", "textures": ["skeleton_body"], "z": 0 },
+				{ "slot": "head", "textures": ["skeleton_face_0", "skeleton_face_1"], "z": 100 },
+				{ "slot": "arms", "textures": ["skeleton_arms_back"], "z": -200 },
+				{ "slot": "arms", "textures": ["skeleton_arms_front"], "z": 200 }
+			]	
 		}
 	}
 }

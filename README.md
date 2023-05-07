@@ -21,7 +21,10 @@ My plan:
 
 Maintenance:
 - Refactor colors - implement palette swapping
-	- Store colored surfaces in the map to reduce loading times for equipping/deequipping
+	- Move eyes to a different group ?
+	- Move footwear to its own slot
+	- Add gloves
+	- Redo human and skeleton armor
 	- Add colors to armor + add variation to humans and skeles
 - JSON files for AI.
 - Add map json.
@@ -33,9 +36,10 @@ Maintenance:
 - Refactor ECS.h (uninline some methods, inline explicitly the rest)
 - Refactor the debug draw methods
 - Refactor FactionSystem (make it a manager instead ? avoid duplication but worsen encapsulation)
+- Refactor AssetManager (remove useless references and remove string_view from maps)
+- Deal with strings and string_views
 
 Future plans:
-- Divide pants into boots and pants ?
 - Add a second container for Sprites that should not be outlined? (sword swings)
 - Customization for characters
 - Looting
