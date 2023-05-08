@@ -21,7 +21,7 @@ My plan:
 
 Maintenance:
 - Refactor colors - implement palette swapping
-	- Move eyes to a different group ?
+	- Redraw humans to have bigger legs
 	- Move footwear to its own slot
 	- Add gloves
 	- Redo human and skeleton armor

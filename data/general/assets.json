@@ -76,25 +76,39 @@
 				"green": [],
 				"yellow":
 				[
-					{ "source_color": [251, 242, 54, 255], "target_color": [255, 219, 0, 255] },
 					{ "source_color": [79, 108, 68, 255], "target_color": [104, 108, 68, 255] },
 					{ "source_color": [49, 82, 49, 255], "target_color": [74, 82, 49, 255] },
 					{ "source_color": [43, 56, 43, 255], "target_color": [56, 56, 43, 255] }
 				],
 				"dark":
 				[
-					{ "source_color": [251, 242, 54, 255], "target_color": [255, 179, 0, 255] },
 					{ "source_color": [79, 108, 68, 255], "target_color": [61, 73, 48, 255] },
 					{ "source_color": [49, 82, 49, 255], "target_color": [36, 52, 30, 255] },
 					{ "source_color": [43, 56, 43, 255], "target_color": [24, 30, 24, 255] }
 				],
 				"white":
 				[
-					{ "source_color": [251, 242, 54, 255], "target_color": [246, 223, 86, 255] },
 					{ "source_color": [79, 108, 68, 255], "target_color": [131, 160, 145, 255] },
 					{ "source_color": [49, 82, 49, 255], "target_color": [103, 130, 120, 255] },
 					{ "source_color": [43, 56, 43, 255], "target_color": [77, 82, 80, 255] }
+				],
+				"red":
+				[
+					{ "source_color": [79, 108, 68, 255], "target_color": [182, 86, 42, 255] },
+					{ "source_color": [49, 82, 49, 255], "target_color": [151, 73, 49, 255] },
+					{ "source_color": [43, 56, 43, 255], "target_color": [112, 47, 47, 255] }
 				]
+			}
+		},
+		"goblin_eyes":
+		{
+			"textures" : [ {"name" : "goblin_eyes_0", "path": "assets/images/spritesheets/actors/goblin/body_parts/eyes/0.png"} ],
+			"color_variations":
+			{
+				"yellow": [],
+				"orange": [ { "source_color": [251, 242, 54, 255], "target_color": [255, 219, 0, 255] } ],
+				"dark_orange": [ { "source_color": [251, 242, 54, 255], "target_color": [255, 179, 0, 255] } ],
+				"light_yellow": [ { "source_color": [251, 242, 54, 255], "target_color": [246, 223, 86, 255] } ]
 			}
 		},
 		"human_body":
@@ -120,26 +134,29 @@
 		{
 			"textures" :
 			[
-				{"name" : "human_face_0", "path": "assets/images/spritesheets/actors/human/body_parts/face/0.png" }
-			],
+				{"name" : "human_face_0", "path": "assets/images/spritesheets/actors/human/body_parts/face/0.png" },
+				{"name" : "human_face_1", "path": "assets/images/spritesheets/actors/human/body_parts/face/1.png" }
+			]
+		},
+		"human_eyes":
+		{
+			"textures" : [ {"name" : "human_eyes_0", "path": "assets/images/spritesheets/actors/human/body_parts/eyes/0.png"} ],
 			"color_variations":
 			{
 				"green": [],
-				"blue":
-				[
-					{ "source_color": [74, 108, 50, 255], "target_color": [77, 112, 121, 255] }
-				],
-				"brown":
-				[
-					{ "source_color": [74, 108, 50, 255], "target_color": [82, 56, 23, 255] }
-				]
+				"blue": [ { "source_color": [74, 108, 50, 255], "target_color": [77, 112, 121, 255] } ],
+				"brown": [ { "source_color": [74, 108, 50, 255], "target_color": [52, 36, 15, 255] } ]
 			}
 		},
 		"human_hair":
 		{
 			"textures" :
 			[
-				{"name" : "human_hair_0", "path": "assets/images/spritesheets/actors/human/body_parts/hair/0.png" }
+				{"name" : "human_hair_0", "path": "assets/images/spritesheets/actors/human/body_parts/hair/0.png" },
+				{"name" : "human_hair_1", "path": "assets/images/spritesheets/actors/human/body_parts/hair/1.png" },
+				{"name" : "human_hair_2", "path": "assets/images/spritesheets/actors/human/body_parts/hair/2.png" },
+				{"name" : "human_facial_hair_0", "path": "assets/images/spritesheets/actors/human/body_parts/facial_hair/0.png" },
+				{"name" : "human_facial_hair_1", "path": "assets/images/spritesheets/actors/human/body_parts/facial_hair/1.png" }
 			],
 			"color_variations":
 			{
@@ -166,11 +183,21 @@
 			"textures" :
 			[
 				{"name" : "skeleton_body", "path": "assets/images/spritesheets/actors/skeleton/body_parts/body.png" },
-				{"name" : "skeleton_face_0", "path": "assets/images/spritesheets/actors/skeleton/body_parts/face/0.png" },
-				{"name" : "skeleton_face_1", "path": "assets/images/spritesheets/actors/skeleton/body_parts/face/1.png" },
+				{"name" : "skeleton_head_0", "path": "assets/images/spritesheets/actors/skeleton/body_parts/head/0.png" },
+				{"name" : "skeleton_head_1", "path": "assets/images/spritesheets/actors/skeleton/body_parts/head/1.png" },
 				{"name" : "skeleton_arms_back", "path": "assets/images/spritesheets/actors/skeleton/body_parts/arms_back.png" },
 				{"name" : "skeleton_arms_front", "path": "assets/images/spritesheets/actors/skeleton/body_parts/arms_front.png" }
 			]
+		},
+		"skeleton_eyes":
+		{
+			"textures" : [ {"name" : "skeleton_eyes_0", "path": "assets/images/spritesheets/actors/skeleton/body_parts/eyes/0.png"} ],
+			"color_variations":
+			{
+				"red": [],
+				"green": [ { "source_color": [255, 0, 0, 255], "target_color": [0, 255, 0, 255] } ],
+				"teal": [ { "source_color": [255, 0, 0, 255], "target_color": [0, 255, 166, 255] } ]
+			}
 		}
 	}
 }

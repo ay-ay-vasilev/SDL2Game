@@ -23,7 +23,7 @@
 			"eyewear"	: ["none", "eyepatch_black"],
 			"headwear"	: ["none"],
 			"jacket"	: ["none", "chainmail"],
-			"mask"		: ["none", "scarf_black"],
+			"mask"		: ["none"],
 			"overcoat"	: ["none", "surcoat"],
 			"pants"		: ["pants_brown"],
 			"shirt"		: ["shirt_light"]

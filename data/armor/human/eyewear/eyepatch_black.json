@@ -4,7 +4,7 @@
 	{
 		"sprites":
 		[
-			{ "slot": "eyewear", "texture": "human_eyepatch_black", "z": 104 }
+			{ "slot": "eyewear", "texture": "human_eyepatch_black", "z": 105 }
 		]
 	}
 }

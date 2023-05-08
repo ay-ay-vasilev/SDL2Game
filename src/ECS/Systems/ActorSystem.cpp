@@ -213,6 +213,8 @@ void ecs::ActorSystem::addRandomCustomization(ecs::Entity& actor)
 			std::uniform_int_distribution<> surfacesDistribution(0, sprite.availableSurfaces.size() - 1);
 			const auto surfaceId = sprite.availableSurfaces[surfacesDistribution(gen)];
 
+			if (surfaceId == "none") continue;
+
 			if (!color.empty()) spriteComponent->addSprite(sprite.slotName, std::make_shared<Sprite>(surfaceId, sprite.z, color));
 			else spriteComponent->addSprite(sprite.slotName, std::make_shared<Sprite>(surfaceId, sprite.z));
 		}

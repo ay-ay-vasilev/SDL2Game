@@ -12,7 +12,15 @@
 				{ "slot": "arms", "textures": ["goblin_arms_back"], "z": -200 },
 				{ "slot": "arms", "textures": ["goblin_arms_front"], "z": 200 }
 			],
-			"colors":["green", "yellow", "dark", "white"]
+			"colors":["green", "yellow", "dark", "white", "red"]
+		},
+		"eyes":
+		{
+			"sprites":
+			[
+				{ "slot": "eyes", "textures": ["goblin_eyes_0"], "z": 102 }
+			],
+			"colors":["yellow", "orange", "dark_orange", "light_yellow"]
 		}
 	},
 	"human":
@@ -32,7 +40,8 @@
 		{
 			"sprites":
 			[
-				{ "slot": "hair", "textures": ["human_hair_0"], "z": 102 }
+				{ "slot": "hair", "textures": ["human_hair_0", "human_hair_1", "human_hair_2"], "z": 104 },
+				{ "slot": "facial_hair", "textures": ["human_facial_hair_0", "human_facial_hair_1"], "z": 101 }
 			],
 			"colors":["black", "blonde", "brown", "red"]
 		},
@@ -40,7 +49,14 @@
 		{
 			"sprites":
 			[
-				{ "slot": "face", "textures": ["human_face_0"], "z": 101 }
+				{ "slot": "face", "textures": ["human_face_0", "human_face_1"], "z": 103 }
+			]
+		},
+		"eyes":
+		{
+			"sprites":
+			[
+				{ "slot": "eyes", "textures": ["human_eyes_0"], "z": 102 }
 			],
 			"colors":["green", "blue", "brown"]
 		}
@@ -52,10 +68,18 @@
 			"sprites":
 			[
 				{ "slot": "body", "textures": ["skeleton_body"], "z": 0 },
-				{ "slot": "head", "textures": ["skeleton_face_0", "skeleton_face_1"], "z": 100 },
+				{ "slot": "head", "textures": ["skeleton_head_0", "skeleton_head_1"], "z": 100 },
 				{ "slot": "arms", "textures": ["skeleton_arms_back"], "z": -200 },
 				{ "slot": "arms", "textures": ["skeleton_arms_front"], "z": 200 }
 			]	
+		},
+		"eyes":
+		{
+			"sprites":
+			[
+				{ "slot": "eyes", "textures": ["skeleton_eyes_0"], "z": 101 }
+			],
+			"colors":["red", "green", "teal"]
 		}
 	}
 }

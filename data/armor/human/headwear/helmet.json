@@ -4,11 +4,11 @@
 	{
 		"sprites":
 		[
-			{ "slot": "headwear", "texture": "human_helmet", "z": 105 }
+			{ "slot": "headwear", "texture": "human_helmet", "z": 107 }
 		],
 		"block_slots":
 		[
-			{ "blocker_slot": "headwear", "blocked_slots": ["hair"]}
+			{ "blocker_slot": "headwear", "blocked_slots": ["hair", "facial_hair"]}
 		]
 	}
 }
