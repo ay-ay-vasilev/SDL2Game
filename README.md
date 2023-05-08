@@ -8,6 +8,7 @@ Stuff to remember:
 3. Scene manager to "switch" levels
 
 My plan:
+- Add corpses and death animations
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
@@ -21,10 +22,8 @@ My plan:
 
 Maintenance:
 - Refactor colors - implement palette swapping
-	- Redraw humans to have bigger legs
-	- Move footwear to its own slot
-	- Add gloves
-	- Redo human and skeleton armor
+	- Redraw skeles to have bigger legs
+	- Redo human (almost) and skeleton armor
 	- Add colors to armor + add variation to humans and skeles
 - JSON files for AI.
 - Add map json.

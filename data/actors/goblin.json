@@ -30,7 +30,7 @@
 			"melee_light_attack": { "anim_index": 5, "num_of_frames": 5, "action_name" : "attack", "trigger_frames": [1, 2, 3], "anim_speed": 85 },
 			"melee_medium_idle": { "anim_index": 6, "num_of_frames": 4, "anim_speed": 100 },
 			"melee_medium_walk": { "anim_index": 7, "num_of_frames": 8, "anim_speed": 60 },
-			"melee_medium_attack": { "anim_index": 8, "num_of_frames": 5, "action_name" : "attack", "trigger_frames": [1, 2, 3], "anim_speed": 85 }
+			"melee_medium_attack": { "anim_index": 8, "num_of_frames": 5, "action_name" : "attack", "trigger_frames": [1, 2, 3], "anim_speed": 100 }
 		},
 		"outline":
 		{

@@ -41,7 +41,7 @@
 			"sprites":
 			[
 				{ "slot": "hair", "textures": ["human_hair_0", "human_hair_1", "human_hair_2"], "z": 104 },
-				{ "slot": "facial_hair", "textures": ["human_facial_hair_0", "human_facial_hair_1"], "z": 101 }
+				{ "slot": "facial_hair", "textures": ["none", "human_facial_hair_0", "human_facial_hair_1"], "z": 101 }
 			],
 			"colors":["black", "blonde", "brown", "red"]
 		},

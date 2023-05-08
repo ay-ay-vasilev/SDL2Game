@@ -21,12 +21,14 @@
 		"human":
 		{
 			"eyewear"	: ["none", "eyepatch_black"],
-			"headwear"	: ["none"],
+			"headwear"	: ["none", "helmet", "steel_cap"],
 			"jacket"	: ["none", "chainmail"],
 			"mask"		: ["none"],
-			"overcoat"	: ["none", "surcoat"],
-			"pants"		: ["pants_brown"],
-			"shirt"		: ["shirt_light"]
+			"overcoat"	: ["none"],
+			"pants"		: ["regular"],
+			"boots"		: ["regular"],
+			"gloves"	: ["none", "regular"],
+			"shirt"		: ["regular"]
 		}
 	},
 	"weapons":
