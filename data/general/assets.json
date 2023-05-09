@@ -139,7 +139,8 @@
 			"textures" :
 			[
 				{"name" : "human_face_0", "path": "assets/images/spritesheets/actors/human/body_parts/face/0.png" },
-				{"name" : "human_face_1", "path": "assets/images/spritesheets/actors/human/body_parts/face/1.png" }
+				{"name" : "human_face_1", "path": "assets/images/spritesheets/actors/human/body_parts/face/1.png" },
+				{"name" : "human_face_2", "path": "assets/images/spritesheets/actors/human/body_parts/face/2.png" }
 			]
 		},
 		"human_eyes":

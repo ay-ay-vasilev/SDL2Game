@@ -13,15 +13,15 @@
 		"skeleton":
 		{
 			"armorplate": ["none", "heavy_armor"],
-			"headwear"	: ["none", "heavy_helmet"],
+			"headwear"	: ["none"],
 			"jacket"	: ["none", "chainmail"],
 			"pants"		: ["pants_brown"],
 			"shirt"		: ["none", "shirt_torn_gray"]
 		},
 		"human":
 		{
-			"eyewear"	: ["none", "eyepatch_black"],
-			"headwear"	: ["none", "helmet", "steel_cap"],
+			"eyewear"	: ["none"],
+			"headwear"	: ["none", "steel_cap", "helmet"],
 			"jacket"	: ["none", "chainmail"],
 			"mask"		: ["none"],
 			"overcoat"	: ["none"],

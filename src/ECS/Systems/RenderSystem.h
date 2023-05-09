@@ -35,20 +35,24 @@ namespace ecs
 			for (auto& entity : entitiesWithCollision)
 			{
 				const auto colliderComponent = entity->getComponent<ecs::ColliderComponent>();
+				const double x = colliderComponent->getCollider()->getPosition().x;
 				const double z = colliderComponent->getLowestPoint();
-				sortedEntities.push_back({ entity, z });
+				sortedEntities.push_back({ entity, x, z });
 			}
 
 			std::sort(sortedEntities.begin(), sortedEntities.end(),
 				[](const EntityZValue& a, const EntityZValue& b)
 				{
+					if (a.entityZ == b.entityZ) return a.entityX > b.entityX;
 					return a.entityZ < b.entityZ;
 				});
 		}
 
 		void draw() override
 		{
-			TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(0, 0, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT), SDL_FLIP_NONE);
+			// fix this:
+			TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(-100, -100, Game::constants->SCREEN_WIDTH * Game::constants->SCALE, Game::constants->SCREEN_HEIGHT * Game::constants->SCALE), SDL_FLIP_NONE);
+
 			for (const auto& tile : tiles) tile->draw();
 			for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();
 
@@ -60,6 +64,7 @@ namespace ecs
 		struct EntityZValue
 		{
 			ecs::Entity* entity;
+			double entityX;
 			double entityZ;
 		};
 		std::vector<ecs::Entity*> tiles;

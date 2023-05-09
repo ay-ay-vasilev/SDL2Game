@@ -23,8 +23,9 @@ My plan:
 Maintenance:
 - Refactor colors - implement palette swapping
 	- Redraw skeles to have bigger legs
-	- Redo human (almost) and skeleton armor
+	- Redo human (surcoat armor left) and skeleton armor
 	- Add colors to armor + add variation to humans and skeles
+	- Redo spritesheets (decouple spritesheets)
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.

@@ -11,6 +11,7 @@
 #include "WeaponComponent.h"
 #include "FactionComponent.h"
 #include "CameraComponent.h"
+#include "AIComponentBasicFighter.h"
 
 #include <wrappedJson.h>
 
@@ -28,6 +29,7 @@ ecs::Entity* ecs::PlayerSystem::instantiatePlayer(const Vector2D& pos, const std
 	player.addComponent<ecs::SpriteOutlineComponent>(playerData["sprite_data"].contains("outline") ? playerData["sprite_data"]["outline"] : nullptr);
 	player.addComponent<ecs::ActorComponent>(filename);
 	player.addComponent<ecs::KeyboardComponent>();
+	//player.addComponent<ecs::AIComponentBasicFighter>();
 	player.addComponent<ecs::ColliderComponent>(filename, playerData["collider_rect"]);
 	player.addComponent<ecs::HitboxComponent>(filename, playerData["hitbox_rect"]);
 	player.addComponent<ecs::HealthComponent>(playerData["health"]);

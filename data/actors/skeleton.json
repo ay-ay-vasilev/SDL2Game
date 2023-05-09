@@ -1,6 +1,6 @@
 {
 	"faction": "undead",
-	"speed": 0.8,
+	"speed": 0.7,
 	"health":
 	{
 		"max_health": 20

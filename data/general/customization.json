@@ -34,7 +34,7 @@
 				{ "slot": "arms", "textures": ["human_arms_back"], "z": -200 },
 				{ "slot": "arms", "textures": ["human_arms_front"], "z": 200 }
 			],
-			"colors":["white", "dark"]
+			"colors":["white"]
 		},
 		"hair":
 		{
@@ -49,7 +49,7 @@
 		{
 			"sprites":
 			[
-				{ "slot": "face", "textures": ["human_face_0", "human_face_1"], "z": 103 }
+				{ "slot": "face", "textures": ["human_face_0", "human_face_1", "human_face_2"], "z": 103 }
 			]
 		},
 		"eyes":
