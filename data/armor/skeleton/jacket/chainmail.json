@@ -4,7 +4,7 @@
 	{
 		"sprites":
 		[
-			{ "slot": "jacket", "texture": "skeleton_chainmail", "z": 3 },
+			{ "slot": "jacket", "texture": "skeleton_chainmail", "z": 4 },
 			{ "slot": "jacket", "texture": "skeleton_chainmail_arms_back", "z": -198 },
 			{ "slot": "jacket", "texture": "skeleton_chainmail_arms_front", "z": 202 }
 		]

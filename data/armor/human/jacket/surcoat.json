@@ -1,0 +1,12 @@
+{
+	"damage_reduction": 1,
+	"sprite_data":
+	{
+		"sprites":
+		[
+			{ "slot": "jacket", "texture": "human_surcoat", "z": 4 },
+			{ "slot": "jacket", "texture": "human_surcoat_arms_back", "z": -197 },
+			{ "slot": "jacket", "texture": "human_surcoat_arms_front", "z": 203 }
+		]
+	}
+}

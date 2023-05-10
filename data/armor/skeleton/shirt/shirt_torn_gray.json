@@ -4,7 +4,7 @@
 	{
 		"sprites":
 		[
-			{ "slot": "shirt", "texture": "skeleton_shirt_torn_gray", "z": 2 }
+			{ "slot": "shirt", "texture": "skeleton_shirt_torn_gray", "z": 3 }
 		]
 	}
 }

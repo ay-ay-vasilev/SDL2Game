@@ -22,8 +22,7 @@ My plan:
 
 Maintenance:
 - Refactor colors - implement palette swapping
-	- Redraw skeles to have bigger legs
-	- Redo human (surcoat armor left) and skeleton armor
+	- Implement fixed spritesheets (goblin stuff left)
 	- Add colors to armor + add variation to humans and skeles
 	- Redo spritesheets (decouple spritesheets)
 - JSON files for AI.

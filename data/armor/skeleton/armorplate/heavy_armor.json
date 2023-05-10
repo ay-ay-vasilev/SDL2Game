@@ -4,9 +4,9 @@
 	{
 		"sprites":
 		[
-			{ "slot": "armorplate", "texture": "skeleton_heavy_armor", "z": 4 },
-			{ "slot": "armorplate", "texture": "skeleton_heavy_armor_arms_back", "z": -197 },
-			{ "slot": "armorplate", "texture": "skeleton_heavy_armor_arms_front", "z": 203 }
+			{ "slot": "armorplate", "texture": "skeleton_heavy_armor", "z": 5 },
+			{ "slot": "armorplate", "texture": "skeleton_heavy_armor_arms_back", "z": -196 },
+			{ "slot": "armorplate", "texture": "skeleton_heavy_armor_arms_front", "z": 204 }
 		]
 	}
 }
