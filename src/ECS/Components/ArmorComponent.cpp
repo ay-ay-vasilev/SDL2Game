@@ -11,23 +11,30 @@ void ecs::ArmorComponent::init()
 
 void ecs::ArmorComponent::equipArmorToSlot(const std::string& armorName, const std::string& actorName, const std::string& slotName)
 {
-	const auto armorData = Game::assets->getArmorJson(armorName, actorName, slotName);
+	if (armorSlots[slotName].armorName == armorName) return;
+	if (armorSlots.count(slotName)) unequipArmorFromSlot(slotName);
 
+	ArmorPiece armorPiece{ armorName, {}, 0 };
+
+	const auto armorData = Game::assets->getArmorJson(armorName, actorName, slotName);
 	const auto slotArmorValue = armorData.value("damage_reduction", 0);
 	armorValue += slotArmorValue;
-	slotArmorValues[slotName] = slotArmorValue;
+	armorPiece.armorVal = slotArmorValue;
 
 	const auto& spriteData = armorData.value("sprite_data", nlohmann::json{});
 
-	std::vector<std::shared_ptr<Sprite>> spritesToAdd;
+
+	std::vector<std::pair<std::string, std::shared_ptr<Sprite>>> spritesToAdd;
 	const auto& armorSpriteData = spriteData.value("sprites", nlohmann::json::array());
 
 	for (const auto& data : armorSpriteData)
 	{
 		const auto& surfaceName = data.value("texture", "");
 		const int z = data.value("z", 0);
-		spritesToAdd.emplace_back(std::make_shared<Sprite>(surfaceName, z));
+		armorPiece.spriteSlots.emplace_back(data["slot"]);
+		spritesToAdd.push_back({data["slot"], std::make_shared<Sprite>(surfaceName, z)});
 	}
+	armorSlots[slotName] = armorPiece;
 
 	std::unordered_map<std::string, std::vector<std::string>> blockedSlots;
 	const auto& armorSpriteBlockData = spriteData.value("block_slots", nlohmann::json::array());
@@ -35,37 +42,42 @@ void ecs::ArmorComponent::equipArmorToSlot(const std::string& armorName, const s
 	{
 		const std::string blockerSlotName = blockedSlotData["blocker_slot"];
 		std::vector<std::string> blockedSlotNames;
-		for (const auto& blockedSlotName : blockedSlotData["blocked_slots"])
-			blockedSlotNames.push_back(blockedSlotName);
+		for (const auto& blockedSlotName : blockedSlotData["blocked_slots"]) blockedSlotNames.push_back(blockedSlotName);
 		blockedSlots[blockerSlotName] = blockedSlotNames;
 	}
 
-	spriteComponent->addSpritesToSlot(slotName, spritesToAdd);
-	for (const auto& [blockerSlotName, blockedSlotNames] : blockedSlots)
-	{
-		spriteComponent->addBlockedSlots(blockerSlotName, blockedSlotNames);
-	}
+	for (const auto [spriteSlotName, sprite] : spritesToAdd)
+		spriteComponent->addSprite(spriteSlotName, sprite);
 
-	if (armorSpriteData.empty()) {
-		spriteComponent->removeSpritesFromSlot(slotName);
-	}
+	for (const auto& [blockerSlotName, blockedSlotNames] : blockedSlots)
+		spriteComponent->addBlockedSlots(blockerSlotName, blockedSlotNames);
+
+	if (armorSpriteData.empty()) spriteComponent->removeSpritesFromSlot(slotName);
 }
 
 void ecs::ArmorComponent::unequipArmorFromSlot(const std::string& slotName)
 {
-	armorValue -= slotArmorValues[slotName];
-	slotArmorValues.erase(slotName);
-	spriteComponent->removeSpritesFromSlot(slotName);
+	const auto armorPiece = armorSlots[slotName];
+
+	armorValue -= armorPiece.armorVal;
+	for (const auto& spriteSlot : armorPiece.spriteSlots)
+	{
+		spriteComponent->removeSpritesFromSlot(spriteSlot);
+	}
+	armorSlots.erase(slotName);
 }
 
 void ecs::ArmorComponent::unequipAllArmor()
 {
 	armorValue = 0;
-	for (const auto [slotArmor, slotArmorValue] : slotArmorValues)
+	for (const auto [armorSlotName, armorPiece] : armorSlots)
 	{
-		spriteComponent->removeSpritesFromSlot(slotArmor);
+		for (const auto& spriteSlot : armorPiece.spriteSlots)
+		{
+			spriteComponent->removeSpritesFromSlot(spriteSlot);
+		}
 	}
-	slotArmorValues.clear();
+	armorSlots.clear();
 }
 
 const int ecs::ArmorComponent::applyDamageReduction(int damage) const

@@ -64,8 +64,8 @@ namespace ecs
 		std::map<std::string, Animation> animations;
 
 		std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> sprites; // *key* - slot name, *value* - vector of sprites in a slot
-		std::vector<std::shared_ptr<Sprite>> sortedSprites;
 		std::unordered_map<std::string, std::vector<std::string>> blockedSlots; // *key* - blocker slot name, *value* - vector of blocked slots
+		std::vector<std::shared_ptr<Sprite>> sortedSprites;
 
 		eAnimState animState = eAnimState::NONE;
 		SDL_RendererFlip spriteFlip = SDL_FLIP_HORIZONTAL;

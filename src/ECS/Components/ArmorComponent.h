@@ -19,9 +19,16 @@ namespace ecs
 		const int applyDamageReduction(int damage) const;
 
 	private:
+		struct ArmorPiece
+		{
+			// TODO: improve the structure eventually
+			std::string armorName;						// example: dark_robes
+			std::vector<std::string> spriteSlots;		// example: overcoat, hood
+			int armorVal;								// example: 5
+		};
+
 		std::shared_ptr<SpriteComponent> spriteComponent;
-		std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> tempSprites;
-		std::unordered_map<std::string, int> slotArmorValues;
+		std::unordered_map<std::string, ArmorPiece> armorSlots; // *key* - armor slot, *value* - armor piece on that slot
 
 		int armorValue;
 	};

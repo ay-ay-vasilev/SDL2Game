@@ -22,7 +22,6 @@ My plan:
 
 Maintenance:
 - Refactor colors - implement palette swapping
-	- Fix slot blocking
 	- Add colors to armor + add variation to humans and skeles
 	- Redo spritesheets (decouple spritesheets)
 - JSON files for AI.
