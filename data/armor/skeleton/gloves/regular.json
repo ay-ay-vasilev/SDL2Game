@@ -4,8 +4,8 @@
 	{
 		"sprites":
 		[
-			{ "slot": "gloves", "texture": "skeleton_gloves_regular_back", "z": -196 },
-			{ "slot": "gloves", "texture": "skeleton_gloves_regular_front", "z": 204 }
+			{ "slot": "gloves", "texture": "skeleton_gloves_regular_back", "z": -194 },
+			{ "slot": "gloves", "texture": "skeleton_gloves_regular_front", "z": 206 }
 		]
 	}
 }

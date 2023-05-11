@@ -1,0 +1,14 @@
+{
+	"damage_reduction": 0,
+	"sprite_data":
+	{
+		"sprites":
+		[
+			{ "slot": "headwear", "texture": "goblin_headwear_cow_skull", "z": 104 }
+		],
+		"block_slots":
+		[
+			{ "blocker_slot": "headwear", "blocked_slots": ["hood"]}
+		]
+	}
+}

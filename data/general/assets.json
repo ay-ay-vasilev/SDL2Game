@@ -6,8 +6,10 @@
 			"textures" :
 			[
 				{"name": "terrain", "path": "assets/images/spritesheets/map/tiles_v0.png"},
-				{"name" : "goblin_pants_brown", "path": "assets/images/spritesheets/actors/goblin/armor/pants/pants_brown.png" },
-				{"name" : "goblin_pants_light", "path": "assets/images/spritesheets/actors/goblin/armor/pants/pants_light.png" },
+				{"name" : "goblin_pants_regular", "path": "assets/images/spritesheets/actors/goblin/armor/pants/regular.png" },
+				{"name" : "goblin_boots_regular", "path": "assets/images/spritesheets/actors/goblin/armor/boots/regular.png" },
+				{"name" : "goblin_gloves_regular_front", "path": "assets/images/spritesheets/actors/goblin/armor/gloves/regular_front.png" },
+				{"name" : "goblin_gloves_regular_back", "path": "assets/images/spritesheets/actors/goblin/armor/gloves/regular_back.png" },
 				{"name" : "goblin_shirt_light", "path": "assets/images/spritesheets/actors/goblin/armor/shirt/shirt_light.png" },
 				{"name" : "goblin_long_sleeve_light", "path": "assets/images/spritesheets/actors/goblin/armor/shirt/long_sleeve_light.png" },
 				{"name" : "goblin_long_sleeve_light_arms_back", "path": "assets/images/spritesheets/actors/goblin/armor/shirt/long_sleeve_light_arms_back.png" },
@@ -15,6 +17,8 @@
 				{"name" : "goblin_light_jacket_brown", "path": "assets/images/spritesheets/actors/goblin/armor/jacket/light_jacket_brown.png" },
 				{"name" : "goblin_eyewear_eyepatch_black", "path": "assets/images/spritesheets/actors/goblin/armor/eyewear/eyepatch_black.png" },
 				{"name" : "goblin_mask_scarf_black", "path": "assets/images/spritesheets/actors/goblin/armor/mask/scarf_black.png" },
+				{"name" : "goblin_headwear_skull", "path": "assets/images/spritesheets/actors/goblin/armor/headwear/skull.png" },
+				{"name" : "goblin_headwear_cow_skull", "path": "assets/images/spritesheets/actors/goblin/armor/headwear/cow_skull.png" },
 				{"name" : "goblin_cloak_0", "path": "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0.png" },
 				{"name" : "goblin_cloak_0_arms_back", "path": "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_arms_back.png" },
 				{"name" : "goblin_cloak_0_head", "path": "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_head.png" },

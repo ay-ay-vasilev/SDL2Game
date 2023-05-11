@@ -3,11 +3,14 @@
 	{
 		"goblin":
 		{
+			"headwear"	: ["none", "skull", "cow_skull"],
 			"eyewear"	: ["none", "eyepatch_black"],
 			"jacket"	: ["none", "jacket_dark", "light_jacket_brown"],
 			"mask"		: ["none", "scarf_black"],
 			"overcoat"	: ["none", "cloak_0"],
-			"pants"		: ["pants_brown", "pants_light"],
+			"pants"		: ["regular"],
+			"gloves"	: ["none", "regular"],
+			"boots"		: ["none", "regular"],
 			"shirt"		: ["long_sleeve_light", "shirt_light"]
 		},
 		"skeleton":
