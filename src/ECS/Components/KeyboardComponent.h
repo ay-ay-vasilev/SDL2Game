@@ -28,10 +28,6 @@ namespace ecs
 		void handleEvents();
 
 	private:
-		void equipWeapon(const std::string& weaponName);
-		void equipArmor();
-		void unequipArmor();
-
 		eState state = eState::IDLE;
 		std::shared_ptr<TransformComponent> transform;
 		std::shared_ptr<ActorComponent> actorComponent;

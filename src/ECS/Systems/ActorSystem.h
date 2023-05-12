@@ -23,7 +23,7 @@ namespace ecs
 		Entity* instantiateActor(const Vector2D& pos, const std::string& filename);
 		void equipWeapon(Entity& actor, const std::string& weaponName);
 
-		void equipArmor(Entity& actor, const std::string& armorName, const std::string& slotName);
+		void equipArmor(Entity& actor, const std::string& armorName, const std::string& slotName, const std::string& colorName);
 		void unequipArmorPiece(Entity& actor, const std::string& slotName);
 		void unequipAllArmor(Entity& actor);
 
@@ -42,7 +42,8 @@ namespace ecs
 
 
 		// Data structure for possible armor for actors
-		std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> actorArmors;
+		// actor name, armor slot name, armor piece name, vector of available colors
+		std::unordered_map<std::string, std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>>> actorArmors;
 		// Data structure for possible weapons for actors
 		std::unordered_map<std::string, std::vector<std::string>> actorWeapons;
 	};

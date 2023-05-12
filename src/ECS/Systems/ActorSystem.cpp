@@ -19,13 +19,32 @@ void ecs::ActorSystem::init()
 	for (auto& actorEntry : actorsEquipmentData["armor"].items())
 	{
 		const std::string actorName = actorEntry.key();
-		std::unordered_map<std::string, std::vector<std::string>> actorEquipmentMap;
+		std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> actorEquipmentMap;
 
 		for (auto& equipmentEntry : actorEntry.value().items())
 		{
 			const std::string slotName = equipmentEntry.key();
-			const std::vector<std::string>& equipmentList = equipmentEntry.value();
-			actorEquipmentMap.emplace(slotName, equipmentList);
+			
+			auto equipmentList = equipmentEntry.value();
+			std::unordered_map<std::string, std::vector<std::string>> equipmentListWithColors;
+			for (auto equipmentItem : equipmentList)
+			{
+				if (equipmentItem.is_string())
+				{
+					equipmentListWithColors[equipmentItem] = { "default" };
+				}
+				else
+				{
+					std::vector<std::string> colors;
+					for (const auto color : equipmentItem["colors"])
+					{
+						colors.emplace_back(color);
+					}
+					equipmentListWithColors[equipmentItem["name"]] = colors;
+				}
+			}
+
+			actorEquipmentMap.emplace(slotName, equipmentListWithColors);
 		}
 		actorArmors.emplace(actorName, actorEquipmentMap);
 	}
@@ -108,13 +127,13 @@ void ecs::ActorSystem::equipWeapon(ecs::Entity& actor, const std::string& weapon
 	actor.addComponent<ecs::WeaponComponent>(weaponName, actorType);
 }
 
-void ecs::ActorSystem::equipArmor(ecs::Entity& actor, const std::string& armorName, const std::string& slotName)
+void ecs::ActorSystem::equipArmor(ecs::Entity& actor, const std::string& armorName, const std::string& slotName, const std::string& colorName)
 {
 	if (!actor.hasComponent<ecs::ActorComponent>() || !actor.hasComponent<ecs::ArmorComponent>()) return;
 	const std::string actorType = actor.getComponent<ecs::ActorComponent>()->getActorType();
 
 	const auto armorComponent = actor.getComponent<ecs::ArmorComponent>();
-	armorComponent->equipArmorToSlot(armorName, actorType, slotName);
+	armorComponent->equipArmorToSlot(armorName, actorType, slotName, colorName);
 }
 
 void ecs::ActorSystem::unequipArmorPiece(ecs::Entity& actor, const std::string& slotName)
@@ -143,16 +162,20 @@ void ecs::ActorSystem::equipRandomArmor(ecs::Entity& actor)
 	std::random_device rd;
 	std::mt19937 gen(rd());
 
-	for (const auto& [slotName, equipmentVector] : actorArmors[actorType])
+	for (auto& [slotName, equipmentMap] : actorArmors[actorType])
 	{
-		if (!equipmentVector.empty())
+		if (!equipmentMap.empty())
 		{
-			std::uniform_int_distribution<> dis(0, equipmentVector.size() - 1);
+			std::uniform_int_distribution<> dis(0, equipmentMap.size() - 1);
 			const int equipmentIndex = dis(gen);
-			const std::string& equipmentName = equipmentVector[equipmentIndex];
-			if (equipmentName != "none")
+			auto it = std::next(equipmentMap.begin(), equipmentIndex);
+
+			auto equipmentItem = *it;
+			if (equipmentItem.first != "none")
 			{
-				armorComponent->equipArmorToSlot(equipmentName, actorType, slotName);
+				std::uniform_int_distribution<> dis(0, equipmentItem.second.size() - 1);
+				const int colorIndex = dis(gen);
+				armorComponent->equipArmorToSlot(equipmentItem.first, actorType, slotName, equipmentItem.second[colorIndex]);
 			}
 		}
 	}

@@ -10,18 +10,12 @@
 				{"name" : "goblin_boots_regular", "path": "assets/images/spritesheets/actors/goblin/armor/boots/regular.png" },
 				{"name" : "goblin_gloves_regular_front", "path": "assets/images/spritesheets/actors/goblin/armor/gloves/regular_front.png" },
 				{"name" : "goblin_gloves_regular_back", "path": "assets/images/spritesheets/actors/goblin/armor/gloves/regular_back.png" },
-				{"name" : "goblin_shirt_light", "path": "assets/images/spritesheets/actors/goblin/armor/shirt/shirt_light.png" },
-				{"name" : "goblin_long_sleeve_light", "path": "assets/images/spritesheets/actors/goblin/armor/shirt/long_sleeve_light.png" },
-				{"name" : "goblin_long_sleeve_light_arms_back", "path": "assets/images/spritesheets/actors/goblin/armor/shirt/long_sleeve_light_arms_back.png" },
 				{"name" : "goblin_jacket_dark", "path": "assets/images/spritesheets/actors/goblin/armor/jacket/jacket_dark.png" },
 				{"name" : "goblin_light_jacket_brown", "path": "assets/images/spritesheets/actors/goblin/armor/jacket/light_jacket_brown.png" },
 				{"name" : "goblin_eyewear_eyepatch_black", "path": "assets/images/spritesheets/actors/goblin/armor/eyewear/eyepatch_black.png" },
 				{"name" : "goblin_mask_scarf_black", "path": "assets/images/spritesheets/actors/goblin/armor/mask/scarf_black.png" },
 				{"name" : "goblin_headwear_skull", "path": "assets/images/spritesheets/actors/goblin/armor/headwear/skull.png" },
 				{"name" : "goblin_headwear_cow_skull", "path": "assets/images/spritesheets/actors/goblin/armor/headwear/cow_skull.png" },
-				{"name" : "goblin_cloak_0", "path": "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0.png" },
-				{"name" : "goblin_cloak_0_arms_back", "path": "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_arms_back.png" },
-				{"name" : "goblin_cloak_0_head", "path": "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_head.png" },
 				
 				{"name" : "goblin_shortsword_0", "path": "assets/images/spritesheets/actors/goblin/weapons/melee_light/shortsword/shortsword_back.png" },
 				{"name" : "goblin_shortsword_1", "path": "assets/images/spritesheets/actors/goblin/weapons/melee_light/shortsword/shortsword_front.png" },
@@ -68,6 +62,61 @@
 				{"name" : "test_projectile", "path": "assets/images/misc/test_projectile.png" },
 				{"name" : "black", "path": "assets/images/misc/black.png" }
 			]
+		},
+		"goblin_shirt_long":
+		{
+			"textures":
+			[
+				{"name" : "goblin_long_sleeve_light", "path": "assets/images/spritesheets/actors/goblin/armor/shirt/long_sleeve_light.png" },
+				{"name" : "goblin_long_sleeve_light_arms_back", "path": "assets/images/spritesheets/actors/goblin/armor/shirt/long_sleeve_light_arms_back.png" }
+			],
+			"color_variations":
+			{
+				"default": [],
+				"dark":
+				[
+					{"source_color": [190, 169, 148, 255], "target_color": [61, 60, 59, 255]},
+					{"source_color": [169, 142, 129, 255], "target_color": [52, 52, 52, 255]}
+				]
+			}
+		},
+		"goblin_shirt_regular":
+		{
+			"textures":
+			[
+				{"name" : "goblin_shirt_light", "path": "assets/images/spritesheets/actors/goblin/armor/shirt/shirt_light.png" }
+			],
+			"color_variations":
+			{
+				"default": [],
+				"brown":
+				[
+					{"source_color": [177, 165, 153, 255], "target_color": [130, 100, 87, 255]}
+				]
+			}
+		},
+		"goblin_cloak_0":
+		{
+			"textures":
+			[
+				{"name" : "goblin_cloak_0", "path": "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0.png" },
+				{"name" : "goblin_cloak_0_arms_back", "path": "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_arms_back.png" },
+				{"name" : "goblin_cloak_0_head", "path": "assets/images/spritesheets/actors/goblin/armor/overcoat/cloak_0_head.png" }
+			],
+			"color_variations":
+			{
+				"default": [],
+				"light":
+				[
+					{"source_color": [69, 50, 41, 255], "target_color": [108, 93, 86, 255]},
+					{"source_color": [48, 40, 38, 255], "target_color": [69, 59, 56, 255]}
+				],
+				"black":
+				[
+					{"source_color": [69, 50, 41, 255], "target_color": [52, 52, 52, 255]},
+					{"source_color": [48, 40, 38, 255], "target_color": [26, 26, 26, 255]}
+				]
+			}
 		},
 		"goblin_body":
 		{

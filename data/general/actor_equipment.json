@@ -7,11 +7,11 @@
 			"eyewear"	: ["none", "eyepatch_black"],
 			"jacket"	: ["none", "jacket_dark", "light_jacket_brown"],
 			"mask"		: ["none", "scarf_black"],
-			"overcoat"	: ["none", "cloak_0"],
+			"overcoat"	: ["none", {"name": "cloak_0", "colors": ["default", "light", "black"]}],
 			"pants"		: ["regular"],
 			"gloves"	: ["none", "regular"],
 			"boots"		: ["none", "regular"],
-			"shirt"		: ["long_sleeve_light", "shirt_light"]
+			"shirt"		: [{"name": "long_sleeve_light", "colors": ["dark"]}, {"name": "shirt_light", "colors": ["brown"]}]
 		},
 		"skeleton":
 		{

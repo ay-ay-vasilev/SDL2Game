@@ -9,30 +9,38 @@ void ecs::ArmorComponent::init()
 	spriteComponent = entity->getComponent<SpriteComponent>();
 }
 
-void ecs::ArmorComponent::equipArmorToSlot(const std::string& armorName, const std::string& actorName, const std::string& slotName)
+void ecs::ArmorComponent::equipArmorToSlot(const std::string& armorName, const std::string& actorName, const std::string& slotName, const std::string& colorName)
 {
 	if (armorSlots[slotName].armorName == armorName) return;
 	if (armorSlots.count(slotName)) unequipArmorFromSlot(slotName);
 
-	ArmorPiece armorPiece{ armorName, {}, 0 };
+	ArmorPiece armorPiece{ armorName, {}, 0};
 
 	const auto armorData = Game::assets->getArmorJson(armorName, actorName, slotName);
+
 	const auto slotArmorValue = armorData.value("damage_reduction", 0);
 	armorValue += slotArmorValue;
 	armorPiece.armorVal = slotArmorValue;
 
 	const auto& spriteData = armorData.value("sprite_data", nlohmann::json{});
 
-
 	std::vector<std::pair<std::string, std::shared_ptr<Sprite>>> spritesToAdd;
 	const auto& armorSpriteData = spriteData.value("sprites", nlohmann::json::array());
+	const auto& armorColorsData = spriteData.value("colors", nlohmann::json::array());
+	bool hasColor = find(armorColorsData.begin(), armorColorsData.end(), colorName) != armorColorsData.end();
+	if (hasColor) armorPiece.color = colorName;
+	else if (colorName != "default")
+	{
+		std::cout << "Color " << colorName << " not found for armor piece " << armorName << " for actor " << actorName << " in slot " << slotName << "!\n";
+	}
 
 	for (const auto& data : armorSpriteData)
 	{
 		const auto& surfaceName = data.value("texture", "");
 		const int z = data.value("z", 0);
 		armorPiece.spriteSlots.emplace_back(data["slot"]);
-		spritesToAdd.push_back({data["slot"], std::make_shared<Sprite>(surfaceName, z)});
+		if (hasColor) spritesToAdd.push_back({data["slot"], std::make_shared<Sprite>(surfaceName, z, colorName)});
+		else spritesToAdd.push_back({ data["slot"], std::make_shared<Sprite>(surfaceName, z) });
 	}
 	armorSlots[slotName] = armorPiece;
 

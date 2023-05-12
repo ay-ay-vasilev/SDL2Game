@@ -5,6 +5,7 @@
 		"sprites":
 		[
 			{ "slot": "shirt", "texture": "goblin_shirt_light", "z": 2 }
-		]
+		],
+		"colors":["brown"]
 	}
 }

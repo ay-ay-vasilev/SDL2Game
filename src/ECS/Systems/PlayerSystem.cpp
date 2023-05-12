@@ -56,28 +56,6 @@ void ecs::PlayerSystem::equipWeapon(Entity& player, const std::string& weaponNam
 	player.addComponent<ecs::WeaponComponent>(weaponName, playerType);
 }
 
-void ecs::PlayerSystem::equipArmor(Entity& player, const std::string& armorName, const std::string& slotName)
-{
-	if (!player.hasComponent<ecs::ActorComponent>()) return;
-
-	const std::string playerType = player.getComponent<ecs::ActorComponent>()->getActorType();
-
-	if (player.hasComponent<ecs::ArmorComponent>())
-	{
-		const auto armorComponent = player.getComponent<ecs::ArmorComponent>();
-		armorComponent->equipArmorToSlot(armorName, playerType, slotName);
-	}
-}
-
-void ecs::PlayerSystem::unequipArmor(Entity& player, const std::string& slotName)
-{
-	if (player.hasComponent<ecs::ArmorComponent>())
-	{
-		const auto armorComponent = player.getComponent<ecs::ArmorComponent>();
-		armorComponent->unequipArmorFromSlot(slotName);
-	}
-}
-
 const Vector2D ecs::PlayerSystem::getPlayerPosition()
 {
 	if (!players.empty())

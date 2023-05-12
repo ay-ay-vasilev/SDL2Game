@@ -5,10 +5,6 @@
 		"sprites":
 		[
 			{ "slot": "headwear", "texture": "goblin_headwear_skull", "z": 104 }
-		],
-		"block_slots":
-		[
-			{ "blocker_slot": "headwear", "blocked_slots": ["hood"]}
 		]
 	}
 }
