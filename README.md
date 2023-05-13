@@ -21,9 +21,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Refactor colors - implement palette swapping
-	- Fix skeleton sprite
-	- Add human and skeleton variety
+- Add human and skeleton variety
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.
