@@ -1,7 +1,9 @@
 #include "WeaponComponent.h"
 #include "TransformComponent.h"
+#include "ActorComponent.h"
 #include "SpriteComponent.h"
 #include "HealthComponent.h"
+#include "AssetManager.h"
 
 ecs::WeaponComponent::WeaponComponent(const std::string& name, const std::string& ownerName, bool isProjectile) :
 	tag(name),
@@ -14,8 +16,8 @@ ecs::WeaponComponent::WeaponComponent(const std::string& name, const std::string
 	damage(0)
 {
 	nlohmann::json weaponData;
-	if (isProjectile) weaponData = Game::assets->getProjectileJson(name)["weapon"];
-	else weaponData = Game::assets->getWeaponJson(name);
+	if (isProjectile) weaponData = assets::getProjectileJson(name)["weapon"];
+	else weaponData = assets::getWeaponJson(name);
 
 	damage = weaponData.value("damage", 0);
 	weaponType = weaponData.value("weapon_type", "unarmed");
@@ -42,7 +44,7 @@ ecs::WeaponComponent::WeaponComponent(const std::string& name, const std::string
 			for (const auto data : weaponSpriteData)
 			{
 				const auto tempZ = data.value("z", 0);
-				tempSprites[data["slot"]].emplace_back((std::make_shared<Sprite>(data["texture"], tempZ)));
+				tempSprites.push_back({ data["slot"], data["texture"], tempZ });
 			}
 		}
 	}
@@ -81,19 +83,36 @@ void ecs::WeaponComponent::init()
 	texture = TextureManager::loadTexture(texturePath);
 	srcRect = { 0, 0, 32, 32 };
 
-	spriteComponent = entity->getComponent<ecs::SpriteComponent>();
-	registerWithSubject(spriteComponent);
-	if (tempSprites.empty())
-		spriteComponent->removeSpritesFromSlot("weapon");
-	for (auto& [slotName, tempSpriteVec] : tempSprites)
+
+	actorComponent = entity->getComponent<ecs::ActorComponent>();
+	if (actorComponent)
 	{
-		spriteComponent->removeSpritesFromSlot(slotName);
-		for (auto& tempSprite : tempSpriteVec)
+		registerWithSubject(actorComponent);
+
+		actorComponent->setWeaponType(weaponType);
+		if (tempSprites.empty()) actorComponent->removeSpritesFromSlot("weapon");
+		for (const auto& spriteData : tempSprites)
+			actorComponent->removeSpritesFromSlot(spriteData.slotName);
+		for (const auto& spriteData : tempSprites)
 		{
-			spriteComponent->addSprite(slotName, tempSprite);
+			actorComponent->addSprite(spriteData.slotName, spriteData.textureName, spriteData.z);
 		}
+		tempSprites.clear();
 	}
-	tempSprites.clear();
+	else
+	{
+		spriteComponent = entity->getComponent<ecs::SpriteComponent>();
+		registerWithSubject(spriteComponent);
+
+		if (tempSprites.empty()) spriteComponent->removeSpritesFromSlot("weapon");
+		for (const auto& spriteData : tempSprites)
+			spriteComponent->removeSpritesFromSlot(spriteData.slotName);
+		for (const auto& spriteData : tempSprites)
+		{
+			spriteComponent->addSprite(spriteData.slotName, std::make_shared<Sprite>(spriteData.textureName, spriteData.z));
+		}
+		tempSprites.clear();
+	}
 }
 
 void ecs::WeaponComponent::update(double delta)

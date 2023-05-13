@@ -10,6 +10,7 @@ namespace ecs
 {
 	class TransformComponent;
 	class SpriteComponent;
+	class ActorComponent;
 	class HealthComponent;
 	class WeaponComponent : public DrawableComponent, private Observer
 	{
@@ -41,7 +42,16 @@ namespace ecs
 		void inline setEnableDraw(bool value) { enableDraw = value; }
 
 	private:
+
+		struct SpriteData
+		{
+			std::string slotName;
+			std::string textureName;
+			int z;
+		};
+
 		std::shared_ptr<ecs::TransformComponent> transform;
+		std::shared_ptr<ecs::ActorComponent> actorComponent;
 		std::shared_ptr<ecs::SpriteComponent> spriteComponent;
 		std::shared_ptr<ColliderShape> weaponCollider;
 		SDL_Rect srcRect, destRect;
@@ -51,7 +61,8 @@ namespace ecs
 		std::string weaponType;
 		SDL_Texture* texture;
 		std::vector<int> affectedTargets;
-		std::unordered_map<std::string, std::vector<std::shared_ptr<Sprite>>> tempSprites;
+		
+		std::vector<SpriteData> tempSprites;
 
 		bool enabled;
 		bool destroyOnHit;

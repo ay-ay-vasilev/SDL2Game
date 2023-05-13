@@ -12,8 +12,8 @@ public:
 	{
 		const auto stringId = std::string(surfaceId);
 
-		if (color) surface = Game::assets->getSurface(stringId, color.value());
-		else surface = Game::assets->getSurface(stringId);
+		if (color) surface = Game::assetManager->getSurface(stringId, color.value());
+		else surface = Game::assetManager->getSurface(stringId);
 	}
 
 	const double getZ() const { return z; }

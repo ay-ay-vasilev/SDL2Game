@@ -22,8 +22,8 @@ My plan:
 
 Maintenance:
 - Refactor colors - implement palette swapping
-	- Add colors to armor + add variation to humans and skeles
 	- Redo spritesheets (decouple spritesheets)
+	- Fix skeleton sprite
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.
@@ -36,6 +36,7 @@ Maintenance:
 - Refactor FactionSystem (make it a manager instead ? avoid duplication but worsen encapsulation)
 - Refactor AssetManager (remove useless references and remove string_view from maps)
 - Deal with strings and string_views
+- Use aliases to make stuff readable
 
 Future plans:
 - Add a second container for Sprites that should not be outlined? (sword swings)

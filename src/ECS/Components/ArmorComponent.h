@@ -1,8 +1,9 @@
 #pragma once
-#include "SpriteComponent.h"
+#include "ECS.h"
 
 namespace ecs
 {
+	class ActorComponent;
 	class ArmorComponent : public Component
 	{
 	public:
@@ -28,7 +29,8 @@ namespace ecs
 			std::optional<std::string> color = std::nullopt;	// example: dark_blue
 		};
 
-		std::shared_ptr<SpriteComponent> spriteComponent;
+		std::shared_ptr<ActorComponent> actorComponent;
+
 		std::unordered_map<std::string, ArmorPiece> armorSlots; // *key* - armor slot, *value* - armor piece on that slot
 
 		int armorValue;

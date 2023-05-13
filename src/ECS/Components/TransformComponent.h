@@ -24,8 +24,8 @@ namespace ecs
 			velocity.Normalize();
 			direction.Normalize();
 
-			position.x += velocity.x * speed * delta * Game::constants->TIME_SCALE;
-			position.y += velocity.y * speed * delta * Game::constants->TIME_SCALE;
+			position.x += velocity.x * speed * static_cast<float>(delta * Game::constants->TIME_SCALE);
+			position.y += velocity.y * speed * static_cast<float>(delta * Game::constants->TIME_SCALE);
 		}
 
 		const inline Vector2D getPosition() const { return position; }

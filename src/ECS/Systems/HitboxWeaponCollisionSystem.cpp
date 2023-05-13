@@ -7,6 +7,7 @@
 #include "FactionComponent.h"
 #include "Collision.h"
 #include "Vector2D.h"
+#include "Game.h"
 
 void ecs::HitboxWeaponCollisionSystem::update(double delta)
 {

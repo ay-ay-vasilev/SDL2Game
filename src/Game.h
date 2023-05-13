@@ -19,8 +19,11 @@ namespace ecs
 	class Manager;
 }
 
+namespace assets
+{
+	class AssetManager;
+}
 
-class AssetManager;
 class KeyboardManager;
 class CameraManager;
 class Constants;
@@ -45,7 +48,7 @@ public:
 
 	static std::shared_ptr<Constants> constants;
 
-	static std::unique_ptr<AssetManager> assets;
+	static std::unique_ptr<assets::AssetManager> assetManager;
 	static std::unique_ptr<KeyboardManager> keyboardManager;
 	static std::unique_ptr<CameraManager> cameraManager;
 	static std::shared_ptr<ecs::Manager> manager;

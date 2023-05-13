@@ -43,29 +43,5 @@
 			],
 			"color": {"r": 0, "b": 0, "g": 0, "a": 255}
 		}
-	},
-	"actor_data":
-	{
-		"weapon_type_animations":
-		{
-			"unarmed":
-			{
-				"idle": "unarmed_idle",
-				"walk": "unarmed_walk",
-				"attack": "unarmed_attack"
-			},
-			"melee_light":
-			{
-				"idle": "melee_light_idle",
-				"walk": "melee_light_walk",
-				"attack": "melee_light_attack"
-			},
-			"melee_medium":
-			{
-				"idle": "melee_medium_idle",
-				"walk": "melee_medium_walk",
-				"attack": "melee_medium_attack"
-			}
-		}
 	}
 }

@@ -10,7 +10,7 @@ ecs::TileComponent::TileComponent(const int srcX, const int srcY, const int xpos
 	position { static_cast<float>(xpos), static_cast<float>(ypos) }
 {
 	const auto stringId = std::string(surfaceId);
-	texture = TextureManager::getTextureFromSurface(Game::assets->getSurface(stringId));
+	texture = TextureManager::getTextureFromSurface(Game::assetManager->getSurface(stringId));
 }
 
 ecs::TileComponent::~TileComponent()

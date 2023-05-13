@@ -4,7 +4,7 @@
 
 void ecs::FactionSystem::init()
 {
-	const auto factionData = Game::assets->getGeneralDataJson("factions")["factions"];
+	const auto factionData = assets::getGeneralDataJson("factions")["factions"];
 	for (const auto faction : factionData)
 	{
 		std::unordered_map<std::string, int> relations;

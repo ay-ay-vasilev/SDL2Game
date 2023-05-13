@@ -21,7 +21,7 @@
 std::shared_ptr<Constants> Game::constants = std::make_shared<Constants>("../data/settings.json");
 
 std::shared_ptr<ecs::Manager> Game::manager = std::make_shared<ecs::Manager>(constants);
-std::unique_ptr<AssetManager> Game::assets = std::make_unique<AssetManager>(manager);
+std::unique_ptr<assets::AssetManager> Game::assetManager = std::make_unique<assets::AssetManager>(manager);
 std::unique_ptr<KeyboardManager> Game::keyboardManager = std::make_unique<KeyboardManager>(manager);
 std::unique_ptr<CameraManager> Game::cameraManager = std::make_unique<CameraManager>(manager);
 
@@ -83,8 +83,8 @@ void Game::init()
 	if (TTF_Init() == -1) std::cout << "Error: SDL_TTF\n";
 
 	manager->setScale(constants->SCALE);
-	assets->loadSurfaces();
-	assets->loadFonts();
+	assetManager->loadSurfaces();
+	assetManager->loadFonts();
 	keyboardManager->setActorSystem(actorSystem);
 	cameraManager->init();
 

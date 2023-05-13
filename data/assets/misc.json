@@ -1,0 +1,17 @@
+{
+	"sprites":
+	{
+		"path": "assets/images/misc/",
+		"sprite_groups":
+		{
+			"colorless":
+			{
+				"textures":
+				[
+					{"name" : "test_projectile", "path": "test_projectile.png" },
+					{"name" : "black", "path": "black.png" }
+				]
+			}
+		}
+	}
+}

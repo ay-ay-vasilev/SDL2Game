@@ -36,9 +36,7 @@ ecs::SpriteComponent::SpriteComponent(const nlohmann::json& spritesData, const b
 			addSprite
 			(
 				spriteData["slot"],
-				std::make_shared<Sprite>
-				(spriteData["texture"],
-					spriteData.value("z", 0))
+				std::make_shared<Sprite>(spriteData["texture"], spriteData.value("z", 0))
 			);
 		}
 	}
@@ -154,6 +152,12 @@ void ecs::SpriteComponent::removeSpritesFromSlot(const std::string& slotName)
 	sprites.erase(slotName);
 	blockedSlots.erase(slotName);
 	sortSpritesByZ();
+}
+
+void ecs::SpriteComponent::removeAllSprites()
+{
+	sprites.clear();
+	sortedSprites.clear();
 }
 
 void ecs::SpriteComponent::sortSpritesByZ()

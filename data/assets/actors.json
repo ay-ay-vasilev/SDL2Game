@@ -1,0 +1,321 @@
+{
+	"spritesheets":
+	{
+		"path": "assets/images/spritesheets/actors/",
+		"actors":
+		{
+			"goblin":
+			{
+				"path": "goblin/",
+				"weapon_types": ["unarmed", "melee_light", "melee_medium"],
+				"color_groups":
+				{
+					"goblin_colorless":
+					{
+						"textures" :
+						[
+							{"name" : "goblin_pants_regular", "path": "armor/pants/regular.png" },
+							{"name" : "goblin_boots_regular", "path": "armor/boots/regular.png" },
+							{"name" : "goblin_gloves_regular_front", "path": "armor/gloves/regular_front.png" },
+							{"name" : "goblin_gloves_regular_back", "path": "armor/gloves/regular_back.png" },
+							{"name" : "goblin_jacket_dark", "path": "armor/jacket/jacket_dark.png" },
+							{"name" : "goblin_light_jacket_brown", "path": "armor/jacket/light_jacket_brown.png" },
+							{"name" : "goblin_eyewear_eyepatch_black", "path": "armor/eyewear/eyepatch_black.png" },
+							{"name" : "goblin_mask_scarf_black", "path": "armor/mask/scarf_black.png" },
+							{"name" : "goblin_headwear_skull", "path": "armor/headwear/skull.png" },
+							{"name" : "goblin_headwear_cow_skull", "path": "armor/headwear/cow_skull.png" }
+						],
+						"weapon_textures" :
+						{
+							"unarmed": [],
+							"melee_light":
+							[
+								{"name" : "goblin_shortsword_0", "path": "weapons/shortsword/shortsword_back.png" },
+								{"name" : "goblin_shortsword_1", "path": "weapons/shortsword/shortsword_front.png" }
+							],
+							"melee_medium":
+							[
+								{"name" : "goblin_sword_front", "path": "weapons/sword/sword_front.png" }
+							]
+						}
+					},
+					"goblin_shirt_long":
+					{
+						"textures":
+						[
+							{"name" : "goblin_long_sleeve_light", "path": "armor/shirt/long_sleeve_light.png" },
+							{"name" : "goblin_long_sleeve_light_arms_back", "path": "armor/shirt/long_sleeve_light_arms_back.png" }
+						],
+						"color_variations":
+						{
+							"default": [],
+							"dark":
+							[
+								{"source_color": [190, 169, 148, 255], "target_color": [61, 60, 59, 255]},
+								{"source_color": [169, 142, 129, 255], "target_color": [52, 52, 52, 255]}
+							]
+						}
+					},
+					"goblin_shirt_regular":
+					{
+						"textures":
+						[
+							{"name" : "goblin_shirt_light", "path": "armor/shirt/shirt_light.png" }
+						],
+						"color_variations":
+						{
+							"default": [],
+							"brown":
+							[
+								{"source_color": [177, 165, 153, 255], "target_color": [130, 100, 87, 255]}
+							]
+						}
+					},
+					"goblin_cloak_0":
+					{
+						"textures":
+						[
+							{"name" : "goblin_cloak_0", "path": "armor/overcoat/cloak_0.png" },
+							{"name" : "goblin_cloak_0_arms_back", "path": "armor/overcoat/cloak_0_arms_back.png" },
+							{"name" : "goblin_cloak_0_head", "path": "armor/overcoat/cloak_0_head.png" }
+						],
+						"color_variations":
+						{
+							"default": [],
+							"light":
+							[
+								{"source_color": [69, 50, 41, 255], "target_color": [108, 93, 86, 255]},
+								{"source_color": [48, 40, 38, 255], "target_color": [69, 59, 56, 255]}
+							],
+							"black":
+							[
+								{"source_color": [69, 50, 41, 255], "target_color": [52, 52, 52, 255]},
+								{"source_color": [48, 40, 38, 255], "target_color": [26, 26, 26, 255]}
+							]
+						}
+					},
+					"goblin_body":
+					{
+						"textures" :
+						[
+							{"name" : "goblin_body", "path": "body_parts/body.png"},
+							{"name" : "goblin_head", "path": "body_parts/head.png"},
+							{"name" : "goblin_face_0", "path": "body_parts/face/0.png"},
+							{"name" : "goblin_face_1", "path": "body_parts/face/1.png"},
+							{"name" : "goblin_face_2", "path": "body_parts/face/2.png"},
+							{"name" : "goblin_ears_0", "path": "body_parts/ears/0.png"},
+							{"name" : "goblin_ears_1", "path": "body_parts/ears/1.png"},
+							{"name" : "goblin_ears_2", "path": "body_parts/ears/2.png"},
+							{"name" : "goblin_arms_back", "path": "body_parts/arms_back.png"},
+							{"name" : "goblin_arms_front", "path": "body_parts/arms_front.png"}
+						],
+						"color_variations":
+						{
+							"green": [],
+							"yellow":
+							[
+								{ "source_color": [79, 108, 68, 255], "target_color": [104, 108, 68, 255] },
+								{ "source_color": [49, 82, 49, 255], "target_color": [74, 82, 49, 255] },
+								{ "source_color": [43, 56, 43, 255], "target_color": [56, 56, 43, 255] }
+							],
+							"dark":
+							[
+								{ "source_color": [79, 108, 68, 255], "target_color": [61, 73, 48, 255] },
+								{ "source_color": [49, 82, 49, 255], "target_color": [36, 52, 30, 255] },
+								{ "source_color": [43, 56, 43, 255], "target_color": [24, 30, 24, 255] }
+							],
+							"white":
+							[
+								{ "source_color": [79, 108, 68, 255], "target_color": [131, 160, 145, 255] },
+								{ "source_color": [49, 82, 49, 255], "target_color": [103, 130, 120, 255] },
+								{ "source_color": [43, 56, 43, 255], "target_color": [77, 82, 80, 255] }
+							],
+							"red":
+							[
+								{ "source_color": [79, 108, 68, 255], "target_color": [182, 86, 42, 255] },
+								{ "source_color": [49, 82, 49, 255], "target_color": [151, 73, 49, 255] },
+								{ "source_color": [43, 56, 43, 255], "target_color": [112, 47, 47, 255] }
+							]
+						}
+					},
+					"goblin_eyes":
+					{
+						"textures" : [ {"name" : "goblin_eyes_0", "path": "body_parts/eyes/0.png"} ],
+						"color_variations":
+						{
+							"yellow": [],
+							"orange": [ { "source_color": [251, 242, 54, 255], "target_color": [255, 219, 0, 255] } ],
+							"dark_orange": [ { "source_color": [251, 242, 54, 255], "target_color": [255, 179, 0, 255] } ],
+							"light_yellow": [ { "source_color": [251, 242, 54, 255], "target_color": [246, 223, 86, 255] } ]
+						}
+					}
+				}
+			},
+			"human":
+			{
+				"path": "human/",
+				"weapon_types": ["unarmed", "melee_medium"],
+				"color_groups":
+				{
+					"human_colorless":
+					{
+						"textures" :
+						[
+							{"name" : "human_pants_regular", "path": "armor/pants/regular.png" },
+							{"name" : "human_boots_regular", "path": "armor/boots/regular.png" },
+							{"name" : "human_gloves_regular_front", "path": "armor/gloves/regular_front.png" },
+							{"name" : "human_gloves_regular_back", "path": "armor/gloves/regular_back.png" },
+							{"name" : "human_shirt_regular", "path": "armor/shirt/regular.png" },
+							{"name" : "human_shirt_regular_arms_back", "path": "armor/shirt/regular_arms_back.png" },
+							{"name" : "human_shirt_regular_arms_front", "path": "armor/shirt/regular_arms_front.png" },
+							{"name" : "human_chainmail", "path": "armor/jacket/chainmail.png" },
+							{"name" : "human_chainmail_arms_back", "path": "armor/jacket/chainmail_arms_back.png" },
+							{"name" : "human_chainmail_arms_front", "path": "armor/jacket/chainmail_arms_front.png" },
+							{"name" : "human_surcoat", "path": "armor/jacket/surcoat.png" },
+							{"name" : "human_surcoat_arms_front", "path": "armor/jacket/surcoat_arms_front.png" },
+							{"name" : "human_surcoat_arms_back", "path": "armor/jacket/surcoat_arms_back.png" },
+							{"name" : "human_eyepatch_black", "path": "armor/eyewear/eyepatch_black.png" },
+							{"name" : "human_scarf_black", "path": "armor/mask/scarf_black.png" },
+							{"name" : "human_helmet", "path": "armor/headwear/helmet.png" },
+							{"name" : "human_steel_cap", "path": "armor/headwear/steel_cap.png" }
+						],
+						"weapon_textures":
+						{
+							"unarmed": [],
+							"melee_medium":
+							[
+								{"name" : "human_sword_back", "path": "weapons/sword/sword_back.png" },
+								{"name" : "human_sword_front", "path": "weapons/sword/sword_front.png" }
+							]
+						}
+					},
+					"human_body":
+					{
+						"textures" :
+						[
+							{"name" : "human_body", "path": "body_parts/body.png" },
+							{"name" : "human_head", "path": "body_parts/head.png" },
+							{"name" : "human_arms_back", "path": "body_parts/arms_back.png" },
+							{"name" : "human_arms_front", "path": "body_parts/arms_front.png" }
+						],
+						"color_variations":
+						{
+							"white": [],
+							"dark":
+							[
+								{ "source_color": [165, 131, 112, 255], "target_color": [102, 57, 49, 255] },
+								{ "source_color": [131, 98, 80, 255], "target_color": [78, 47, 51, 255] }
+							]
+						}
+					},
+					"human_face":
+					{
+						"textures" :
+						[
+							{"name" : "human_face_0", "path": "body_parts/face/0.png" },
+							{"name" : "human_face_1", "path": "body_parts/face/1.png" },
+							{"name" : "human_face_2", "path": "body_parts/face/2.png" }
+						]
+					},
+					"human_eyes":
+					{
+						"textures" : [ {"name" : "human_eyes_0", "path": "body_parts/eyes/0.png"} ],
+						"color_variations":
+						{
+							"green": [],
+							"blue": [ { "source_color": [74, 108, 50, 255], "target_color": [77, 112, 121, 255] } ],
+							"brown": [ { "source_color": [74, 108, 50, 255], "target_color": [125, 74, 43, 255] } ]
+						}
+					},
+					"human_hair":
+					{
+						"textures" :
+						[
+							{"name" : "human_hair_0", "path": "body_parts/hair/0.png" },
+							{"name" : "human_hair_1", "path": "body_parts/hair/1.png" },
+							{"name" : "human_hair_2", "path": "body_parts/hair/2.png" },
+							{"name" : "human_facial_hair_0", "path": "body_parts/facial_hair/0.png" },
+							{"name" : "human_facial_hair_1", "path": "body_parts/facial_hair/1.png" }
+						],
+						"color_variations":
+						{
+							"black": [],
+							"blonde":
+							[
+								{ "source_color": [30, 30, 30, 255], "target_color": [190, 177, 128, 255] },
+								{ "source_color": [0, 0, 0, 255], "target_color": [173, 149, 112, 255] }
+							],
+							"brown":
+							[
+								{ "source_color": [30, 30, 30, 255], "target_color": [78, 40, 28, 255] },
+								{ "source_color": [0, 0, 0, 255], "target_color": [65, 27, 16, 255] }
+							],
+							"red":
+							[
+								{ "source_color": [30, 30, 30, 255], "target_color": [126, 66, 19, 255] },
+								{ "source_color": [0, 0, 0, 255], "target_color": [108, 48, 23, 255] }
+							]
+						}
+					}
+				}
+			},
+			"skeleton":
+			{
+				"path": "skeleton/",
+				"weapon_types": ["unarmed", "melee_medium"],
+				"color_groups":
+				{
+					"skeleton_colorless":
+					{
+						"textures" :
+						[
+							{"name" : "skeleton_pants_regular", "path": "armor/pants/regular.png" },
+							{"name" : "skeleton_boots_regular", "path": "armor/boots/regular.png" },
+							{"name" : "skeleton_gloves_regular_front", "path": "armor/gloves/regular_front.png" },
+							{"name" : "skeleton_gloves_regular_back", "path": "armor/gloves/regular_back.png" },
+							{"name" : "skeleton_shirt_torn_gray", "path": "armor/shirt/shirt_torn_gray.png" },
+							{"name" : "skeleton_chainmail", "path": "armor/jacket/chainmail.png" },
+							{"name" : "skeleton_chainmail_arms_back", "path": "armor/jacket/chainmail_arms_back.png" },
+							{"name" : "skeleton_chainmail_arms_front", "path": "armor/jacket/chainmail_arms_front.png" },
+							{"name" : "skeleton_heavy_armor", "path": "armor/armorplate/heavy_armor.png" },
+							{"name" : "skeleton_heavy_armor_arms_back", "path": "armor/armorplate/heavy_armor_arms_back.png" },
+							{"name" : "skeleton_heavy_armor_arms_front", "path": "armor/armorplate/heavy_armor_arms_front.png" },
+							{"name" : "skeleton_heavy_helmet", "path": "armor/headwear/heavy_helmet.png" },
+							{"name" : "skeleton_steel_cap", "path": "armor/headwear/steel_cap.png" }
+						],
+						"weapon_textures":
+						{
+							"unarmed": [],
+							"melee_medium":
+							[
+								{"name" : "skeleton_sword_back", "path": "weapons/sword/sword_back.png" },
+								{"name" : "skeleton_sword_front", "path": "weapons/sword/sword_front.png" }
+							]
+						}
+					},
+					"skeleton_body":
+					{
+						"textures" :
+						[
+							{"name" : "skeleton_body", "path": "body_parts/body.png" },
+							{"name" : "skeleton_head_0", "path": "body_parts/head/0.png" },
+							{"name" : "skeleton_head_1", "path": "body_parts/head/1.png" },
+							{"name" : "skeleton_arms_back", "path": "body_parts/arms_back.png" },
+							{"name" : "skeleton_arms_front", "path": "body_parts/arms_front.png" }
+						]
+					},
+					"skeleton_eyes":
+					{
+						"textures" : [ {"name" : "skeleton_eyes_0", "path": "body_parts/eyes/0.png"} ],
+						"color_variations":
+						{
+							"red": [],
+							"green": [ { "source_color": [255, 0, 0, 255], "target_color": [0, 255, 0, 255] } ],
+							"teal": [ { "source_color": [255, 0, 0, 255], "target_color": [0, 255, 166, 255] } ]
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -17,7 +17,7 @@
 
 ecs::Entity* ecs::PlayerSystem::instantiatePlayer(const Vector2D& pos, const std::string& filename)
 {
-	const auto playerData = Game::assets->getActorJson(filename);
+	const auto playerData = assets::getActorJson(filename);
 	auto& player(manager.addEntity());
 	player.addComponent<ecs::TransformComponent>
 	(

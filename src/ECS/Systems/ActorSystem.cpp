@@ -15,7 +15,7 @@
 
 void ecs::ActorSystem::init()
 {
-	const auto actorsEquipmentData = Game::assets->getGeneralDataJson("actor_equipment");
+	const auto actorsEquipmentData = assets::getGeneralDataJson("actor_equipment");
 	for (auto& actorEntry : actorsEquipmentData["armor"].items())
 	{
 		const std::string actorName = actorEntry.key();
@@ -54,7 +54,7 @@ void ecs::ActorSystem::init()
 		actorWeapons.emplace(actorName, weaponVector);
 	}
 
-	const auto actorsCustomizationData = Game::assets->getGeneralDataJson("customization");
+	const auto actorsCustomizationData = assets::getGeneralDataJson("customization");
 	for (auto& actorEntry : actorsCustomizationData.items())
 	{
 		const std::string actorName = actorEntry.key();
@@ -90,7 +90,7 @@ void ecs::ActorSystem::draw()
 
 ecs::Entity* ecs::ActorSystem::instantiateActor(const Vector2D& pos, const std::string& filename)
 {
-	const auto actorData = Game::assets->getActorJson(filename);
+	const auto actorData = assets::getActorJson(filename);
 	auto& actor(manager.addEntity());
 	actor.addComponent<ecs::TransformComponent>
 	(
@@ -207,10 +207,10 @@ void ecs::ActorSystem::equipRandomWeapon(ecs::Entity& actor)
 
 void ecs::ActorSystem::addRandomCustomization(ecs::Entity& actor)
 {
-	if (!actor.hasComponent<ecs::ActorComponent>() || !actor.hasComponent<ecs::SpriteComponent>()) return;
+	if (!actor.hasComponent<ecs::ActorComponent>()) return;
 
-	const std::string actorType = actor.getComponent<ecs::ActorComponent>()->getActorType();
-	const auto spriteComponent = actor.getComponent<ecs::SpriteComponent>();
+	const auto actorComponent = actor.getComponent<ecs::ActorComponent>();
+	const std::string actorType = actorComponent->getActorType();
 
 	auto& customization = actorCustomizations[actorType];
 	auto& colors = actorCustomizationColors[actorType];
@@ -238,8 +238,8 @@ void ecs::ActorSystem::addRandomCustomization(ecs::Entity& actor)
 
 			if (surfaceId == "none") continue;
 
-			if (!color.empty()) spriteComponent->addSprite(sprite.slotName, std::make_shared<Sprite>(surfaceId, sprite.z, color));
-			else spriteComponent->addSprite(sprite.slotName, std::make_shared<Sprite>(surfaceId, sprite.z));
+			if (!color.empty()) actorComponent->addSprite(sprite.slotName, surfaceId, sprite.z, color);
+			else actorComponent->addSprite(sprite.slotName, surfaceId, sprite.z);
 		}
 	}
 }

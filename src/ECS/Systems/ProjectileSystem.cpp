@@ -11,7 +11,7 @@
 
 void ecs::ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D velocity, const std::string& filename) const
 {
-	std::string filenameString(Game::assets->getProjectileJsonPath(filename));
+	std::string filenameString(assets::getProjectileJsonPath(filename));
 	std::ifstream file(filenameString);
 	if (!file.is_open())
 	{

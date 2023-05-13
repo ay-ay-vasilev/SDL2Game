@@ -5,17 +5,10 @@
 
 #include "AssetManager.h"
 
-ecs::ActorComponent::ActorComponent(const std::string& name) : actorType(name)
+ecs::ActorComponent::ActorComponent(const std::string& name) : actorType(name), weaponType("unarmed")
 {
 	nlohmann::json actorData;
-	actorData = Game::assets->getActorJson(name)["actor_data"];
-
-	if (actorData.contains("weapon_type_animations"))
-	{
-		for (auto& [weaponType, animMappingData] : actorData["weapon_type_animations"].items())
-			for (auto& [actionName, animName] : animMappingData.items())
-				actionAnimationsByWeaponType[weaponType][actionName] = animName;
-	}
+	actorData = assets::getActorJson(name)["actor_data"];
 }
 
 void ecs::ActorComponent::init()
@@ -23,10 +16,6 @@ void ecs::ActorComponent::init()
 	spriteComponent = entity->getComponent<ecs::SpriteComponent>();
 	registerWithSubject(spriteComponent);
 	weaponComponent = entity->getComponent<ecs::WeaponComponent>();
-}
-
-void ecs::ActorComponent::playAction(const std::string& actionName)
-{
 	auto lockedWeapon = weaponComponent.lock();
 	if (!lockedWeapon)
 	{
@@ -35,21 +24,71 @@ void ecs::ActorComponent::playAction(const std::string& actionName)
 	}
 	if (lockedWeapon)
 	{
-		const auto& weaponType = lockedWeapon->getWeaponType();
-		if (actionAnimationsByWeaponType.count(weaponType) != 0 &&
-			actionAnimationsByWeaponType[weaponType].count(actionName) != 0)
+		weaponType = lockedWeapon->getWeaponType();
+	}
+}
+
+void ecs::ActorComponent::update(double delta)
+{
+	if (weaponType.empty())
+	{
+		auto lockedWeapon = weaponComponent.lock();
+		if (!lockedWeapon)
 		{
-			spriteComponent->play(actionAnimationsByWeaponType[weaponType][actionName]);
-			return;
+			lockedWeapon = entity->getComponent<ecs::WeaponComponent>();
+			weaponComponent = lockedWeapon;
+		}
+		if (lockedWeapon)
+		{
+			weaponType = lockedWeapon->getWeaponType();
 		}
 	}
-	spriteComponent->play(actionName);
 }
 
 void ecs::ActorComponent::onNotify(const std::string_view& observedEvent)
 {
-	if (observedEvent == "attack_end")
+	notify(observedEvent);
+}
+
+void ecs::ActorComponent::playAction(const std::string actionName)
+{
+	spriteComponent->play(weaponType + "_" + actionName);
+}
+
+void ecs::ActorComponent::addSprite(const std::string slotName, const std::string surfaceName, int z, const std::optional<std::string>& color)
+{
+	if (slotName != "weapon") actorSprites[slotName].push_back({surfaceName, z, color.has_value() ? color.value() : ""});
+	spriteComponent->addSprite(slotName, std::make_shared<Sprite>(weaponType + "_" + surfaceName, z, color));
+}
+
+void ecs::ActorComponent::addBlockedSlot(const std::string blockerSlotName, const std::string blockedSlotName)
+{
+	spriteComponent->addBlockedSlot(blockerSlotName, blockedSlotName);
+}
+
+void ecs::ActorComponent::addBlockedSlots(const std::string& blockerName, const std::vector<std::string>& blockedSlotNames)
+{
+	spriteComponent->addBlockedSlots(blockerName, blockedSlotNames);
+}
+
+void ecs::ActorComponent::removeSpritesFromSlot(const std::string slotName)
+{
+	actorSprites[slotName].clear();
+	spriteComponent->removeSpritesFromSlot(slotName);
+}
+
+void ecs::ActorComponent::setWeaponType(const std::string newWeaponType)
+{
+	if (weaponType != newWeaponType)
 	{
-		notify(observedEvent);
+		spriteComponent->removeAllSprites();
+		for (const auto& [slot, spriteVec] : actorSprites)
+		{
+			for (const auto& sprite : spriteVec)
+			{
+				spriteComponent->addSprite(slot, std::make_shared<Sprite>(newWeaponType + "_" + sprite.spriteName, sprite.z, sprite.color));
+			}
+		}
 	}
+	weaponType = newWeaponType;
 }

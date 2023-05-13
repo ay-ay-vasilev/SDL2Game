@@ -8,8 +8,12 @@
 #include <map>
 
 class TextureManager;
-class AssetManager;
 class Animation;
+
+namespace assets
+{
+	class AssetManager;
+}
 
 namespace ecs
 {
@@ -40,6 +44,7 @@ namespace ecs
 		void addBlockedSlot(const std::string& blockerName, const std::string& blockedSlotName);
 		void addBlockedSlots(const std::string& blockerName, const std::vector<std::string>& blockedSlotNames);
 		void removeSpritesFromSlot(const std::string& slotName);
+		void removeAllSprites();
 		void sortSpritesByZ();
 		void play(const std::string& newAnimPlay);
 		void addAnimationsFromJson(const nlohmann::json& animData);

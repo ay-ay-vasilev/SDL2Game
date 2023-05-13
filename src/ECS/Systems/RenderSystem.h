@@ -25,7 +25,7 @@ namespace ecs
 		{
 			if (!blackTexture)
 			{
-				blackTexture = TextureManager::getTextureFromSurface(Game::assets->getSurface("black"));
+				blackTexture = TextureManager::getTextureFromSurface(Game::assetManager->getSurface("black"));
 			}
 
 			sortedEntities.clear();

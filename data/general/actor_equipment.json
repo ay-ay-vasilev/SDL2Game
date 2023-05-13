@@ -11,7 +11,7 @@
 			"pants"		: ["regular"],
 			"gloves"	: ["none", "regular"],
 			"boots"		: ["none", "regular"],
-			"shirt"		: [{"name": "long_sleeve_light", "colors": ["dark"]}, {"name": "shirt_light", "colors": ["brown"]}]
+			"shirt"		: ["none", {"name": "long_sleeve_light", "colors": ["dark"]}, {"name": "shirt_light", "colors": ["brown"]}]
 		},
 		"skeleton":
 		{

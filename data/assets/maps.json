@@ -1,0 +1,16 @@
+{
+	"spritesheets":
+	{
+		"path": "assets/images/spritesheets/map/",
+		"sprite_groups":
+		{
+			"colorless":
+			{
+				"textures":
+				[
+					{"name": "terrain", "path": "tiles_v0.png"}
+				]
+			}
+		}
+	}
+}

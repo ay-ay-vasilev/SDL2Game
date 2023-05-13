@@ -33,7 +33,7 @@ void ecs::UILabelComponent::SetLabelText(const std::string& text, const std::str
 {
 	if (labelTexture) SDL_DestroyTexture(labelTexture);
 	const auto fontId = std::string(font);
-	SDL_Surface* surf = TTF_RenderText_Blended(Game::assets->getFont(fontId), text.c_str(), textColor);
+	SDL_Surface* surf = TTF_RenderText_Blended(Game::assetManager->getFont(fontId), text.c_str(), textColor);
 	labelTexture = SDL_CreateTextureFromSurface(Game::renderer, surf);
 	SDL_FreeSurface(surf);
 	SDL_QueryTexture(labelTexture, nullptr, nullptr, &position.w, &position.h);
