@@ -27,6 +27,7 @@ public:
 	void init();
 	void update();
 	const SDL_Rect getCameraPosition() inline const { return camera; }
+	const SDL_Rect getCameraBounds() inline const { return cameraBounds; }
 	const bool isInView(const SDL_Rect& destination) const;
 
 private:

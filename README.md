@@ -22,8 +22,8 @@ My plan:
 
 Maintenance:
 - Refactor colors - implement palette swapping
-	- Redo spritesheets (decouple spritesheets)
 	- Fix skeleton sprite
+	- Add human and skeleton variety
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.

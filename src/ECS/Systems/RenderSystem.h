@@ -8,6 +8,7 @@
 #include "UILabelComponent.h"
 
 #include "AssetManager.h"
+#include "CameraManager.h"
 #include "Map.h"
 
 namespace ecs
@@ -50,8 +51,8 @@ namespace ecs
 
 		void draw() override
 		{
-			// fix this:
-			TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(-100, -100, Game::constants->SCREEN_WIDTH * Game::constants->SCALE, Game::constants->SCREEN_HEIGHT * Game::constants->SCALE), SDL_FLIP_NONE);
+			const auto cameraBounds = Game::cameraManager->getCameraBounds();
+			TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(cameraBounds.x, cameraBounds.y, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT), SDL_FLIP_NONE);
 
 			for (const auto& tile : tiles) tile->draw();
 			for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();
