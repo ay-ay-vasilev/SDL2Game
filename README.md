@@ -21,7 +21,6 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Add human and skeleton variety
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.

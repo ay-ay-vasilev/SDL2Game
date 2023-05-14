@@ -1,0 +1,14 @@
+{
+	"damage_reduction": 3,
+	"sprite_data":
+	{
+		"sprites":
+		[
+			{ "slot": "headwear", "texture": "human_viking_helmet_closed", "z": 107 }
+		],
+		"block_slots":
+		[
+			{ "blocker_slot": "headwear", "blocked_slots": ["hair", "facial_hair"]}
+		]
+	}
+}

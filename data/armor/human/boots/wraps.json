@@ -1,0 +1,10 @@
+{
+	"damage_reduction": 0,
+	"sprite_data":
+	{
+		"sprites":
+		[
+			{ "slot": "boots", "texture": "human_boots_wraps", "z": 2 }
+		]
+	}
+}

@@ -163,11 +163,13 @@
 						[
 							{"name" : "human_pants_regular", "path": "armor/pants/regular.png" },
 							{"name" : "human_boots_regular", "path": "armor/boots/regular.png" },
+							{"name" : "human_boots_wraps", "path": "armor/boots/wraps.png" },
 							{"name" : "human_gloves_regular_front", "path": "armor/gloves/regular_front.png" },
 							{"name" : "human_gloves_regular_back", "path": "armor/gloves/regular_back.png" },
 							{"name" : "human_shirt_regular", "path": "armor/shirt/regular.png" },
 							{"name" : "human_shirt_regular_arms_back", "path": "armor/shirt/regular_arms_back.png" },
 							{"name" : "human_shirt_regular_arms_front", "path": "armor/shirt/regular_arms_front.png" },
+							{"name" : "human_leather", "path": "armor/jacket/leather.png" },
 							{"name" : "human_chainmail", "path": "armor/jacket/chainmail.png" },
 							{"name" : "human_chainmail_arms_back", "path": "armor/jacket/chainmail_arms_back.png" },
 							{"name" : "human_chainmail_arms_front", "path": "armor/jacket/chainmail_arms_front.png" },
@@ -177,7 +179,9 @@
 							{"name" : "human_eyepatch_black", "path": "armor/eyewear/eyepatch_black.png" },
 							{"name" : "human_scarf_black", "path": "armor/mask/scarf_black.png" },
 							{"name" : "human_helmet", "path": "armor/headwear/helmet.png" },
-							{"name" : "human_steel_cap", "path": "armor/headwear/steel_cap.png" }
+							{"name" : "human_steel_cap", "path": "armor/headwear/steel_cap.png" },
+							{"name" : "human_viking_helmet", "path": "armor/headwear/viking_helmet.png" },
+							{"name" : "human_viking_helmet_closed", "path": "armor/headwear/viking_helmet_closed.png" }
 						],
 						"weapon_textures":
 						{
@@ -186,6 +190,47 @@
 							[
 								{"name" : "human_sword_back", "path": "weapons/sword/sword_back.png" },
 								{"name" : "human_sword_front", "path": "weapons/sword/sword_front.png" }
+							]
+						}
+					},
+					"human_shirt_long":
+					{
+						"textures" :
+						[
+							{"name" : "human_shirt_long", "path": "armor/shirt/long.png" },
+							{"name" : "human_shirt_long_arms_back", "path": "armor/shirt/long_arms_back.png" },
+							{"name" : "human_shirt_long_arms_front", "path": "armor/shirt/long_arms_front.png" }
+						],
+						"color_variations":
+						{
+							"orange": [],
+							"green":
+							[
+								{ "source_color": [173, 135, 46, 255], "target_color": [173, 173, 173, 255] },
+								{ "source_color": [169, 99, 66, 255], "target_color": [56, 134, 90, 255] },
+								{ "source_color": [143, 86, 59, 255], "target_color": [47, 99, 65, 255] },
+								{ "source_color": [117, 76, 56, 255], "target_color": [33, 73, 38, 255] }
+							],
+							"red":
+							[
+								{ "source_color": [173, 135, 46, 255], "target_color": [173, 173, 173, 255] },
+								{ "source_color": [169, 99, 66, 255], "target_color": [151, 68, 61, 255] },
+								{ "source_color": [143, 86, 59, 255], "target_color": [130, 44, 44, 255] },
+								{ "source_color": [117, 76, 56, 255], "target_color": [112, 30, 36, 255] }
+							],
+							"blue":
+							[
+								{ "source_color": [173, 135, 46, 255], "target_color": [0, 0, 0, 0] },
+								{ "source_color": [169, 99, 66, 255], "target_color": [76, 93, 125, 255] },
+								{ "source_color": [143, 86, 59, 255], "target_color": [62, 73, 117, 255] },
+								{ "source_color": [117, 76, 56, 255], "target_color": [48, 51, 91, 255] }
+							],
+							"white":
+							[
+								{ "source_color": [173, 135, 46, 255], "target_color": [0, 0, 0, 0] },
+								{ "source_color": [169, 99, 66, 255], "target_color": [203, 200, 183, 255] },
+								{ "source_color": [143, 86, 59, 255], "target_color": [182, 175, 165, 255] },
+								{ "source_color": [117, 76, 56, 255], "target_color": [151, 139, 132, 255] }
 							]
 						}
 					},
@@ -281,7 +326,9 @@
 							{"name" : "skeleton_heavy_armor_arms_back", "path": "armor/armorplate/heavy_armor_arms_back.png" },
 							{"name" : "skeleton_heavy_armor_arms_front", "path": "armor/armorplate/heavy_armor_arms_front.png" },
 							{"name" : "skeleton_heavy_helmet", "path": "armor/headwear/heavy_helmet.png" },
-							{"name" : "skeleton_steel_cap", "path": "armor/headwear/steel_cap.png" }
+							{"name" : "skeleton_steel_cap", "path": "armor/headwear/steel_cap.png" },
+							{"name" : "skeleton_viking_helmet", "path": "armor/headwear/viking_helmet.png" },
+							{"name" : "skeleton_viking_helmet_closed", "path": "armor/headwear/viking_helmet_closed.png" }
 						],
 						"weapon_textures":
 						{

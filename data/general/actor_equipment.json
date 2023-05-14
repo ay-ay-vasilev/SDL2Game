@@ -15,8 +15,8 @@
 		},
 		"skeleton":
 		{
-			"armorplate": ["none", "heavy_armor"],
-			"headwear"	: ["none", "steel_cap", "heavy_helmet"],
+			"armorplate": ["none", "heavy_armor", "heavy_chestpiece", "heavy_pauldrons"],
+			"headwear"	: ["none", "steel_cap", "viking_helmet", "viking_helmet_closed", "heavy_helmet"],
 			"jacket"	: ["none", "chainmail"],
 			"pants"		: ["regular"],
 			"boots"		: ["none", "regular"],
@@ -25,15 +25,15 @@
 		},
 		"human":
 		{
-			"eyewear"	: ["none"],
-			"headwear"	: ["none", "steel_cap", "helmet"],
-			"jacket"	: ["none", "chainmail", "surcoat"],
+			"eyewear"	: ["none", "eyepatch_black"],
+			"headwear"	: ["none", "steel_cap", "viking_helmet", "viking_helmet_closed"],
+			"jacket"	: ["none", "chainmail", "chainmail_jacket", "leather_jacket"],
 			"mask"		: ["none"],
 			"overcoat"	: ["none"],
 			"pants"		: ["regular"],
-			"boots"		: ["regular"],
+			"boots"		: ["regular", "wraps"],
 			"gloves"	: ["none", "regular"],
-			"shirt"		: ["regular"]
+			"shirt"		: [{"name": "long", "colors": ["orange", "green", "red", "blue", "white"]}]
 		}
 	},
 	"weapons":

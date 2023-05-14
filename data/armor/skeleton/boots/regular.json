@@ -4,7 +4,7 @@
 	{
 		"sprites":
 		[
-			{ "slot": "boots", "texture": "skeleton_boots_regular", "z": 1 }
+			{ "slot": "boots", "texture": "skeleton_boots_regular", "z": 2 }
 		]
 	}
 }
