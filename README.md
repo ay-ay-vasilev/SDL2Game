@@ -9,6 +9,14 @@ Stuff to remember:
 
 My plan:
 - Add corpses and death animations
+	- Skeleton death animation DONE
+	- Goblin death animation
+	- Human death animation
+	- Death animation logic
+	- Corpse logic
+	- Shadows
+	- Blood particles
+	- Blood pools
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
@@ -21,6 +29,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
+- Animation start offset parameter (for corpse animations)
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.

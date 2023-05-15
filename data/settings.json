@@ -7,7 +7,7 @@
 	"window_title": "The Goblin Saga",
 	"screen_width": 1560,
 	"screen_height": 940,
-	"scale": 5.0,
+	"scale": 3.0,
 	"map_tile_width": 16,
 	"map_tile_height": 16,
 	"tile_size": 32,
