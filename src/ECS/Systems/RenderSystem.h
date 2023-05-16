@@ -51,6 +51,7 @@ namespace ecs
 
 		void draw() override
 		{
+			// FIX this
 			const auto cameraBounds = Game::cameraManager->getCameraBounds();
 			TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(cameraBounds.x, cameraBounds.y, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT), SDL_FLIP_NONE);
 

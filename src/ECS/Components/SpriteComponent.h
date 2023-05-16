@@ -52,7 +52,7 @@ namespace ecs
 			const std::string_view& name,
 			const int index, const int numOfFrames, const int speed,
 			const std::span<const int>& triggerFrames = {},
-			const std::string& actionName = "");
+			const std::string& actionName = "", const int startFrame = 0);
 		void incAnimState();
 		void sendSignal(const std::string& eventName);
 
@@ -63,6 +63,7 @@ namespace ecs
 
 	private:
 		Uint32 animStartTime = 0;
+		int startFrame;
 		int animIndex = 0;
 		std::string surfaceId = "";
 

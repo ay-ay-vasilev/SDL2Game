@@ -84,10 +84,10 @@ void ecs::SpriteComponent::update(double delta)
 		const Uint32 elapsed = ticks - animStartTime;
 		int frameNum = static_cast<int>(elapsed) / animSpeed;
 		// check if anim ended
-		if (frameNum >= numOfFrames)
+		if (frameNum >= numOfFrames || frameNum < startFrame)
 		{
 			animStartTime = ticks;
-			frameNum = 0;
+			frameNum = startFrame;
 			incAnimState();
 		}
 		// check for trigger events
@@ -202,6 +202,7 @@ void ecs::SpriteComponent::play(const std::string& newAnimPlay)
 	const auto animData = animations[animName];
 	actionName = animData.getActionName();
 	numOfFrames = animData.getNumOfFrames();
+	startFrame = animData.getStartFrame();
 	animIndex = animData.getAnimIndex();
 	animSpeed = animData.getAnimSpeed();
 	triggerFrames = animData.getTriggerFrames();
@@ -215,12 +216,13 @@ void ecs::SpriteComponent::addAnimationsFromJson(const nlohmann::json& animData)
 {
 	for (auto& [name, animData] : animData.items())
 	{
+		const int startFrame = animData.value("start_frame", 0);
 		const int animIndex = animData.value("anim_index", 0);
 		const int num_of_frames = animData.value("num_of_frames", 0);
 		const int animSpeed = animData.value("anim_speed", 0);
 		const auto trigger_frames = animData.count("trigger_frames") ? animData.at("trigger_frames").get<std::vector<int>>() : std::vector<int>();
 		const auto action_name = animData.value("action_name", "");
-		addAnimation(name, animIndex, num_of_frames, animSpeed, trigger_frames, action_name);
+		addAnimation(name, animIndex, num_of_frames, animSpeed, trigger_frames, action_name, startFrame);
 	}
 }
 
@@ -228,9 +230,10 @@ void ecs::SpriteComponent::addAnimation(
 	const std::string_view& name,
 	const int index, const int numOfFrames, const int speed,
 	const std::span<const int>& triggerFrames,
-	const std::string& actionName)
+	const std::string& actionName,
+	const int startFrame)
 {
-	animations.emplace(name, Animation(index, numOfFrames, speed, triggerFrames, actionName));
+	animations.emplace(name, Animation(index, numOfFrames, speed, triggerFrames, actionName, startFrame));
 }
 
 void ecs::SpriteComponent::incAnimState()

@@ -26,17 +26,17 @@
 			"unarmed_walk": { "anim_index": 1, "num_of_frames": 8, "anim_speed": 100 },
 			"unarmed_attack": { "anim_index": 2, "num_of_frames": 5, "action_name": "attack", "trigger_frames": [2], "anim_speed": 100 },
 			"unarmed_death": { "anim_index": 3, "num_of_frames": 7, "anim_speed": 100 },
-			"unarmed_corpse": { "anim_index": 3, "num_of_frames": 1, "anim_speed": 100 },
+			"unarmed_corpse": { "start_frame": 0, "anim_index": 3, "num_of_frames": 2, "anim_speed": 100 },
 			"melee_light_idle": { "anim_index": 0, "num_of_frames": 1, "anim_speed": 100 },
 			"melee_light_walk": { "anim_index": 1, "num_of_frames": 8, "anim_speed": 100 },
 			"melee_light_attack": { "anim_index": 2, "num_of_frames": 5, "action_name": "attack", "trigger_frames": [2], "anim_speed": 100 },
 			"melee_light_death": { "anim_index": 3, "num_of_frames": 7, "anim_speed": 100 },
-			"melee_light_corpse": { "anim_index": 3, "num_of_frames": 1, "anim_speed": 100 },
+			"melee_light_corpse": { "start_frame": 0, "anim_index": 3, "num_of_frames": 2, "anim_speed": 100 },
 			"melee_medium_idle": { "anim_index": 0, "num_of_frames": 1, "anim_speed": 100 },
 			"melee_medium_walk": { "anim_index": 1, "num_of_frames": 8, "anim_speed": 100 },
 			"melee_medium_attack": { "anim_index": 2, "num_of_frames": 5, "action_name": "attack", "trigger_frames": [2], "anim_speed": 100 },
 			"melee_medium_death": { "anim_index": 3, "num_of_frames": 7, "anim_speed": 100 },
-			"melee_medium_corpse": { "anim_index": 3, "num_of_frames": 1, "anim_speed": 100 }
+			"melee_medium_corpse": { "start_frame": 0, "anim_index": 3, "num_of_frames": 2, "anim_speed": 100 }
 		},
 		"outline":
 		{
