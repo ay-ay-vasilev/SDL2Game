@@ -9,9 +9,6 @@ Stuff to remember:
 
 My plan:
 - Add corpses and death animations
-	- Skeleton death animation DONE
-	- Goblin death animation
-	- Human death animation
 	- Death animation logic
 	- Corpse logic
 	- Shadows
