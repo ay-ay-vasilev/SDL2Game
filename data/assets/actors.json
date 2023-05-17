@@ -44,7 +44,7 @@
 						"textures":
 						[
 							{"name" : "goblin_long_sleeve_light", "path": "armor/shirt/long_sleeve_light.png" },
-							{"name" : "goblin_long_sleeve_light_arms_back", "path": "armor/shirt/long_sleeve_light_arms_back.png" }
+							{"name" : "goblin_long_sleeve_light_arms_front", "path": "armor/shirt/long_sleeve_light_arms_front.png" }
 						],
 						"color_variations":
 						{
@@ -76,7 +76,7 @@
 						"textures":
 						[
 							{"name" : "goblin_cloak_0", "path": "armor/overcoat/cloak_0.png" },
-							{"name" : "goblin_cloak_0_arms_back", "path": "armor/overcoat/cloak_0_arms_back.png" },
+							{"name" : "goblin_cloak_0_arms_front", "path": "armor/overcoat/cloak_0_arms_front.png" },
 							{"name" : "goblin_cloak_0_head", "path": "armor/overcoat/cloak_0_head.png" }
 						],
 						"color_variations":

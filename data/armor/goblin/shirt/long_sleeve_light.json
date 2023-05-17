@@ -5,7 +5,7 @@
 		"sprites":
 		[
 			{ "slot": "shirt", "texture": "goblin_long_sleeve_light", "z": 2 },
-			{ "slot": "shirt", "texture": "goblin_long_sleeve_light_arms_back", "z": 201 }
+			{ "slot": "shirt", "texture": "goblin_long_sleeve_light_arms_front", "z": 201 }
 		],
 		"colors":["dark"]
 	}

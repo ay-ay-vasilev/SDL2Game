@@ -97,7 +97,7 @@ void Game::init()
 	projectileSystem->instantiateProjectile(Vector2D(33.33f, 50.f), Vector2D(2.f, 2.f), projectileFile);
 	projectileSystem->instantiateProjectile(Vector2D(100.f, 33.33f), Vector2D(-2.f, 2.f), projectileFile);
 
-	auto player = playerSystem->instantiatePlayer(constants->PLAYER_POS, "human");
+	auto player = playerSystem->instantiatePlayer(constants->PLAYER_POS, "goblin");
 	actorSystem->addRandomCustomization(*player);
 
 	for (const auto& humanData : constants->HUMAN_POS)
