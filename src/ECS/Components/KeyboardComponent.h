@@ -8,6 +8,7 @@ namespace ecs
 	class TransformComponent;
 	class HitboxComponent;
 	class ArmorComponent;
+	class HealthComponent;
 	class KeyboardComponent : public Component, private Observer
 	{
 	public:
@@ -31,5 +32,6 @@ namespace ecs
 		eState state = eState::IDLE;
 		std::shared_ptr<TransformComponent> transform;
 		std::shared_ptr<ActorComponent> actorComponent;
+		std::shared_ptr<HealthComponent> healthComponent;
 	};
 }

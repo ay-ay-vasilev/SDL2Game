@@ -100,10 +100,10 @@ ecs::Entity* ecs::ActorSystem::instantiateActor(const Vector2D& pos, const std::
 	);
 	actor.addComponent<ecs::SpriteComponent>(actorData["sprite_data"], true);
 	actor.addComponent<ecs::SpriteOutlineComponent>(actorData["sprite_data"].contains("outline") ? actorData["sprite_data"]["outline"] : nullptr);
+	actor.addComponent<ecs::HealthComponent>(actorData["health"]);
 	actor.addComponent<ecs::ActorComponent>(filename);
 	actor.addComponent<ecs::ColliderComponent>(filename, actorData["collider_rect"]);
 	actor.addComponent<ecs::HitboxComponent>(filename, actorData["hitbox_rect"]);
-	actor.addComponent<ecs::HealthComponent>(actorData["health"]);
 	actor.addComponent<ecs::ArmorComponent>();
 	actor.addComponent<ecs::AIComponentBasicFighter>();
 	actor.addComponent<ecs::FactionComponent>(actorData.contains("faction") ? actorData["faction"] : "neutral");

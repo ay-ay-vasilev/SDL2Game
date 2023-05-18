@@ -27,12 +27,12 @@ ecs::Entity* ecs::PlayerSystem::instantiatePlayer(const Vector2D& pos, const std
 	);
 	player.addComponent<ecs::SpriteComponent>(playerData["sprite_data"], true);
 	player.addComponent<ecs::SpriteOutlineComponent>(playerData["sprite_data"].contains("outline") ? playerData["sprite_data"]["outline"] : nullptr);
+	player.addComponent<ecs::HealthComponent>(playerData["health"]);
 	player.addComponent<ecs::ActorComponent>(filename);
 	player.addComponent<ecs::KeyboardComponent>();
 	//player.addComponent<ecs::AIComponentBasicFighter>();
 	player.addComponent<ecs::ColliderComponent>(filename, playerData["collider_rect"]);
 	player.addComponent<ecs::HitboxComponent>(filename, playerData["hitbox_rect"]);
-	player.addComponent<ecs::HealthComponent>(playerData["health"]);
 	player.addComponent<ecs::ArmorComponent>();
 	player.addComponent<ecs::FactionComponent>(playerData.contains("faction") ? playerData["faction"] : "neutral");
 	player.addComponent<ecs::CameraComponent>();

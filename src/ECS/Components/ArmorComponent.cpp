@@ -82,5 +82,5 @@ void ecs::ArmorComponent::unequipAllArmor()
 
 const int ecs::ArmorComponent::applyDamageReduction(int damage) const
 {
-	return std::clamp(damage - armorValue, 0, damage);
+	return std::clamp(damage - armorValue, 1, damage);
 }

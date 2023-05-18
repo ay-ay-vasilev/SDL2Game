@@ -46,6 +46,7 @@ namespace ecs
 		int targetID;
 
 		std::shared_ptr<ActorComponent> actorComponent;
+		std::shared_ptr<HealthComponent> health;
 		std::weak_ptr<WeaponComponent> weapon;
 
 		std::shared_ptr<HealthComponent> targetHealth;

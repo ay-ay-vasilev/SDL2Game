@@ -263,6 +263,9 @@
     <ClInclude Include="..\src\ECS\Components\CameraComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\CorpseComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">

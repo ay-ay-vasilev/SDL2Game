@@ -4,16 +4,20 @@
 #include "HitboxComponent.h"
 #include "ArmorComponent.h"
 #include "WeaponComponent.h"
+#include "HealthComponent.h"
 
 void ecs::KeyboardComponent::init()
 {
 	actorComponent = entity->getComponent<ecs::ActorComponent>();
+	healthComponent = entity->getComponent<ecs::HealthComponent>();
 	registerWithSubject(actorComponent);
 	transform = entity->getComponent<ecs::TransformComponent>();
 }
 
 void ecs::KeyboardComponent::handleEvents()
 {
+	if (healthComponent->isDead()) return;
+
 	const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
 	int x = 0, y = 0;
 	std::string animName = "idle";

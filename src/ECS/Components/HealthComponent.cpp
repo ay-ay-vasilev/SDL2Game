@@ -14,7 +14,6 @@ void ecs::HealthComponent::update(double delta)
 	{
 		dead = true;
 		sendSignal(entity->getID() + "_died");
-		entity->destroy();
 	}
 }
 

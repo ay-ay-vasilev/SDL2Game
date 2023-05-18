@@ -64,6 +64,7 @@ public:
 	int DEBUG_FONT_SIZE{ 16 };
 
 	// start positions
+	std::string PLAYER_RACE{ "goblin" };
 	Vector2D PLAYER_POS{200, 200};
 	std::vector<Vector2D> HUMAN_POS;
 	std::vector<Vector2D> SKELETON_POS;
@@ -135,6 +136,11 @@ private:
 		if (constantsJson.find("debug_font_size") != constantsJson.end())
 		{
 			DEBUG_FONT_SIZE = constantsJson["debug_font_size"];
+		}
+
+		if (constantsJson.find("player_race") != constantsJson.end())
+		{
+			PLAYER_RACE = constantsJson["player_race"];
 		}
 
 		if (constantsJson.find("player_pos") != constantsJson.end())

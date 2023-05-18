@@ -1,7 +1,10 @@
 #include "ActorComponent.h"
 
+#include "TransformComponent.h"
 #include "SpriteComponent.h"
 #include "WeaponComponent.h"
+#include "HealthComponent.h"
+#include "CorpseComponent.h"
 
 #include "AssetManager.h"
 
@@ -15,6 +18,8 @@ void ecs::ActorComponent::init()
 {
 	spriteComponent = entity->getComponent<ecs::SpriteComponent>();
 	registerWithSubject(spriteComponent);
+	healthComponent = entity->getComponent<ecs::HealthComponent>();
+	registerWithSubject(healthComponent);
 	weaponComponent = entity->getComponent<ecs::WeaponComponent>();
 	auto lockedWeapon = weaponComponent.lock();
 	if (!lockedWeapon)
@@ -48,6 +53,19 @@ void ecs::ActorComponent::update(double delta)
 void ecs::ActorComponent::onNotify(const std::string_view& observedEvent)
 {
 	notify(observedEvent);
+	if (observedEvent == entity->getID() + "_died")
+	{
+		std::cout << actorType << "_" << entity->getID() << " has died!\n";
+
+		auto transformComponent = entity->getComponent<ecs::TransformComponent>();
+		transformComponent->setVeloctiy(0, 0);
+		playAction("death");
+	}
+	if (observedEvent == weaponType + "_death_end")
+	{
+		entity->addComponent<ecs::CorpseComponent>();
+		playAction("corpse");
+	}
 }
 
 void ecs::ActorComponent::playAction(const std::string actionName)

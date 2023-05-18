@@ -9,8 +9,6 @@ Stuff to remember:
 
 My plan:
 - Add corpses and death animations
-	- Death animation logic
-	- Corpse logic
 	- Shadows
 	- Blood particles
 	- Blood pools
@@ -40,6 +38,7 @@ Maintenance:
 - Refactor AssetManager (remove useless references and remove string_view from maps)
 - Deal with strings and string_views
 - Use aliases to make stuff readable
+- CMake, cotire, CPM ?
 
 Future plans:
 - Add a second container for Sprites that should not be outlined? (sword swings)

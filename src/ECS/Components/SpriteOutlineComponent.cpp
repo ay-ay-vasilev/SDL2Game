@@ -34,10 +34,13 @@ void ecs::SpriteOutlineComponent::init()
 	transformComponent = entity->getComponent<ecs::TransformComponent>();
 	spriteComponent = entity->getComponent<ecs::SpriteComponent>();
 	registerWithSubject(spriteComponent);
+	enabled = true;
 }
 
 void ecs::SpriteOutlineComponent::update(double delta)
 {
+	if (!enabled) return;
+
 	srcRect = spriteComponent->getSrcRect();
 	destRect = spriteComponent->getDestRect();
 	spriteFlip = spriteComponent->getSpriteFlip();
@@ -45,6 +48,8 @@ void ecs::SpriteOutlineComponent::update(double delta)
 
 void ecs::SpriteOutlineComponent::draw()
 {
+	if (!enabled) return;
+
 	SDL_Rect tempDestRect = destRect;
 	const auto scale = transformComponent->getScale();
 	for (const auto& outlinePosition : outlinePositions)

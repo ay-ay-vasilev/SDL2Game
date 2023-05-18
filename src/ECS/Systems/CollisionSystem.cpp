@@ -1,5 +1,6 @@
 #include "CollisionSystem.h"
 #include "ColliderComponent.h"
+#include "HealthComponent.h"
 #include "Collision.h"
 #include "Vector2D.h"
 #include "Game.h"
@@ -21,6 +22,9 @@ void ecs::CollisionSystem::update(double delta)
 
 	for (auto movingEntity : movingEntities)
 	{
+		auto movingEntityHealth = movingEntity->getComponent<ecs::HealthComponent>();
+		if (movingEntityHealth && movingEntityHealth->isDead()) continue;
+
 		auto movingEntityColliderComponent = movingEntity->getComponent<ecs::ColliderComponent>();
 		auto movingEntityTransformComponent = movingEntity->getComponent<ecs::TransformComponent>();
 		auto movingEntityCollider = movingEntityColliderComponent->getCollider();
@@ -30,6 +34,9 @@ void ecs::CollisionSystem::update(double delta)
 		{
 			if (colliderEntity == movingEntity)
 				continue;
+
+			auto colliderEntityHealth = colliderEntity->getComponent<ecs::HealthComponent>();
+			if (colliderEntityHealth && colliderEntityHealth->isDead()) continue;
 
 			const auto colliderEntityCollider = colliderEntity->getComponent<ecs::ColliderComponent>()->getCollider();
 			float overlapX, overlapY;
@@ -44,6 +51,10 @@ void ecs::CollisionSystem::update(double delta)
 		{
 			if (otherMovingEntity == movingEntity)
 				continue;
+
+			auto otherMovingEntityHealth = otherMovingEntity->getComponent<ecs::HealthComponent>();
+			if (otherMovingEntityHealth && otherMovingEntityHealth->isDead()) continue;
+
 			if (otherMovingEntity->hasGroup(Game::eGroupLabels::PLAYERS))
 				continue;
 

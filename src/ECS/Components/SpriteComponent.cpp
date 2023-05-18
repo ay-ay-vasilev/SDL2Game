@@ -87,8 +87,8 @@ void ecs::SpriteComponent::update(double delta)
 		if (frameNum >= numOfFrames || frameNum < startFrame)
 		{
 			animStartTime = ticks;
-			frameNum = startFrame;
 			incAnimState();
+			frameNum = startFrame;
 		}
 		// check for trigger events
 		if (!triggerFrames.empty())

@@ -28,11 +28,18 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 
 	for (auto hitboxEntity : hitboxes)
 	{
+		auto actorHealthComponent = hitboxEntity->getComponent<ecs::HealthComponent>();
+		if (actorHealthComponent && actorHealthComponent->isDead()) continue;
+
 		auto hitboxCollider = hitboxEntity->getComponent<ecs::HitboxComponent>();
 		auto hitboxFaction = hitboxEntity->getComponent<ecs::FactionComponent>();
 
 		for (auto weaponWieldingEntity : weapons)
 		{
+			auto weaponWielderHealth = weaponWieldingEntity->getComponent<ecs::HealthComponent>();
+			if (weaponWielderHealth && weaponWielderHealth->isDead())
+				continue;
+
 			// check if hits itself
 			if (hitboxEntity->getID() == weaponWieldingEntity->getID())
 				continue;
@@ -52,7 +59,6 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 			if (weaponCollider->getCollider()->collidesWith(hitboxCollider->getHitbox()))
 			{
 				weaponCollider->addAffectedTarget(hitboxEntity->getID());
-				auto actorHealthComponent = hitboxEntity->getComponent<ecs::HealthComponent>();
 				auto actorArmorComponent = hitboxEntity->getComponent<ecs::ArmorComponent>();
 
 				const auto weaponDamage = weaponCollider->getDamage();

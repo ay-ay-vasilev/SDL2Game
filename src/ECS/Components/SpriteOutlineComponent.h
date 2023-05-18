@@ -23,6 +23,8 @@ namespace ecs
 		// Observer
 		void onNotify(const std::string_view& observedEvent) override;
 
+		void inline setEnabled(const bool enabled) { this->enabled = enabled; }
+
 	private:
 		SDL_Texture* texture{ nullptr };
 
@@ -34,6 +36,8 @@ namespace ecs
 
 		std::vector<Vector2D> outlinePositions;
 		SDL_Color outlineColor{0, 0, 0, 0};
+
+		bool enabled{ false };
 	};
 }
 

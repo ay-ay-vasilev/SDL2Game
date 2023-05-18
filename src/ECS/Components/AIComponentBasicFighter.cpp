@@ -17,8 +17,10 @@ void ecs::AIComponentBasicFighter::init()
 {
 	actorComponent = entity->getComponent<ActorComponent>();
 	registerWithSubject(actorComponent);
+
 	transform = entity->getComponent<TransformComponent>();
 	weapon = entity->getComponent<WeaponComponent>();
+	health = entity->getComponent<HealthComponent>();
 	// TODO: remove
 	aggroDistance = Game::constants->AI_AGGRO_DISTANCE * transform->getScale();
 	loseAggroDistance = Game::constants->AI_DEAGGRO_DISTANCE * transform->getScale();
@@ -26,6 +28,8 @@ void ecs::AIComponentBasicFighter::init()
 
 void ecs::AIComponentBasicFighter::update(double delta)
 {
+	if (health->isDead()) return;
+
 	if (target)
 	{
 		distance = (Vector2D::Distance(transform->getPosition(), targetTransform->getPosition()));
@@ -82,6 +86,12 @@ void ecs::AIComponentBasicFighter::setNewTarget(const Entity* newTarget)
 
 	target = newTarget;
 	targetHealth = target->getComponent<HealthComponent>();
+	if (targetHealth->isDead())
+	{
+		resetTarget();
+		return;
+	}
+
 	registerWithSubject(targetHealth);
 	targetTransform = target->getComponent<TransformComponent>();
 	targetHitbox = target->getComponent<HitboxComponent>();
