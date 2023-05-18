@@ -177,7 +177,7 @@
 							{"name" : "human_surcoat_arms_front", "path": "armor/jacket/surcoat_arms_front.png" },
 							{"name" : "human_surcoat_arms_back", "path": "armor/jacket/surcoat_arms_back.png" },
 							{"name" : "human_eyepatch_black", "path": "armor/eyewear/eyepatch_black.png" },
-							{"name" : "human_scarf_black", "path": "armor/mask/scarf_black.png" },
+							{"name" : "human_bandana", "path": "armor/mask/bandana.png" },
 							{"name" : "human_helmet", "path": "armor/headwear/helmet.png" },
 							{"name" : "human_steel_cap", "path": "armor/headwear/steel_cap.png" },
 							{"name" : "human_viking_helmet", "path": "armor/headwear/viking_helmet.png" },

@@ -1,0 +1,14 @@
+{
+	"damage_reduction": 1,
+	"sprite_data":
+	{
+		"sprites":
+		[
+			{ "slot": "mask", "texture": "human_bandana", "z": 106 }
+		],
+		"block_slots":
+		[
+			{ "blocker_slot": "headwear", "blocked_slots": ["facial_hair"]}
+		]
+	}
+}

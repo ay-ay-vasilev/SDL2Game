@@ -26,7 +26,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Animation start offset parameter (for corpse animations)
+- Set proper surface sizes (unarmed bug)
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.
@@ -43,10 +43,8 @@ Maintenance:
 
 Future plans:
 - Add a second container for Sprites that should not be outlined? (sword swings)
-- Customization for characters
 - Looting
 - Inventory system
-- Death animation
 - Hit feedback
 - Hit cooldown ?
 - Add body parts and body parts damage and armor ?

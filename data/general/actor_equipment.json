@@ -28,7 +28,7 @@
 			"eyewear"	: ["none", "eyepatch_black"],
 			"headwear"	: ["none", "steel_cap", "viking_helmet", "viking_helmet_closed"],
 			"jacket"	: ["none", "chainmail", "chainmail_jacket", "leather_jacket"],
-			"mask"		: ["none"],
+			"mask"		: ["none", "bandana"],
 			"overcoat"	: ["none"],
 			"pants"		: ["regular"],
 			"boots"		: ["regular", "wraps"],
