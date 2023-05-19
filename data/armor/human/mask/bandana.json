@@ -8,7 +8,8 @@
 		],
 		"block_slots":
 		[
-			{ "blocker_slot": "headwear", "blocked_slots": ["facial_hair"]}
-		]
+			{ "blocker_slot": "mask", "blocked_slots": ["facial_hair"]}
+		],
+		"colors":["red", "black", "brown", "blue"]
 	}
 }

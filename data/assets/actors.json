@@ -23,7 +23,8 @@
 							{"name" : "goblin_eyewear_eyepatch_black", "path": "armor/eyewear/eyepatch_black.png" },
 							{"name" : "goblin_mask_scarf_black", "path": "armor/mask/scarf_black.png" },
 							{"name" : "goblin_headwear_skull", "path": "armor/headwear/skull.png" },
-							{"name" : "goblin_headwear_cow_skull", "path": "armor/headwear/cow_skull.png" }
+							{"name" : "goblin_headwear_cow_skull", "path": "armor/headwear/cow_skull.png" },
+							{"name" : "goblin_shadow", "path": "shadow.png" }
 						],
 						"weapon_textures" :
 						{
@@ -148,6 +149,17 @@
 							"dark_orange": [ { "source_color": [251, 242, 54, 255], "target_color": [255, 179, 0, 255] } ],
 							"light_yellow": [ { "source_color": [251, 242, 54, 255], "target_color": [246, 223, 86, 255] } ]
 						}
+					},
+					"goblin_shadow":
+					{
+						"textures":
+						[
+							{"name" : "goblin_shadow", "path": "shadow.png" }
+						],
+						"color_variations":
+						{
+							"regular": [ { "source_color": [0, 0, 0, 255], "target_color": [5, 5, 30, 160] } ]
+						}
 					}
 				}
 			},
@@ -181,7 +193,8 @@
 							{"name" : "human_helmet", "path": "armor/headwear/helmet.png" },
 							{"name" : "human_steel_cap", "path": "armor/headwear/steel_cap.png" },
 							{"name" : "human_viking_helmet", "path": "armor/headwear/viking_helmet.png" },
-							{"name" : "human_viking_helmet_closed", "path": "armor/headwear/viking_helmet_closed.png" }
+							{"name" : "human_viking_helmet_closed", "path": "armor/headwear/viking_helmet_closed.png" },
+							{"name" : "human_shadow", "path": "shadow.png" }
 						],
 						"weapon_textures":
 						{
@@ -190,6 +203,35 @@
 							[
 								{"name" : "human_sword_back", "path": "weapons/sword/sword_back.png" },
 								{"name" : "human_sword_front", "path": "weapons/sword/sword_front.png" }
+							]
+						}
+					},
+					"human_bandna":
+					{
+						"textures" :
+						[
+							{"name" : "human_bandana", "path": "armor/mask/bandana.png" }
+						],
+						"color_variations":
+						{
+							"red": [],
+							"black":
+							[
+								{ "source_color": [117, 46, 33, 255], "target_color": [73, 73, 73, 255] },
+								{ "source_color": [91, 33, 33, 255], "target_color": [39, 39, 39, 255] },
+								{ "source_color": [73, 30, 30, 255], "target_color": [22, 22, 22, 255] }
+							],
+							"brown":
+							[
+								{ "source_color": [117, 46, 33, 255], "target_color": [86, 67, 50, 255] },
+								{ "source_color": [91, 33, 33, 255], "target_color": [61, 47, 40, 255] },
+								{ "source_color": [73, 30, 30, 255], "target_color": [43, 33, 29, 255] }
+							],
+							"blue":
+							[
+								{ "source_color": [117, 46, 33, 255], "target_color": [48, 55, 78, 255] },
+								{ "source_color": [91, 33, 33, 255], "target_color": [40, 40, 61, 255] },
+								{ "source_color": [73, 30, 30, 255], "target_color": [31, 28, 39, 255] }
 							]
 						}
 					},
@@ -301,6 +343,17 @@
 								{ "source_color": [0, 0, 0, 255], "target_color": [108, 48, 23, 255] }
 							]
 						}
+					},
+					"human_shadow":
+					{
+						"textures":
+						[
+							{"name" : "human_shadow", "path": "shadow.png" }
+						],
+						"color_variations":
+						{
+							"regular": [ { "source_color": [0, 0, 0, 255], "target_color": [5, 5, 30, 160] } ]
+						}
 					}
 				}
 			},
@@ -359,6 +412,17 @@
 							"red": [],
 							"green": [ { "source_color": [255, 0, 0, 255], "target_color": [0, 255, 0, 255] } ],
 							"teal": [ { "source_color": [255, 0, 0, 255], "target_color": [0, 255, 166, 255] } ]
+						}
+					},
+					"skeleton_shadow":
+					{
+						"textures":
+						[
+							{"name" : "skeleton_shadow", "path": "shadow.png" }
+						],
+						"color_variations":
+						{
+							"regular": [ { "source_color": [0, 0, 0, 255], "target_color": [5, 5, 30, 160] } ]
 						}
 					}
 				}

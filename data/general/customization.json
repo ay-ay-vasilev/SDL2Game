@@ -21,6 +21,14 @@
 				{ "slot": "eyes", "textures": ["goblin_eyes_0"], "z": 102 }
 			],
 			"colors":["yellow", "orange", "dark_orange", "light_yellow"]
+		},
+		"shadow":
+		{
+			"sprites":
+			[
+				{ "slot": "shadow", "textures": ["goblin_shadow"], "z": -1000 }
+			],
+			"colors":["regular"]
 		}
 	},
 	"human":
@@ -59,6 +67,14 @@
 				{ "slot": "eyes", "textures": ["human_eyes_0"], "z": 102 }
 			],
 			"colors":["green", "blue", "brown"]
+		},
+		"shadow":
+		{
+			"sprites":
+			[
+				{ "slot": "shadow", "textures": ["human_shadow"], "z": -1000 }
+			],
+			"colors":["regular"]
 		}
 	},
 	"skeleton":
@@ -80,6 +96,14 @@
 				{ "slot": "eyes", "textures": ["skeleton_eyes_0"], "z": 101 }
 			],
 			"colors":["red", "green", "teal"]
+		},
+		"shadow":
+		{
+			"sprites":
+			[
+				{ "slot": "shadow", "textures": ["skeleton_shadow"], "z": -1000 }
+			],
+			"colors":["regular"]
 		}
 	}
 }
