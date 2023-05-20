@@ -2,6 +2,7 @@
 #include "TransformComponent.h"
 #include "SpriteComponent.h"
 #include "SpriteOutlineComponent.h"
+#include "TintComponent.h"
 #include "ColliderComponent.h"
 #include "ActorComponent.h"
 #include "HitboxComponent.h"
@@ -102,6 +103,7 @@ ecs::Entity* ecs::ActorSystem::instantiateActor(const Vector2D& pos, const std::
 	);
 	actor.addComponent<ecs::SpriteComponent>(actorData["sprite_data"], true);
 	actor.addComponent<ecs::SpriteOutlineComponent>(actorData["sprite_data"].contains("outline") ? actorData["sprite_data"]["outline"] : nullptr);
+	actor.addComponent<ecs::TintComponent>(actorData["sprite_data"].contains("tints") ? actorData["sprite_data"]["tints"] : nullptr);
 	actor.addComponent<ecs::HealthComponent>(actorData["health"]);
 	actor.addComponent<ecs::ActorComponent>(filename);
 	actor.addComponent<ecs::ShadowComponent>(actorData["sprite_data"].contains("shadow") ? actorData["sprite_data"]["shadow"] : nullptr);

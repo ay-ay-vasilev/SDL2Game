@@ -144,6 +144,9 @@
     <ClCompile Include="..\src\ECS\Components\ShadowComponent.cpp">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ECS\Components\TintComponent.cpp">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">
@@ -270,6 +273,9 @@
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ECS\Components\ShadowComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\TintComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>

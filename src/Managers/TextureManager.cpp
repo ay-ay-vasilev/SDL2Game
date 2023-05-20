@@ -83,8 +83,20 @@ void TextureManager::applyColorMapping(SDL_Surface* surface, const std::vector<s
 	SDL_UnlockSurface(surface);
 }
 
-SDL_Texture* TextureManager::getTextureFromSurface(SDL_Surface* surface)
+SDL_Texture* TextureManager::getTextureFromSurface(SDL_Surface* surface, const std::optional<SDL_Color>& textureColor)
 {
+	if (textureColor)
+	{
+		Uint32* pixels = (Uint32*)surface->pixels;
+		int pixelCount = (surface->w * surface->h);
+		for (int i = 0; i < pixelCount; i++) {
+			Uint32 pixel = pixels[i];
+			Uint8 alpha = (pixel >> 24) & 0xFF;
+			if (alpha != 0) { // non-transparent pixel
+				pixels[i] = SDL_MapRGBA(surface->format, textureColor->r, textureColor->g, textureColor->b, textureColor->a);
+			}
+		}
+	}
 	auto texture = SDL_CreateTextureFromSurface(Game::renderer, surface);
 	if (texture == nullptr)
 	{
@@ -119,22 +131,9 @@ SDL_Texture* TextureManager::getCombinedTexture(const std::vector<std::shared_pt
 		}
 	}
 
-	// create a texture from the combined surface and render it
 	if (combinedSurface != nullptr)
 	{
-		if (textureColor)
-		{
-			Uint32* pixels = (Uint32*)combinedSurface->pixels;
-			int pixelCount = (combinedSurface->w * combinedSurface->h);
-			for (int i = 0; i < pixelCount; i++) {
-				Uint32 pixel = pixels[i];
-				Uint8 alpha = (pixel >> 24) & 0xFF;
-				if (alpha != 0) { // non-transparent pixel
-					pixels[i] = SDL_MapRGBA(combinedSurface->format, textureColor->r, textureColor->g, textureColor->b, textureColor->a);
-				}
-			}
-		}
-		texture = SDL_CreateTextureFromSurface(Game::renderer, combinedSurface);
+		texture = getTextureFromSurface(combinedSurface, textureColor);
 	}
 
 	// free the combined surface

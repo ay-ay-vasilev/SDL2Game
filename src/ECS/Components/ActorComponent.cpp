@@ -4,6 +4,7 @@
 #include "SpriteComponent.h"
 #include "WeaponComponent.h"
 #include "HealthComponent.h"
+#include "TintComponent.h"
 
 #include "AssetManager.h"
 
@@ -62,6 +63,8 @@ void ecs::ActorComponent::onNotify(const std::string_view& observedEvent)
 	}
 	if (observedEvent == weaponType + "_death_end")
 	{
+		auto tintComponent = entity->getComponent<ecs::TintComponent>();
+		if (tintComponent) tintComponent->enableTint("corpse");
 		playAction("corpse");
 	}
 }
