@@ -4,7 +4,6 @@
 #include "SpriteComponent.h"
 #include "WeaponComponent.h"
 #include "HealthComponent.h"
-#include "CorpseComponent.h"
 
 #include "AssetManager.h"
 
@@ -63,7 +62,6 @@ void ecs::ActorComponent::onNotify(const std::string_view& observedEvent)
 	}
 	if (observedEvent == weaponType + "_death_end")
 	{
-		entity->addComponent<ecs::CorpseComponent>();
 		playAction("corpse");
 	}
 }

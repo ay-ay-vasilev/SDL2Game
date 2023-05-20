@@ -30,6 +30,8 @@ namespace ecs
 		void playAction(const std::string actionName);
 
 		const std::string inline getActorType() const { return actorType; }
+		const std::string inline getWeaponType() const { return weaponType; }
+
 		void setWeaponType(const std::string newWeaponType);
 
 	private:

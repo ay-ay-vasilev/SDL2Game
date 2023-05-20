@@ -9,7 +9,6 @@ Stuff to remember:
 
 My plan:
 - Add corpses and death animations
-	- Shadows
 	- Blood particles
 	- Blood pools
 - Ranged weapon for player.

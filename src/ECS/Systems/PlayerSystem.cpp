@@ -12,6 +12,8 @@
 #include "FactionComponent.h"
 #include "CameraComponent.h"
 #include "AIComponentBasicFighter.h"
+#include "ShadowComponent.h"
+#include "CorpseComponent.h"
 
 #include <wrappedJson.h>
 
@@ -29,6 +31,7 @@ ecs::Entity* ecs::PlayerSystem::instantiatePlayer(const Vector2D& pos, const std
 	player.addComponent<ecs::SpriteOutlineComponent>(playerData["sprite_data"].contains("outline") ? playerData["sprite_data"]["outline"] : nullptr);
 	player.addComponent<ecs::HealthComponent>(playerData["health"]);
 	player.addComponent<ecs::ActorComponent>(filename);
+	player.addComponent<ecs::ShadowComponent>(playerData["sprite_data"].contains("shadow") ? playerData["sprite_data"]["shadow"] : nullptr);
 	player.addComponent<ecs::KeyboardComponent>();
 	//player.addComponent<ecs::AIComponentBasicFighter>();
 	player.addComponent<ecs::ColliderComponent>(filename, playerData["collider_rect"]);
@@ -36,6 +39,7 @@ ecs::Entity* ecs::PlayerSystem::instantiatePlayer(const Vector2D& pos, const std
 	player.addComponent<ecs::ArmorComponent>();
 	player.addComponent<ecs::FactionComponent>(playerData.contains("faction") ? playerData["faction"] : "neutral");
 	player.addComponent<ecs::CameraComponent>();
+	player.addComponent<ecs::CorpseComponent>();
 
 	player.addGroup(Game::eGroupLabels::PLAYERS);
 	equipWeapon(player, "unarmed");

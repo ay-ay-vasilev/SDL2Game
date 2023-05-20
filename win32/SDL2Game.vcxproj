@@ -34,6 +34,7 @@
     <ClCompile Include="..\src\ECS\Components\HitboxComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\KeyboardComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ProjectileComponent.cpp" />
+    <ClCompile Include="..\src\ECS\Components\ShadowComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\SpriteComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\SpriteOutlineComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\TileComponent.cpp" />
@@ -77,6 +78,7 @@
     <ClInclude Include="..\src\ECS\Components\HitboxComponent.h" />
     <ClInclude Include="..\src\ECS\Components\KeyboardComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ProjectileComponent.h" />
+    <ClInclude Include="..\src\ECS\Components\ShadowComponent.h" />
     <ClInclude Include="..\src\ECS\Components\SpriteComponent.h" />
     <ClInclude Include="..\src\ECS\Components\SpriteOutlineComponent.h" />
     <ClInclude Include="..\src\ECS\Components\TileComponent.h" />
