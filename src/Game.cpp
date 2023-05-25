@@ -18,13 +18,14 @@
 #include <iostream>
 #include <sstream>
 
+// Singletons
 std::shared_ptr<Constants> Game::constants = std::make_shared<Constants>("../data/settings.json");
-
 std::shared_ptr<ecs::Manager> Game::manager = std::make_shared<ecs::Manager>(constants);
 std::unique_ptr<assets::AssetManager> Game::assetManager = std::make_unique<assets::AssetManager>(manager);
 std::unique_ptr<KeyboardManager> Game::keyboardManager = std::make_unique<KeyboardManager>(manager);
 std::unique_ptr<CameraManager> Game::cameraManager = std::make_unique<CameraManager>(manager);
 
+// Systems
 auto renderSystem(Game::manager->addSystem<ecs::RenderSystem>());
 auto mapSystem(Game::manager->addSystem<ecs::MapSystem>());
 auto collisionSystem(Game::manager->addSystem<ecs::CollisionSystem>());
@@ -163,8 +164,6 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	manager->draw();
-
-	//label0.draw();
 	SDL_RenderPresent(renderer);
 }
 

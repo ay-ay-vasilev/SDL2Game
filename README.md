@@ -33,8 +33,6 @@ Maintenance:
 - Specific weapon stats for actors in weapon json files?
 - Refactor ECS.h (uninline some methods, inline explicitly the rest)
 - Refactor the debug draw methods
-- Refactor FactionSystem (make it a manager instead ? avoid duplication but worsen encapsulation)
-- Refactor AssetManager (remove useless references and remove string_view from maps)
 - Deal with strings and string_views
 - Use aliases to make stuff readable
 - CMake, cotire, CPM ?

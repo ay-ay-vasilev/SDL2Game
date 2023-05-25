@@ -8,12 +8,11 @@
 #include <chrono>
 #include <thread>
 
-std::unique_ptr<Game> game;
 const double FRAME_TIME = 1.0 / 60.0; // Target frame time (60 FPS)
 
 int main(int argc, char* argv[])
 {
-	game = std::make_unique<Game>();
+	auto game = std::make_unique<Game>();
 	game->init();
 
 	auto previousTime = std::chrono::steady_clock::now();
