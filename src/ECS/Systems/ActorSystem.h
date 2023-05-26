@@ -21,6 +21,8 @@ namespace ecs
 		void draw() override;
 
 		Entity* instantiateActor(const Vector2D& pos, const std::string& filename);
+		Entity* instantiatePlayer(const Vector2D& pos, const std::string& filename);
+
 		void equipWeapon(Entity& actor, const std::string& weaponName);
 
 		void equipArmor(Entity& actor, const std::string& armorName, const std::string& slotName, const std::string& colorName);

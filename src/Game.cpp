@@ -3,7 +3,6 @@
 #include "MapSystem.h"
 #include "CollisionSystem.h"
 #include "HitboxWeaponCollisionSystem.h"
-#include "PlayerSystem.h"
 #include "ActorSystem.h"
 #include "ProjectileSystem.h"
 #include "AISystem.h"
@@ -30,11 +29,13 @@ auto renderSystem(Game::manager->addSystem<ecs::RenderSystem>());
 auto mapSystem(Game::manager->addSystem<ecs::MapSystem>());
 auto collisionSystem(Game::manager->addSystem<ecs::CollisionSystem>());
 auto hitboxWeaponCollisionSystem(Game::manager->addSystem<ecs::HitboxWeaponCollisionSystem>());
-auto playerSystem(Game::manager->addSystem<ecs::PlayerSystem>());
 auto actorSystem(Game::manager->addSystem<ecs::ActorSystem>());
 auto projectileSystem(Game::manager->addSystem<ecs::ProjectileSystem>());
 auto aiSystem(Game::manager->addSystem<ecs::AISystem>());
 auto factionSystem(Game::manager->addSystem<ecs::FactionSystem>());
+
+// Entities
+ecs::Entity* player;
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
@@ -98,7 +99,7 @@ void Game::init()
 	projectileSystem->instantiateProjectile(Vector2D(33.33f, 50.f), Vector2D(2.f, 2.f), projectileFile);
 	projectileSystem->instantiateProjectile(Vector2D(100.f, 33.33f), Vector2D(-2.f, 2.f), projectileFile);
 
-	auto player = playerSystem->instantiatePlayer(constants->PLAYER_POS, constants->PLAYER_RACE);
+	player = actorSystem->instantiatePlayer(constants->PLAYER_POS, constants->PLAYER_RACE);
 	actorSystem->addRandomCustomization(*player);
 
 	for (const auto& humanData : constants->HUMAN_POS)
@@ -152,7 +153,7 @@ void Game::update(double delta)
 		keyboardManager->update();
 		cameraManager->update();
 
-		const auto& playerPosition = playerSystem->getPlayerPosition();
+		const auto& playerPosition = player->getComponent<ecs::TransformComponent>()->getPosition();
 		
 		std::stringstream ss0;
 		ss0 << "Player position: " << playerPosition;

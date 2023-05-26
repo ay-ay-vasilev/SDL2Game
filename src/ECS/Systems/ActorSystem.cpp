@@ -5,12 +5,14 @@
 #include "TintComponent.h"
 #include "ColliderComponent.h"
 #include "ActorComponent.h"
+#include "KeyboardComponent.h"
 #include "HitboxComponent.h"
 #include "HealthComponent.h"
 #include "AIComponentBasicFighter.h"
 #include "ArmorComponent.h"
 #include "WeaponComponent.h"
 #include "FactionComponent.h"
+#include "CameraComponent.h"
 #include "ShadowComponent.h"
 #include "CorpseComponent.h"
 
@@ -117,6 +119,36 @@ ecs::Entity* ecs::ActorSystem::instantiateActor(const Vector2D& pos, const std::
 	actor.addGroup(Game::eGroupLabels::ACTORS);
 
 	return &actor;
+}
+
+ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std::string& filename)
+{
+	const auto playerData = assets::getActorJson(filename);
+	auto& player(manager.addEntity());
+	player.addComponent<ecs::TransformComponent>
+		(
+			pos.x * manager.getScale(), pos.y * manager.getScale(),
+			playerData.value("width", 0), playerData.value("height", 0),
+			manager.getScale(), playerData["speed"]
+		);
+	player.addComponent<ecs::SpriteComponent>(playerData["sprite_data"], true);
+	player.addComponent<ecs::SpriteOutlineComponent>(playerData["sprite_data"].contains("outline") ? playerData["sprite_data"]["outline"] : nullptr);
+	player.addComponent<ecs::TintComponent>(playerData["sprite_data"].contains("tints") ? playerData["sprite_data"]["tints"] : nullptr);
+	player.addComponent<ecs::HealthComponent>(playerData["health"]);
+	player.addComponent<ecs::ActorComponent>(filename);
+	player.addComponent<ecs::ShadowComponent>(playerData["sprite_data"].contains("shadow") ? playerData["sprite_data"]["shadow"] : nullptr);
+	player.addComponent<ecs::KeyboardComponent>();
+	//player.addComponent<ecs::AIComponentBasicFighter>();
+	player.addComponent<ecs::ColliderComponent>(filename, playerData["collider_rect"]);
+	player.addComponent<ecs::HitboxComponent>(filename, playerData["hitbox_rect"]);
+	player.addComponent<ecs::ArmorComponent>();
+	player.addComponent<ecs::FactionComponent>(playerData.contains("faction") ? playerData["faction"] : "neutral");
+	player.addComponent<ecs::CameraComponent>();
+	player.addComponent<ecs::CorpseComponent>();
+
+	player.addGroup(Game::eGroupLabels::PLAYERS);
+	equipWeapon(player, "unarmed");
+	return &player;
 }
 
 void ecs::ActorSystem::equipWeapon(ecs::Entity& actor, const std::string& weaponName)
