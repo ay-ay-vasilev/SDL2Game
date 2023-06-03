@@ -34,6 +34,9 @@
     <Filter Include="Source Files\LibWrappers">
       <UniqueIdentifier>{9daf7f5d-5539-4c03-ab03-fd7771d3ad46}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Particles">
+      <UniqueIdentifier>{1eddba23-335d-42c1-8989-ba6119201b49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Game.cpp">
@@ -143,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="..\src\ECS\Components\TintComponent.cpp">
       <Filter>Source Files\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Particles\ParticleSystem.cpp">
+      <Filter>Source Files\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ECS\Components\TintComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Particles\ParticleSystem.h">
+      <Filter>Source Files\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
