@@ -150,6 +150,9 @@
     <ClCompile Include="..\src\Particles\ParticleSystem.cpp">
       <Filter>Source Files\Particles</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Managers\ParticleManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Particles\ParticleSystem.h">
       <Filter>Source Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Managers\ParticleManager.h">
+      <Filter>Source Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

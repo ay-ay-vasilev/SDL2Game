@@ -26,6 +26,7 @@ namespace assets
 
 class KeyboardManager;
 class CameraManager;
+class ParticleManager;
 class Constants;
 
 class Game {
@@ -51,6 +52,7 @@ public:
 	static std::unique_ptr<assets::AssetManager> assetManager;
 	static std::unique_ptr<KeyboardManager> keyboardManager;
 	static std::unique_ptr<CameraManager> cameraManager;
+	static std::unique_ptr<ParticleManager> particleManager;
 	static std::shared_ptr<ecs::Manager> manager;
 
 	enum eGroupLabels : std::size_t

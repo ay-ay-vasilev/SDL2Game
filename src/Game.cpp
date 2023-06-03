@@ -14,6 +14,8 @@
 #include "Constants.h"
 #include "KeyboardManager.h"
 #include "CameraManager.h"
+#include "ParticleManager.h"
+
 #include <iostream>
 #include <sstream>
 
@@ -23,6 +25,7 @@ std::shared_ptr<ecs::Manager> Game::manager = std::make_shared<ecs::Manager>(con
 std::unique_ptr<assets::AssetManager> Game::assetManager = std::make_unique<assets::AssetManager>(manager);
 std::unique_ptr<KeyboardManager> Game::keyboardManager = std::make_unique<KeyboardManager>(manager);
 std::unique_ptr<CameraManager> Game::cameraManager = std::make_unique<CameraManager>(manager);
+std::unique_ptr<ParticleManager> Game::particleManager = std::make_unique<ParticleManager>();
 
 // Systems
 auto renderSystem(Game::manager->addSystem<ecs::RenderSystem>());
@@ -89,6 +92,13 @@ void Game::init()
 	assetManager->loadFonts();
 	keyboardManager->setActorSystem(actorSystem);
 	cameraManager->init();
+	particleManager->setRenderer(renderer);
+	particleManager->setPosition(512, 384);
+	particleManager->setStyle(ParticleManager::BLOOD);
+	particleManager->setStartSpin(0);
+	particleManager->setStartSpinVar(90);
+	particleManager->setEndSpin(90);
+	particleManager->setStartSpinVar(90);
 
 	label0.addComponent<ecs::UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
@@ -165,6 +175,7 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	manager->draw();
+	particleManager->draw();
 	SDL_RenderPresent(renderer);
 }
 
