@@ -67,7 +67,6 @@ bool ParticleSystem::initWithTotalParticles(int numberOfParticles)
 	_isActive = true;
 	_emitterMode = eMode::GRAVITY;
 	_isAutoRemoveOnFinish = false;
-	_transformSystemDirty = false;
 
 	resetTotalParticles(numberOfParticles);
 

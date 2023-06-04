@@ -1,8 +1,7 @@
 #pragma once
 #include "Particles/ParticleSystem.h"
 #include "SDL_image.h"
-
-#include <filesystem>
+#include "TextureManager.h"
 
 class ParticleManager : public ParticleSystem
 {
@@ -17,10 +16,13 @@ public:
 
 	ParticleStyle style_ = BLOOD;
 	void setStyle(ParticleStyle style);
+
+	void loadParticleData(const std::string& particleName);
+
 	SDL_Texture* getDefaultTexture()
 	{
-		std::filesystem::path p = std::filesystem::current_path() / ".." / "assets/images/misc/particle_tutor/particle.png";
-		static SDL_Texture* t = IMG_LoadTexture(_renderer, (p.string()).c_str());
-		return t;
+		std::string texturePath = "assets/images/particles/pixel.png";
+		static SDL_Texture* texture = TextureManager::loadTexture(texturePath);
+		return texture;
 	}
 };

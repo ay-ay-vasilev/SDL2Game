@@ -10,6 +10,10 @@ Stuff to remember:
 My plan:
 - Add corpses and death animations
 	- Blood particles
+		* Add a ParticleSystem DONE
+		* Add a ParticleManager to manage and parse particles and their types
+		* Change ParticleManager to a ParticleEmitter class and make ParticleManager hold a vector of emitters
+		* Add a ParticleComponent
 	- Blood pools
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.

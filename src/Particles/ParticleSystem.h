@@ -77,39 +77,6 @@ public:
 	ModeB modeB;
 };
 
-/** @class ParticleSystem
- * @brief Particle System base class.
-Attributes of a Particle System:
-- emission rate of the particles
-- Gravity Mode (Mode A):
-- gravity
-- direction
-- speed +-  variance
-- tangential acceleration +- variance
-- radial acceleration +- variance
-- Radius Mode (Mode B):
-- startRadius +- variance
-- endRadius +- variance
-- rotate +- variance
-- Properties common to all modes:
-- life +- life variance
-- start spin +- variance
-- end spin +- variance
-- start size +- variance
-- end size +- variance
-- start color +- variance
-- end color +- variance
-- life +- variance
-- blending function
-- texture
-
-@code
-emitter.radialAccel = 15;
-emitter.startSpin = 0;
-@endcode
-
-*/
-
 class ParticleSystem
 {
 public:
@@ -174,15 +141,7 @@ public:
 	virtual float getRotatePerSecondVar() const;
 	virtual void setRotatePerSecondVar(float degrees);
 
-	//virtual void setScale(float s);
-	//virtual void setRotation(float newRotation);
-	//virtual void setScaleX(float newScaleX);
-	//virtual void setScaleY(float newScaleY);
-
 	virtual bool isActive() const;
-
-	int getAtlasIndex() const { return _atlasIndex; }
-	void setAtlasIndex(int index) { _atlasIndex = index; }
 
 	unsigned int getParticleCount() const { return _particleCount; }
 	float getDuration() const { return _duration; }
@@ -243,9 +202,6 @@ public:
 	virtual int getTotalParticles() const;
 	virtual void setTotalParticles(int totalParticles);
 
-	void setOpacityModifyRGB(bool opacityModifyRGB) { _opacityModifyRGB = opacityModifyRGB; }
-	bool isOpacityModifyRGB() const { return _opacityModifyRGB; }
-
 	SDL_Texture* getTexture();
 	void setTexture(SDL_Texture* texture);
 	void draw();
@@ -262,27 +218,10 @@ public:
 	virtual void resumeEmissions();
 
 protected:
-	/** whether or not the particles are using blend additive.
-	 If enabled, the following blending function will be used.
-	 @code
-	 source blend function = GL_SRC_ALPHA;
-	 dest blend function = GL_ONE;
-	 @endcode
-	 */
-	bool _isBlendAdditive = true;
-
-	/** whether or not the node will be auto-removed when it has no particles left.
-	By default it is false.
-	@since v0.8
-	*/
 	bool _isAutoRemoveOnFinish = false;
-
-	std::string _plistFile;
-	//! time elapsed since the start of the system (in seconds)
 	float _elapsed = 0;
 
 	// Different modes
-	//! Mode A: Gravity + Tangential Accel + Radial Accel
 	struct ModeA
 	{
 		Vec2 gravity;
@@ -310,16 +249,8 @@ protected:
 
 	//particle data
 	std::vector<ParticleData> particle_data_;
-	//Emitter name
-	std::string _configName;
 	//! How many particles can be emitted per second
 	float _emitCounter = 0;
-	// index of system in batch node array
-	int _atlasIndex = 0;
-
-	//true if scaled or rotated
-	bool _transformSystemDirty = false;
-	int _allocatedParticles = 0;
 
 	bool _isActive = true;
 	int _particleCount = 0;
@@ -359,13 +290,10 @@ protected:
 	int _totalParticles = 0;
 
 	SDL_Texture* _texture = nullptr;
-	/** does the alpha value modify color */
-	bool _opacityModifyRGB = false;
 	/** does FlippedY variance of each particle */
 	int _yCoordFlipped = 1;
 
 	bool _paused = false;
-	bool _sourcePositionCompatible = false;
 	SDL_Renderer* _renderer = nullptr;
 	int x_ = 0, y_ = 0;
 public:

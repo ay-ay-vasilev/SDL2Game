@@ -45,6 +45,12 @@ namespace assets
 		return assetDataPath.string();
 	}
 
+	std::string getParticleDataJsonPath(const std::string fileName)
+	{
+		std::filesystem::path particleDataPath = getDataPath() / "particles" / (fileName + ".json");
+		return particleDataPath.string();
+	}
+
 	nlohmann::json getJsonData(const std::string filePath)
 	{
 		std::ifstream file(filePath);
@@ -90,6 +96,12 @@ namespace assets
 	nlohmann::json getAssetDataJson(const std::string assetDataName)
 	{
 		const std::string filePath = getAssetDataJsonPath(assetDataName);
+		return getJsonData(filePath);
+	}
+
+	nlohmann::json getParticleDataJson(const std::string particleDataName)
+	{
+		const std::string filePath = getParticleDataJsonPath(particleDataName);
 		return getJsonData(filePath);
 	}
 
