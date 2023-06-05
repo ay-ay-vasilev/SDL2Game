@@ -21,6 +21,12 @@ void KeyboardManager::setActorSystem(std::shared_ptr<ecs::ActorSystem> actorSyst
 void KeyboardManager::update()
 {
 	controlledEntities = manager->getEntitiesWithComponent<ecs::KeyboardComponent>();
+	
+	if (Game::particleManager->isActive())
+	{
+		auto playerPosition = manager->getGroup(Game::eGroupLabels::PLAYERS).front()->getComponent<ecs::TransformComponent>()->getPosition();
+		Game::particleManager->setPosition(playerPosition.x, playerPosition.y);
+	}
 }
 
 void KeyboardManager::handleEvents()
@@ -40,20 +46,17 @@ void KeyboardManager::handleEvents()
 			pressed = true;
 			break;
 		case SDLK_TAB:
-
-			if (Game::particleManager->isActive()) break;
-
-			Game::particleManager->resetSystem();
-			Game::particleManager->setStyle(ParticleManager::BLOOD);
-			Game::particleManager->setAngle(45.f * (playerDirection.x < 0 ? 1 : -1) + 180 * (playerDirection.x < 0 ? 0 : 1));
-			Game::particleManager->setStartSize(Game::particleManager->getStartSize() * Game::constants->SCALE);
-			Game::particleManager->setEndSize(Game::particleManager->getEndSize() * Game::constants->SCALE);
-			Game::particleManager->setAngle(45.f * (playerDirection.x < 0 ? 1 : -1) + 180 * (playerDirection.x < 0 ? 0 : 1));
-
-			playerPosition.x -= Game::cameraManager->getCameraPosition().x;
-			playerPosition.y -= Game::cameraManager->getCameraPosition().y;
-
-			Game::particleManager->setPosition(playerPosition.x, playerPosition.y);
+			if (!pressed)
+			{
+				if (Game::particleManager->isActive()) break;
+				Game::particleManager->resetSystem();
+				Game::particleManager->loadParticleData("blood");
+				Game::particleManager->setAngle(Game::particleManager->getAngle() * (playerDirection.x < 0 ? 1 : -1) + 180 * (playerDirection.x < 0 ? 0 : 1));
+				Game::particleManager->setStartSize(Game::particleManager->getStartSize() * Game::constants->SCALE);
+				Game::particleManager->setEndSize(Game::particleManager->getEndSize() * Game::constants->SCALE);
+				Game::particleManager->setPosition(playerPosition.x, playerPosition.y);
+				pressed = true;
+			}
 			break;
 		case SDLK_o:
 			Game::constants->ReloadSettings();
@@ -100,7 +103,8 @@ void KeyboardManager::handleEvents()
 			break;
 		}
 
-		if (!keyboardState[SDL_SCANCODE_ESCAPE] && !keyboardState[SDL_SCANCODE_O] &&
+		if (!keyboardState[SDL_SCANCODE_ESCAPE] && !keyboardState[SDL_SCANCODE_TAB] &&
+			!keyboardState[SDL_SCANCODE_O] &&
 			!keyboardState[SDL_SCANCODE_1] && !keyboardState[SDL_SCANCODE_2] &&
 			!keyboardState[SDL_SCANCODE_3] && !keyboardState[SDL_SCANCODE_4] &&
 			!keyboardState[SDL_SCANCODE_5])

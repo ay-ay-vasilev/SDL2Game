@@ -92,14 +92,7 @@ void Game::init()
 	assetManager->loadFonts();
 	keyboardManager->setActorSystem(actorSystem);
 	cameraManager->init();
-	particleManager->setRenderer(renderer);
-	particleManager->setPosition(512, 384);
-	particleManager->setStyle(ParticleManager::BLOOD);
-	particleManager->setStartSpin(0);
-	particleManager->setStartSpinVar(90);
-	particleManager->setEndSpin(90);
-	particleManager->setStartSpinVar(90);
-
+	particleManager->stopSystem();
 	label0.addComponent<ecs::UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
 	const std::string projectileFile = "test_projectile";

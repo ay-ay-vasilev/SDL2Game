@@ -39,7 +39,7 @@ void ecs::TintComponent::update(double delta)
 void ecs::TintComponent::draw()
 {
 	if (!enabled) return;
-	TextureManager::draw(texture, srcRect, destRect, spriteFlip);
+	TextureManager::draw(texture, srcRect, destRect, 0, spriteFlip);
 }
 
 void ecs::TintComponent::onNotify(const std::string_view& observedEvent)

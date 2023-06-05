@@ -9,14 +9,6 @@ public:
 	ParticleManager() {}
 	virtual ~ParticleManager() {}
 
-	enum ParticleStyle
-	{
-		BLOOD
-	};
-
-	ParticleStyle style_ = BLOOD;
-	void setStyle(ParticleStyle style);
-
 	void loadParticleData(const std::string& particleName);
 
 	SDL_Texture* getDefaultTexture()

@@ -52,7 +52,7 @@ namespace ecs
 		void draw() override
 		{
 			const auto cameraBounds = Game::cameraManager->getCameraBounds();
-			TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(cameraBounds.x, cameraBounds.y, Game::constants->SCREEN_WIDTH - cameraBounds.x, Game::constants->SCREEN_HEIGHT - cameraBounds.y), SDL_FLIP_NONE, false);
+			TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(cameraBounds.x, cameraBounds.y, Game::constants->SCREEN_WIDTH - cameraBounds.x, Game::constants->SCREEN_HEIGHT - cameraBounds.y));
 
 			for (const auto& tile : tiles) tile->draw();
 			for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();

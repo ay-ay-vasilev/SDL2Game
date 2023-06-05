@@ -1,0 +1,27 @@
+{
+	"texture": "assets/images/particles/pixel.png",
+	"maxParticles": 50,
+	"duration": 0.3,
+	"mode": "GRAVITY",
+	"gravity": {"x": 0.0, "y": 60.0},
+	"radialAccel": {"value": 0.0, "variance": 0.0},
+	"tangentialAccel": {"value": 0.0, "variance": 0.0},
+	"speed": {"value": -90.0, "variance": 25.0},
+	"angle": {"value": 45.0, "variance": 20.0},
+	"life": {"value": 1.5, "variance": 1.0},
+	"startColor":
+	{
+		"value":{"r": 0.8, "g": 0.8, "b": 0.8, "a": 0.0},
+		"variance":{"r": 0.0, "g": 0.0, "b": 0.0, "a": 0.0}
+	},
+	"endColor":
+	{
+		"value":{"r": 0.2, "g": 0.2, "b": 0.2, "a": 1.0},
+		"variance":{"r": 0.0, "g": 0.0, "b": 0.0, "a": 0.0}
+	},
+	"startSize": {"value": 1.0, "variance": 1.0},
+	"endSize": {"value": 1.0, "variance": 0.0},
+	"pos": {"x": 0.0, "y": 0.0},
+	"startSpin": {"value": 0.0, "variance": 90.0},
+	"endSpin": {"value": 90.0, "variance": 90.0}
+}

@@ -129,7 +129,7 @@ void ecs::WeaponComponent::draw()
 	if (!enabled)
 		return;
 
-	if (enableDraw) TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+	if (enableDraw) TextureManager::draw(texture, srcRect, destRect);
 }
 
 void ecs::WeaponComponent::onNotify(const std::string_view& observedEvent)

@@ -84,5 +84,5 @@ void ecs::ColliderComponent::update(double delta)
 
 void ecs::ColliderComponent::draw()
 {
-	if (enableDraw) TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+	if (enableDraw) TextureManager::draw(texture, srcRect, destRect);
 }

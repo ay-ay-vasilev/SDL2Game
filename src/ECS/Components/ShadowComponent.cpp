@@ -42,7 +42,7 @@ void ecs::ShadowComponent::update(double delta)
 void ecs::ShadowComponent::draw()
 {
 	SDL_Rect tempDestRect = destRect;
-	TextureManager::draw(texture, srcRect, tempDestRect, spriteFlip);
+	TextureManager::draw(texture, srcRect, tempDestRect, 0, spriteFlip);
 }
 
 void ecs::ShadowComponent::onNotify(const std::string_view& observedEvent)

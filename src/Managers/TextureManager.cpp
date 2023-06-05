@@ -145,7 +145,7 @@ SDL_Texture* TextureManager::getCombinedTexture(const std::vector<std::shared_pt
 	return texture;
 }
 
-void TextureManager::draw(SDL_Texture* texture, const SDL_Rect source, SDL_Rect destination, const SDL_RendererFlip flip, const bool moveWithCamera)
+void TextureManager::draw(SDL_Texture* texture, const SDL_Rect source, SDL_Rect destination, const double angle, const SDL_RendererFlip flip, const bool moveWithCamera)
 {
 	// TODO: redo with std::optional ?
 	if (moveWithCamera)
@@ -155,7 +155,20 @@ void TextureManager::draw(SDL_Texture* texture, const SDL_Rect source, SDL_Rect 
 	}
 
 	if (Game::cameraManager->isInView(destination))
-		SDL_RenderCopyEx(Game::renderer, texture, &source, &destination, 0, NULL, flip);
+		SDL_RenderCopyEx(Game::renderer, texture, &source, &destination, angle, NULL, flip);
+}
+
+void TextureManager::draw(SDL_Texture* texture, const SDL_Rect* source, SDL_Rect* destination, const double angle, const SDL_RendererFlip flip, const bool moveWithCamera)
+{
+	// TODO: redo with std::optional ?
+	if (moveWithCamera)
+	{
+		destination->x -= Game::cameraManager->getCameraPosition().x;
+		destination->y -= Game::cameraManager->getCameraPosition().y;
+	}
+
+	if (Game::cameraManager->isInView(*destination))
+		SDL_RenderCopyEx(Game::renderer, texture, source, destination, angle, NULL, flip);
 }
 
 Uint32 TextureManager::get_pixel(SDL_Surface* surface, int x, int y)

@@ -29,5 +29,5 @@ void ecs::TileComponent::update(double delta)
 
 void ecs::TileComponent::draw()
 {
-	TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+	TextureManager::draw(texture, srcRect, destRect);
 }

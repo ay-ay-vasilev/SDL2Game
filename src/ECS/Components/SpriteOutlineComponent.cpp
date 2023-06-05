@@ -58,7 +58,7 @@ void ecs::SpriteOutlineComponent::draw()
 			destRect.x + static_cast<int>(outlinePosition.x * scale),
 			destRect.y + static_cast<int>(outlinePosition.y * scale),
 			destRect.w, destRect.h);
-		TextureManager::draw(texture, srcRect, tempDestRect, spriteFlip);
+		TextureManager::draw(texture, srcRect, tempDestRect, 0.0, spriteFlip);
 	}
 }
 

@@ -294,9 +294,7 @@ protected:
 	int _yCoordFlipped = 1;
 
 	bool _paused = false;
-	SDL_Renderer* _renderer = nullptr;
 	int x_ = 0, y_ = 0;
 public:
-	void setRenderer(SDL_Renderer* ren) { _renderer = ren; }
 	void setPosition(int x, int y) { x_ = x; y_ = y; }
 };

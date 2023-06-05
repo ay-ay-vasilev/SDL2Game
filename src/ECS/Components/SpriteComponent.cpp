@@ -119,7 +119,7 @@ void ecs::SpriteComponent::update(double delta)
 
 void ecs::SpriteComponent::draw()
 {
-	TextureManager::draw(texture, srcRect, destRect, spriteFlip);
+	TextureManager::draw(texture, srcRect, destRect, 0, spriteFlip);
 }
 
 void ecs::SpriteComponent::addSprite(const std::string& slotName, std::shared_ptr<Sprite> sprite)

@@ -78,5 +78,5 @@ void ecs::HitboxComponent::update(double delta)
 
 void ecs::HitboxComponent::draw()
 {
-	if (enableDraw) TextureManager::draw(texture, srcRect, destRect, SDL_FLIP_NONE);
+	if (enableDraw) TextureManager::draw(texture, srcRect, destRect);
 }

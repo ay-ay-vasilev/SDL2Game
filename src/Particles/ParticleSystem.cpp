@@ -1,4 +1,5 @@
 #include "ParticleSystem.h"
+#include "TextureManager.h"
 #include <algorithm>
 #include <assert.h>
 #include <string>
@@ -413,7 +414,7 @@ void ParticleSystem::draw()
 		SDL_SetTextureColorMod(_texture, c.r, c.g, c.b);
 		SDL_SetTextureAlphaMod(_texture, c.a);
 		SDL_SetTextureBlendMode(_texture, SDL_BLENDMODE_BLEND);
-		SDL_RenderCopyEx(_renderer, _texture, nullptr, &r, p.rotation, nullptr, SDL_FLIP_NONE);
+		TextureManager::draw(_texture, nullptr, &r, p.rotation, SDL_FLIP_NONE);
 	}
 	update();
 }
