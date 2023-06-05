@@ -1,6 +1,7 @@
 {
 	"faction": "humans",
 	"speed": 0.75,
+	"hit_particle": "blood",
 	"health":
 	{
 		"max_health": 100

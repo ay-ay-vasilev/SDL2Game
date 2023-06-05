@@ -32,6 +32,7 @@
     <ClCompile Include="..\src\ECS\Components\FactionComponent.h" />
     <ClCompile Include="..\src\ECS\Components\HealthComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\HitboxComponent.cpp" />
+    <ClCompile Include="..\src\ECS\Components\HitParticleComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\KeyboardComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ProjectileComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ShadowComponent.cpp" />
@@ -57,7 +58,7 @@
     <ClCompile Include="..\src\Managers\KeyboardManager.cpp" />
     <ClCompile Include="..\src\Managers\ParticleManager.cpp" />
     <ClCompile Include="..\src\Managers\TextureManager.cpp" />
-    <ClCompile Include="..\src\Particles\ParticleSystem.cpp" />
+    <ClCompile Include="..\src\Particles\ParticleEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Common\Animation.h" />
@@ -78,6 +79,7 @@
     <ClInclude Include="..\src\ECS\Components\CorpseComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HealthComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HitboxComponent.h" />
+    <ClInclude Include="..\src\ECS\Components\HitParticleComponent.h" />
     <ClInclude Include="..\src\ECS\Components\KeyboardComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ProjectileComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ShadowComponent.h" />
@@ -103,7 +105,7 @@
     <ClInclude Include="..\src\Managers\KeyboardManager.h" />
     <ClInclude Include="..\src\Managers\ParticleManager.h" />
     <ClInclude Include="..\src\Managers\TextureManager.h" />
-    <ClInclude Include="..\src\Particles\ParticleSystem.h" />
+    <ClInclude Include="..\src\Particles\ParticleEmitter.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\goblin_downscale_spritesheet.png" />

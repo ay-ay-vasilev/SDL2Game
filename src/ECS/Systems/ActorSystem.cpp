@@ -15,6 +15,7 @@
 #include "CameraComponent.h"
 #include "ShadowComponent.h"
 #include "CorpseComponent.h"
+#include "HitParticleComponent.h"
 
 #include <random>
 
@@ -115,6 +116,7 @@ ecs::Entity* ecs::ActorSystem::instantiateActor(const Vector2D& pos, const std::
 	actor.addComponent<ecs::AIComponentBasicFighter>();
 	actor.addComponent<ecs::FactionComponent>(actorData.contains("faction") ? actorData["faction"] : "neutral");
 	actor.addComponent<ecs::CorpseComponent>();
+	actor.addComponent<ecs::HitParticleComponent>(actorData["hit_particle"]);
 
 	actor.addGroup(Game::eGroupLabels::ACTORS);
 
@@ -145,6 +147,7 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 	player.addComponent<ecs::FactionComponent>(playerData.contains("faction") ? playerData["faction"] : "neutral");
 	player.addComponent<ecs::CameraComponent>();
 	player.addComponent<ecs::CorpseComponent>();
+	player.addComponent<ecs::HitParticleComponent>(playerData["hit_particle"]);
 
 	player.addGroup(Game::eGroupLabels::PLAYERS);
 	equipWeapon(player, "unarmed");

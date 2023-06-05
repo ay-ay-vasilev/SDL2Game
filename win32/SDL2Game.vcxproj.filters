@@ -147,11 +147,14 @@
     <ClCompile Include="..\src\ECS\Components\TintComponent.cpp">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Particles\ParticleSystem.cpp">
+    <ClCompile Include="..\src\Particles\ParticleEmitter.cpp">
       <Filter>Source Files\Particles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Managers\ParticleManager.cpp">
       <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ECS\Components\HitParticleComponent.cpp">
+      <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,11 +284,14 @@
     <ClInclude Include="..\src\ECS\Components\TintComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Particles\ParticleSystem.h">
+    <ClInclude Include="..\src\Particles\ParticleEmitter.h">
       <Filter>Source Files\Particles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Managers\ParticleManager.h">
       <Filter>Source Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\HitParticleComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

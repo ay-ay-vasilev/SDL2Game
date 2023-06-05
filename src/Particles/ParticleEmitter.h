@@ -77,7 +77,7 @@ public:
 	ModeB modeB;
 };
 
-class ParticleSystem
+class ParticleEmitter
 {
 public:
 	enum class eMode
@@ -207,8 +207,8 @@ public:
 	void draw();
 	void update();
 
-	ParticleSystem();
-	virtual ~ParticleSystem();
+	ParticleEmitter();
+	virtual ~ParticleEmitter();
 
 	virtual bool initWithTotalParticles(int numberOfParticles);
 

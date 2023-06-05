@@ -1,6 +1,7 @@
 {
 	"faction": "goblins",
 	"speed": 1.66,
+	"hit_particle": "blood",
 	"health":
 	{
 		"max_health": 50

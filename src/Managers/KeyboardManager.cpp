@@ -6,7 +6,6 @@
 #include "SDL.h"
 #include "Game.h"
 
-#include "ParticleManager.h"
 #include "CameraManager.h"
 
 KeyboardManager::KeyboardManager(std::shared_ptr<ecs::Manager> manager) : manager(manager) {}
@@ -21,12 +20,6 @@ void KeyboardManager::setActorSystem(std::shared_ptr<ecs::ActorSystem> actorSyst
 void KeyboardManager::update()
 {
 	controlledEntities = manager->getEntitiesWithComponent<ecs::KeyboardComponent>();
-	
-	if (Game::particleManager->isActive())
-	{
-		auto playerPosition = manager->getGroup(Game::eGroupLabels::PLAYERS).front()->getComponent<ecs::TransformComponent>()->getPosition();
-		Game::particleManager->setPosition(playerPosition.x, playerPosition.y);
-	}
 }
 
 void KeyboardManager::handleEvents()
@@ -44,19 +37,6 @@ void KeyboardManager::handleEvents()
 		case SDLK_ESCAPE:
 			Game::isRunning = false;
 			pressed = true;
-			break;
-		case SDLK_TAB:
-			if (!pressed)
-			{
-				if (Game::particleManager->isActive()) break;
-				Game::particleManager->resetSystem();
-				Game::particleManager->loadParticleData("blood");
-				Game::particleManager->setAngle(Game::particleManager->getAngle() * (playerDirection.x < 0 ? 1 : -1) + 180 * (playerDirection.x < 0 ? 0 : 1));
-				Game::particleManager->setStartSize(Game::particleManager->getStartSize() * Game::constants->SCALE);
-				Game::particleManager->setEndSize(Game::particleManager->getEndSize() * Game::constants->SCALE);
-				Game::particleManager->setPosition(playerPosition.x, playerPosition.y);
-				pressed = true;
-			}
 			break;
 		case SDLK_o:
 			Game::constants->ReloadSettings();

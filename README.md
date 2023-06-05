@@ -12,8 +12,9 @@ My plan:
 	- Blood particles
 		* Add a ParticleSystem DONE
 		* Add a ParticleManager to manage and parse particles and their types DONE
-		* Change ParticleManager to a ParticleEmitter class and make ParticleManager hold a vector of emitters
-		* Add a ParticleComponent that communicates with the ParticleManager
+		* Change ParticleManager to a ParticleEmitter class and make ParticleManager hold a vector of emitters DONE
+		* Add a ParticleComponent that communicates with the ParticleManager DONE
+		* Optimize particles (better emitter deletion + a dedicated thread for particle calculations ? )
 	- Blood pools
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.

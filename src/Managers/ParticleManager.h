@@ -1,20 +1,20 @@
 #pragma once
-#include "Particles/ParticleSystem.h"
+#include "Particles/ParticleEmitter.h"
 #include "SDL_image.h"
 #include "TextureManager.h"
 
-class ParticleManager : public ParticleSystem
+class ParticleManager
 {
 public:
 	ParticleManager() {}
 	virtual ~ParticleManager() {}
 
-	void loadParticleData(const std::string& particleName);
+	std::shared_ptr<ParticleEmitter> addParticleEmitter(const std::string& particleName);
+	void removeParticleEmitter(const std::shared_ptr<ParticleEmitter>& particleEmitter);
 
-	SDL_Texture* getDefaultTexture()
-	{
-		std::string texturePath = "assets/images/particles/pixel.png";
-		static SDL_Texture* texture = TextureManager::loadTexture(texturePath);
-		return texture;
-	}
+	void update();
+	void draw();
+
+private:
+	std::vector<std::shared_ptr<ParticleEmitter>> particleEmitters;
 };

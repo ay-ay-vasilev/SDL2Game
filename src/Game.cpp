@@ -92,7 +92,6 @@ void Game::init()
 	assetManager->loadFonts();
 	keyboardManager->setActorSystem(actorSystem);
 	cameraManager->init();
-	particleManager->stopSystem();
 	label0.addComponent<ecs::UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
 	const std::string projectileFile = "test_projectile";
@@ -153,6 +152,7 @@ void Game::update(double delta)
 	{
 		manager->refresh();
 		manager->update(delta);
+		particleManager->update();
 		keyboardManager->update();
 		cameraManager->update();
 
