@@ -169,6 +169,14 @@ void ParticleManager::removeParticleEmitter(const std::shared_ptr<ParticleEmitte
 
 void ParticleManager::update()
 {
+	particleEmitters.erase(
+		std::remove_if(particleEmitters.begin(), particleEmitters.end(),
+			[](const std::shared_ptr<ParticleEmitter>& emitter) {
+				return !emitter->isActive() && emitter->getParticleCount() == 0;
+			}),
+		particleEmitters.end()
+	);
+
 	for (auto& particleEmitter : particleEmitters)
 	{
 		particleEmitter->update();

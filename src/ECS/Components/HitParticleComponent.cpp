@@ -11,37 +11,31 @@ void ecs::HitParticleComponent::init()
 
 void ecs::HitParticleComponent::play()
 {
-	if (!particleEmitter.expired())
-	{
-		if (particleEmitter.lock()->isActive()) return;
-		else
-		{
-			Game::particleManager->removeParticleEmitter(particleEmitter.lock());
-			particleEmitter.reset();
-		}
-	}
-
-	particleEmitter = Game::particleManager->addParticleEmitter(particleName);
-	auto particleEmitterLocked = particleEmitter.lock();
-	if (particleEmitterLocked)
+	std::weak_ptr<ParticleEmitter> hitParticleEmitter = Game::particleManager->addParticleEmitter(particleName);
+	auto hitParticleEmitterLocked = hitParticleEmitter.lock();
+	if (hitParticleEmitterLocked)
 	{
 		const auto entityPosition = transformComponent->getPosition();
 		const auto entityDirection = transformComponent->getDirection();
 
-		particleEmitterLocked->resetSystem();
-		particleEmitterLocked->setAngle(particleEmitterLocked->getAngle() * (entityDirection.x < 0 ? 1 : -1) + 180 * (entityDirection.x < 0 ? 0 : 1));
-		particleEmitterLocked->setStartSize(particleEmitterLocked->getStartSize() * Game::constants->SCALE);
-		particleEmitterLocked->setEndSize(particleEmitterLocked->getEndSize() * Game::constants->SCALE);
-		particleEmitterLocked->setPosition(entityPosition.x, entityPosition.y);
+		hitParticleEmitterLocked->resetSystem();
+		hitParticleEmitterLocked->setAngle(hitParticleEmitterLocked->getAngle() * (entityDirection.x < 0 ? 1 : -1) + 180 * (entityDirection.x < 0 ? 0 : 1));
+		hitParticleEmitterLocked->setStartSize(hitParticleEmitterLocked->getStartSize() * Game::constants->SCALE);
+		hitParticleEmitterLocked->setEndSize(hitParticleEmitterLocked->getEndSize() * Game::constants->SCALE);
+		hitParticleEmitterLocked->setPosition(entityPosition.x, entityPosition.y);
 	}
+	hitParticleEmitters.push_back(hitParticleEmitter);
 }
 
 void ecs::HitParticleComponent::update(double delta)
 {
-	auto particleEmitterLocked = particleEmitter.lock();
-	if (particleEmitterLocked)
+	for (auto hitParticleEmitter : hitParticleEmitters)
 	{
-		const auto position = transformComponent->getPosition();
-		particleEmitterLocked->setPosition(position.x, position.y);
+		auto hitParticleEmitterLocked = hitParticleEmitter.lock();
+		if (hitParticleEmitterLocked)
+		{
+			const auto position = transformComponent->getPosition();
+			hitParticleEmitterLocked->setPosition(position.x, position.y);
+		}
 	}
 }

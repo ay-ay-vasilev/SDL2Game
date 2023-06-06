@@ -19,7 +19,7 @@ namespace ecs
 	private:
 		std::string particleName;
 
-		std::weak_ptr<ParticleEmitter> particleEmitter;
+		std::vector<std::weak_ptr<ParticleEmitter>> hitParticleEmitters;
 		std::shared_ptr<TransformComponent> transformComponent;
 	};
 }
