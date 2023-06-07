@@ -1,14 +1,14 @@
 {
-	"texture": "assets/images/particles/pixel.png",
-	"maxParticles": 50,
-	"duration": 0.3,
+	"texture": "pixel",
+	"maxParticles": 100,
+	"duration": 0.15,
 	"mode": "GRAVITY",
-	"gravity": {"x": 0.0, "y": 60.0},
+	"gravity": {"x": 0.0, "y": 200.0},
 	"radialAccel": {"value": 0.0, "variance": 0.0},
 	"tangentialAccel": {"value": 0.0, "variance": 0.0},
-	"speed": {"value": -90.0, "variance": 25.0},
+	"speed": {"value": -200.0, "variance": 25.0},
 	"angle": {"value": 45.0, "variance": 20.0},
-	"life": {"value": 1.5, "variance": 1.0},
+	"life": {"value": 0.75, "variance": 0.5},
 	"startColor":
 	{
 		"value":{"r": 0.8, "g": 0.8, "b": 0.8, "a": 0.0},

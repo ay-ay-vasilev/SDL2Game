@@ -92,6 +92,7 @@ void Game::init()
 	assetManager->loadFonts();
 	keyboardManager->setActorSystem(actorSystem);
 	cameraManager->init();
+	particleManager->init();
 	label0.addComponent<ecs::UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
 	const std::string projectileFile = "test_projectile";

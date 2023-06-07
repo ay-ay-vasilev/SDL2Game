@@ -29,6 +29,7 @@
     <ClCompile Include="..\src\ECS\Components\AIComponentBasicFighter.cpp" />
     <ClCompile Include="..\src\ECS\Components\ArmorComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ColliderComponent.cpp" />
+    <ClCompile Include="..\src\ECS\Components\DebugParticleComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\FactionComponent.h" />
     <ClCompile Include="..\src\ECS\Components\HealthComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\HitboxComponent.cpp" />
@@ -77,6 +78,7 @@
     <ClInclude Include="..\src\ECS\Components\CameraComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h" />
     <ClInclude Include="..\src\ECS\Components\CorpseComponent.h" />
+    <ClInclude Include="..\src\ECS\Components\DebugParticleComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HealthComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HitboxComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HitParticleComponent.h" />

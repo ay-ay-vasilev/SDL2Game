@@ -67,7 +67,7 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 				const int currentHealth = actorHealthComponent->getHealth();
 
 				// =========== LOGGING ===========
-				auto entityName = weaponCollider->getTag() + "_" + std::to_string(hitboxEntity->getID());
+				/*auto entityName = weaponCollider->getTag() + "_" + std::to_string(hitboxEntity->getID());
 				if (hitboxEntity->hasComponent<ecs::ActorComponent>())
 				{
 					const auto actorComponent = hitboxEntity->getComponent<ecs::ActorComponent>();
@@ -75,7 +75,7 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 				}
 				std::cout
 					<< entityName << " got hit by " << weaponCollider->getTag() << " for " << damage << " damage! "
-					<< entityName << " has " << currentHealth << " hp left!\n";
+					<< entityName << " has " << currentHealth << " hp left!\n";*/
 				// ===============================
 
 				if (weaponCollider->isDestroyedOnHit())

@@ -4,7 +4,7 @@
 	"hit_particle": "bone_marrow",
 	"health":
 	{
-		"max_health": 20
+		"max_health": 2000
 	},
 	"collider_rect":
 	{

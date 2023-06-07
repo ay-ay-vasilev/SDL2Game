@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <assert.h>
 #include <string>
+#include <random>
 
 inline float Deg2Rad(float a)
 {
@@ -42,18 +43,22 @@ inline void normalize_point(float x, float y, Point* out)
 	out->y = y * n;
 }
 
-/**
-A more effect random number getter function, get from ejoy2d.
-*/
-inline static float RANDOM_M11(unsigned int* seed)
+inline static float RANDOM_M11()
 {
-	*seed = *seed * 134775813 + 1;
+	thread_local std::mt19937 rng(std::random_device{}());
+
+	std::uniform_int_distribution<unsigned int> seedDist(std::numeric_limits<unsigned int>::min(),
+		std::numeric_limits<unsigned int>::max());
+
+	unsigned int seed = seedDist(rng);
+
+	seed = seed * 134775813 + 1;
 	union
 	{
 		uint32_t d;
 		float f;
 	} u;
-	u.d = (((uint32_t)(*seed) & 0x7fff) << 8) | 0x40000000;
+	u.d = (((uint32_t)(seed) & 0x7fff) << 8) | 0x40000000;
 	return u.f - 3.0f;
 }
 
@@ -82,35 +87,35 @@ void ParticleEmitter::resetTotalParticles(int numberOfParticles)
 
 ParticleEmitter::~ParticleEmitter()
 {
+	SDL_DestroyTexture(_texture);
 }
 
 void ParticleEmitter::addParticles(int count)
 {
 	if (_paused) return;
-	uint32_t RANDSEED = rand();
 
 	int start = _particleCount;
 	_particleCount += count;
 
 	for (int i = start; i < _particleCount; ++i)
 	{
-		float theLife = _life + _lifeVar * RANDOM_M11(&RANDSEED);
+		float theLife = _life + _lifeVar * RANDOM_M11();
 		particle_data_[i].timeToLive = (std::max)(0.0f, theLife);
 	}
 
 	for (int i = start; i < _particleCount; ++i)
 	{
-		particle_data_[i].posx = _sourcePosition.x + _posVar.x * RANDOM_M11(&RANDSEED);
+		particle_data_[i].posx = _sourcePosition.x + _posVar.x * RANDOM_M11();
 	}
 
 	for (int i = start; i < _particleCount; ++i)
 	{
-		particle_data_[i].posy = _sourcePosition.y + _posVar.y * RANDOM_M11(&RANDSEED);
+		particle_data_[i].posy = _sourcePosition.y + _posVar.y * RANDOM_M11();
 	}
 
 #define SET_COLOR(c, b, v)																					\
 	for (int i = start; i < _particleCount; ++i)															\
-		particle_data_[i].c = clampf(b + v * RANDOM_M11(&RANDSEED), 0, 1);\
+		particle_data_[i].c = clampf(b + v * RANDOM_M11(), 0, 1);\
 
 	SET_COLOR(colorR, _startColor.r, _startColorVar.r);
 	SET_COLOR(colorG, _startColor.g, _startColorVar.g);
@@ -134,7 +139,7 @@ void ParticleEmitter::addParticles(int count)
 	//size
 	for (int i = start; i < _particleCount; ++i)
 	{
-		particle_data_[i].size = _startSize + _startSizeVar * RANDOM_M11(&RANDSEED);
+		particle_data_[i].size = _startSize + _startSizeVar * RANDOM_M11();
 		particle_data_[i].size = (std::max)(0.0f, particle_data_[i].size);
 	}
 
@@ -142,7 +147,7 @@ void ParticleEmitter::addParticles(int count)
 	{
 		for (int i = start; i < _particleCount; ++i)
 		{
-			float endSize = _endSize + _endSizeVar * RANDOM_M11(&RANDSEED);
+			float endSize = _endSize + _endSizeVar * RANDOM_M11();
 			endSize = (std::max)(0.0f, endSize);
 			particle_data_[i].deltaSize = (endSize - particle_data_[i].size) / particle_data_[i].timeToLive;
 		}
@@ -158,11 +163,11 @@ void ParticleEmitter::addParticles(int count)
 	// rotation
 	for (int i = start; i < _particleCount; ++i)
 	{
-		particle_data_[i].rotation = _startSpin + _startSpinVar * RANDOM_M11(&RANDSEED);
+		particle_data_[i].rotation = _startSpin + _startSpinVar * RANDOM_M11();
 	}
 	for (int i = start; i < _particleCount; ++i)
 	{
-		float endA = _endSpin + _endSpinVar * RANDOM_M11(&RANDSEED);
+		float endA = _endSpin + _endSpinVar * RANDOM_M11();
 		particle_data_[i].deltaRotation = (endA - particle_data_[i].rotation) / particle_data_[i].timeToLive;
 	}
 
@@ -187,13 +192,13 @@ void ParticleEmitter::addParticles(int count)
 		// radial accel
 		for (int i = start; i < _particleCount; ++i)
 		{
-			particle_data_[i].modeA.radialAccel = modeA.radialAccel + modeA.radialAccelVar * RANDOM_M11(&RANDSEED);
+			particle_data_[i].modeA.radialAccel = modeA.radialAccel + modeA.radialAccelVar * RANDOM_M11();
 		}
 
 		// tangential accel
 		for (int i = start; i < _particleCount; ++i)
 		{
-			particle_data_[i].modeA.tangentialAccel = modeA.tangentialAccel + modeA.tangentialAccelVar * RANDOM_M11(&RANDSEED);
+			particle_data_[i].modeA.tangentialAccel = modeA.tangentialAccel + modeA.tangentialAccelVar * RANDOM_M11();
 		}
 
 		// rotation is dir
@@ -201,9 +206,9 @@ void ParticleEmitter::addParticles(int count)
 		{
 			for (int i = start; i < _particleCount; ++i)
 			{
-				float a = Deg2Rad(_angle + _angleVar * RANDOM_M11(&RANDSEED));
+				float a = Deg2Rad(_angle + _angleVar * RANDOM_M11());
 				Vec2 v(cosf(a), sinf(a));
-				float s = modeA.speed + modeA.speedVar * RANDOM_M11(&RANDSEED);
+				float s = modeA.speed + modeA.speedVar * RANDOM_M11();
 				Vec2 dir = v * s;
 				particle_data_[i].modeA.dirX = dir.x;    //v * s ;
 				particle_data_[i].modeA.dirY = dir.y;
@@ -214,9 +219,9 @@ void ParticleEmitter::addParticles(int count)
 		{
 			for (int i = start; i < _particleCount; ++i)
 			{
-				float a = Deg2Rad(_angle + _angleVar * RANDOM_M11(&RANDSEED));
+				float a = Deg2Rad(_angle + _angleVar * RANDOM_M11());
 				Vec2 v(cosf(a), sinf(a));
-				float s = modeA.speed + modeA.speedVar * RANDOM_M11(&RANDSEED);
+				float s = modeA.speed + modeA.speedVar * RANDOM_M11();
 				Vec2 dir = v * s;
 				particle_data_[i].modeA.dirX = dir.x;    //v * s ;
 				particle_data_[i].modeA.dirY = dir.y;
@@ -229,17 +234,17 @@ void ParticleEmitter::addParticles(int count)
 	{
 		for (int i = start; i < _particleCount; ++i)
 		{
-			particle_data_[i].modeB.radius = modeB.startRadius + modeB.startRadiusVar * RANDOM_M11(&RANDSEED);
+			particle_data_[i].modeB.radius = modeB.startRadius + modeB.startRadiusVar * RANDOM_M11();
 		}
 
 		for (int i = start; i < _particleCount; ++i)
 		{
-			particle_data_[i].modeB.angle = Deg2Rad(_angle + _angleVar * RANDOM_M11(&RANDSEED));
+			particle_data_[i].modeB.angle = Deg2Rad(_angle + _angleVar * RANDOM_M11());
 		}
 
 		for (int i = start; i < _particleCount; ++i)
 		{
-			particle_data_[i].modeB.degreesPerSecond = Deg2Rad(modeB.rotatePerSecond + modeB.rotatePerSecondVar * RANDOM_M11(&RANDSEED));
+			particle_data_[i].modeB.degreesPerSecond = Deg2Rad(modeB.rotatePerSecond + modeB.rotatePerSecondVar * RANDOM_M11());
 		}
 
 		if (modeB.endRadius == START_RADIUS_EQUAL_TO_END_RADIUS)
@@ -253,7 +258,7 @@ void ParticleEmitter::addParticles(int count)
 		{
 			for (int i = start; i < _particleCount; ++i)
 			{
-				float endRadius = modeB.endRadius + modeB.endRadiusVar * RANDOM_M11(&RANDSEED);
+				float endRadius = modeB.endRadius + modeB.endRadiusVar * RANDOM_M11();
 				particle_data_[i].modeB.deltaRadius = (endRadius - particle_data_[i].modeB.radius) / particle_data_[i].timeToLive;
 			}
 		}
@@ -392,6 +397,7 @@ void ParticleEmitter::setTexture(SDL_Texture* var)
 {
 	if (_texture != var)
 	{
+		//SDL_DestroyTexture(_texture);
 		_texture = var;
 	}
 }
@@ -405,7 +411,7 @@ void ParticleEmitter::draw()
 	for (int i = 0; i < _particleCount; i++)
 	{
 		auto& p = particle_data_[i];
-		if (p.size <= 0 || p.colorA <= 0)
+		if (p.size <= 0 || p.colorA <= 0 || p.timeToLive <= 0)
 		{
 			continue;
 		}
@@ -416,7 +422,6 @@ void ParticleEmitter::draw()
 		SDL_SetTextureBlendMode(_texture, SDL_BLENDMODE_BLEND);
 		TextureManager::draw(_texture, nullptr, &r, p.rotation, SDL_FLIP_NONE);
 	}
-	update();
 }
 
 SDL_Texture* ParticleEmitter::getTexture()

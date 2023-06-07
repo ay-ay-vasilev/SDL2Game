@@ -3,18 +3,36 @@
 
 #include "wrappedJson.h"
 
-std::shared_ptr<ParticleEmitter> ParticleManager::addParticleEmitter(const std::string& particleName)
+ParticleManager::ParticleManager() {}
+
+ParticleManager::~ParticleManager()
+{
+}
+
+void ParticleManager::init()
+{
+	const auto particlesData = assets::getGeneralDataJson("particles")["particles"];
+	for (const auto particleName : particlesData)
+	{
+		loadParticleEmitterType(particleName);
+	}
+}
+
+void ParticleManager::loadParticleEmitterType(const std::string& particleName)
+{
+	auto particleEmitter = loadParticleEmitter(particleName);
+	particleEmitterTypes[particleName] = particleEmitter;
+}
+
+std::shared_ptr<ParticleEmitter> ParticleManager::loadParticleEmitter(const std::string& particleName)
 {
 	auto particleEmitter = std::make_shared<ParticleEmitter>();
 	nlohmann::json particleData;
 	particleData = assets::getParticleDataJson(particleName);
 
 	// texture
-	if (particleData.contains("texture")) particleEmitter->setTexture(TextureManager::loadTexture(particleData["texture"].get<std::string>()));
-	if (particleEmitter->getTexture())
-	{
-		particleEmitter->setTexture(TextureManager::loadTexture("assets/images/particles/pixel.png"));
-	}
+	if (particleData.contains("texture"))
+		particleEmitter->setTexture(TextureManager::getTextureFromSurface(Game::assetManager->getSurface(particleData["texture"].get<std::string>())));
 
 	// max particles
 	particleEmitter->initWithTotalParticles(particleData["maxParticles"].get<int>());
@@ -99,34 +117,34 @@ std::shared_ptr<ParticleEmitter> ParticleManager::addParticleEmitter(const std::
 	{
 		particleEmitter->setStartColor(
 		{
-				particleData["startColor"]["value"]["r"].get<float>(),
-				particleData["startColor"]["value"]["g"].get<float>(),
-				particleData["startColor"]["value"]["b"].get<float>(),
-				particleData["startColor"]["value"]["a"].get<float>()
+			particleData["startColor"]["value"]["r"].get<float>(),
+			particleData["startColor"]["value"]["g"].get<float>(),
+			particleData["startColor"]["value"]["b"].get<float>(),
+			particleData["startColor"]["value"]["a"].get<float>()
 		});
 		particleEmitter->setStartColorVar(
 		{
-				particleData["startColor"]["variance"]["r"].get<float>(),
-				particleData["startColor"]["variance"]["g"].get<float>(),
-				particleData["startColor"]["variance"]["b"].get<float>(),
-				particleData["startColor"]["variance"]["a"].get<float>()
+			particleData["startColor"]["variance"]["r"].get<float>(),
+			particleData["startColor"]["variance"]["g"].get<float>(),
+			particleData["startColor"]["variance"]["b"].get<float>(),
+			particleData["startColor"]["variance"]["a"].get<float>()
 		});
 	}
 	if (particleData.contains("endColor"))
 	{
 		particleEmitter->setEndColor(
-			{
-				particleData["endColor"]["value"]["r"].get<float>(),
-				particleData["endColor"]["value"]["g"].get<float>(),
-				particleData["endColor"]["value"]["b"].get<float>(),
-				particleData["endColor"]["value"]["a"].get<float>()
+		{
+			particleData["endColor"]["value"]["r"].get<float>(),
+			particleData["endColor"]["value"]["g"].get<float>(),
+			particleData["endColor"]["value"]["b"].get<float>(),
+			particleData["endColor"]["value"]["a"].get<float>()
 		});
 		particleEmitter->setEndColorVar(
-			{
-				particleData["endColor"]["variance"]["r"].get<float>(),
-				particleData["endColor"]["variance"]["g"].get<float>(),
-				particleData["endColor"]["variance"]["b"].get<float>(),
-				particleData["endColor"]["variance"]["a"].get<float>()
+		{
+			particleData["endColor"]["variance"]["r"].get<float>(),
+			particleData["endColor"]["variance"]["g"].get<float>(),
+			particleData["endColor"]["variance"]["b"].get<float>(),
+			particleData["endColor"]["variance"]["a"].get<float>()
 		});
 	}
 	// size, in pixels
@@ -156,9 +174,16 @@ std::shared_ptr<ParticleEmitter> ParticleManager::addParticleEmitter(const std::
 		particleEmitter->setEndSpin(particleData["endSpin"]["value"].get<float>());
 		particleEmitter->setEndSpinVar(particleData["endSpin"]["variance"].get<float>());
 	}
-
-	particleEmitters.push_back(particleEmitter);
 	return particleEmitter;
+}
+
+std::shared_ptr<ParticleEmitter> ParticleManager::addParticleEmitter(const std::string& particleName)
+{
+	const auto particleEmitter = particleEmitterTypes[particleName];
+	const auto newEmitter = std::make_shared<ParticleEmitter>(*particleEmitter);
+	newEmitter->setTexture(TextureManager::getTextureFromSurface(Game::assetManager->getSurface("pixel")));
+	particleEmitters.push_back(newEmitter);
+	return newEmitter;
 }
 
 void ParticleManager::removeParticleEmitter(const std::shared_ptr<ParticleEmitter>& particleEmitter)
@@ -177,9 +202,59 @@ void ParticleManager::update()
 		particleEmitters.end()
 	);
 
-	for (auto& particleEmitter : particleEmitters)
+	const int numEmitters = particleEmitters.size();
+	const int numThreads = SDL_GetCPUCount();
+
+	if (numEmitters < numThreads)
 	{
-		particleEmitter->update();
+		for (auto& particleEmitter : particleEmitters)
+		{
+			particleEmitter->update();
+		}
+	}
+	else
+	{
+		const int emittersPerThread = numEmitters / numThreads;
+		const int remainingEmitters = numEmitters % numThreads;
+
+		std::vector<SDL_Thread*> threads(numThreads);
+
+		int emitterIndex = 0;
+
+		for (int i = 0; i < numThreads; ++i)
+		{
+			int numEmittersInBatch = emittersPerThread;
+			if (i < remainingEmitters)
+			{
+				numEmittersInBatch++;
+			}
+
+			auto emittersBatch = new std::vector<std::shared_ptr<ParticleEmitter>>(
+				particleEmitters.begin() + emitterIndex,
+				particleEmitters.begin() + emitterIndex + numEmittersInBatch
+			);
+
+			threads[i] = SDL_CreateThread([](void* data) {
+				auto emittersBatch = static_cast<std::vector<std::shared_ptr<ParticleEmitter>>*>(data);
+
+				for (auto& particleEmitter : *emittersBatch)
+				{
+					particleEmitter->update();
+				}
+
+				delete emittersBatch;
+
+				return 0;
+				}, "ParticleThread", emittersBatch);
+
+			emitterIndex += numEmittersInBatch;
+		}
+
+		for (int i = 0; i < numThreads; ++i)
+		{
+			int threadReturnValue;
+			SDL_WaitThread(threads[i], &threadReturnValue);
+		}
 	}
 }
 

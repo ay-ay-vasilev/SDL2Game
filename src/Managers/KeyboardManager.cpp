@@ -3,10 +3,12 @@
 #include "ActorSystem.h"
 #include "KeyboardComponent.h"
 #include "TransformComponent.h"
+#include "DebugParticleComponent.h"
 #include "SDL.h"
 #include "Game.h"
 
 #include "CameraManager.h"
+#include "ParticleManager.h"
 
 KeyboardManager::KeyboardManager(std::shared_ptr<ecs::Manager> manager) : manager(manager) {}
 
@@ -26,17 +28,20 @@ void KeyboardManager::handleEvents()
 {
 	if (actorSystem)
 	{
-		auto playerPosition = manager->getGroup(Game::eGroupLabels::PLAYERS).front()->getComponent<ecs::TransformComponent>()->getPosition();
-		const auto playerDirection = manager->getGroup(Game::eGroupLabels::PLAYERS).front()->getComponent<ecs::TransformComponent>()->getDirection();
-		const auto playerVelocity = manager->getGroup(Game::eGroupLabels::PLAYERS).front()->getComponent<ecs::TransformComponent>()->getVelocity();
-		const auto playerSpeed = manager->getGroup(Game::eGroupLabels::PLAYERS).front()->getComponent<ecs::TransformComponent>()->getSpeed();
-
 		const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
 		switch (Game::gameEvent.key.keysym.sym)
 		{
 		case SDLK_ESCAPE:
 			Game::isRunning = false;
 			pressed = true;
+			break;
+		case SDLK_p:
+			if (!pressed)
+			{
+				for (const auto& controlledEntity : controlledEntities)
+					controlledEntity->getComponent<ecs::DebugParticleComponent>()->play();
+				pressed = true;
+			}
 			break;
 		case SDLK_o:
 			Game::constants->ReloadSettings();
@@ -83,7 +88,7 @@ void KeyboardManager::handleEvents()
 			break;
 		}
 
-		if (!keyboardState[SDL_SCANCODE_ESCAPE] && !keyboardState[SDL_SCANCODE_TAB] &&
+		if (!keyboardState[SDL_SCANCODE_ESCAPE] && !keyboardState[SDL_SCANCODE_P] &&
 			!keyboardState[SDL_SCANCODE_O] &&
 			!keyboardState[SDL_SCANCODE_1] && !keyboardState[SDL_SCANCODE_2] &&
 			!keyboardState[SDL_SCANCODE_3] && !keyboardState[SDL_SCANCODE_4] &&

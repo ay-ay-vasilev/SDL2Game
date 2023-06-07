@@ -75,10 +75,10 @@ void ecs::WeaponComponent::init()
 
 	std::string texturePath;
 	if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(weaponCollider)) {
-		texturePath = "assets/images/misc/weapon_collider_rect.png";
+		texturePath = "assets/images/misc/debug/weapon_collider_rect.png";
 	}
 	else if (auto circleCollider = std::dynamic_pointer_cast<CircleCollider>(weaponCollider)) {
-		texturePath = "assets/images/misc/weapon_collider_circle.png";
+		texturePath = "assets/images/misc/debug/weapon_collider_circle.png";
 	}
 	texture = TextureManager::loadTexture(texturePath);
 	srcRect = { 0, 0, 32, 32 };

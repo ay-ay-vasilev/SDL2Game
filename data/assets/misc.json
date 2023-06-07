@@ -8,8 +8,9 @@
 			{
 				"textures":
 				[
-					{"name" : "test_projectile", "path": "test_projectile.png" },
-					{"name" : "black", "path": "black.png" }
+					{"name" : "test_projectile", "path": "debug/test_projectile.png" },
+					{"name" : "black", "path": "util/black.png" },
+					{"name" : "pixel", "path": "particles/pixel.png" }
 				]
 			}
 		}

@@ -1,23 +1,23 @@
 {
-	"texture": "assets/images/particles/pixel.png",
-	"maxParticles": 500,
-	"duration": 0.3,
+	"texture": "pixel",
+	"maxParticles": 100,
+	"duration": 0.15,
 	"mode": "GRAVITY",
-	"gravity": {"x": 0.0, "y": 90.0},
+	"gravity": {"x": 0.0, "y": 400.0},
 	"radialAccel": {"value": 0.0, "variance": 0.0},
 	"tangentialAccel": {"value": 0.0, "variance": 0.0},
-	"speed": {"value": -90.0, "variance": 25.0},
+	"speed": {"value": -200.0, "variance": 25.0},
 	"angle": {"value": 45.0, "variance": 20.0},
-	"life": {"value": 1.5, "variance": 1.0},
+	"life": {"value": 0.4, "variance": 0.5},
 	"startColor":
 	{
-		"value":{"r": 0.6, "g": 0.0, "b": 0.0, "a": 1.0},
-		"variance":{"r": 0.1, "g": 0.1, "b": 0.1, "a": 0.1}
+		"value":{"r": 0.6, "g": 0.0, "b": 0.0, "a": 0.0},
+		"variance":{"r": 0.1, "g": 0.1, "b": 0.1, "a": 0.0}
 	},
 	"endColor":
 	{
-		"value":{"r": 0.2, "g": 0.0, "b": 0.0, "a": 0.0},
-		"variance":{"r": 0.1, "g": 0.0, "b": 0.0, "a": 0.0}
+		"value":{"r": 0.2, "g": 0.0, "b": 0.0, "a": 1.0},
+		"variance":{"r": 0.1, "g": 0.0, "b": 0.0, "a": 0.1}
 	},
 	"startSize": {"value": 1.0, "variance": 1.0},
 	"endSize": {"value": 1.0, "variance": 0.0},

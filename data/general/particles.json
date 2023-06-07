@@ -1,0 +1,11 @@
+{
+    "particles":
+    [
+        "blood",
+        "bone_marrow",
+        "energy_shield",
+        "fireball",
+        "fountain",
+        "torch"
+    ]
+}
