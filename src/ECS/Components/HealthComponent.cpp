@@ -1,6 +1,5 @@
 #include "HealthComponent.h"
 #include "HitboxComponent.h"
-#include "HitParticleComponent.h"
 
 ecs::HealthComponent::HealthComponent(const nlohmann::json& healthData) :
 	maxHealthValue(healthData.value("max_health", 0)),
@@ -27,11 +26,7 @@ bool ecs::HealthComponent::changeHealth(int value)
 {
 	if (dead) return false;
 
-	if (value < 0)
-	{
-		auto hitParticleComponent = entity->getComponent<ecs::HitParticleComponent>();
-		if (hitParticleComponent) hitParticleComponent->play();
-	}
+	if (value < 0) sendSignal("hit");
 
 	healthValue = std::clamp(healthValue + value, 0, maxHealthValue);
 	return true;

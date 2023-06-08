@@ -26,6 +26,8 @@ Maintenance:
 - Set proper surface sizes (unarmed bug)
 - Maybe rework particle drawing to make it not draw at the top ?
 	* Draw particles through components instead of through the manager ? (inherit from DrawableComponent)
+- Fix animations (attack animation morphs into idle for a frame)
+- Fix corpse drawing (draw them in the background)
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.

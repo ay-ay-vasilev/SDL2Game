@@ -11,49 +11,35 @@ void ecs::DebugParticleComponent::init()
 
 void ecs::DebugParticleComponent::play()
 {
-	if (!active)
-	{
-		active = true;
-		emitter = Game::particleManager->addParticleEmitter(particleName);
-		if (emitter.expired()) return;
+	emitter = Game::particleManager->addParticleEmitter(particleName);
+	if (emitter.expired()) return;
 
-		auto emitterLocked = emitter.lock();
-		if (emitterLocked)
-		{
-			const auto entityPosition = transformComponent->getPosition();
-			const auto entityDirection = transformComponent->getDirection();
-
-			emitterLocked->resetSystem();
-			emitterLocked->setAngle(emitterLocked->getAngle() * (entityDirection.x < 0 ? 1 : -1) + 180 * (entityDirection.x < 0 ? 0 : 1));
-			emitterLocked->setStartSize(emitterLocked->getStartSize() * Game::constants->SCALE);
-			emitterLocked->setEndSize(emitterLocked->getEndSize() * Game::constants->SCALE);
-			emitterLocked->setPosition(entityPosition.x, entityPosition.y);
-		}
-	}
-	else
+	auto emitterLocked = emitter.lock();
+	if (emitterLocked)
 	{
-		active = false;
-		auto emitterLocked = emitter.lock();
-		if (emitterLocked)
-		{
-			Game::particleManager->removeParticleEmitter(emitterLocked);
-		}
-		emitter.reset();
+		const auto entityPosition = transformComponent->getPosition();
+		const auto entityDirection = transformComponent->getDirection();
+
+		emitterLocked->resetSystem();
+		emitterLocked->setAngle(emitterLocked->getAngle() * (entityDirection.x < 0 ? 1 : -1) + 180 * (entityDirection.x < 0 ? 0 : 1));
+		emitterLocked->setStartSize(emitterLocked->getStartSize() * Game::constants->SCALE);
+		emitterLocked->setEndSize(emitterLocked->getEndSize() * Game::constants->SCALE);
+		emitterLocked->setPosition(entityPosition.x, entityPosition.y);
 	}
 }
 
 void ecs::DebugParticleComponent::update(double delta)
 {
-	if (emitter.expired())
-	{
-		if (active) active = false;
-		return;
-	}
+	//if (emitter.expired())
+	//{
+	//	if (active) active = false;
+	//	return;
+	//}
 
-	auto emitterLocked = emitter.lock();
-	if (emitterLocked)
-	{
-		const auto position = transformComponent->getPosition();
-		emitterLocked->setPosition(position.x, position.y);
-	}
+	//auto emitterLocked = emitter.lock();
+	//if (emitterLocked)
+	//{
+	//	const auto position = transformComponent->getPosition();
+	//	emitterLocked->setPosition(position.x, position.y);
+	//}
 }

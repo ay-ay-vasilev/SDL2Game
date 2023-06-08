@@ -1,5 +1,6 @@
 #include "HitParticleComponent.h"
 #include "TransformComponent.h"
+#include "HealthComponent.h"
 #include "ParticleManager.h"
 
 ecs::HitParticleComponent::HitParticleComponent(const std::string& name) : particleName(name) {}
@@ -7,6 +8,8 @@ ecs::HitParticleComponent::HitParticleComponent(const std::string& name) : parti
 void ecs::HitParticleComponent::init()
 {
 	transformComponent = entity->getComponent<TransformComponent>();
+	healthComponent = entity->getComponent<HealthComponent>();
+	registerWithSubject(healthComponent);
 }
 
 void ecs::HitParticleComponent::play()
@@ -47,4 +50,9 @@ void ecs::HitParticleComponent::update(double delta)
 			hitParticleEmitterLocked->setPosition(position.x, position.y);
 		}
 	}
+}
+
+void ecs::HitParticleComponent::onNotify(const std::string_view& observedEvent)
+{
+	if (observedEvent == "hit") play();
 }
