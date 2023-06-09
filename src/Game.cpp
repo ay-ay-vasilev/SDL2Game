@@ -7,8 +7,11 @@
 #include "ProjectileSystem.h"
 #include "AISystem.h"
 #include "FactionSystem.h"
+#include "SplatterSystem.h"
 
 #include "UILabelComponent.h"
+#include "KeyboardComponent.h"
+#include "TransformComponent.h"
 
 #include "AssetManager.h"
 #include "Constants.h"
@@ -27,24 +30,11 @@ std::unique_ptr<KeyboardManager> Game::keyboardManager = std::make_unique<Keyboa
 std::unique_ptr<CameraManager> Game::cameraManager = std::make_unique<CameraManager>(manager);
 std::unique_ptr<ParticleManager> Game::particleManager = std::make_unique<ParticleManager>();
 
-// Systems
-auto renderSystem(Game::manager->addSystem<ecs::RenderSystem>());
-auto mapSystem(Game::manager->addSystem<ecs::MapSystem>());
-auto collisionSystem(Game::manager->addSystem<ecs::CollisionSystem>());
-auto hitboxWeaponCollisionSystem(Game::manager->addSystem<ecs::HitboxWeaponCollisionSystem>());
-auto actorSystem(Game::manager->addSystem<ecs::ActorSystem>());
-auto projectileSystem(Game::manager->addSystem<ecs::ProjectileSystem>());
-auto aiSystem(Game::manager->addSystem<ecs::AISystem>());
-auto factionSystem(Game::manager->addSystem<ecs::FactionSystem>());
-
-// Entities
-ecs::Entity* player;
-
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::gameEvent;
-
 bool Game::isRunning = false;
 
+// test - remove later
 auto& label0(Game::manager->addEntity());
 
 Game::Game() : window(nullptr), count(0) {}
@@ -87,6 +77,17 @@ void Game::init()
 
 	if (TTF_Init() == -1) std::cout << "Error: SDL_TTF\n";
 
+	// Systems
+	auto actorSystem(Game::manager->addSystem<ecs::ActorSystem>());
+	auto projectileSystem(Game::manager->addSystem<ecs::ProjectileSystem>());
+	auto mapSystem(Game::manager->addSystem<ecs::MapSystem>());
+	Game::manager->addSystem<ecs::RenderSystem>();
+	Game::manager->addSystem<ecs::CollisionSystem>();
+	Game::manager->addSystem<ecs::HitboxWeaponCollisionSystem>();
+	Game::manager->addSystem<ecs::AISystem>();
+	Game::manager->addSystem<ecs::FactionSystem>();
+	Game::manager->addSystem<ecs::SplatterSystem>();
+
 	manager->setScale(constants->SCALE);
 	assetManager->loadSurfaces();
 	assetManager->loadFonts();
@@ -102,7 +103,7 @@ void Game::init()
 	projectileSystem->instantiateProjectile(Vector2D(33.33f, 50.f), Vector2D(2.f, 2.f), projectileFile);
 	projectileSystem->instantiateProjectile(Vector2D(100.f, 33.33f), Vector2D(-2.f, 2.f), projectileFile);
 
-	player = actorSystem->instantiatePlayer(constants->PLAYER_POS, constants->PLAYER_RACE);
+	auto player = actorSystem->instantiatePlayer(constants->PLAYER_POS, constants->PLAYER_RACE);
 	actorSystem->addRandomCustomization(*player);
 
 	for (const auto& humanData : constants->HUMAN_POS)
@@ -157,8 +158,9 @@ void Game::update(double delta)
 		keyboardManager->update();
 		cameraManager->update();
 
-		const auto& playerPosition = player->getComponent<ecs::TransformComponent>()->getPosition();
-		
+		const auto& players = manager->getEntitiesWithComponent<ecs::KeyboardComponent>();
+		const Vector2D& playerPosition = players[0]->getComponent<ecs::TransformComponent>()->getPosition();
+
 		std::stringstream ss0;
 		ss0 << "Player position: " << playerPosition;
 		label0.getComponent<ecs::UILabelComponent>()->SetLabelText(ss0.str(), "arial");

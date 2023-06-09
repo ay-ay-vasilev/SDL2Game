@@ -159,6 +159,12 @@
     <ClCompile Include="..\src\ECS\Components\DebugParticleComponent.cpp">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ECS\Components\SplatterComponent.cpp">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ECS\Systems\SplatterSystem.cpp">
+      <Filter>Source Files\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">
@@ -298,6 +304,12 @@
     </ClInclude>
     <ClInclude Include="..\src\ECS\Components\DebugParticleComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\SplatterComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Systems\SplatterSystem.h">
+      <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

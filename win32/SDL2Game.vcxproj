@@ -37,6 +37,7 @@
     <ClCompile Include="..\src\ECS\Components\KeyboardComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ProjectileComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ShadowComponent.cpp" />
+    <ClCompile Include="..\src\ECS\Components\SplatterComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\SpriteComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\SpriteOutlineComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\TileComponent.cpp" />
@@ -52,6 +53,7 @@
     <ClCompile Include="..\src\ECS\Systems\HitboxWeaponCollisionSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\MapSystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\ProjectileSystem.cpp" />
+    <ClCompile Include="..\src\ECS\Systems\SplatterSystem.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Managers\AssetManager.cpp" />
@@ -85,6 +87,7 @@
     <ClInclude Include="..\src\ECS\Components\KeyboardComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ProjectileComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ShadowComponent.h" />
+    <ClInclude Include="..\src\ECS\Components\SplatterComponent.h" />
     <ClInclude Include="..\src\ECS\Components\SpriteComponent.h" />
     <ClInclude Include="..\src\ECS\Components\SpriteOutlineComponent.h" />
     <ClInclude Include="..\src\ECS\Components\TileComponent.h" />
@@ -100,6 +103,7 @@
     <ClInclude Include="..\src\ECS\Systems\MapSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\ProjectileSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\RenderSystem.h" />
+    <ClInclude Include="..\src\ECS\Systems\SplatterSystem.h" />
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\LibWrappers\wrappedJson.h" />
     <ClInclude Include="..\src\Managers\AssetManager.h" />

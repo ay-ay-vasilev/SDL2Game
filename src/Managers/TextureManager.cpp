@@ -1,6 +1,7 @@
 #include "TextureManager.h"
 #include "CameraManager.h"
 #include "Sprite.h"
+#include "Vector2D.h"
 #include <stdexcept>
 
 SDL_Texture* TextureManager::loadTexture(const std::string& fileName)
@@ -80,6 +81,47 @@ void TextureManager::applyColorMapping(SDL_Surface* surface, const std::vector<s
 	}
 
 	// Unlock the surface
+	SDL_UnlockSurface(surface);
+}
+
+void TextureManager::applySplatter(SDL_Surface* surface, const SDL_Rect offset, Vector2D splatterCenter, const int splatterRadius)
+{
+	// Lock the surface to access the pixel data
+	SDL_LockSurface(surface);
+
+	int left = std::max(0, static_cast<int>(splatterCenter.x) - splatterRadius);
+	int right = std::min(surface->w, static_cast<int>(splatterCenter.x) + splatterRadius);
+	int top = std::max(0, static_cast<int>(splatterCenter.y) - splatterRadius);
+	int bottom = std::min(surface->h, static_cast<int>(splatterCenter.y) + splatterRadius);
+
+	for (int y = top + offset.y; y <= bottom + offset.y; ++y)
+	{
+		for (int x = left + offset.x; x <= right + offset.x; ++x)
+		{
+			const auto currentPixelPos = Vector2D(x, y);
+			const auto splatterCenterWithOffset = splatterCenter + Vector2D(offset.x, offset.y);
+
+			auto distance = Vector2D::Distance(currentPixelPos, splatterCenterWithOffset);
+			if (distance <= splatterRadius)
+			{
+				Uint32 pixel = get_pixel(surface, x, y);
+				// Extract the RGBA components from the pixel color
+				Uint8 r, g, b, a;
+				SDL_GetRGBA(pixel, surface->format, &r, &g, &b, &a);
+
+				if (!a) continue;
+
+				r = std::min(r + 100, 255); // Red
+				g = std::max(g - 100, 0);   // Green
+				b = std::max(b - 100, 0);   // Blue
+
+				pixel = SDL_MapRGBA(surface->format, r, g, b, a);
+				set_pixel(surface, x, y, pixel);
+			}
+		}
+	}
+
+	// Unlock the surface after modifying the pixel data
 	SDL_UnlockSurface(surface);
 }
 

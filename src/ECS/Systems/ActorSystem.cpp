@@ -16,6 +16,7 @@
 #include "ShadowComponent.h"
 #include "CorpseComponent.h"
 #include "HitParticleComponent.h"
+#include "SplatterComponent.h"
 #include "DebugParticleComponent.h"
 
 #include <random>
@@ -118,6 +119,7 @@ ecs::Entity* ecs::ActorSystem::instantiateActor(const Vector2D& pos, const std::
 	actor.addComponent<ecs::FactionComponent>(actorData.contains("faction") ? actorData["faction"] : "neutral");
 	actor.addComponent<ecs::CorpseComponent>();
 	actor.addComponent<ecs::HitParticleComponent>(actorData["hit_particle"]);
+	actor.addComponent<ecs::SplatterComponent>();
 
 	actor.addGroup(Game::eGroupLabels::ACTORS);
 
@@ -149,6 +151,7 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 	player.addComponent<ecs::CameraComponent>();
 	player.addComponent<ecs::CorpseComponent>();
 	player.addComponent<ecs::HitParticleComponent>(playerData["hit_particle"]);
+	player.addComponent<ecs::SplatterComponent>();
 
 	if (playerData.contains("debug"))
 	{
