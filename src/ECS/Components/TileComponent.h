@@ -18,16 +18,20 @@ namespace ecs
 		void update(double delta) override;
 		void draw() override;
 
+		void addSprite(const std::shared_ptr<Sprite>& sprite);
 		void updateTexture();
-		void applySplatter(Vector2D splatterCenter, int splatterRadius);
 
 		Vector2D inline getPosition() const { return position; }
+		SDL_Rect inline getSrcRect() const { return srcRect; }
+		SDL_Rect inline getDestRect() const { return destRect; }
+		SDL_Rect inline getSurfaceRect() const { return surfaceRect; }
 		int inline getTileSize() const { return srcRect.w; }
 
 	private:
 		std::vector<std::shared_ptr<Sprite>> sprites;
 		SDL_Texture* texture;
 		SDL_Rect srcRect, destRect;
+		SDL_Rect surfaceRect;
 		Vector2D position{};
 	};
 }

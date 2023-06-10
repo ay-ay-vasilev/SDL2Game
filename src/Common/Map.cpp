@@ -3,6 +3,7 @@
 #include "ECS.h"
 #include "ColliderComponent.h"
 #include "TileComponent.h"
+#include "TileSplatterComponent.h"
 
 #include <fstream>
 #include <iostream>
@@ -31,6 +32,7 @@ void Map::addTile(const int srcX, const int srcY, const int xpos, const int ypos
 {
 	auto& tile(Game::manager->addEntity());
 	tile.addComponent<ecs::TileComponent>(srcX, srcY, xpos, ypos, tileSize, surfaceId);
+	tile.addComponent<ecs::TileSplatterComponent>();
 	tile.addGroup(Game::eGroupLabels::MAP);
 }
 

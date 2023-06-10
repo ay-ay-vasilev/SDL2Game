@@ -41,6 +41,7 @@
     <ClCompile Include="..\src\ECS\Components\SpriteComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\SpriteOutlineComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\TileComponent.cpp" />
+    <ClCompile Include="..\src\ECS\Components\TileSplatterComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\TintComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\UILabelComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\WeaponComponent.cpp" />
@@ -91,6 +92,7 @@
     <ClInclude Include="..\src\ECS\Components\SpriteComponent.h" />
     <ClInclude Include="..\src\ECS\Components\SpriteOutlineComponent.h" />
     <ClInclude Include="..\src\ECS\Components\TileComponent.h" />
+    <ClInclude Include="..\src\ECS\Components\TileSplatterComponent.h" />
     <ClInclude Include="..\src\ECS\Components\TintComponent.h" />
     <ClInclude Include="..\src\ECS\Components\TransformComponent.h" />
     <ClInclude Include="..\src\ECS\Components\UILabelComponent.h" />

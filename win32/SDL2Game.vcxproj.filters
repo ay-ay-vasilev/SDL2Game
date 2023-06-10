@@ -165,6 +165,9 @@
     <ClCompile Include="..\src\ECS\Systems\SplatterSystem.cpp">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ECS\Components\TileSplatterComponent.cpp">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">
@@ -310,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ECS\Systems\SplatterSystem.h">
       <Filter>Source Files\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\TileSplatterComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

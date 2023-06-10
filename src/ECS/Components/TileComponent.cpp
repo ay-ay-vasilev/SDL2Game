@@ -10,7 +10,9 @@ ecs::TileComponent::TileComponent(const int srcX, const int srcY, const int xpos
 	position { static_cast<float>(xpos), static_cast<float>(ypos) }
 {
 	const auto stringId = std::string(surfaceId);
-	sprites.emplace_back(std::make_shared<Sprite>(stringId, 0));
+	const auto sprite = std::make_shared<Sprite>(stringId, 0);
+	surfaceRect = SDL_Rect(0, 0, sprite->getSurface()->w, sprite->getSurface()->h);
+	sprites.emplace_back(sprite);
 }
 
 ecs::TileComponent::~TileComponent()
@@ -33,25 +35,15 @@ void ecs::TileComponent::draw()
 	TextureManager::draw(texture, srcRect, destRect);
 }
 
+void ecs::TileComponent::addSprite(const std::shared_ptr<Sprite>& sprite)
+{
+	sprites.emplace_back(sprite);
+	updateTexture();
+}
+
 void ecs::TileComponent::updateTexture()
 {
 	SDL_DestroyTexture(texture);
+	std::sort(sprites.begin(), sprites.end(), [](auto& a, auto& b) { return a->getZ() < b->getZ(); });
 	texture = TextureManager::getCombinedTexture(sprites);
-}
-
-void ecs::TileComponent::applySplatter(Vector2D splatterCenter, int splatterRadius)
-{
-	// Iterate through the sprites in the tile
-	for (const auto& sprite : sprites)
-	{
-		// Get the sprite's surface
-		SDL_Surface* surface = sprite->getSurface();
-
-		Vector2D localSplatterCenter = splatterCenter - position;
-		localSplatterCenter.x /= Game::manager->getScale();
-		localSplatterCenter.y /= Game::manager->getScale();
-
-		TextureManager::applySplatter(surface, srcRect, localSplatterCenter, splatterRadius);
-	}
-	updateTexture();
 }

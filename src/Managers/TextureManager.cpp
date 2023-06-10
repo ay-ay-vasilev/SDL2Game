@@ -90,30 +90,28 @@ void TextureManager::applySplatter(SDL_Surface* surface, const SDL_Rect offset, 
 	SDL_LockSurface(surface);
 
 	int left = std::max(0, static_cast<int>(splatterCenter.x) - splatterRadius);
-	int right = std::min(surface->w, static_cast<int>(splatterCenter.x) + splatterRadius);
+	int right = std::min(offset.w, static_cast<int>(splatterCenter.x) + splatterRadius);
 	int top = std::max(0, static_cast<int>(splatterCenter.y) - splatterRadius);
-	int bottom = std::min(surface->h, static_cast<int>(splatterCenter.y) + splatterRadius);
+	int bottom = std::min(offset.h, static_cast<int>(splatterCenter.y) + splatterRadius);
 
-	for (int y = top + offset.y; y <= bottom + offset.y; ++y)
+	for (int y = top; y < bottom; ++y)
 	{
-		for (int x = left + offset.x; x <= right + offset.x; ++x)
+		for (int x = left; x < right; ++x)
 		{
 			const auto currentPixelPos = Vector2D(x, y);
-			const auto splatterCenterWithOffset = splatterCenter + Vector2D(offset.x, offset.y);
 
-			auto distance = Vector2D::Distance(currentPixelPos, splatterCenterWithOffset);
-			if (distance <= splatterRadius)
+			auto distance = Vector2D::Distance(currentPixelPos, splatterCenter);
+			if (std::abs(distance) < splatterRadius)
 			{
 				Uint32 pixel = get_pixel(surface, x, y);
 				// Extract the RGBA components from the pixel color
 				Uint8 r, g, b, a;
 				SDL_GetRGBA(pixel, surface->format, &r, &g, &b, &a);
 
-				if (!a) continue;
-
 				r = std::min(r + 100, 255); // Red
 				g = std::max(g - 100, 0);   // Green
 				b = std::max(b - 100, 0);   // Blue
+				a = 255;
 
 				pixel = SDL_MapRGBA(surface->format, r, g, b, a);
 				set_pixel(surface, x, y, pixel);

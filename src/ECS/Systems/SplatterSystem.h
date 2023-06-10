@@ -13,7 +13,7 @@ namespace ecs
 		void draw() override;
 
 		void checkForSplatter();
-		void applySplatterToTile(Vector2D pos);
+		void applySplatterToTile(Vector2D splatterPos, int splatterRadius);
 
 	private:
 		std::vector<Entity*> splatterEntities;
