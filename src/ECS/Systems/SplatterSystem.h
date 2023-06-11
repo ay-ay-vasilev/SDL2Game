@@ -1,6 +1,7 @@
 #pragma once
 #include "ECS.h"
 
+class Splatter;
 namespace ecs
 {
 	class SplatterSystem : public System
@@ -13,7 +14,7 @@ namespace ecs
 		void draw() override;
 
 		void checkForSplatter();
-		void applySplatterToTile(Vector2D splatterPos, int splatterRadius);
+		void applySplatterToTile(Splatter& splatterData);
 
 	private:
 		std::vector<Entity*> splatterEntities;

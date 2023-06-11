@@ -3,6 +3,7 @@
 #include "TileSplatterComponent.h"
 #include "TileComponent.h"
 
+#include "Splatter.h"
 #include "Game.h"
 #include <queue>
 
@@ -29,15 +30,42 @@ void ecs::SplatterSystem::checkForSplatter()
 
 		if (splatterComponent->needToCreateSplatter())
 		{
-			applySplatterToTile(splatterComponent->getSplatterData().splatterPosition, 10);
+
+			int minRadius = 5;
+			int maxRadius = 7;
+			int randomRadius = minRadius + std::rand() % (maxRadius - minRadius + 1);
+
+			int minOffset = 0;
+			int maxOffset = 20;
+
+			// Generate a random offset value between minOffset and maxOffset
+			int offsetX = std::rand() % (maxOffset - minOffset + 1) + minOffset;
+			int offsetY = std::rand() % (maxOffset - minOffset + 1) + minOffset;
+
+			// Randomly choose the sign for the offset
+			if (std::rand() % 2 == 0) offsetX *= -1;
+			if (std::rand() % 2 == 0) offsetY *= -1;
+
+			auto splatterPosition = splatterComponent->getSplatterData().splatterPosition;
+
+			auto splatterData = Splatter(splatterPosition, randomRadius, 1.0f, {70, 70}, {5, 5}, {15, 15}, {200, 200});
+			applySplatterToTile(splatterData);
+			
+			splatterPosition.x += offsetX;
+			splatterPosition.y += offsetY;
+			splatterData.setSplatterCenter(splatterPosition);
+
+			applySplatterToTile(splatterData);
 			splatterComponent->setNeedToCreateSplatter(false);
 		}
 	}
 }
 
-void ecs::SplatterSystem::applySplatterToTile(Vector2D splatterPos, int splatterRadius)
+void ecs::SplatterSystem::applySplatterToTile(Splatter& splatterData)
 {
 	auto tileSplatterEntities = manager.getEntitiesWithComponent<ecs::TileSplatterComponent>();
+	const auto splatterPos = splatterData.getSplatterCenter();
+	const auto splatterRadius = splatterData.getSplatterRadius();
 
 	int tileIndexX = static_cast<int>(splatterPos.x / (Game::constants->TILE_SIZE * Game::constants->SCALE));
 	int tileIndexY = static_cast<int>(splatterPos.y / (Game::constants->TILE_SIZE * Game::constants->SCALE));
@@ -83,7 +111,7 @@ void ecs::SplatterSystem::applySplatterToTile(Vector2D splatterPos, int splatter
 			isTileInRadius = true;
 		}
 
-		tileSplatterComponent->applySplatter(splatterPos, splatterRadius);
+		tileSplatterComponent->applySplatter(splatterData);
 
 		if (isTileInRadius)
 		{

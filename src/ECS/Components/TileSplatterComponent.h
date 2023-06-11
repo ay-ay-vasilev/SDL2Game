@@ -4,7 +4,7 @@
 #include <SDL_render.h>
 
 class Sprite;
-
+class Splatter;
 namespace ecs
 {
 	class TileComponent;
@@ -19,7 +19,7 @@ namespace ecs
 		void update(double delta) override;
 		void draw() override;
 
-		void applySplatter(Vector2D splatterCenter, int splatterRadius);
+		void applySplatter(Splatter& splatterData);
 	private:
 		std::shared_ptr<TileComponent> tileComponent;
 		SDL_Surface* splatterSurface;

@@ -3,6 +3,7 @@
 
 #include "TextureManager.h"
 #include "Sprite.h"
+#include "Splatter.h"
 
 ecs::TileSplatterComponent::~TileSplatterComponent()
 {
@@ -36,15 +37,17 @@ void ecs::TileSplatterComponent::draw()
 	TextureManager::draw(splatterTexture, srcRect, destRect);
 }
 
-void ecs::TileSplatterComponent::applySplatter(Vector2D splatterCenter, int splatterRadius)
+void ecs::TileSplatterComponent::applySplatter(Splatter& splatterData)
 {
 	const auto position = tileComponent->getPosition();
 
-	Vector2D localSplatterCenter = splatterCenter - position;
+	Vector2D localSplatterCenter = splatterData.getSplatterCenter() - position;
 	localSplatterCenter.x /= Game::manager->getScale();
 	localSplatterCenter.y /= Game::manager->getScale();
+	
+	splatterData.setSplatterCenter(localSplatterCenter);
 
-	TextureManager::applySplatter(splatterSurface, srcRect, localSplatterCenter, splatterRadius);
+	TextureManager::applySplatter(splatterSurface, srcRect, splatterData);
 
 	SDL_DestroyTexture(splatterTexture);
 	splatterTexture = TextureManager::getTextureFromSurface(splatterSurface);

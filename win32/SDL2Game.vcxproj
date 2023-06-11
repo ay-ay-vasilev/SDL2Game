@@ -70,6 +70,7 @@
     <ClInclude Include="..\src\Common\Collision.h" />
     <ClInclude Include="..\src\Common\Map.h" />
     <ClInclude Include="..\src\Common\Observer.h" />
+    <ClInclude Include="..\src\Common\Splatter.h" />
     <ClInclude Include="..\src\Common\Sprite.h" />
     <ClInclude Include="..\src\Common\Subject.h" />
     <ClInclude Include="..\src\Common\Vector2D.h" />

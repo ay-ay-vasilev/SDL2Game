@@ -28,7 +28,7 @@ void Map::loadMap(const std::string& path, const int sizeX, const int sizeY)
 	loadCollisions(path, sizeX, sizeY);
 }
 
-void Map::addTile(const int srcX, const int srcY, const int xpos, const int ypos)
+void Map::addTile(const int tileNum, const int srcX, const int srcY, const int xpos, const int ypos)
 {
 	auto& tile(Game::manager->addEntity());
 	tile.addComponent<ecs::TileComponent>(srcX, srcY, xpos, ypos, tileSize, surfaceId);
@@ -58,7 +58,7 @@ void Map::loadTiles(const std::string& path, const int sizeX, const int sizeY)
 			std::cout << tileNum << "\t";
 			srcX = (tileNum % tileSetCols) * tileSize;
 			srcY = (tileNum / tileSetCols) * tileSize;
-			addTile(srcX, srcY, static_cast<int>(x * scaledSize), static_cast<int>(y * scaledSize));
+			addTile(tileNum, srcX, srcY, static_cast<int>(x * scaledSize), static_cast<int>(y * scaledSize));
 
 			if (lineStream.peek() == ',')
 			{

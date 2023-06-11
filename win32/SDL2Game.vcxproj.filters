@@ -317,6 +317,9 @@
     <ClInclude Include="..\src\ECS\Components\TileSplatterComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Common\Splatter.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\art\player.png">
