@@ -2,6 +2,16 @@
 	"faction": "goblins",
 	"speed": 1.66,
 	"hit_particle": "blood",
+	"splatter":
+	{
+		"radius": {"min": 5, "max": 7},
+		"offset": {"min": 0, "max": 4},
+		"intensity": 0.6,
+		"red": {"min": 70, "max": 70},
+		"green": {"min": 5, "max": 5},
+		"blue": {"min": 15, "max": 15},
+		"alpha": {"min": 200, "max": 200}
+	},
 	"health":
 	{
 		"max_health": 2000

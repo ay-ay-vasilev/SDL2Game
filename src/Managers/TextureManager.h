@@ -13,7 +13,7 @@ public:
 	static SDL_Surface* loadSurface(const std::string& fileName);
 
 	static void applyColorMapping(SDL_Surface* surface, const std::vector<std::pair<SDL_Color, SDL_Color>>& colorMapping);
-	static void applySplatter(SDL_Surface* surface, const SDL_Rect offset, const Splatter& splatterData);
+	static void applySplatter(SDL_Surface* surface, const Vector2D& position, const int tileSize, const Splatter& splatterData);
 
 	static SDL_Texture* getTextureFromSurface(SDL_Surface* surface, const std::optional<SDL_Color>& textureColor = std::nullopt);
 	static SDL_Texture* getCombinedTexture(const std::vector<std::shared_ptr<Sprite>>& sortedSprites, const std::optional<SDL_Color>& textureColor = std::nullopt);

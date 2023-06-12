@@ -8,9 +8,6 @@ Stuff to remember:
 3. Scene manager to "switch" levels
 
 My plan:
-- Add corpses and death animations
-	- Blood particles DONE
-	- Blood pools 
 - Ranged weapon for player.
 - Add a simple menu screen + UI system.
 - Add simple sounds.
@@ -23,11 +20,14 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
+- Fix warnings
 - Set proper surface sizes (unarmed bug)
 - Maybe rework particle drawing to make it not draw at the top ?
 	* Draw particles through components instead of through the manager ? (inherit from DrawableComponent)
 - Fix animations (attack animation morphs into idle for a frame)
 - Fix corpse drawing (draw them in the background)
+- Fix black bg texture scaling (again)
+- Fix scale issues with particles and splatters (if broken)
 - JSON files for AI.
 - Add map json.
 - Fix Tile-Collider logic.

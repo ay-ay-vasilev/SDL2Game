@@ -85,37 +85,21 @@ void TextureManager::applyColorMapping(SDL_Surface* surface, const std::vector<s
 	SDL_UnlockSurface(surface);
 }
 
-void TextureManager::applySplatter(SDL_Surface* surface, const SDL_Rect offset, const Splatter& splatterData)
+void TextureManager::applySplatter(SDL_Surface* surface, const Vector2D& position, const int tileSize, const Splatter& splatterData)
 {
-	Vector2D splatterCenter = splatterData.getSplatterCenter();
-	int splatterRadius = splatterData.getSplatterRadius();
-
+	Vector2D splatterCenter = position;
 	splatterCenter.x = std::floor(splatterCenter.x);
 	splatterCenter.y = std::floor(splatterCenter.y);
 
+	int splatterRadius = splatterData.getSplatterRadius();
+
 	int left = std::max(0, static_cast<int>(splatterCenter.x) - splatterRadius);
-	int right = std::min(offset.w, static_cast<int>(splatterCenter.x) + splatterRadius);
+	int right = std::min(tileSize, static_cast<int>(splatterCenter.x) + splatterRadius);
 	int top = std::max(0, static_cast<int>(splatterCenter.y) - splatterRadius);
-	int bottom = std::min(offset.h, static_cast<int>(splatterCenter.y) + splatterRadius);
+	int bottom = std::min(tileSize, static_cast<int>(splatterCenter.y) + splatterRadius);
 
-	if (left > right || top > bottom) return;
+	if (left >= right || top >= bottom) return;
 
-	// Lock the surface to access the pixel data
-	SDL_LockSurface(surface);
-
-	/*int minRedValue = 70;
-	int maxRedValue = 70;
-
-	int minGreenValue = 5;
-	int maxGreenValue = 5;
-
-	int minBlueValue = 15;
-	int maxBlueValue = 15;
-
-	int minAlphaValue = 200;
-	int maxAlphaValue = 200;
-
-	float intensity = 0.8f;*/
 
 	int minRedValue = splatterData.getRedRange().first;
 	int maxRedValue = splatterData.getRedRange().second;
@@ -127,6 +111,13 @@ void TextureManager::applySplatter(SDL_Surface* surface, const SDL_Rect offset, 
 	int maxAlphaValue = splatterData.getAlphaRange().second;
 	float intensity = splatterData.getIntensity();
 
+	Uint8 newRed = minRedValue + std::rand() % (maxRedValue - minRedValue + 1);
+	Uint8 newGreen = minGreenValue + std::rand() % (maxGreenValue - minGreenValue + 1);
+	Uint8 newBlue = minBlueValue + std::rand() % (maxBlueValue - minBlueValue + 1);
+	Uint8 newAlpha = minAlphaValue + std::rand() % (maxAlphaValue - minAlphaValue + 1);
+
+	// Lock the surface to access the pixel data
+	SDL_LockSurface(surface);
 	for (int y = top; y < bottom; ++y)
 	{
 		for (int x = left; x < right; ++x)
@@ -147,19 +138,18 @@ void TextureManager::applySplatter(SDL_Surface* surface, const SDL_Rect offset, 
 				Uint8 r, g, b, a;
 				SDL_GetRGBA(pixel, surface->format, &r, &g, &b, &a);
 
-				if (a > 0) continue;
+				if (a == newAlpha) continue;
 
-				r = minRedValue + std::rand() % (maxRedValue - minRedValue + 1);
-				g = minGreenValue + std::rand() % (maxGreenValue - minGreenValue + 1);
-				b = minBlueValue + std::rand() % (maxBlueValue - minBlueValue + 1);
-				a = minAlphaValue + std::rand() % (maxAlphaValue - minAlphaValue + 1);
+				r = newRed;
+				g = newGreen;
+				b = newBlue;
+				a = newAlpha;
 
 				pixel = SDL_MapRGBA(surface->format, r, g, b, a);
 				set_pixel(surface, x, y, pixel);
 			}
 		}
 	}
-
 	// Unlock the surface after modifying the pixel data
 	SDL_UnlockSurface(surface);
 }

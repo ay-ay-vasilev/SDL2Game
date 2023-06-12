@@ -30,29 +30,37 @@ void ecs::SplatterSystem::checkForSplatter()
 
 		if (splatterComponent->needToCreateSplatter())
 		{
+			const auto& splatterSettings = splatterComponent->getSplatterSettings();
 
-			int minRadius = 5;
-			int maxRadius = 7;
-			int randomRadius = minRadius + std::rand() % (maxRadius - minRadius + 1);
+			float minRadius = splatterSettings.radiusRange.first;
+			float maxRadius = splatterSettings.radiusRange.second;
+			float randomRadius = minRadius + (static_cast<float>(std::rand()) / RAND_MAX) * (maxRadius - minRadius);
 
-			int minOffset = 0;
-			int maxOffset = 20;
+			std::cout << "min: " << minRadius << " max: " << maxRadius << "\n";
+			std::cout << "radius: " << randomRadius << "\n";
+
+			float minOffset = splatterSettings.offsetRange.first;
+			float maxOffset = splatterSettings.offsetRange.second;
 
 			// Generate a random offset value between minOffset and maxOffset
-			int offsetX = std::rand() % (maxOffset - minOffset + 1) + minOffset;
-			int offsetY = std::rand() % (maxOffset - minOffset + 1) + minOffset;
-
+			float offsetX = minOffset + (static_cast<float>(std::rand()) / RAND_MAX) * (maxOffset - minOffset);
+			float offsetY = minOffset + (static_cast<float>(std::rand()) / RAND_MAX) * (maxOffset - minOffset);
 			// Randomly choose the sign for the offset
-			if (std::rand() % 2 == 0) offsetX *= -1;
-			if (std::rand() % 2 == 0) offsetY *= -1;
+			if (std::rand() % 2 == 0) offsetX *= -1.f;
+			if (std::rand() % 2 == 0) offsetY *= -1.f;
 
-			auto splatterPosition = splatterComponent->getSplatterData().splatterPosition;
+			auto splatterPosition = splatterComponent->getSplatterSettings().splatterPosition;
 
-			auto splatterData = Splatter(splatterPosition, randomRadius, 1.0f, {70, 70}, {5, 5}, {15, 15}, {200, 200});
+			auto splatterData = Splatter
+			(
+				splatterPosition, randomRadius, splatterSettings.intensity,
+				splatterSettings.redRange, splatterSettings.greenRange, splatterSettings.blueRange, splatterSettings.alphaRange
+			);
+
 			applySplatterToTile(splatterData);
 			
-			splatterPosition.x += offsetX;
-			splatterPosition.y += offsetY;
+			splatterPosition.x += offsetX * Game::constants->SCALE;
+			splatterPosition.y += offsetY * Game::constants->SCALE;
 			splatterData.setSplatterCenter(splatterPosition);
 
 			applySplatterToTile(splatterData);
@@ -61,7 +69,7 @@ void ecs::SplatterSystem::checkForSplatter()
 	}
 }
 
-void ecs::SplatterSystem::applySplatterToTile(Splatter& splatterData)
+void ecs::SplatterSystem::applySplatterToTile(const Splatter& splatterData)
 {
 	auto tileSplatterEntities = manager.getEntitiesWithComponent<ecs::TileSplatterComponent>();
 	const auto splatterPos = splatterData.getSplatterCenter();

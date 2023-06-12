@@ -14,7 +14,7 @@ namespace ecs
 		void draw() override;
 
 		void checkForSplatter();
-		void applySplatterToTile(Splatter& splatterData);
+		void applySplatterToTile(const Splatter& splatterData);
 
 	private:
 		std::vector<Entity*> splatterEntities;

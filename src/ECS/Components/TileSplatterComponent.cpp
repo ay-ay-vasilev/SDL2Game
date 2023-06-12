@@ -37,17 +37,15 @@ void ecs::TileSplatterComponent::draw()
 	TextureManager::draw(splatterTexture, srcRect, destRect);
 }
 
-void ecs::TileSplatterComponent::applySplatter(Splatter& splatterData)
+void ecs::TileSplatterComponent::applySplatter(const Splatter& splatterData)
 {
 	const auto position = tileComponent->getPosition();
 
 	Vector2D localSplatterCenter = splatterData.getSplatterCenter() - position;
 	localSplatterCenter.x /= Game::manager->getScale();
 	localSplatterCenter.y /= Game::manager->getScale();
-	
-	splatterData.setSplatterCenter(localSplatterCenter);
 
-	TextureManager::applySplatter(splatterSurface, srcRect, splatterData);
+	TextureManager::applySplatter(splatterSurface, localSplatterCenter, tileComponent->getTileSize(), splatterData);
 
 	SDL_DestroyTexture(splatterTexture);
 	splatterTexture = TextureManager::getTextureFromSurface(splatterSurface);

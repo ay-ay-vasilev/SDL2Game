@@ -2,6 +2,16 @@
 	"faction": "undead",
 	"speed": 0.7,
 	"hit_particle": "bone_marrow",
+	"splatter":
+	{
+		"radius": {"min": 5, "max": 7},
+		"offset": {"min": 0, "max": 4},
+		"intensity": 0.1,
+		"red": {"min": 140, "max": 140},
+		"green": {"min": 120, "max": 120},
+		"blue": {"min": 100, "max": 100},
+		"alpha": {"min": 140, "max": 140}
+	},
 	"health":
 	{
 		"max_health": 2000

@@ -19,7 +19,7 @@ namespace ecs
 		void update(double delta) override;
 		void draw() override;
 
-		void applySplatter(Splatter& splatterData);
+		void applySplatter(const Splatter& splatterData);
 	private:
 		std::shared_ptr<TileComponent> tileComponent;
 		SDL_Surface* splatterSurface;
