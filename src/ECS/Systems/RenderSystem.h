@@ -22,13 +22,15 @@ namespace ecs
 			SDL_DestroyTexture(blackTexture);
 		}
 
+		void init() override
+		{
+			blackTexture = TextureManager::getTextureFromSurface(Game::assetManager->getSurface("black"));
+			blackSrcRect = { 0, 0, 1, 1 };
+			blackDestRect = { 0, 0, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT };
+		}
+
 		void update(double delta) override
 		{
-			if (!blackTexture)
-			{
-				blackTexture = TextureManager::getTextureFromSurface(Game::assetManager->getSurface("black"));
-			}
-
 			sortedEntities.clear();
 			tiles = manager.getGroup(Game::eGroupLabels::MAP);
 			const auto entitiesWithCollision = manager.getEntitiesWithComponent<ecs::ColliderComponent>();
@@ -51,8 +53,7 @@ namespace ecs
 
 		void draw() override
 		{
-			const auto cameraBounds = Game::cameraManager->getCameraBounds();
-			TextureManager::draw(blackTexture, SDL_Rect(0, 0, 1, 1), SDL_Rect(cameraBounds.x, cameraBounds.y, Game::constants->SCREEN_WIDTH - cameraBounds.x, Game::constants->SCREEN_HEIGHT - cameraBounds.y));
+			TextureManager::draw(blackTexture, blackSrcRect, blackDestRect, 0, SDL_FLIP_NONE, false);
 
 			for (const auto& tile : tiles) tile->draw();
 			for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();
@@ -72,5 +73,7 @@ namespace ecs
 		std::vector<EntityZValue> sortedEntities;
 
 		SDL_Texture* blackTexture; // todo: remove
+		SDL_Rect blackSrcRect;
+		SDL_Rect blackDestRect;
 	};
 }

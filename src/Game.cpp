@@ -77,6 +77,10 @@ void Game::init()
 
 	if (TTF_Init() == -1) std::cout << "Error: SDL_TTF\n";
 
+	manager->setScale(constants->SCALE);
+	assetManager->loadSurfaces();
+	assetManager->loadFonts();
+
 	// Systems
 	auto actorSystem(Game::manager->addSystem<ecs::ActorSystem>());
 	auto projectileSystem(Game::manager->addSystem<ecs::ProjectileSystem>());
@@ -88,12 +92,10 @@ void Game::init()
 	Game::manager->addSystem<ecs::FactionSystem>();
 	Game::manager->addSystem<ecs::SplatterSystem>();
 
-	manager->setScale(constants->SCALE);
-	assetManager->loadSurfaces();
-	assetManager->loadFonts();
 	keyboardManager->setActorSystem(actorSystem);
 	cameraManager->init();
 	particleManager->init();
+
 	label0.addComponent<ecs::UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
 	const std::string projectileFile = "test_projectile";

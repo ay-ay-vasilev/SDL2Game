@@ -26,7 +26,6 @@ Maintenance:
 	* Draw particles through components instead of through the manager ? (inherit from DrawableComponent)
 - Fix animations (attack animation morphs into idle for a frame)
 - Fix corpse drawing (draw them in the background)
-- Fix black bg texture scaling (again)
 - Fix scale issues with particles and splatters (if broken)
 - JSON files for AI.
 - Add map json.
