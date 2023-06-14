@@ -14,7 +14,7 @@
 	},
 	"health":
 	{
-		"max_health": 2000
+		"max_health": 50
 	},
 	"collider_rect":
 	{
@@ -72,6 +72,6 @@
 	},
 	"debug":
 	{
-		"particle": "fireball"
+		"particle": "torch"
 	}
 }

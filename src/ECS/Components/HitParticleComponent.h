@@ -7,7 +7,7 @@ namespace ecs
 {
 	class TransformComponent;
 	class HealthComponent;
-	class HitParticleComponent : public Component, public Observer
+	class HitParticleComponent : public DrawableComponent, public Observer
 	{
 	public:
 		explicit HitParticleComponent(const std::string& name);
@@ -16,6 +16,7 @@ namespace ecs
 		// Component
 		void init() override;
 		void update(double delta) override;
+		void draw() override;
 
 		// Observer
 		void onNotify(const std::string_view& observedEvent) override;

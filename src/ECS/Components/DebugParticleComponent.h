@@ -5,7 +5,7 @@ class ParticleEmitter;
 namespace ecs
 {
 	class TransformComponent;
-	class DebugParticleComponent : public Component
+	class DebugParticleComponent : public DrawableComponent
 	{
 	public:
 		explicit DebugParticleComponent(const std::string& name);
@@ -14,6 +14,7 @@ namespace ecs
 		// Component
 		void init() override;
 		void update(double delta) override;
+		void draw() override;
 
 		void play();
 	private:

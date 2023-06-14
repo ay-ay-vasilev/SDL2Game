@@ -17,7 +17,6 @@ public:
 
 	void init();
 	void update();
-	void draw();
 
 private:
 	std::unordered_map<std::string, std::shared_ptr<ParticleEmitter>> particleEmitterTypes;

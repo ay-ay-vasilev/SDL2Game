@@ -14,7 +14,7 @@
 	},
 	"health":
 	{
-		"max_health": 2000
+		"max_health": 20
 	},
 	"collider_rect":
 	{

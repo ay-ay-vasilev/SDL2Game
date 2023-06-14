@@ -21,6 +21,7 @@ namespace ecs
 
 		const int inline getHealth() const { return healthValue; }
 		const int inline getMaxHealth() const { return maxHealthValue; }
+
 		const bool inline isDead() const { return dead; }
 
 	private:

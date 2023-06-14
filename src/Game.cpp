@@ -173,7 +173,6 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	manager->draw();
-	particleManager->draw();
 	SDL_RenderPresent(renderer);
 }
 

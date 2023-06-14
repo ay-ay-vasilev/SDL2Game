@@ -36,9 +36,6 @@ void ecs::SplatterSystem::checkForSplatter()
 			float maxRadius = splatterSettings.radiusRange.second;
 			float randomRadius = minRadius + (static_cast<float>(std::rand()) / RAND_MAX) * (maxRadius - minRadius);
 
-			std::cout << "min: " << minRadius << " max: " << maxRadius << "\n";
-			std::cout << "radius: " << randomRadius << "\n";
-
 			float minOffset = splatterSettings.offsetRange.first;
 			float maxOffset = splatterSettings.offsetRange.second;
 
@@ -53,7 +50,7 @@ void ecs::SplatterSystem::checkForSplatter()
 
 			auto splatterData = Splatter
 			(
-				splatterPosition, randomRadius, splatterSettings.intensity,
+				splatterPosition, static_cast<int>(randomRadius), splatterSettings.intensity,
 				splatterSettings.redRange, splatterSettings.greenRange, splatterSettings.blueRange, splatterSettings.alphaRange
 			);
 
@@ -100,7 +97,7 @@ void ecs::SplatterSystem::applySplatterToTile(const Splatter& splatterData)
 		// Check if any of the four vertices of the tile is within the specified radius
 		bool isTileInRadius = false;
 		const auto tilePosition = tileComponent->getPosition();
-		int tileSize = tileComponent->getTileSize() * Game::constants->SCALE;
+		float tileSize = static_cast<float>(tileComponent->getTileSize()) * Game::constants->SCALE;
 
 		const auto topLeft = tilePosition;
 		const auto topRight = tilePosition + Vector2D(tileSize, 0);

@@ -5,6 +5,7 @@
 #include "ColliderComponent.h"
 #include "HitboxComponent.h"
 #include "WeaponComponent.h"
+#include "CorpseComponent.h"
 #include "UILabelComponent.h"
 
 #include "AssetManager.h"
@@ -16,7 +17,7 @@ namespace ecs
 	class RenderSystem : public System
 	{
 	public:
-		explicit RenderSystem(Manager& manager) : System(manager), blackTexture(nullptr) {}
+		explicit RenderSystem(Manager& manager) : System(manager), blackTexture(nullptr), blackSrcRect(), blackDestRect() {}
 		~RenderSystem() override
 		{
 			SDL_DestroyTexture(blackTexture);
@@ -40,12 +41,21 @@ namespace ecs
 				const auto colliderComponent = entity->getComponent<ecs::ColliderComponent>();
 				const double x = colliderComponent->getCollider()->getPosition().x;
 				const double z = colliderComponent->getLowestPoint();
-				sortedEntities.push_back({ entity, x, z });
+
+				bool background = false;
+				const auto corpseComponent = entity->getComponent<ecs::CorpseComponent>();
+				if (corpseComponent)
+				{
+					if (corpseComponent->isCorpse()) background = true;
+				}
+				sortedEntities.push_back({ entity, x, z, background });
 			}
 
 			std::sort(sortedEntities.begin(), sortedEntities.end(),
 				[](const EntityZValue& a, const EntityZValue& b)
 				{
+					if (a.background && !b.background) return true;
+					if (b.background && !a.background) return false;
 					if (a.entityZ == b.entityZ) return a.entityX > b.entityX;
 					return a.entityZ < b.entityZ;
 				});
@@ -68,6 +78,7 @@ namespace ecs
 			ecs::Entity* entity;
 			double entityX;
 			double entityZ;
+			bool background;
 		};
 		std::vector<ecs::Entity*> tiles;
 		std::vector<EntityZValue> sortedEntities;

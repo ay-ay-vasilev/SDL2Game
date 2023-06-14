@@ -7,6 +7,7 @@ ecs::HitParticleComponent::HitParticleComponent(const std::string& name) : parti
 
 void ecs::HitParticleComponent::init()
 {
+	setRenderOrder(1);
 	transformComponent = entity->getComponent<TransformComponent>();
 	healthComponent = entity->getComponent<HealthComponent>();
 	registerWithSubject(healthComponent);
@@ -27,7 +28,7 @@ void ecs::HitParticleComponent::play()
 		hitParticleEmitterLocked->setAngle(hitParticleEmitterLocked->getAngle() * (entityDirection.x < 0 ? 1 : -1) + 180 * (entityDirection.x < 0 ? 0 : 1));
 		hitParticleEmitterLocked->setStartSize(hitParticleEmitterLocked->getStartSize() * Game::constants->SCALE);
 		hitParticleEmitterLocked->setEndSize(hitParticleEmitterLocked->getEndSize() * Game::constants->SCALE);
-		hitParticleEmitterLocked->setPosition(entityPosition.x, entityPosition.y);
+		hitParticleEmitterLocked->setPosition(static_cast<int>(entityPosition.x), static_cast<int>(entityPosition.y));
 	}
 	hitParticleEmitters.push_back(hitParticleEmitter);
 }
@@ -47,7 +48,19 @@ void ecs::HitParticleComponent::update(double delta)
 		if (hitParticleEmitterLocked)
 		{
 			const auto position = transformComponent->getPosition();
-			hitParticleEmitterLocked->setPosition(position.x, position.y);
+			hitParticleEmitterLocked->setPosition(static_cast<int>(position.x), static_cast<int>(position.y));
+		}
+	}
+}
+
+void ecs::HitParticleComponent::draw()
+{
+	for (auto hitParticleEmitter : hitParticleEmitters)
+	{
+		auto hitParticleEmitterLocked = hitParticleEmitter.lock();
+		if (hitParticleEmitterLocked)
+		{
+			hitParticleEmitterLocked->draw();
 		}
 	}
 }

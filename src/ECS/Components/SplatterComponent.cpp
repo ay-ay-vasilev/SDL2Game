@@ -54,8 +54,8 @@ void ecs::SplatterComponent::createSplatter()
 	needSplatter = true;
 
 	const auto colliderComponent = entity->getComponent<ecs::ColliderComponent>();
-	const double x = colliderComponent->getCollider()->getPosition().x;
-	const double y = colliderComponent->getLowestPoint();
+	const float x = colliderComponent->getCollider()->getPosition().x;
+	const float y = colliderComponent->getLowestPoint();
 
 	splatterSettings.splatterPosition = Vector2D(x, y);
 }

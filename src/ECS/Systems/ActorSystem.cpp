@@ -216,14 +216,14 @@ void ecs::ActorSystem::equipRandomArmor(ecs::Entity& actor)
 	{
 		if (!equipmentMap.empty())
 		{
-			std::uniform_int_distribution<> dis(0, equipmentMap.size() - 1);
+			std::uniform_int_distribution<> dis(0, static_cast<int>(equipmentMap.size()) - 1);
 			const int equipmentIndex = dis(gen);
 			auto it = std::next(equipmentMap.begin(), equipmentIndex);
 
 			auto equipmentItem = *it;
 			if (equipmentItem.first != "none")
 			{
-				std::uniform_int_distribution<> dis(0, equipmentItem.second.size() - 1);
+				std::uniform_int_distribution<> dis(0, static_cast<int>(equipmentItem.second.size()) - 1);
 				const int colorIndex = dis(gen);
 				armorComponent->equipArmorToSlot(equipmentItem.first, actorType, slotName, equipmentItem.second[colorIndex]);
 			}
@@ -242,7 +242,7 @@ void ecs::ActorSystem::equipRandomWeapon(ecs::Entity& actor)
 
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> dis(0, weaponsVector.size() - 1);
+	std::uniform_int_distribution<> dis(0, static_cast<int>(weaponsVector.size()) - 1);
 
 	const int weaponIndex = dis(gen);
 	const auto weaponName = weaponsVector[weaponIndex] == "none" ? "unarmed" : weaponsVector[weaponIndex];
@@ -277,13 +277,13 @@ void ecs::ActorSystem::addRandomCustomization(ecs::Entity& actor)
 		color.clear();
 		if (colors.count(spriteGroupName))
 		{
-			std::uniform_int_distribution<> colorDistribution(0, colors[spriteGroupName].size() - 1);
+			std::uniform_int_distribution<> colorDistribution(0, static_cast<int>(colors[spriteGroupName].size()) - 1);
 			color = colors[spriteGroupName][colorDistribution(gen)];
 		}
 
 		for (const auto sprite : spriteGroup.second)
 		{
-			std::uniform_int_distribution<> surfacesDistribution(0, sprite.availableSurfaces.size() - 1);
+			std::uniform_int_distribution<> surfacesDistribution(0, static_cast<int>(sprite.availableSurfaces.size()) - 1);
 			const auto surfaceId = sprite.availableSurfaces[surfacesDistribution(gen)];
 
 			if (surfaceId == "none") continue;

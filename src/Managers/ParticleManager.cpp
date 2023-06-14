@@ -257,11 +257,3 @@ void ParticleManager::update()
 		}
 	}
 }
-
-void ParticleManager::draw()
-{
-	for (auto& particleEmitter : particleEmitters)
-	{
-		particleEmitter->draw();
-	}
-}
