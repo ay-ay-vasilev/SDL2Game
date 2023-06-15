@@ -16,8 +16,8 @@ public:
 		else surface = Game::assetManager->getSurface(stringId);
 	}
 
-	const double getZ() const { return z; }
-	SDL_Surface* getSurface() const { return surface; }
+	const double inline getZ() const { return z; }
+	SDL_Surface inline* getSurface() const { return surface; }
 
 private:
 	const double z;

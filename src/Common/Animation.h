@@ -10,12 +10,12 @@ public:
 		triggerFrames(triggerFrames.begin(), triggerFrames.end()),
 		actionName(actionName) {}
 
-	const int getStartFrame() const { return startFrame; }
-	const int getAnimIndex() const { return animIndex; }
-	const int getNumOfFrames() const { return numOfFrames; }
-	const int getAnimSpeed() const { return animSpeed; }
-	const std::vector<int> getTriggerFrames() const{ return triggerFrames; }
-	const std::string getActionName() const { return actionName; }
+	const int inline getStartFrame() const { return startFrame; }
+	const int inline getAnimIndex() const { return animIndex; }
+	const int inline getNumOfFrames() const { return numOfFrames; }
+	const int inline getAnimSpeed() const { return animSpeed; }
+	const std::vector<int> inline getTriggerFrames() const{ return triggerFrames; }
+	const std::string inline getActionName() const { return actionName; }
 
 private:
 	const int startFrame{ 0 };

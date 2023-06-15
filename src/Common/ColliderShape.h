@@ -30,19 +30,19 @@ public:
 	float getOverlapX(const std::shared_ptr<ColliderShape>& other) const override;
 	float getOverlapY(const std::shared_ptr<ColliderShape>& other) const override;
 
-	void setPosition(const Vector2D& newPosition) override { position = { newPosition.x - w / 2, newPosition.y - h / 2 }; }
-	void movePosition(const Vector2D& positionDelta) override { position += positionDelta; }
-	Vector2D getPosition() const override { return { position.x, position.y }; }
-	SDL_Rect getDrawRect() const override { return { static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(w), static_cast<int>(h) }; }
-	void setScale(float scaleVal) override
+	void inline setPosition(const Vector2D& newPosition) override { position = { newPosition.x - w / 2, newPosition.y - h / 2 }; }
+	void inline movePosition(const Vector2D& positionDelta) override { position += positionDelta; }
+	Vector2D inline getPosition() const override { return { position.x, position.y }; }
+	SDL_Rect inline getDrawRect() const override { return { static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(w), static_cast<int>(h) }; }
+	void inline setScale(float scaleVal) override
 	{
 		const Vector2D originalPosition{ position.x + w / 2, position.y + h / 2 };
 		w *= scaleVal; h *= scaleVal;
 		setPosition({ originalPosition.x - w / 2, originalPosition.y - h / 2 });
 	}
-	float getWidth() const override { return w; }
-	float getHeight() const override { return h; }
-	float getLowestPoint() const override { return position.y + w / 2; }
+	float inline getWidth() const override { return w; }
+	float inline getHeight() const override { return h; }
+	float inline getLowestPoint() const override { return position.y + w / 2; }
 private:
 	Vector2D position;
 	float w, h;
@@ -57,15 +57,15 @@ public:
 	float getOverlapX(const std::shared_ptr<ColliderShape>& other) const;
 	float getOverlapY(const std::shared_ptr<ColliderShape>& other) const;
 
-	void setPosition(const Vector2D& newPosition) override { position = newPosition; }
-	void movePosition(const Vector2D& positionDelta) override { position += positionDelta; }
-	Vector2D getPosition() const override { return position; }
-	SDL_Rect getDrawRect() const override { return { static_cast<int>(position.x - radius), static_cast<int>(position.y - radius), static_cast<int>(radius) * 2, static_cast<int>(radius) * 2 }; }
-	void setScale(float scaleVal) override { radius *= scaleVal; }
-	float getWidth() const override { return radius * 2; }
-	float getHeight() const override { return radius * 2; }
-	float getRadius() const { return radius; }
-	float getLowestPoint() const override { return position.y + radius; }
+	void inline setPosition(const Vector2D& newPosition) override { position = newPosition; }
+	void inline movePosition(const Vector2D& positionDelta) override { position += positionDelta; }
+	Vector2D inline getPosition() const override { return position; }
+	SDL_Rect inline getDrawRect() const override { return { static_cast<int>(position.x - radius), static_cast<int>(position.y - radius), static_cast<int>(radius) * 2, static_cast<int>(radius) * 2 }; }
+	void inline setScale(float scaleVal) override { radius *= scaleVal; }
+	float inline getWidth() const override { return radius * 2; }
+	float inline getHeight() const override { return radius * 2; }
+	float inline getRadius() const { return radius; }
+	float inline getLowestPoint() const override { return position.y + radius; }
 
 private:
 	Vector2D position;

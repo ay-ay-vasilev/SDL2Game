@@ -3,9 +3,9 @@
 	"maxParticles": 100,
 	"duration": 3.0,
 	"mode": "RADIUS",
-	"startRadius": {"value": 50.0, "variance": 10.0},
-	"endRadius": {"value": 30.0, "variance": 5.0},
-	"rotatePerSecond": {"value": 200.0, "variance": 50.0},
+	"startRadius": {"value": 16.67, "variance": 3.33},
+	"endRadius": {"value": 10.0, "variance": 1.67},
+	"rotatePerSecond": {"value": 66.67, "variance": 16.67},
 	"angle": {"value": 0.0, "variance": 360.0},
 	"life": {"value": 2.0, "variance": 0.5},
 	"startColor":

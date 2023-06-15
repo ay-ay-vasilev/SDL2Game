@@ -26,8 +26,6 @@ void ecs::HitParticleComponent::play()
 
 		hitParticleEmitterLocked->resetSystem();
 		hitParticleEmitterLocked->setAngle(hitParticleEmitterLocked->getAngle() * (entityDirection.x < 0 ? 1 : -1) + 180 * (entityDirection.x < 0 ? 0 : 1));
-		hitParticleEmitterLocked->setStartSize(hitParticleEmitterLocked->getStartSize() * Game::constants->SCALE);
-		hitParticleEmitterLocked->setEndSize(hitParticleEmitterLocked->getEndSize() * Game::constants->SCALE);
 		hitParticleEmitterLocked->setPosition(static_cast<int>(entityPosition.x), static_cast<int>(entityPosition.y));
 	}
 	hitParticleEmitters.push_back(hitParticleEmitter);

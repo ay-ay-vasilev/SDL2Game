@@ -25,15 +25,15 @@ public:
 	{}
 	~Splatter() {};
 
-	const Vector2D getSplatterCenter() const { return splatterCenter; }
-	const int getSplatterRadius() const { return splatterRadius; }
-	const float getIntensity() const { return intensity; }
-	const std::pair<int, int> getRedRange() const { return redRange; }
-	const std::pair<int, int> getGreenRange() const { return greenRange; }
-	const std::pair<int, int> getBlueRange() const { return blueRange; }
-	const std::pair<int, int> getAlphaRange() const { return alphaRange; }
+	const Vector2D inline getSplatterCenter() const { return splatterCenter; }
+	const int inline getSplatterRadius() const { return splatterRadius; }
+	const float inline getIntensity() const { return intensity; }
+	const std::pair<int, int> inline getRedRange() const { return redRange; }
+	const std::pair<int, int> inline getGreenRange() const { return greenRange; }
+	const std::pair<int, int> inline getBlueRange() const { return blueRange; }
+	const std::pair<int, int> inline getAlphaRange() const { return alphaRange; }
 
-	void setSplatterCenter(const Vector2D& splatterCenter) { this->splatterCenter = splatterCenter; }
+	void inline setSplatterCenter(const Vector2D& splatterCenter) { this->splatterCenter = splatterCenter; }
 
 private:
 	Vector2D splatterCenter = Vector2D();

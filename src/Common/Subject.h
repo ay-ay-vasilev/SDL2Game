@@ -10,23 +10,23 @@ public:
 		clearObservers();
 	}
 
-	void addObserver(boost::signals2::scoped_connection& connection, const std::function<void(const std::string_view&)>& slot)
+	void inline addObserver(boost::signals2::scoped_connection& connection, const std::function<void(const std::string_view&)>& slot)
 	{
 		connection = signal.connect(slot);
 	}
 
-	void removeObserver(boost::signals2::scoped_connection& connection)
+	void inline removeObserver(boost::signals2::scoped_connection& connection)
 	{
 		connection.disconnect();
 	}
 
-	void notify(const std::string_view& observerEvent)
+	void inline notify(const std::string_view& observerEvent)
 	{
 		signal(observerEvent);
 	}
 
 private:
-	void clearObservers()
+	void inline clearObservers()
 	{
 		signal.disconnect_all_slots();
 	}

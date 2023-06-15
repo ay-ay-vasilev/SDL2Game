@@ -3,10 +3,10 @@
 	"maxParticles": 100,
 	"duration": -1,
 	"mode": "GRAVITY",
-	"gravity": {"x": 0.0, "y": -50.0},
+	"gravity": {"x": 0.0, "y": -16.6},
 	"radialAccel": {"value": 0.0, "variance": 0.0},
 	"tangentialAccel": {"value": 0.0, "variance": 0.0},
-	"speed": {"value": 50.0, "variance": 30.0},
+	"speed": {"value": 16.6, "variance": 10.0},
 	"angle": {"value": -90.0, "variance": 10.0},
 	"life": {"value": 1.0, "variance": 0.2},
 	"startColor":
@@ -21,7 +21,7 @@
 	},
 	"startSize": {"value": 1.5, "variance": 0.3},
 	"endSize": {"value": 0.5, "variance": 0.1},
-	"pos": {"x": 10.0, "y": 10.0},
+	"pos": {"x": 3.3, "y": 3.3},
 	"startSpin": {"value": 0.0, "variance": 180.0},
 	"endSpin": {"value": 0.0, "variance": 180.0}
 }

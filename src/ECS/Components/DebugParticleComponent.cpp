@@ -23,8 +23,6 @@ void ecs::DebugParticleComponent::play()
 
 		emitterLocked->resetSystem();
 		emitterLocked->setAngle(emitterLocked->getAngle() * (entityDirection.x < 0 ? 1 : -1) + 180 * (entityDirection.x < 0 ? 0 : 1));
-		emitterLocked->setStartSize(emitterLocked->getStartSize() * Game::constants->SCALE);
-		emitterLocked->setEndSize(emitterLocked->getEndSize() * Game::constants->SCALE);
 		emitterLocked->setPosition(static_cast<int>(entityPosition.x), static_cast<int>(entityPosition.y));
 	}
 }

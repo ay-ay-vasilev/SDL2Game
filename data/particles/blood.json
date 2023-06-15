@@ -3,10 +3,10 @@
 	"maxParticles": 100,
 	"duration": 0.15,
 	"mode": "GRAVITY",
-	"gravity": {"x": 0.0, "y": 400.0},
+	"gravity": {"x": 0.0, "y": 100.0},
 	"radialAccel": {"value": 0.0, "variance": 0.0},
 	"tangentialAccel": {"value": 0.0, "variance": 0.0},
-	"speed": {"value": -200.0, "variance": 25.0},
+	"speed": {"value": -50, "variance": 10},
 	"angle": {"value": 45.0, "variance": 20.0},
 	"life": {"value": 0.4, "variance": 0.5},
 	"startColor":
