@@ -9,6 +9,15 @@ Stuff to remember:
 
 My plan:
 - Ranged weapon for player.
+    * Draw goblin sprites DONE
+    * Parse spritesheets
+    * Added the bow weapon
+    * Add an arrow projectile
+    * Add a pointer
+    * Add shooting
+    * Make it prettier
+    * Add a ranged weapon to the human enemy
+    * Add a ranged weapon to the skeleton enemy
 - Combat overhaul (make it fun - add defensive abilities (i-frames, dodge rolls, parries), attack movement, combos etc.)
 - Add enemy classes - warrior, rogue, ranger
 - Improve combat AI
