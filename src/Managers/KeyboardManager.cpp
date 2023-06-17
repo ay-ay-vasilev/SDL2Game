@@ -72,13 +72,21 @@ void KeyboardManager::handleEvents()
 			}
 			break;
 		case SDLK_4:
+			if (!pressed)
+			{
+				for (const auto& controlledEntity : controlledEntities)
+					actorSystem->equipWeapon(*controlledEntity, "bow");
+				pressed = true;
+			}
+			break;
+		case SDLK_9:
 			for (const auto& controlledEntity : controlledEntities)
 			{
 				actorSystem->unequipAllArmor(*controlledEntity);
 				actorSystem->equipRandomArmor(*controlledEntity);
 			}
 			break;
-		case SDLK_5:
+		case SDLK_0:
 			for (const auto& controlledEntity : controlledEntities)
 			{
 				actorSystem->unequipAllArmor(*controlledEntity);

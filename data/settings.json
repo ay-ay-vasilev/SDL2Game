@@ -7,7 +7,7 @@
 	"window_title": "The Goblin Saga",
 	"screen_width": 1280,
 	"screen_height": 800,
-	"scale": 12.0,
+	"scale": 5.0,
 	"map_tile_width": 16,
 	"map_tile_height": 16,
 	"tile_size": 32,
@@ -26,6 +26,15 @@
 		"x": 270,
 		"y": 270
 	},
+
+	"debug_projectiles":
+	[
+		{ "pos": {"x": 380, "y": 350}, "velocity": {"x": -2, "y": -2}},
+		{ "pos": {"x": 300, "y": 350}, "velocity": {"x": 2, "y": -2}},
+		{ "pos": {"x": 380, "y": 300}, "velocity": {"x": -2, "y": 0}},
+		{ "pos": {"x": 350, "y": 300}, "velocity": {"x": 2, "y": 2}},
+		{ "pos": {"x": 400, "y": 280}, "velocity": {"x": -2, "y": 2}}
+	],
 
 	"human_positions":
 	[

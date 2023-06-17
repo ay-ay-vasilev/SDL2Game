@@ -41,6 +41,12 @@ public:
 		LoadFromJsonObject(constantsJson);
 	}
 
+	struct ProjectileData
+	{
+		Vector2D pos;
+		Vector2D velocity;
+	};
+
 	// game settings
 	int SCREEN_WIDTH{ 800 };
 	int SCREEN_HEIGHT{ 640 };
@@ -69,6 +75,7 @@ public:
 	std::vector<Vector2D> HUMAN_POS;
 	std::vector<Vector2D> SKELETON_POS;
 	std::vector<Vector2D> GOBLIN_POS;
+	std::vector<ProjectileData> DEBUG_PROJECTILES;
 
 	int AI_AGGRO_DISTANCE{ 80 };
 	int AI_DEAGGRO_DISTANCE{ 100 };
@@ -168,6 +175,15 @@ private:
 			for (const auto& posData : constantsJson["goblin_positions"])
 			{
 				GOBLIN_POS.push_back({ posData["x"], posData["y"] });
+			}
+		}
+		if (constantsJson.find("debug_projectiles") != constantsJson.end())
+		{
+			for (const auto& projectileData : constantsJson["debug_projectiles"])
+			{
+				const auto& projectilePos = projectileData["pos"];
+				const auto& projectileVel = projectileData["velocity"];
+				DEBUG_PROJECTILES.push_back({ { projectilePos["x"], projectilePos["y"] }, { projectileVel["x"], projectileVel["y"] } });
 			}
 		}
 

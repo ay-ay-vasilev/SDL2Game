@@ -58,10 +58,10 @@ void ecs::HitboxComponent::init()
 
 	std::string texturePath;
 	if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(hitbox)) {
-		texturePath = "assets/images/misc/debug/hitbox_rect.png";
+		texturePath = "assets/images/misc/debug_assets/hitbox_rect.png";
 	}
 	else if (auto circleCollider = std::dynamic_pointer_cast<CircleCollider>(hitbox)) {
-		texturePath = "assets/images/misc/debug/hitbox_circle.png";
+		texturePath = "assets/images/misc/debug_assets/hitbox_circle.png";
 	}
 	texture = TextureManager::loadTexture(texturePath);
 	srcRect = { 0, 0, 32, 32 };

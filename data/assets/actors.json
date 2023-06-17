@@ -7,7 +7,7 @@
 			"goblin":
 			{
 				"path": "goblin/",
-				"weapon_types": ["unarmed", "melee_light", "melee_medium"],
+				"weapon_types": ["unarmed", "melee_light", "melee_medium", "ranged_bow"],
 				"color_groups":
 				{
 					"goblin_colorless":
@@ -37,6 +37,11 @@
 							"melee_medium":
 							[
 								{"name" : "goblin_sword_front", "path": "weapons/sword/sword_front.png" }
+							],
+							"ranged_bow":
+							[
+								{"name" : "goblin_bow_back", "path": "weapons/bow/bow_back.png" },
+								{"name" : "goblin_bow_front", "path": "weapons/bow/bow_front.png" }
 							]
 						}
 					},

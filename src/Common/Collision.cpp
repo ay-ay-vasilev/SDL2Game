@@ -33,7 +33,7 @@ bool Collision::collides(const CircleCollider& circleA, const CircleCollider& ci
 {
 	float distanceX = circleA.getPosition().x - circleB.getPosition().x;
 	float distanceY = circleA.getPosition().y - circleB.getPosition().y;
-	float radiusSum = circleA.getWidth() + circleB.getWidth();
+	float radiusSum = circleA.getRadius() + circleB.getRadius();
 	return (distanceX * distanceX + distanceY * distanceY) < (radiusSum * radiusSum);
 }
 

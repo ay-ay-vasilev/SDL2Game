@@ -89,6 +89,11 @@ void ecs::SpriteComponent::update(double delta)
 			animStartTime = ticks;
 			incAnimState();
 			frameNum = startFrame;
+			if (triggered)
+			{
+				triggered = false;
+				sendSignal("action_stop");
+			}
 		}
 		// check for trigger events
 		if (!triggerFrames.empty())
@@ -192,10 +197,11 @@ void ecs::SpriteComponent::sortSpritesByZ()
 
 void ecs::SpriteComponent::play(const std::string& newAnimPlay)
 {
-	if (animName == newAnimPlay)
-		return;
-	if (animations.count(newAnimPlay) == 0)
-		return;
+	if (animName == newAnimPlay) return;
+	if (animations.count(newAnimPlay) == 0) return;
+
+	if (triggered) sendSignal("action_stop");
+	triggered = false;
 
 	animName = newAnimPlay;
 	animStartTime = SDL_GetTicks();
@@ -208,7 +214,6 @@ void ecs::SpriteComponent::play(const std::string& newAnimPlay)
 	triggerFrames = animData.getTriggerFrames();
 
 	animState = eAnimState::NONE;
-	triggered = false;
 	incAnimState();
 }
 

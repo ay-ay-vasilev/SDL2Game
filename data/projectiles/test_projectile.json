@@ -33,7 +33,7 @@
 	},
 	"projectile_data":
 	{
-		"range": 33.33,
+		"range": 100,
 		"health":
 		{
 			"max_health": 1
