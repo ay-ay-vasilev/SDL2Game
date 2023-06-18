@@ -58,6 +58,9 @@ namespace ecs
 		const float inline getSpeed() const{ return speed; }
 		void inline setSpeed(float newSpeed) { speed = newSpeed; }
 
+		const double inline getRotation() const { return rotation; }
+		void inline setRotation(double newRotation) { rotation = newRotation; }
+
 	private:
 		Vector2D position;
 		Vector2D velocity;
@@ -66,6 +69,7 @@ namespace ecs
 		int width = 0;
 		int height = 0;
 		float scale = 0;
+		double rotation = 0;
 
 		float speed = 0;
 	};

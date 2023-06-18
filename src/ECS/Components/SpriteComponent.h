@@ -58,6 +58,7 @@ namespace ecs
 
 		const auto inline getSrcRect() const { return srcRect; }
 		const auto inline getDestRect() const { return destRect; }
+		const auto inline getRotation() const { return rotation; }
 		const auto inline getSpriteFlip() const { return spriteFlip; }
 		const auto inline getSortedSprites() const { return sortedSprites; }
 
@@ -80,6 +81,8 @@ namespace ecs
 		std::shared_ptr<TransformComponent> transform;
 
 		SDL_Rect srcRect, destRect;
+		double rotation = 0.0;
+
 		const int frameWidth = 0;
 		const int frameHeight = 0;
 		bool animated = false;

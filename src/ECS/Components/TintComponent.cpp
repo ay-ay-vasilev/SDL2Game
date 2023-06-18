@@ -34,12 +34,14 @@ void ecs::TintComponent::update(double delta)
 	srcRect = spriteComponent->getSrcRect();
 	destRect = spriteComponent->getDestRect();
 	spriteFlip = spriteComponent->getSpriteFlip();
+
+	rotation = spriteComponent->getRotation();
 }
 
 void ecs::TintComponent::draw()
 {
 	if (!enabled) return;
-	TextureManager::draw(texture, srcRect, destRect, 0, spriteFlip);
+	TextureManager::draw(texture, srcRect, destRect, rotation, spriteFlip);
 }
 
 void ecs::TintComponent::onNotify(const std::string_view& observedEvent)

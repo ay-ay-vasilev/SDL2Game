@@ -29,6 +29,7 @@ namespace ecs
 		SDL_Texture* texture{ nullptr };
 
 		SDL_Rect srcRect{}, destRect{};
+		double rotation{ 0.0 };
 
 		SDL_RendererFlip spriteFlip;
 		std::shared_ptr<SpriteComponent> spriteComponent;

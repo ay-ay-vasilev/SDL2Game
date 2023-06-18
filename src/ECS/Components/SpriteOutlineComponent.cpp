@@ -44,6 +44,8 @@ void ecs::SpriteOutlineComponent::update(double delta)
 	srcRect = spriteComponent->getSrcRect();
 	destRect = spriteComponent->getDestRect();
 	spriteFlip = spriteComponent->getSpriteFlip();
+
+	rotation = spriteComponent->getRotation();
 }
 
 void ecs::SpriteOutlineComponent::draw()
@@ -58,7 +60,7 @@ void ecs::SpriteOutlineComponent::draw()
 			destRect.x + static_cast<int>(outlinePosition.x * scale),
 			destRect.y + static_cast<int>(outlinePosition.y * scale),
 			destRect.w, destRect.h);
-		TextureManager::draw(texture, srcRect, tempDestRect, 0.0, spriteFlip);
+		TextureManager::draw(texture, srcRect, tempDestRect, rotation, spriteFlip);
 	}
 }
 

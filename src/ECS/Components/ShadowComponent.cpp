@@ -37,12 +37,13 @@ void ecs::ShadowComponent::update(double delta)
 	srcRect = spriteComponent->getSrcRect();
 	destRect = spriteComponent->getDestRect();
 	spriteFlip = spriteComponent->getSpriteFlip();
+	rotation = spriteComponent->getRotation();
 }
 
 void ecs::ShadowComponent::draw()
 {
 	SDL_Rect tempDestRect = destRect;
-	TextureManager::draw(texture, srcRect, tempDestRect, 0, spriteFlip);
+	TextureManager::draw(texture, srcRect, tempDestRect, rotation, spriteFlip);
 }
 
 void ecs::ShadowComponent::onNotify(const std::string_view& observedEvent)

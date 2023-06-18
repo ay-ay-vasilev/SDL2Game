@@ -120,11 +120,13 @@ void ecs::SpriteComponent::update(double delta)
 	destRect.y = static_cast<int>(transform->getPosition().y - static_cast<float>(frameHeight) * transform->getScale() / 2.f);
 	destRect.w = static_cast<int>(frameWidth * transform->getScale());
 	destRect.h = static_cast<int>(frameHeight * transform->getScale());
+
+	rotation = transform->getRotation();
 }
 
 void ecs::SpriteComponent::draw()
 {
-	TextureManager::draw(texture, srcRect, destRect, 0, spriteFlip);
+	TextureManager::draw(texture, srcRect, destRect, rotation, spriteFlip);
 }
 
 void ecs::SpriteComponent::addSprite(const std::string& slotName, std::shared_ptr<Sprite> sprite)
