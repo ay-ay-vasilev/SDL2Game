@@ -10,6 +10,7 @@ void ecs::ProjectileComponent::init()
 {
 	transform = entity->getComponent<ecs::TransformComponent>();
 	transform->setVeloctiy(velocity);
+	transform->setRotation(Vector2D::Angle(velocity) + 180.0);
 	speed = transform->getSpeed();
 	range *= transform->getScale();
 }

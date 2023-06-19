@@ -33,6 +33,7 @@ public:
 
 	static float Distance(const Vector2D& v1, const Vector2D& v2);
 	static Vector2D VectorBetween(const Vector2D& pos1, const Vector2D& pos2);
+	static double Angle(const Vector2D& v);
 };
 
 std::ostream& operator<<(std::ostream& stream, const Vector2D& vec);

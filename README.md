@@ -12,11 +12,9 @@ My plan:
     * Draw goblin sprites DONE
     * Parse spritesheets DONE
     * Added the bow weapon DONE
-    * Add an arrow projectile
-        - Add an arrow sprite DONE
-        - Velocity and sprite logic
+    * Add an arrow projectile DONE
+    * Add shooting (basic variant)
     * Add a pointer for aiming
-    * Add shooting
     * Make it prettier
     * Add a ranged weapon to the human enemy
     * Add a ranged weapon to the skeleton enemy

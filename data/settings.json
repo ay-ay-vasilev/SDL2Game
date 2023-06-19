@@ -29,11 +29,11 @@
 
 	"debug_projectiles":
 	[
-		{ "pos": {"x": 380, "y": 350}, "velocity": {"x": -2, "y": -2}},
-		{ "pos": {"x": 300, "y": 350}, "velocity": {"x": 2, "y": -2}},
-		{ "pos": {"x": 380, "y": 300}, "velocity": {"x": -2, "y": 0}},
-		{ "pos": {"x": 350, "y": 300}, "velocity": {"x": 2, "y": 2}},
-		{ "pos": {"x": 400, "y": 280}, "velocity": {"x": -2, "y": 2}}
+		{ "pos": {"x": 380, "y": 350}, "velocity": {"x": -1, "y": -2}},
+		{ "pos": {"x": 300, "y": 350}, "velocity": {"x": 3, "y": -2}},
+		{ "pos": {"x": 380, "y": 300}, "velocity": {"x": -4, "y": 0}},
+		{ "pos": {"x": 350, "y": 300}, "velocity": {"x": 5, "y": 2}},
+		{ "pos": {"x": 400, "y": 280}, "velocity": {"x": -6, "y": 2}}
 	],
 
 	"human_positions":

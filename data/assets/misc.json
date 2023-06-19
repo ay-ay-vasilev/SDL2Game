@@ -1,16 +1,23 @@
 {
 	"sprites":
 	{
-		"path": "assets/images/misc/",
+		"path": "assets/images/",
 		"sprite_groups":
 		{
-			"colorless":
+			"misc":
 			{
 				"textures":
 				[
-					{"name" : "test_projectile", "path": "debug_assets/test_projectile.png" },
-					{"name" : "black", "path": "util/black.png" },
-					{"name" : "pixel", "path": "particles/pixel.png" }
+					{"name" : "test_projectile", "path": "misc/debug_assets/test_projectile.png" },
+					{"name" : "black", "path": "misc/util/black.png" },
+					{"name" : "pixel", "path": "misc/particles/pixel.png" }
+				]
+			},
+			"projectiles":
+			{
+				"textures":
+				[
+					{"name" : "arrow_small", "path": "spritesheets/projectiles/arrow_small.png"}
 				]
 			}
 		}

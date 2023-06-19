@@ -1,6 +1,7 @@
 #include "ProjectileSystem.h"
 #include "TransformComponent.h"
 #include "SpriteComponent.h"
+#include "SpriteOutlineComponent.h"
 #include "ColliderComponent.h"
 #include "ProjectileComponent.h"
 #include "HitboxComponent.h"
@@ -29,6 +30,7 @@ void ecs::ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vect
 		manager.getScale(), projectileData["speed"]
 	);
 	projectile.addComponent<ecs::SpriteComponent>(projectileData["sprite_data"], false);
+	projectile.addComponent<ecs::SpriteOutlineComponent>(projectileData["sprite_data"].contains("outline") ? projectileData["sprite_data"]["outline"] : nullptr);
 	projectile.addComponent<ecs::ProjectileComponent>(velocity, projectileData["projectile_data"]["range"]);
 	projectile.addComponent<ecs::HitboxComponent>(filename, projectileData["hitbox_rect"]);
 	projectile.addComponent<ecs::WeaponComponent>(filename, "", true);
