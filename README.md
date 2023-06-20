@@ -30,6 +30,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
+- Add an event queue (improve the efficiency of the ParticleManager and the ProjectileSystem)
 - Set proper surface sizes (unarmed bug)
 - Fix animations (attack animation morphs into idle for a frame)
 - JSON files for AI.
