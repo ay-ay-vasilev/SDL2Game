@@ -5,7 +5,7 @@
 #include "ColliderComponent.h"
 #include "ProjectileComponent.h"
 #include "HitboxComponent.h"
-#include "WeaponComponent.h"
+#include "WeaponMeleeComponent.h"
 #include "HealthComponent.h"
 
 #include <wrappedJson.h>
@@ -33,7 +33,7 @@ void ecs::ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vect
 	projectile.addComponent<ecs::SpriteOutlineComponent>(projectileData["sprite_data"].contains("outline") ? projectileData["sprite_data"]["outline"] : nullptr);
 	projectile.addComponent<ecs::ProjectileComponent>(velocity, projectileData["projectile_data"]["range"]);
 	projectile.addComponent<ecs::HitboxComponent>(filename, projectileData["hitbox_rect"]);
-	projectile.addComponent<ecs::WeaponComponent>(filename, "", true);
+	projectile.addComponent<ecs::WeaponMeleeComponent>(filename, "", true);
 	projectile.addComponent<ecs::ColliderComponent>(filename, projectileData["collider_rect"]);
 	projectile.addComponent<ecs::HealthComponent>(projectileData["projectile_data"]["health"]);
 

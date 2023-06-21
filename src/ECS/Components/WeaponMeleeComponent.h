@@ -12,11 +12,11 @@ namespace ecs
 	class SpriteComponent;
 	class ActorComponent;
 	class HealthComponent;
-	class WeaponComponent : public DrawableComponent, private Observer
+	class WeaponMeleeComponent : public DrawableComponent, private Observer
 	{
 	public:
-		WeaponComponent(const std::string& name, const std::string& ownerName, bool isProjectile = false);
-		~WeaponComponent() override;
+		WeaponMeleeComponent(const std::string& name, const std::string& ownerName, bool isProjectile = false);
+		~WeaponMeleeComponent() override;
 
 		// Component
 		void init() override;

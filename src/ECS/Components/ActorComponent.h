@@ -6,7 +6,7 @@
 namespace ecs
 {
 	class SpriteComponent;
-	class WeaponComponent;
+	class WeaponMeleeComponent;
 	class HealthComponent;
 	class ActorComponent : public Component, public Observer, public Subject
 	{
@@ -44,7 +44,7 @@ namespace ecs
 
 		std::shared_ptr<ecs::SpriteComponent> spriteComponent;
 		std::shared_ptr<ecs::HealthComponent> healthComponent;
-		std::weak_ptr<ecs::WeaponComponent> weaponComponent;
+		std::weak_ptr<ecs::WeaponMeleeComponent> weaponComponent;
 
 		std::unordered_map<std::string, std::vector<SpriteData>> actorSprites;
 

@@ -3,7 +3,7 @@
 #include "TransformComponent.h"
 #include "HitboxComponent.h"
 #include "HealthComponent.h"
-#include "WeaponComponent.h"
+#include "WeaponMeleeComponent.h"
 // TODO: remove
 #include "Game.h"
 
@@ -19,7 +19,7 @@ void ecs::AIComponentBasicFighter::init()
 	registerWithSubject(actorComponent);
 
 	transform = entity->getComponent<TransformComponent>();
-	weapon = entity->getComponent<WeaponComponent>();
+	weapon = entity->getComponent<WeaponMeleeComponent>();
 	health = entity->getComponent<HealthComponent>();
 	// TODO: remove
 	aggroDistance = Game::constants->AI_AGGRO_DISTANCE * transform->getScale();
@@ -38,7 +38,7 @@ void ecs::AIComponentBasicFighter::update(double delta)
 		auto lockedWeapon = weapon.lock();
 		if (!lockedWeapon)
 		{
-			lockedWeapon = entity->getComponent<WeaponComponent>();
+			lockedWeapon = entity->getComponent<WeaponMeleeComponent>();
 			weapon = lockedWeapon;
 		}
 		if (!lockedWeapon)

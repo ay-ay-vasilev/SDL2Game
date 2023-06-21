@@ -4,7 +4,7 @@
 #include "SpriteOutlineComponent.h"
 #include "ColliderComponent.h"
 #include "HitboxComponent.h"
-#include "WeaponComponent.h"
+#include "WeaponMeleeComponent.h"
 #include "CorpseComponent.h"
 #include "UILabelComponent.h"
 

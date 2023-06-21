@@ -1,6 +1,6 @@
 #include "HitboxWeaponCollisionSystem.h"
 #include "HitboxComponent.h"
-#include "WeaponComponent.h"
+#include "WeaponMeleeComponent.h"
 #include "HealthComponent.h"
 #include "ArmorComponent.h"
 #include "ActorComponent.h"
@@ -12,7 +12,7 @@
 void ecs::HitboxWeaponCollisionSystem::update(double delta)
 {
 	hitboxes = manager.getEntitiesWithComponent<ecs::HitboxComponent>();
-	weapons = manager.getEntitiesWithComponent<ecs::WeaponComponent>();
+	weapons = manager.getEntitiesWithComponent<ecs::WeaponMeleeComponent>();
 
 	for (const auto hitbox : hitboxes)
 	{
@@ -22,8 +22,8 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 
 	for (const auto weapon : weapons)
 	{
-		const auto weaponComponent = weapon->getComponent<ecs::WeaponComponent>();
-		weaponComponent->setEnableDraw(Game::constants->DRAW_HITBOXES);
+		const auto WeaponMeleeComponent = weapon->getComponent<ecs::WeaponMeleeComponent>();
+		WeaponMeleeComponent->setEnableDraw(Game::constants->DRAW_HITBOXES);
 	}
 
 	for (auto hitboxEntity : hitboxes)
@@ -49,7 +49,7 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 			if (hitboxFaction && weaponWielderFaction && hitboxFaction->checkIfFactionFriendly(weaponWielderFaction->getFaction()))
 				continue;
 
-			auto weaponCollider = weaponWieldingEntity->getComponent<ecs::WeaponComponent>();
+			auto weaponCollider = weaponWieldingEntity->getComponent<ecs::WeaponMeleeComponent>();
 
 			if (!weaponCollider->isEnabled())
 				continue;

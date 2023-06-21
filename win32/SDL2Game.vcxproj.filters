@@ -123,7 +123,7 @@
     <ClCompile Include="..\src\ECS\Components\UILabelComponent.cpp">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ECS\Components\WeaponComponent.cpp">
+    <ClCompile Include="..\src\ECS\Components\WeaponMeleeComponent.cpp">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ECS\Components\FactionComponent.h">
@@ -239,7 +239,7 @@
     <ClInclude Include="..\src\ECS\Systems\HitboxWeaponCollisionSystem.h">
       <Filter>Source Files\ECS\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ECS\Components\WeaponComponent.h">
+    <ClInclude Include="..\src\ECS\Components\WeaponMeleeComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Common\ColliderShape.h">
@@ -319,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Common\Splatter.h">
       <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\WeaponRangedComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

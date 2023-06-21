@@ -10,7 +10,7 @@
 #include "HealthComponent.h"
 #include "AIComponentBasicFighter.h"
 #include "ArmorComponent.h"
-#include "WeaponComponent.h"
+#include "WeaponMeleeComponent.h"
 #include "FactionComponent.h"
 #include "CameraComponent.h"
 #include "ShadowComponent.h"
@@ -169,12 +169,12 @@ void ecs::ActorSystem::equipWeapon(ecs::Entity& actor, const std::string& weapon
 
 	const std::string actorType = actor.getComponent<ecs::ActorComponent>()->getActorType();
 
-	if (actor.hasComponent<ecs::WeaponComponent>())
+	if (actor.hasComponent<ecs::WeaponMeleeComponent>())
 	{
-		if (actor.getComponent<ecs::WeaponComponent>()->getTag() == weaponName) return;
-		actor.removeComponent<ecs::WeaponComponent>();
+		if (actor.getComponent<ecs::WeaponMeleeComponent>()->getTag() == weaponName) return;
+		actor.removeComponent<ecs::WeaponMeleeComponent>();
 	}
-	actor.addComponent<ecs::WeaponComponent>(weaponName, actorType);
+	actor.addComponent<ecs::WeaponMeleeComponent>(weaponName, actorType);
 }
 
 void ecs::ActorSystem::equipArmor(ecs::Entity& actor, const std::string& armorName, const std::string& slotName, const std::string& colorName)
@@ -247,12 +247,12 @@ void ecs::ActorSystem::equipRandomWeapon(ecs::Entity& actor)
 	const int weaponIndex = dis(gen);
 	const auto weaponName = weaponsVector[weaponIndex] == "none" ? "unarmed" : weaponsVector[weaponIndex];
 
-	if (actor.hasComponent<ecs::WeaponComponent>())
+	if (actor.hasComponent<ecs::WeaponMeleeComponent>())
 	{
-		if (actor.getComponent<ecs::WeaponComponent>()->getTag() == weaponName) return;
-		actor.removeComponent<ecs::WeaponComponent>();
+		if (actor.getComponent<ecs::WeaponMeleeComponent>()->getTag() == weaponName) return;
+		actor.removeComponent<ecs::WeaponMeleeComponent>();
 	}
-	actor.addComponent<ecs::WeaponComponent>(weaponName, actorType);
+	actor.addComponent<ecs::WeaponMeleeComponent>(weaponName, actorType);
 }
 
 void ecs::ActorSystem::addRandomCustomization(ecs::Entity& actor)
