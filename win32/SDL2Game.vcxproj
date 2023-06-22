@@ -82,6 +82,7 @@
     <ClInclude Include="..\src\ECS\Components\CameraComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h" />
     <ClInclude Include="..\src\ECS\Components\CorpseComponent.h" />
+    <ClInclude Include="..\src\ECS\Components\DamageColliderComponent.h" />
     <ClInclude Include="..\src\ECS\Components\DebugParticleComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HealthComponent.h" />
     <ClInclude Include="..\src\ECS\Components\HitboxComponent.h" />

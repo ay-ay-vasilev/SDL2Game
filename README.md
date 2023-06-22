@@ -14,6 +14,9 @@ My plan:
     * Added the bow weapon DONE
     * Add an arrow projectile DONE
     * Add shooting (basic variant)
+        - Refactor WeaponComponent
+            * Move damage collider logic to a separate class
+            * Do not destroy and recreate the WeaponComponent when an actor equips a different weapon - use configuration instead
     * Add a pointer for aiming
     * Make it prettier
     * Add a ranged weapon to the human enemy
