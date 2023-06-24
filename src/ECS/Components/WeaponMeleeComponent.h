@@ -10,6 +10,7 @@ namespace ecs
 	class SpriteComponent;
 	class ActorComponent;
 	class HealthComponent;
+	class DamageColliderComponent;
 	class WeaponMeleeComponent : public DrawableComponent, private Observer
 	{
 	public:
@@ -23,15 +24,10 @@ namespace ecs
 		// Observer
 		void onNotify(const std::string_view& observedEvent) override;
 
-		std::string inline getTag() const { return tag; }
+		std::string inline getName() const { return name; }
 		const std::string inline getWeaponType() const { return weaponType; }
 
 		int inline getDamage() const { return damage; }
-
-		bool inline isEnabled() const { return enabled; }
-		bool inline  isDestroyedOnHit() const { return destroyOnHit; }
-
-		void inline setEnableDraw(bool value) { enableDraw = value; }
 
 	private:
 
@@ -45,17 +41,13 @@ namespace ecs
 		std::shared_ptr<ecs::TransformComponent> transform;
 		std::shared_ptr<ecs::ActorComponent> actorComponent;
 		std::shared_ptr<ecs::SpriteComponent> spriteComponent;
-		std::string tag;
+		std::shared_ptr<ecs::DamageColliderComponent> damageColliderComponent;
+		std::string name;
 		std::string weaponType;
-		SDL_Texture* texture;
-		
+
 		std::vector<SpriteData> tempSprites;
 
-		bool enabled;
-		bool destroyOnHit;
-
 		int damage;
-
-		bool enableDraw{ false };
+		bool isProjectile;
 	};
 }
