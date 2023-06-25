@@ -11,25 +11,26 @@ namespace ecs
 	class ActorComponent;
 	class HealthComponent;
 	class DamageColliderComponent;
-	class WeaponMeleeComponent : public DrawableComponent, private Observer
+	class WeaponMeleeComponent : public Component, private Observer
 	{
 	public:
-		WeaponMeleeComponent(const std::string& name, const std::string& ownerName, bool isProjectile = false);
+		WeaponMeleeComponent(const std::string& name = "unarmed");
 		~WeaponMeleeComponent() override;
 
 		// Component
 		void init() override;
 		void update(double delta) override;
-		void draw() override;
 		// Observer
 		void onNotify(const std::string_view& observedEvent) override;
+
+		void loadWeaponData();
+		void equipWeapon(const std::string& name);
 
 		std::string inline getName() const { return name; }
 		const std::string inline getWeaponType() const { return weaponType; }
 
-		int inline getDamage() const { return damage; }
-
 	private:
+
 
 		struct SpriteData
 		{
@@ -40,14 +41,10 @@ namespace ecs
 
 		std::shared_ptr<ecs::TransformComponent> transform;
 		std::shared_ptr<ecs::ActorComponent> actorComponent;
-		std::shared_ptr<ecs::SpriteComponent> spriteComponent;
 		std::shared_ptr<ecs::DamageColliderComponent> damageColliderComponent;
 		std::string name;
 		std::string weaponType;
 
 		std::vector<SpriteData> tempSprites;
-
-		int damage;
-		bool isProjectile;
 	};
 }

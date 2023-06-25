@@ -3,11 +3,19 @@
 #include "TextureManager.h"
 #include "AssetManager.h"
 
-ecs::DamageColliderComponent::DamageColliderComponent(const bool isProjectile) :
+ecs::DamageColliderComponent::DamageColliderComponent(const std::string& name, const bool isProjectile) :
+	colliderShape(eColliderShape::RECTANGLE),
+	srcRect(), destRect(),
 	texture(nullptr),
 	enabled(isProjectile),
-	destroyOnHit(isProjectile)
+	destroyOnHit(false),
+	damage(0)
 {
+	nlohmann::json data;
+	if (isProjectile) data = assets::getProjectileJson(name)["weapon"];
+	else data = assets::getWeaponJson(name)["weapon"];
+
+	parseColliderJson(data);
 }
 
 ecs::DamageColliderComponent::~DamageColliderComponent()
@@ -34,10 +42,10 @@ void ecs::DamageColliderComponent::init()
 	destRect = damageCollider->getDrawRect();
 	
 	std::string texturePath;
-	if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(damageCollider)) {
+	if (colliderShape == eColliderShape::RECTANGLE) {
 		texturePath = "assets/images/misc/debug_assets/weapon_collider_rect.png";
 	}
-	else if (auto circleCollider = std::dynamic_pointer_cast<CircleCollider>(damageCollider)) {
+	else if (colliderShape == eColliderShape::CIRCLE) {
 		texturePath = "assets/images/misc/debug_assets/weapon_collider_circle.png";
 	}
 	texture = TextureManager::loadTexture(texturePath);
@@ -50,33 +58,43 @@ void ecs::DamageColliderComponent::update(double delta)
 	const auto weaponColliderX = transform->getPosition().x + damageColliderOffset.x + transform->getDirection().x * damageColliderDirectionCoefficient.x;
 	const auto weaponColliderY = transform->getPosition().y + damageColliderOffset.y + transform->getDirection().y * damageColliderDirectionCoefficient.y;
 	damageCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
-
 	destRect = damageCollider->getDrawRect();
 }
 
 void ecs::DamageColliderComponent::draw()
 {
-	if (!enabled)
-		return;
-
+	if (!enabled) return;
 	if (enableDraw) TextureManager::draw(texture, srcRect, destRect);
 }
 
-void ecs::DamageColliderComponent::loadParams(const std::string& name, const bool isProjectile)
+void ecs::DamageColliderComponent::loadWeaponParams(const std::string& name)
 {
-	nlohmann::json weaponData;
-	if (isProjectile) weaponData = assets::getProjectileJson(name)["weapon"];
-	else weaponData = assets::getWeaponJson(name);
+	nlohmann::json data = assets::getWeaponJson(name);
+	parseColliderJson(data);
+}
 
-	if (weaponData.contains("collider"))
+void ecs::DamageColliderComponent::parseColliderJson(const nlohmann::json& data)
+{
+	if (data.contains("collider"))
 	{
-		const auto& damageColliderData = weaponData["collider"];
+		const auto& damageColliderData = data["collider"];
 		if (damageColliderData["shape"] == "circle")
+		{
+			colliderShape = eColliderShape::CIRCLE;
 			damageCollider = std::make_shared<CircleCollider>(Vector2D(0, 0), damageColliderData["radius"]);
-		if (damageColliderData["shape"] == "rectangle")
+		}
+		else if (damageColliderData["shape"] == "rectangle")
+		{
+			colliderShape = eColliderShape::RECTANGLE;
 			damageCollider = std::make_shared<RectangleCollider>(Vector2D(0, 0), damageColliderData["w"], damageColliderData["h"]);
+		}
+
 		if (damageColliderData.contains("offset"))
 			damageColliderOffset = { damageColliderData["offset"]["dx"], damageColliderData["offset"]["dy"] };
 		damageColliderDirectionCoefficient = { damageColliderData.value("x", 0.f), damageColliderData.value("y", 0.f) };
+	}
+	if (data.contains("damage"))
+	{
+		damage = data.value("damage", 0);
 	}
 }

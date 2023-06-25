@@ -168,6 +168,9 @@
     <ClCompile Include="..\src\ECS\Components\TileSplatterComponent.cpp">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ECS\Components\DamageColliderComponent.cpp">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">

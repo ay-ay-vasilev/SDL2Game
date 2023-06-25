@@ -8,14 +8,20 @@ namespace ecs
 	class DamageColliderComponent : public DrawableComponent
 	{
 	public:
-		explicit DamageColliderComponent(const bool isProjectile);
+		DamageColliderComponent(const std::string& name = "unarmed", const bool isProjectile = false);
 		virtual ~DamageColliderComponent();
+
+		enum class eColliderShape
+		{
+			RECTANGLE,
+			CIRCLE
+		};
 
 		void init() override;
 		void update(double delta) override;
 		void draw() override;
 
-		void loadParams(const std::string& name, const bool isProjectile);
+		void loadWeaponParams(const std::string& name);
 
 		void inline addAffectedTarget(int id) { affectedTargets.emplace_back(id); }
 		bool inline isInAffectedTargets(int id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
@@ -28,8 +34,13 @@ namespace ecs
 		void inline setEnabled(bool value) { enabled = value; }
 		bool inline  isDestroyedOnHit() const { return destroyOnHit; }
 		void inline setEnableDraw(bool value) { enableDraw = value; }
+		int inline getDamage() const { return damage; }
 
 	private:
+		void parseColliderJson(const nlohmann::json& data);
+
+		eColliderShape colliderShape;
+
 		std::shared_ptr<ecs::TransformComponent> transform;
 
 		std::shared_ptr<ColliderShape> damageCollider;
@@ -37,13 +48,13 @@ namespace ecs
 		Vector2D damageColliderOffset;
 
 		std::vector<int> affectedTargets;
-
 		SDL_Rect srcRect, destRect;
-
 		SDL_Texture* texture;
 
 		bool enableDraw{ false };
 		bool enabled;
 		bool destroyOnHit;
+
+		int damage;
 	};
 }

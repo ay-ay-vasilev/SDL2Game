@@ -10,6 +10,7 @@
 #include "HealthComponent.h"
 #include "AIComponentBasicFighter.h"
 #include "ArmorComponent.h"
+#include "DamageColliderComponent.h"
 #include "WeaponMeleeComponent.h"
 #include "FactionComponent.h"
 #include "CameraComponent.h"
@@ -118,6 +119,8 @@ ecs::Entity* ecs::ActorSystem::instantiateActor(const Vector2D& pos, const std::
 	actor.addComponent<ecs::AIComponentBasicFighter>();
 	actor.addComponent<ecs::FactionComponent>(actorData.contains("faction") ? actorData["faction"] : "neutral");
 	actor.addComponent<ecs::CorpseComponent>();
+	actor.addComponent<ecs::DamageColliderComponent>();
+	actor.addComponent<ecs::WeaponMeleeComponent>();
 	actor.addComponent<ecs::HitParticleComponent>(actorData["hit_particle"]);
 	if (actorData.contains("splatter")) actor.addComponent<ecs::SplatterComponent>(actorData["splatter"]);
 
@@ -150,6 +153,8 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 	player.addComponent<ecs::FactionComponent>(playerData.contains("faction") ? playerData["faction"] : "neutral");
 	player.addComponent<ecs::CameraComponent>();
 	player.addComponent<ecs::CorpseComponent>();
+	player.addComponent<ecs::DamageColliderComponent>();
+	player.addComponent<ecs::WeaponMeleeComponent>();
 	player.addComponent<ecs::HitParticleComponent>(playerData["hit_particle"]);
 	if (playerData.contains("splatter")) player.addComponent<ecs::SplatterComponent>(playerData["splatter"]);
 
@@ -165,16 +170,9 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 
 void ecs::ActorSystem::equipWeapon(ecs::Entity& actor, const std::string& weaponName)
 {
-	if (!actor.hasComponent<ecs::ActorComponent>()) return;
+	if (!actor.hasComponent<ecs::ActorComponent>() || !actor.hasComponent<ecs::WeaponMeleeComponent>()) return;
 
-	const std::string actorType = actor.getComponent<ecs::ActorComponent>()->getActorType();
-
-	if (actor.hasComponent<ecs::WeaponMeleeComponent>())
-	{
-		if (actor.getComponent<ecs::WeaponMeleeComponent>()->getTag() == weaponName) return;
-		actor.removeComponent<ecs::WeaponMeleeComponent>();
-	}
-	actor.addComponent<ecs::WeaponMeleeComponent>(weaponName, actorType);
+	actor.getComponent<ecs::WeaponMeleeComponent>()->equipWeapon(weaponName);
 }
 
 void ecs::ActorSystem::equipArmor(ecs::Entity& actor, const std::string& armorName, const std::string& slotName, const std::string& colorName)
@@ -247,12 +245,7 @@ void ecs::ActorSystem::equipRandomWeapon(ecs::Entity& actor)
 	const int weaponIndex = dis(gen);
 	const auto weaponName = weaponsVector[weaponIndex] == "none" ? "unarmed" : weaponsVector[weaponIndex];
 
-	if (actor.hasComponent<ecs::WeaponMeleeComponent>())
-	{
-		if (actor.getComponent<ecs::WeaponMeleeComponent>()->getTag() == weaponName) return;
-		actor.removeComponent<ecs::WeaponMeleeComponent>();
-	}
-	actor.addComponent<ecs::WeaponMeleeComponent>(weaponName, actorType);
+	equipWeapon(actor, weaponName);
 }
 
 void ecs::ActorSystem::addRandomCustomization(ecs::Entity& actor)

@@ -14,6 +14,6 @@ namespace ecs
 	private:
 
 		std::vector<Entity*> hitboxes;
-		std::vector<Entity*> weapons;
+		std::vector<Entity*> damageColliders;
 	};
 }

@@ -1,6 +1,6 @@
 #include "HitboxWeaponCollisionSystem.h"
 #include "HitboxComponent.h"
-#include "WeaponMeleeComponent.h"
+#include "DamageColliderComponent.h"
 #include "HealthComponent.h"
 #include "ArmorComponent.h"
 #include "ActorComponent.h"
@@ -12,7 +12,7 @@
 void ecs::HitboxWeaponCollisionSystem::update(double delta)
 {
 	hitboxes = manager.getEntitiesWithComponent<ecs::HitboxComponent>();
-	weapons = manager.getEntitiesWithComponent<ecs::WeaponMeleeComponent>();
+	damageColliders = manager.getEntitiesWithComponent<ecs::DamageColliderComponent>();
 
 	for (const auto hitbox : hitboxes)
 	{
@@ -20,10 +20,10 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 		hitboxComponent->setEnableDraw(Game::constants->DRAW_HITBOXES);
 	}
 
-	for (const auto weapon : weapons)
+	for (const auto damageCollider : damageColliders)
 	{
-		const auto WeaponMeleeComponent = weapon->getComponent<ecs::WeaponMeleeComponent>();
-		WeaponMeleeComponent->setEnableDraw(Game::constants->DRAW_HITBOXES);
+		const auto damageColliderComponent = damageCollider->getComponent<ecs::DamageColliderComponent>();
+		damageColliderComponent->setEnableDraw(Game::constants->DRAW_HITBOXES);
 	}
 
 	for (auto hitboxEntity : hitboxes)
@@ -34,34 +34,32 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 		auto hitboxCollider = hitboxEntity->getComponent<ecs::HitboxComponent>();
 		auto hitboxFaction = hitboxEntity->getComponent<ecs::FactionComponent>();
 
-		for (auto weaponWieldingEntity : weapons)
+		for (auto damageColliderEntity : damageColliders)
 		{
-			auto weaponWielderHealth = weaponWieldingEntity->getComponent<ecs::HealthComponent>();
-			if (weaponWielderHealth && weaponWielderHealth->isDead())
-				continue;
+			auto damageColliderHealth = damageColliderEntity->getComponent<ecs::HealthComponent>();
+			if (damageColliderHealth && damageColliderHealth->isDead()) continue;
 
 			// check if hits itself
-			if (hitboxEntity->getID() == weaponWieldingEntity->getID())
-				continue;
+			if (hitboxEntity->getID() == damageColliderEntity->getID()) continue;
 
 			// check if hits friend
-			auto weaponWielderFaction = weaponWieldingEntity->getComponent<ecs::FactionComponent>();
-			if (hitboxFaction && weaponWielderFaction && hitboxFaction->checkIfFactionFriendly(weaponWielderFaction->getFaction()))
+			auto damageColliderFaction = damageColliderEntity->getComponent<ecs::FactionComponent>();
+			if (hitboxFaction && damageColliderFaction && hitboxFaction->checkIfFactionFriendly(damageColliderFaction->getFaction()))
 				continue;
 
-			auto weaponCollider = weaponWieldingEntity->getComponent<ecs::WeaponMeleeComponent>();
+			auto damageColliderComponent = damageColliderEntity->getComponent<ecs::DamageColliderComponent>();
 
-			if (!weaponCollider->isEnabled())
+			if (!damageColliderComponent->isEnabled())
 				continue;
-			if (weaponCollider->isInAffectedTargets(hitboxEntity->getID()))
+			if (damageColliderComponent->isInAffectedTargets(hitboxEntity->getID()))
 				continue;
 
-			if (weaponCollider->getCollider()->collidesWith(hitboxCollider->getHitbox()))
+			if (damageColliderComponent->getCollider()->collidesWith(hitboxCollider->getHitbox()))
 			{
-				weaponCollider->addAffectedTarget(hitboxEntity->getID());
+				damageColliderComponent->addAffectedTarget(hitboxEntity->getID());
 				auto actorArmorComponent = hitboxEntity->getComponent<ecs::ArmorComponent>();
 
-				const auto weaponDamage = weaponCollider->getDamage();
+				const auto weaponDamage = damageColliderComponent->getDamage();
 				const auto damage = actorArmorComponent ? actorArmorComponent->applyDamageReduction(weaponDamage) : weaponDamage;
 				actorHealthComponent->changeHealth(-damage);
 				const int currentHealth = actorHealthComponent->getHealth();
@@ -78,9 +76,9 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 					<< entityName << " has " << currentHealth << " hp left!\n";*/
 				// ===============================
 
-				if (weaponCollider->isDestroyedOnHit())
+				if (damageColliderComponent->isDestroyedOnHit())
 				{
-					weaponWieldingEntity->destroy();
+					damageColliderEntity->destroy();
 				}
 			}
 		}
