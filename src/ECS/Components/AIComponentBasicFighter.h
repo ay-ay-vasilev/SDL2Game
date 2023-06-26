@@ -9,7 +9,7 @@ namespace ecs
 	class TransformComponent;
 	class HitboxComponent;
 	class HealthComponent;
-	class WeaponMeleeComponent;
+	class DamageColliderComponent;
 	class AIComponentBasicFighter : public AIComponent, public Observer
 	{
 	public:
@@ -47,7 +47,7 @@ namespace ecs
 
 		std::shared_ptr<ActorComponent> actorComponent;
 		std::shared_ptr<HealthComponent> health;
-		std::weak_ptr<WeaponMeleeComponent> weapon;
+		std::shared_ptr<DamageColliderComponent> damageCollider;
 
 		std::shared_ptr<HealthComponent> targetHealth;
 		std::shared_ptr<TransformComponent> targetTransform;

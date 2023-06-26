@@ -3,7 +3,7 @@
 #include "TransformComponent.h"
 #include "HitboxComponent.h"
 #include "HealthComponent.h"
-#include "WeaponMeleeComponent.h"
+#include "DamageColliderComponent.h"
 // TODO: remove
 #include "Game.h"
 
@@ -19,7 +19,7 @@ void ecs::AIComponentBasicFighter::init()
 	registerWithSubject(actorComponent);
 
 	transform = entity->getComponent<TransformComponent>();
-	weapon = entity->getComponent<WeaponMeleeComponent>();
+	damageCollider = entity->getComponent<DamageColliderComponent>();
 	health = entity->getComponent<HealthComponent>();
 	// TODO: remove
 	aggroDistance = Game::constants->AI_AGGRO_DISTANCE * transform->getScale();
@@ -35,16 +35,9 @@ void ecs::AIComponentBasicFighter::update(double delta)
 		distance = (Vector2D::Distance(transform->getPosition(), targetTransform->getPosition()));
 
 		transform->setVeloctiy(0, 0);
-		auto lockedWeapon = weapon.lock();
-		if (!lockedWeapon)
-		{
-			lockedWeapon = entity->getComponent<WeaponMeleeComponent>();
-			weapon = lockedWeapon;
-		}
-		if (!lockedWeapon)
-			return;
+		damageCollider = entity->getComponent<DamageColliderComponent>();
 
-		if (lockedWeapon->isInRange(targetHitbox->getHitbox()) && state != eState::ATTACK)
+		if (damageCollider->isInRange(targetHitbox->getHitbox()) && state != eState::ATTACK)
 		{
 			transform->setDirection(Vector2D::VectorBetween(transform->getPosition(), targetTransform->getPosition()));
 			actorComponent->playAction("attack");

@@ -21,7 +21,7 @@ namespace ecs
 		void update(double delta) override;
 		void draw() override;
 
-		void loadWeaponParams(const std::string& name);
+		void assignDamageCollider(const std::string& name);
 
 		void inline addAffectedTarget(int id) { affectedTargets.emplace_back(id); }
 		bool inline isInAffectedTargets(int id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
@@ -38,6 +38,7 @@ namespace ecs
 
 	private:
 		void parseColliderJson(const nlohmann::json& data);
+		void loadWeaponParams();
 
 		eColliderShape colliderShape;
 

@@ -48,7 +48,7 @@ void ecs::WeaponMeleeComponent::onNotify(const std::string_view& observedEvent)
 
 void ecs::WeaponMeleeComponent::loadWeaponData()
 {
-	damageColliderComponent->loadWeaponParams(name);
+	damageColliderComponent->assignDamageCollider(name);
 
 	const nlohmann::json weaponData = assets::getWeaponJson(name);
 	weaponType = weaponData.value("weapon_type", "unarmed");
