@@ -7,8 +7,9 @@ ecs::DamageColliderComponent::DamageColliderComponent(const std::string& name, c
 	colliderShape(eColliderShape::RECTANGLE),
 	srcRect(), destRect(),
 	texture(nullptr),
+	tag(name),
 	enabled(isProjectile),
-	destroyOnHit(false),
+	destroyOnHit(isProjectile),
 	damage(0)
 {
 	nlohmann::json data;
@@ -25,7 +26,7 @@ ecs::DamageColliderComponent::~DamageColliderComponent()
 
 void ecs::DamageColliderComponent::init()
 {
-	setRenderOrder(5);
+	setRenderOrder(6);
 	transform = entity->getComponent<ecs::TransformComponent>();
 	loadWeaponParams();
 }
@@ -46,6 +47,7 @@ void ecs::DamageColliderComponent::draw()
 
 void ecs::DamageColliderComponent::assignDamageCollider(const std::string& name)
 {
+	tag = name;
 	nlohmann::json data = assets::getWeaponJson(name);
 	parseColliderJson(data);
 	loadWeaponParams();

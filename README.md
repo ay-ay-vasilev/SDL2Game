@@ -14,9 +14,9 @@ My plan:
     * Added the bow weapon DONE
     * Add an arrow projectile DONE
     * Add shooting (basic variant)
-        - Refactor WeaponComponent
-            * Move damage collider logic to a separate class
-            * Do not destroy and recreate the WeaponComponent when an actor equips a different weapon - use configuration instead
+        - Refactor WeaponComponent DONE
+            * Move damage collider logic to a separate class DONE
+            * Do not destroy and recreate the WeaponComponent when an actor equips a different weapon - use configuration instead DONE
     * Add a pointer for aiming
     * Make it prettier
     * Add a ranged weapon to the human enemy
@@ -36,11 +36,12 @@ Maintenance:
 - Add an event queue (improve the efficiency of the ParticleManager and the ProjectileSystem)
 - Set proper surface sizes (unarmed bug)
 - Fix animations (attack animation morphs into idle for a frame)
-- JSON files for AI.
-- Add map json.
-- Fix Tile-Collider logic.
+- JSON files for AI
+- Add map json
+- Fix Tile-Collider logic
 - Clean up in constants and settings.json.
-- Better WeaponComponent implementation (add an object for weapon stats).
+- Better WeaponComponent implementation (add an object for weapon stats)
+- Better ProjectileComponent implementation (add a name and make it a layer of abstraction, add "splatters" and "corpses")
 - Specific weapon stats for actors in weapon json files?
 - Refactor the debug draw methods
 - Deal with strings and string_views

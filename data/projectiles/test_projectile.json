@@ -4,7 +4,8 @@
 	{
 		"shape": "circle",
 		"dx": 0, "dy": 0,
-		"radius": 5
+		"radius": 5,
+		"enable_collision": false
 	},
 	"hitbox_rect":
 	{

@@ -26,6 +26,8 @@ void ecs::CollisionSystem::update(double delta)
 		if (movingEntityHealth && movingEntityHealth->isDead()) continue;
 
 		auto movingEntityColliderComponent = movingEntity->getComponent<ecs::ColliderComponent>();
+		if (!movingEntityColliderComponent->isEnabled()) continue;
+
 		auto movingEntityTransformComponent = movingEntity->getComponent<ecs::TransformComponent>();
 		auto movingEntityCollider = movingEntityColliderComponent->getCollider();
 
@@ -38,7 +40,11 @@ void ecs::CollisionSystem::update(double delta)
 			auto colliderEntityHealth = colliderEntity->getComponent<ecs::HealthComponent>();
 			if (colliderEntityHealth && colliderEntityHealth->isDead()) continue;
 
-			const auto colliderEntityCollider = colliderEntity->getComponent<ecs::ColliderComponent>()->getCollider();
+			auto colliderEntityColliderComponent = colliderEntity->getComponent<ecs::ColliderComponent>();
+			if (!colliderEntityColliderComponent->isEnabled()) continue;
+
+			const auto colliderEntityCollider = colliderEntityColliderComponent->getCollider();
+
 			float overlapX, overlapY;
 			if (overlap(movingEntityCollider, colliderEntityCollider, overlapX, overlapY))
 			{

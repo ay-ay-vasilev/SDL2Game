@@ -65,15 +65,20 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 				const int currentHealth = actorHealthComponent->getHealth();
 
 				// =========== LOGGING ===========
-				/*auto entityName = weaponCollider->getTag() + "_" + std::to_string(hitboxEntity->getID());
-				if (hitboxEntity->hasComponent<ecs::ActorComponent>())
-				{
-					const auto actorComponent = hitboxEntity->getComponent<ecs::ActorComponent>();
-					entityName = actorComponent->getActorType() + "_" + std::to_string(hitboxEntity->getID());
-				}
-				std::cout
-					<< entityName << " got hit by " << weaponCollider->getTag() << " for " << damage << " damage! "
-					<< entityName << " has " << currentHealth << " hp left!\n";*/
+				//std::string entityName = "";
+				//if (hitboxEntity->hasComponent<ecs::ActorComponent>())
+				//{
+				//	const auto actorComponent = hitboxEntity->getComponent<ecs::ActorComponent>();
+				//	entityName = actorComponent->getActorType() + "_" + std::to_string(hitboxEntity->getID());
+				//}
+				//else if (hitboxEntity->hasComponent<ecs::DamageColliderComponent>()) // todo : maybe add a name to the projectile component ?
+				//{
+				//	const auto hitboxDamageColliderComponent = hitboxEntity->getComponent<ecs::DamageColliderComponent>();
+				//	entityName = hitboxDamageColliderComponent->getTag() + "_" + std::to_string(hitboxEntity->getID());
+				//}
+				//std::cout
+				//	<< entityName << " got hit by " << damageColliderComponent->getTag() << " for " << damage << " damage! "
+				//	<< entityName << " has " << currentHealth << " hp left!\n";
 				// ===============================
 
 				if (damageColliderComponent->isDestroyedOnHit())

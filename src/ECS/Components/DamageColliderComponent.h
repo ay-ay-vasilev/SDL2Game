@@ -24,17 +24,18 @@ namespace ecs
 		void assignDamageCollider(const std::string& name);
 
 		void inline addAffectedTarget(int id) { affectedTargets.emplace_back(id); }
-		bool inline isInAffectedTargets(int id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
+		const bool inline isInAffectedTargets(int id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
 		void inline clearAffectedTargets() { affectedTargets.clear(); }
-		bool inline isInRange(const std::shared_ptr<ColliderShape>& targetHitbox) const { return damageCollider->collidesWith(targetHitbox); }
+		const bool inline isInRange(const std::shared_ptr<ColliderShape>& targetHitbox) const { return damageCollider->collidesWith(targetHitbox); }
 
 		std::shared_ptr<ColliderShape> inline getCollider() const { return damageCollider; }
 
-		bool inline isEnabled() const { return enabled; }
+		const bool inline isEnabled() const { return enabled; }
 		void inline setEnabled(bool value) { enabled = value; }
-		bool inline  isDestroyedOnHit() const { return destroyOnHit; }
+		const bool inline  isDestroyedOnHit() const { return destroyOnHit; }
 		void inline setEnableDraw(bool value) { enableDraw = value; }
-		int inline getDamage() const { return damage; }
+		const int inline getDamage() const { return damage; }
+		const std::string inline getTag() const { return tag; }
 
 	private:
 		void parseColliderJson(const nlohmann::json& data);
@@ -51,6 +52,8 @@ namespace ecs
 		std::vector<int> affectedTargets;
 		SDL_Rect srcRect, destRect;
 		SDL_Texture* texture;
+
+		std::string tag;
 
 		bool enableDraw{ false };
 		bool enabled;

@@ -34,6 +34,10 @@ ecs::ColliderComponent::ColliderComponent(const std::string& tag, const nlohmann
 	{
 		collider = std::make_shared<RectangleCollider>(Vector2D(0, 0), colliderData["w"], colliderData["h"]);
 	}
+	if (colliderData.contains("enable_collision"))
+	{
+		enabled = colliderData["enable_collision"];
+	}
 }
 
 ecs::ColliderComponent::~ColliderComponent()
