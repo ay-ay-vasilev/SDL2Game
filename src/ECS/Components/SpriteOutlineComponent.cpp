@@ -35,6 +35,8 @@ void ecs::SpriteOutlineComponent::init()
 	spriteComponent = entity->getComponent<ecs::SpriteComponent>();
 	registerWithSubject(spriteComponent);
 	enabled = true;
+
+	texture = TextureManager::getCombinedTexture(spriteComponent->getSortedSprites(), outlineColor);
 }
 
 void ecs::SpriteOutlineComponent::update(double delta)

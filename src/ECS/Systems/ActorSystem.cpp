@@ -19,6 +19,7 @@
 #include "HitParticleComponent.h"
 #include "SplatterComponent.h"
 #include "DebugParticleComponent.h"
+#include "AimComponent.h"
 
 #include <random>
 
@@ -156,6 +157,7 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 	player.addComponent<ecs::DamageColliderComponent>();
 	player.addComponent<ecs::WeaponMeleeComponent>();
 	player.addComponent<ecs::HitParticleComponent>(playerData["hit_particle"]);
+	player.addComponent<ecs::AimComponent>();
 	if (playerData.contains("splatter")) player.addComponent<ecs::SplatterComponent>(playerData["splatter"]);
 
 	if (playerData.contains("debug"))

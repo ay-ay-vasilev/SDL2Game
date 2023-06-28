@@ -4,6 +4,7 @@
 #include "KeyboardComponent.h"
 #include "TransformComponent.h"
 #include "DebugParticleComponent.h"
+#include "AimComponent.h"
 #include "SDL.h"
 #include "Game.h"
 
@@ -22,6 +23,17 @@ void KeyboardManager::setActorSystem(std::shared_ptr<ecs::ActorSystem> actorSyst
 void KeyboardManager::update()
 {
 	controlledEntities = manager->getEntitiesWithComponent<ecs::KeyboardComponent>();
+
+	const auto aimComponentEntities = manager->getEntitiesWithComponent<ecs::AimComponent>();
+	if (!aimComponentEntities.empty())
+	{
+		for (const auto aimComponentEntity : aimComponentEntities)
+		{
+			auto aimComponent = aimComponentEntity->getComponent<ecs::AimComponent>();
+
+			aimComponent->calculateRotation({ static_cast<float>(mouseX), static_cast<float>(mouseY) });
+		}
+	}
 }
 
 void KeyboardManager::handleEvents()
@@ -104,6 +116,8 @@ void KeyboardManager::handleEvents()
 		{
 			pressed = false;
 		}
+
+		SDL_GetMouseState(&mouseX, &mouseY);
 	}
 
 	for (const auto& controlledEntity : controlledEntities)

@@ -27,6 +27,7 @@
     <ClCompile Include="..\src\Constants\Constants.cpp" />
     <ClCompile Include="..\src\ECS\Components\ActorComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\AIComponentBasicFighter.cpp" />
+    <ClCompile Include="..\src\ECS\Components\AimComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ArmorComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ColliderComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\DamageColliderComponent.cpp" />
@@ -79,6 +80,7 @@
     <ClInclude Include="..\src\ECS\Components\ActorComponent.h" />
     <ClInclude Include="..\src\ECS\Components\AIComponent.h" />
     <ClInclude Include="..\src\ECS\Components\AIComponentBasicFighter.h" />
+    <ClInclude Include="..\src\ECS\Components\AimComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ArmorComponent.h" />
     <ClInclude Include="..\src\ECS\Components\CameraComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ColliderComponent.h" />

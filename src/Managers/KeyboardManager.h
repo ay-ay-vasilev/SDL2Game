@@ -29,6 +29,9 @@ public:
 	void handleEvents();
 
 private:
+	int mouseX{ 0 };
+	int mouseY{ 0 };
+
 	bool pressed = false;
 
 	std::vector<ecs::Entity*> controlledEntities;
