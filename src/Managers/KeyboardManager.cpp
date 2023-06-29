@@ -4,7 +4,6 @@
 #include "KeyboardComponent.h"
 #include "TransformComponent.h"
 #include "DebugParticleComponent.h"
-#include "AimComponent.h"
 #include "SDL.h"
 #include "Game.h"
 
@@ -23,45 +22,40 @@ void KeyboardManager::setActorSystem(std::shared_ptr<ecs::ActorSystem> actorSyst
 void KeyboardManager::update()
 {
 	controlledEntities = manager->getEntitiesWithComponent<ecs::KeyboardComponent>();
-
-	const auto aimComponentEntities = manager->getEntitiesWithComponent<ecs::AimComponent>();
-	if (!aimComponentEntities.empty())
-	{
-		for (const auto aimComponentEntity : aimComponentEntities)
-		{
-			auto aimComponent = aimComponentEntity->getComponent<ecs::AimComponent>();
-
-			aimComponent->calculateRotation({ static_cast<float>(mouseX), static_cast<float>(mouseY) });
-		}
-	}
 }
 
 void KeyboardManager::handleEvents()
 {
+	SDL_GetMouseState(&mouseX, &mouseY);
+
 	if (actorSystem)
 	{
 		const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
 		switch (Game::gameEvent.key.keysym.sym)
 		{
 		case SDLK_ESCAPE:
+			std::cout << "Pressed ECS!\n";
 			Game::isRunning = false;
 			pressed = true;
 			break;
 		case SDLK_p:
 			if (!pressed)
 			{
+				std::cout << "Pressed P!\n";
 				for (const auto& controlledEntity : controlledEntities)
 					controlledEntity->getComponent<ecs::DebugParticleComponent>()->play();
 				pressed = true;
 			}
 			break;
 		case SDLK_o:
+			std::cout << "Pressed O!\n";
 			Game::constants->ReloadSettings();
 			pressed = true;
 			break;
 		case SDLK_1:
 			if (!pressed)
 			{
+				std::cout << "Pressed 1!\n";
 				for (const auto& controlledEntity : controlledEntities)
 					actorSystem->equipWeapon(*controlledEntity, "unarmed");
 				pressed = true;
@@ -70,6 +64,7 @@ void KeyboardManager::handleEvents()
 		case SDLK_2:
 			if (!pressed)
 			{
+				std::cout << "Pressed 2!\n";
 				for (const auto& controlledEntity : controlledEntities)
 					actorSystem->equipWeapon(*controlledEntity, "shortsword");
 				pressed = true;
@@ -78,6 +73,7 @@ void KeyboardManager::handleEvents()
 		case SDLK_3:
 			if (!pressed)
 			{
+				std::cout << "Pressed 3!\n";
 				for (const auto& controlledEntity : controlledEntities)
 					actorSystem->equipWeapon(*controlledEntity, "sword");
 				pressed = true;
@@ -86,12 +82,14 @@ void KeyboardManager::handleEvents()
 		case SDLK_4:
 			if (!pressed)
 			{
+				std::cout << "Pressed 4!\n";
 				for (const auto& controlledEntity : controlledEntities)
 					actorSystem->equipWeapon(*controlledEntity, "bow");
 				pressed = true;
 			}
 			break;
 		case SDLK_9:
+			std::cout << "Pressed 9!\n";
 			for (const auto& controlledEntity : controlledEntities)
 			{
 				actorSystem->unequipAllArmor(*controlledEntity);
@@ -99,6 +97,7 @@ void KeyboardManager::handleEvents()
 			}
 			break;
 		case SDLK_0:
+			std::cout << "Pressed 0!\n";
 			for (const auto& controlledEntity : controlledEntities)
 			{
 				actorSystem->unequipAllArmor(*controlledEntity);
@@ -116,8 +115,6 @@ void KeyboardManager::handleEvents()
 		{
 			pressed = false;
 		}
-
-		SDL_GetMouseState(&mouseX, &mouseY);
 	}
 
 	for (const auto& controlledEntity : controlledEntities)

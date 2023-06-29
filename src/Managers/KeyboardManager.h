@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include "Vector2D.h"
 
 namespace ecs
 {
@@ -27,6 +28,8 @@ public:
 
 	void update();
 	void handleEvents();
+
+	const inline Vector2D getMousePos() const { return Vector2D(static_cast<float>(mouseX), static_cast<float>(mouseY)); };
 
 private:
 	int mouseX{ 0 };

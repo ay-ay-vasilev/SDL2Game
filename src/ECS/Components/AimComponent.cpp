@@ -1,6 +1,7 @@
 #include "AimComponent.h"
 #include "TransformComponent.h"
 #include "TextureManager.h"
+#include "KeyboardManager.h"
 
 ecs::AimComponent::AimComponent() :
 	texture(nullptr),
@@ -15,7 +16,7 @@ ecs::AimComponent::~AimComponent()
 
 void ecs::AimComponent::init()
 {
-	setRenderOrder(5);
+	setRenderOrder(-1);
 	
 	transform = entity->getComponent<ecs::TransformComponent>();
 
@@ -25,7 +26,7 @@ void ecs::AimComponent::init()
 	center =
 	{
 		static_cast<float>(transform->getPosition().x - srcRect.w * transform->getScale() / 2),
-		static_cast<float>(transform->getPosition().y - srcRect.h * transform->getScale() / 2)
+		static_cast<float>(transform->getPosition().y - srcRect.h * transform->getScale() / 2) + 10.f
 	};
 
 	destRect = {
@@ -37,10 +38,12 @@ void ecs::AimComponent::init()
 
 void ecs::AimComponent::update(double delta)
 {
+	calculateRotation(Game::keyboardManager->getMousePos());
+
 	center =
 	{
 		static_cast<float>(transform->getPosition().x - srcRect.w * transform->getScale() / 2),
-		static_cast<float>(transform->getPosition().y - srcRect.h * transform->getScale() / 2)
+		static_cast<float>(transform->getPosition().y - srcRect.h * transform->getScale() / 2) + 10.f
 	};
 
 	destRect = {
@@ -55,7 +58,7 @@ void ecs::AimComponent::draw()
 	TextureManager::draw(texture, srcRect, destRect, rotation + 90.0);
 }
 
-void ecs::AimComponent::calculateRotation(const Vector2D& mousePos)
+void ecs::AimComponent::calculateRotation(const Vector2D mousePos)
 {
 	const Vector2D newCenter = { static_cast<float>(Game::constants->SCREEN_WIDTH / 2), static_cast<float>(Game::constants->SCREEN_HEIGHT / 2) };
 	rotation = Vector2D::Angle(mousePos - newCenter);
