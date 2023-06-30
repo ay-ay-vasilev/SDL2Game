@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include "Vector2D.h"
+#include "SDL.h"
 
 namespace ecs
 {
@@ -27,7 +28,8 @@ public:
 	void setActorSystem(std::shared_ptr<ecs::ActorSystem> actorSystem);
 
 	void update();
-	void handleEvents();
+	void handleEvents(const SDL_Event& gameEvent);
+	void handleMouse();
 
 	const inline Vector2D getMousePos() const { return Vector2D(static_cast<float>(mouseX), static_cast<float>(mouseY)); };
 

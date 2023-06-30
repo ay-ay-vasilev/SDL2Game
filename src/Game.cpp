@@ -31,7 +31,6 @@ std::unique_ptr<CameraManager> Game::cameraManager = std::make_unique<CameraMana
 std::unique_ptr<ParticleManager> Game::particleManager = std::make_unique<ParticleManager>();
 
 SDL_Renderer* Game::renderer = nullptr;
-SDL_Event Game::gameEvent;
 bool Game::isRunning = false;
 
 // test - remove later
@@ -142,11 +141,17 @@ void Game::handleEvents()
 	case SDL_QUIT:
 		isRunning = false;
 		break;
+	case SDL_KEYUP:
+	case SDL_KEYDOWN:
+	case SDL_MOUSEBUTTONDOWN:
+	case SDL_MOUSEBUTTONUP:
+		keyboardManager->handleEvents(gameEvent);
+		break;
 	default:
 		break;
 	}
 
-	keyboardManager->handleEvents();
+	keyboardManager->handleMouse();
 }
 
 void Game::update(double delta)

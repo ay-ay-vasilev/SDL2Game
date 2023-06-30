@@ -24,14 +24,12 @@ void KeyboardManager::update()
 	controlledEntities = manager->getEntitiesWithComponent<ecs::KeyboardComponent>();
 }
 
-void KeyboardManager::handleEvents()
+void KeyboardManager::handleEvents(const SDL_Event& gameEvent)
 {
-	SDL_GetMouseState(&mouseX, &mouseY);
-
 	if (actorSystem)
 	{
 		const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
-		switch (Game::gameEvent.key.keysym.sym)
+		switch (gameEvent.key.keysym.sym)
 		{
 		case SDLK_ESCAPE:
 			std::cout << "Pressed ECS!\n";
@@ -122,4 +120,9 @@ void KeyboardManager::handleEvents()
 		const auto keyboardComponent = controlledEntity->getComponent<ecs::KeyboardComponent>();
 		keyboardComponent->handleEvents();
 	}
+}
+
+void KeyboardManager::handleMouse()
+{
+	SDL_GetMouseState(&mouseX, &mouseY);
 }

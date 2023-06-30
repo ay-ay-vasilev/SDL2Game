@@ -33,7 +33,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- FIND THE WEIRD KEYBOARD BUG (random button presses ?)
+- Refactor the KeyboardManager 
 - Add an event queue (improve the efficiency of the ParticleManager and the ProjectileSystem)
 - Set proper surface sizes (unarmed bug)
 - Fix animations (attack animation morphs into idle for a frame)

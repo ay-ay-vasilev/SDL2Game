@@ -44,7 +44,6 @@ public:
 	bool running();
 
 	static SDL_Renderer* renderer;
-	static SDL_Event gameEvent;
 	static bool isRunning;
 
 	static std::shared_ptr<Constants> constants;
@@ -66,6 +65,7 @@ public:
 
 private:
 	SDL_Window* window;
+	SDL_Event gameEvent;
 
 	int count;
 };

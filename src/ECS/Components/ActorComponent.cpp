@@ -30,7 +30,7 @@ void ecs::ActorComponent::init()
 	}
 	if (lockedWeapon)
 	{
-		weaponType = lockedWeapon->getWeaponType();
+		setWeaponType(lockedWeapon->getWeaponType());
 	}
 }
 
@@ -46,7 +46,7 @@ void ecs::ActorComponent::update(double delta)
 		}
 		if (lockedWeapon)
 		{
-			weaponType = lockedWeapon->getWeaponType();
+			setWeaponType(lockedWeapon->getWeaponType());
 		}
 	}
 }
@@ -113,4 +113,5 @@ void ecs::ActorComponent::setWeaponType(const std::string newWeaponType)
 		}
 	}
 	weaponType = newWeaponType;
+	playAction("idle");
 }
