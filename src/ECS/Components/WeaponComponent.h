@@ -11,11 +11,11 @@ namespace ecs
 	class ActorComponent;
 	class HealthComponent;
 	class DamageColliderComponent;
-	class WeaponMeleeComponent : public Component, private Observer
+	class WeaponComponent : public Component, private Observer
 	{
 	public:
-		WeaponMeleeComponent(const std::string& name = "unarmed");
-		~WeaponMeleeComponent() override;
+		WeaponComponent(const std::string& name = "unarmed");
+		~WeaponComponent() override;
 
 		// Component
 		void init() override;

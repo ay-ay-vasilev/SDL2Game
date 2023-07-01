@@ -1,39 +1,59 @@
-#include "WeaponMeleeComponent.h"
+#include "WeaponComponent.h"
 #include "TransformComponent.h"
 #include "ActorComponent.h"
 #include "SpriteComponent.h"
 #include "HealthComponent.h"
+#include "DamageColliderComponent.h"
 #include "AssetManager.h"
 
-ecs::WeaponMeleeComponent::WeaponMeleeComponent(const std::string& name, const std::string& ownerName, bool isProjectile) :
-	tag(name),
-	texture(nullptr),
-	srcRect(), destRect(),
-	weaponColliderDirectionCoefficient({ 0, 0 }),
-	weaponColliderOffset({ 0, 0 }),
-	enabled(isProjectile),
-	destroyOnHit(isProjectile),
-	damage(0)
+ecs::WeaponComponent::WeaponComponent(const std::string& name) :
+	name(name)
 {
-	nlohmann::json weaponData;
-	if (isProjectile) weaponData = assets::getProjectileJson(name)["weapon"];
-	else weaponData = assets::getWeaponJson(name);
+}
 
-	damage = weaponData.value("damage", 0);
-	weaponType = weaponData.value("weapon_type", "unarmed");
+ecs::WeaponComponent::~WeaponComponent()
+{
+}
 
-	if (weaponData.contains("collider"))
+void ecs::WeaponComponent::init()
+{
+	actorComponent = entity->getComponent<ecs::ActorComponent>();
+	registerWithSubject(actorComponent);
+	damageColliderComponent = entity->getComponent<ecs::DamageColliderComponent>();
+
+	loadWeaponData();
+}
+
+void ecs::WeaponComponent::update(double delta)
+{
+}
+
+void ecs::WeaponComponent::onNotify(const std::string_view& observedEvent)
+{
+	if (observedEvent == "attack_action_start")
 	{
-		const auto& weaponColliderData = weaponData["collider"];
-		if (weaponColliderData["shape"] == "circle")
-			weaponCollider = std::make_shared<CircleCollider>(Vector2D(0, 0), weaponColliderData["radius"]);
-		if (weaponColliderData["shape"] == "rectangle")
-			weaponCollider = std::make_shared<RectangleCollider>(Vector2D(0, 0), weaponColliderData["w"], weaponColliderData["h"]);
-		if (weaponColliderData.contains("offset"))
-			weaponColliderOffset = { weaponColliderData["offset"]["dx"], weaponColliderData["offset"]["dy"] };
-		weaponColliderDirectionCoefficient = { weaponColliderData.value("x", 0.f), weaponColliderData.value("y", 0.f) };
+		// add ranged weapon logic here
+		damageColliderComponent->setEnabled(true);
 	}
+	if (observedEvent == "attack_action_stop")
+	{
+		damageColliderComponent->setEnabled(false);
+		damageColliderComponent->clearAffectedTargets();
+	}
+	if (observedEvent == "idle_start" || observedEvent == "walk_start")
+	{
+		damageColliderComponent->setEnabled(false);
+	}
+}
 
+void ecs::WeaponComponent::loadWeaponData()
+{
+	damageColliderComponent->assignDamageCollider(name);
+
+	const nlohmann::json weaponData = assets::getWeaponJson(name);
+	weaponType = weaponData.value("weapon_type", "unarmed");
+	const auto ownerName = actorComponent->getActorType();
+	
 	if (weaponData.contains("sprite_data"))
 	{
 		if (weaponData["sprite_data"].contains(ownerName))
@@ -48,103 +68,19 @@ ecs::WeaponMeleeComponent::WeaponMeleeComponent(const std::string& name, const s
 			}
 		}
 	}
+	actorComponent->setWeaponType(weaponType);
+	if (tempSprites.empty()) actorComponent->removeSpritesFromSlot("weapon");
+	for (const auto& spriteData : tempSprites)
+		actorComponent->removeSpritesFromSlot(spriteData.slotName);
+	for (const auto& spriteData : tempSprites)
+	{
+		actorComponent->addSprite(spriteData.slotName, spriteData.textureName, spriteData.z);
+	}
+	tempSprites.clear();
 }
 
-ecs::WeaponMeleeComponent::~WeaponMeleeComponent()
+void ecs::WeaponComponent::equipWeapon(const std::string& name)
 {
-	SDL_DestroyTexture(texture);
-}
-
-void ecs::WeaponMeleeComponent::init()
-{
-	setRenderOrder(5);
-	if (entity->hasComponent<ecs::TransformComponent>())
-	{
-		transform = entity->getComponent<ecs::TransformComponent>();
-		weaponColliderDirectionCoefficient.x *= transform->getScale();
-		weaponColliderDirectionCoefficient.y *= transform->getScale();
-		weaponColliderOffset.x *= transform->getScale();
-		weaponColliderOffset.y *= transform->getScale();
-
-		weaponCollider->setScale(transform->getScale());
-		const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
-		const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
-		weaponCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
-	}
-	destRect = weaponCollider->getDrawRect();
-
-	std::string texturePath;
-	if (auto rectCollider = std::dynamic_pointer_cast<RectangleCollider>(weaponCollider)) {
-		texturePath = "assets/images/misc/debug_assets/weapon_collider_rect.png";
-	}
-	else if (auto circleCollider = std::dynamic_pointer_cast<CircleCollider>(weaponCollider)) {
-		texturePath = "assets/images/misc/debug_assets/weapon_collider_circle.png";
-	}
-	texture = TextureManager::loadTexture(texturePath);
-	srcRect = { 0, 0, 32, 32 };
-
-
-	actorComponent = entity->getComponent<ecs::ActorComponent>();
-	if (actorComponent)
-	{
-		registerWithSubject(actorComponent);
-
-		actorComponent->setWeaponType(weaponType);
-		if (tempSprites.empty()) actorComponent->removeSpritesFromSlot("weapon");
-		for (const auto& spriteData : tempSprites)
-			actorComponent->removeSpritesFromSlot(spriteData.slotName);
-		for (const auto& spriteData : tempSprites)
-		{
-			actorComponent->addSprite(spriteData.slotName, spriteData.textureName, spriteData.z);
-		}
-		tempSprites.clear();
-	}
-	else
-	{
-		spriteComponent = entity->getComponent<ecs::SpriteComponent>();
-		registerWithSubject(spriteComponent);
-
-		if (tempSprites.empty()) spriteComponent->removeSpritesFromSlot("weapon");
-		for (const auto& spriteData : tempSprites)
-			spriteComponent->removeSpritesFromSlot(spriteData.slotName);
-		for (const auto& spriteData : tempSprites)
-		{
-			spriteComponent->addSprite(spriteData.slotName, std::make_shared<Sprite>(spriteData.textureName, spriteData.z));
-		}
-		tempSprites.clear();
-	}
-}
-
-void ecs::WeaponMeleeComponent::update(double delta)
-{
-	const auto weaponColliderX = transform->getPosition().x + weaponColliderOffset.x + transform->getDirection().x * weaponColliderDirectionCoefficient.x;
-	const auto weaponColliderY = transform->getPosition().y + weaponColliderOffset.y + transform->getDirection().y * weaponColliderDirectionCoefficient.y;
-	weaponCollider->setPosition(Vector2D(weaponColliderX, weaponColliderY));
-
-	destRect = weaponCollider->getDrawRect();
-}
-
-void ecs::WeaponMeleeComponent::draw()
-{
-	if (!enabled)
-		return;
-
-	if (enableDraw) TextureManager::draw(texture, srcRect, destRect);
-}
-
-void ecs::WeaponMeleeComponent::onNotify(const std::string_view& observedEvent)
-{
-	if (observedEvent == "attack_action_start")
-	{
-		enabled = true;
-	}
-	if (observedEvent == "attack_action_stop")
-	{
-		enabled = false;
-		affectedTargets.clear();
-	}
-	if (observedEvent == "idle_start" || observedEvent == "walk_start")
-	{
-		enabled = false;
-	}
+	this->name = name;
+	loadWeaponData();
 }

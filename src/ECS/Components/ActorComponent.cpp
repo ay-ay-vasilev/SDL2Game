@@ -2,7 +2,7 @@
 
 #include "TransformComponent.h"
 #include "SpriteComponent.h"
-#include "WeaponMeleeComponent.h"
+#include "WeaponComponent.h"
 #include "HealthComponent.h"
 #include "TintComponent.h"
 #include "CorpseComponent.h"
@@ -21,11 +21,11 @@ void ecs::ActorComponent::init()
 	registerWithSubject(spriteComponent);
 	healthComponent = entity->getComponent<ecs::HealthComponent>();
 	registerWithSubject(healthComponent);
-	weaponComponent = entity->getComponent<ecs::WeaponMeleeComponent>();
+	weaponComponent = entity->getComponent<ecs::WeaponComponent>();
 	auto lockedWeapon = weaponComponent.lock();
 	if (!lockedWeapon)
 	{
-		lockedWeapon = entity->getComponent<ecs::WeaponMeleeComponent>();
+		lockedWeapon = entity->getComponent<ecs::WeaponComponent>();
 		weaponComponent = lockedWeapon;
 	}
 	if (lockedWeapon)
@@ -41,7 +41,7 @@ void ecs::ActorComponent::update(double delta)
 		auto lockedWeapon = weaponComponent.lock();
 		if (!lockedWeapon)
 		{
-			lockedWeapon = entity->getComponent<ecs::WeaponMeleeComponent>();
+			lockedWeapon = entity->getComponent<ecs::WeaponComponent>();
 			weaponComponent = lockedWeapon;
 		}
 		if (lockedWeapon)

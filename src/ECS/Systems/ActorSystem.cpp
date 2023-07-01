@@ -11,7 +11,7 @@
 #include "AIComponentBasicFighter.h"
 #include "ArmorComponent.h"
 #include "DamageColliderComponent.h"
-#include "WeaponMeleeComponent.h"
+#include "WeaponComponent.h"
 #include "FactionComponent.h"
 #include "CameraComponent.h"
 #include "ShadowComponent.h"
@@ -121,7 +121,7 @@ ecs::Entity* ecs::ActorSystem::instantiateActor(const Vector2D& pos, const std::
 	actor.addComponent<ecs::FactionComponent>(actorData.contains("faction") ? actorData["faction"] : "neutral");
 	actor.addComponent<ecs::CorpseComponent>();
 	actor.addComponent<ecs::DamageColliderComponent>();
-	actor.addComponent<ecs::WeaponMeleeComponent>();
+	actor.addComponent<ecs::WeaponComponent>();
 	actor.addComponent<ecs::HitParticleComponent>(actorData["hit_particle"]);
 	if (actorData.contains("splatter")) actor.addComponent<ecs::SplatterComponent>(actorData["splatter"]);
 
@@ -155,7 +155,7 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 	player.addComponent<ecs::CameraComponent>();
 	player.addComponent<ecs::CorpseComponent>();
 	player.addComponent<ecs::DamageColliderComponent>();
-	player.addComponent<ecs::WeaponMeleeComponent>();
+	player.addComponent<ecs::WeaponComponent>();
 	player.addComponent<ecs::HitParticleComponent>(playerData["hit_particle"]);
 	player.addComponent<ecs::AimComponent>();
 	if (playerData.contains("splatter")) player.addComponent<ecs::SplatterComponent>(playerData["splatter"]);
@@ -172,9 +172,9 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 
 void ecs::ActorSystem::equipWeapon(ecs::Entity& actor, const std::string& weaponName)
 {
-	if (!actor.hasComponent<ecs::ActorComponent>() || !actor.hasComponent<ecs::WeaponMeleeComponent>()) return;
+	if (!actor.hasComponent<ecs::ActorComponent>() || !actor.hasComponent<ecs::WeaponComponent>()) return;
 
-	actor.getComponent<ecs::WeaponMeleeComponent>()->equipWeapon(weaponName);
+	actor.getComponent<ecs::WeaponComponent>()->equipWeapon(weaponName);
 }
 
 void ecs::ActorSystem::equipArmor(ecs::Entity& actor, const std::string& armorName, const std::string& slotName, const std::string& colorName)

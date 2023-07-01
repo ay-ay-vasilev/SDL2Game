@@ -3,7 +3,7 @@
 #include "TransformComponent.h"
 #include "HitboxComponent.h"
 #include "ArmorComponent.h"
-#include "WeaponMeleeComponent.h"
+#include "WeaponComponent.h"
 #include "HealthComponent.h"
 
 void ecs::KeyboardComponent::init()

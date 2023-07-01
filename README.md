@@ -17,7 +17,9 @@ My plan:
         - Refactor WeaponComponent DONE
             * Move damage collider logic to a separate class DONE
             * Do not destroy and recreate the WeaponComponent when an actor equips a different weapon - use configuration instead DONE
-    * Add a pointer for aiming
+    * Add a pointer for aiming DONE
+    * Implement the creation of the projectiles.
+        - Add an EventManager and events to send data
     * Make it prettier
     * Add a ranged weapon to the human enemy
     * Add a ranged weapon to the skeleton enemy

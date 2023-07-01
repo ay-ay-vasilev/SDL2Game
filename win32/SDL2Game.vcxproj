@@ -46,7 +46,7 @@
     <ClCompile Include="..\src\ECS\Components\TileSplatterComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\TintComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\UILabelComponent.cpp" />
-    <ClCompile Include="..\src\ECS\Components\WeaponMeleeComponent.cpp" />
+    <ClCompile Include="..\src\ECS\Components\WeaponComponent.cpp" />
     <ClCompile Include="..\src\ECS\ECS.cpp" />
     <ClCompile Include="..\src\ECS\Systems\AISystem.cpp" />
     <ClCompile Include="..\src\ECS\Systems\CollisionSystem.cpp" />
@@ -92,7 +92,6 @@
     <ClInclude Include="..\src\ECS\Components\HitParticleComponent.h" />
     <ClInclude Include="..\src\ECS\Components\KeyboardComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ProjectileComponent.h" />
-    <ClInclude Include="..\src\ECS\Components\WeaponRangedComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ShadowComponent.h" />
     <ClInclude Include="..\src\ECS\Components\SplatterComponent.h" />
     <ClInclude Include="..\src\ECS\Components\SpriteComponent.h" />
@@ -102,7 +101,7 @@
     <ClInclude Include="..\src\ECS\Components\TintComponent.h" />
     <ClInclude Include="..\src\ECS\Components\TransformComponent.h" />
     <ClInclude Include="..\src\ECS\Components\UILabelComponent.h" />
-    <ClInclude Include="..\src\ECS\Components\WeaponMeleeComponent.h" />
+    <ClInclude Include="..\src\ECS\Components\WeaponComponent.h" />
     <ClInclude Include="..\src\ECS\ECS.h" />
     <ClInclude Include="..\src\ECS\Systems\AISystem.h" />
     <ClInclude Include="..\src\ECS\Systems\CollisionSystem.h" />

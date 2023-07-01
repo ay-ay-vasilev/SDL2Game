@@ -32,28 +32,24 @@ void KeyboardManager::handleEvents(const SDL_Event& gameEvent)
 		switch (gameEvent.key.keysym.sym)
 		{
 		case SDLK_ESCAPE:
-			std::cout << "Pressed ECS!\n";
 			Game::isRunning = false;
 			pressed = true;
 			break;
 		case SDLK_p:
 			if (!pressed)
 			{
-				std::cout << "Pressed P!\n";
 				for (const auto& controlledEntity : controlledEntities)
 					controlledEntity->getComponent<ecs::DebugParticleComponent>()->play();
 				pressed = true;
 			}
 			break;
 		case SDLK_o:
-			std::cout << "Pressed O!\n";
 			Game::constants->ReloadSettings();
 			pressed = true;
 			break;
 		case SDLK_1:
 			if (!pressed)
 			{
-				std::cout << "Pressed 1!\n";
 				for (const auto& controlledEntity : controlledEntities)
 					actorSystem->equipWeapon(*controlledEntity, "unarmed");
 				pressed = true;
@@ -62,7 +58,6 @@ void KeyboardManager::handleEvents(const SDL_Event& gameEvent)
 		case SDLK_2:
 			if (!pressed)
 			{
-				std::cout << "Pressed 2!\n";
 				for (const auto& controlledEntity : controlledEntities)
 					actorSystem->equipWeapon(*controlledEntity, "shortsword");
 				pressed = true;
@@ -71,7 +66,6 @@ void KeyboardManager::handleEvents(const SDL_Event& gameEvent)
 		case SDLK_3:
 			if (!pressed)
 			{
-				std::cout << "Pressed 3!\n";
 				for (const auto& controlledEntity : controlledEntities)
 					actorSystem->equipWeapon(*controlledEntity, "sword");
 				pressed = true;
@@ -80,14 +74,12 @@ void KeyboardManager::handleEvents(const SDL_Event& gameEvent)
 		case SDLK_4:
 			if (!pressed)
 			{
-				std::cout << "Pressed 4!\n";
 				for (const auto& controlledEntity : controlledEntities)
 					actorSystem->equipWeapon(*controlledEntity, "bow");
 				pressed = true;
 			}
 			break;
 		case SDLK_9:
-			std::cout << "Pressed 9!\n";
 			for (const auto& controlledEntity : controlledEntities)
 			{
 				actorSystem->unequipAllArmor(*controlledEntity);
@@ -95,7 +87,6 @@ void KeyboardManager::handleEvents(const SDL_Event& gameEvent)
 			}
 			break;
 		case SDLK_0:
-			std::cout << "Pressed 0!\n";
 			for (const auto& controlledEntity : controlledEntities)
 			{
 				actorSystem->unequipAllArmor(*controlledEntity);
