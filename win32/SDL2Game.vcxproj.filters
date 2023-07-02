@@ -37,6 +37,9 @@
     <Filter Include="Source Files\Particles">
       <UniqueIdentifier>{1eddba23-335d-42c1-8989-ba6119201b49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Events">
+      <UniqueIdentifier>{7d43ea46-801d-44d9-a58c-627690d400ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Game.cpp">
@@ -331,6 +334,12 @@
     </ClInclude>
     <ClInclude Include="..\src\ECS\Components\AimComponent.h">
       <Filter>Source Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Events\EventManager.h">
+      <Filter>Source Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Events\Events.h">
+      <Filter>Source Files\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

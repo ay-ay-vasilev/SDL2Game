@@ -3,6 +3,9 @@
 #include "HealthComponent.h"
 #include "ColliderComponent.h"
 
+#include "Events/EventManager.h"
+#include "Events/Events.h"
+
 ecs::SplatterComponent::SplatterComponent(const nlohmann::json& splatterData)
 {
 	if (splatterData.contains("intensity")) splatterSettings.intensity = splatterData["intensity"];
@@ -51,11 +54,24 @@ void ecs::SplatterComponent::onNotify(const std::string_view& observedEvent)
 
 void ecs::SplatterComponent::createSplatter()
 {
-	needSplatter = true;
-
 	const auto colliderComponent = entity->getComponent<ecs::ColliderComponent>();
 	const float x = colliderComponent->getCollider()->getPosition().x;
 	const float y = colliderComponent->getLowestPoint();
 
 	splatterSettings.splatterPosition = Vector2D(x, y);
+
+	// TODO : refactor this
+	const SplatterEvent splatterEvent =
+	{
+		splatterSettings.splatterPosition,
+		splatterSettings.intensity,
+		splatterSettings.radiusRange,
+		splatterSettings.offsetRange,
+		splatterSettings.redRange,
+		splatterSettings.greenRange,
+		splatterSettings.blueRange,
+		splatterSettings.alphaRange
+	};
+
+	EventManager::fire<SplatterEvent>(splatterEvent);
 }

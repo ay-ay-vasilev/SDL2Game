@@ -1,6 +1,9 @@
 #pragma once
 #include "ECS.h"
 
+#include "Events/EventManager.h"
+#include "Events/Events.h"
+
 class Splatter;
 namespace ecs
 {
@@ -13,10 +16,11 @@ namespace ecs
 		void update(double delta) override;
 		void draw() override;
 
-		void checkForSplatter();
+		void createSplatter(SplatterEvent* splatterData);
 		void applySplatterToTile(const Splatter& splatterData);
 
 	private:
 		std::vector<Entity*> splatterEntities;
+		CallbackContainer<SplatterEvent>::ListenerHandle listenerHandle;
 	};
 }

@@ -28,16 +28,11 @@ namespace ecs
 
 		// Observer
 		void onNotify(const std::string_view& observedEvent) override;
-
-		bool inline needToCreateSplatter() const { return needSplatter; }
-		void inline setNeedToCreateSplatter(bool value) { needSplatter = value; }
-
 		SplatterSettings inline getSplatterSettings() const { return splatterSettings; }
 	private:
 		void createSplatter();
 		std::shared_ptr<HealthComponent> healthComponent;
 
-		bool needSplatter = false;
 		SplatterSettings splatterSettings{};
 	};
 }

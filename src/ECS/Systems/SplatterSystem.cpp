@@ -9,61 +9,48 @@
 
 void ecs::SplatterSystem::init()
 {
+	listenerHandle = EventManager::listen<SplatterEvent>(this, &ecs::SplatterSystem::createSplatter);
 }
 
 void ecs::SplatterSystem::update(double delta)
 {
-	checkForSplatter();
 }
 
 void ecs::SplatterSystem::draw()
 {
 }
 
-void ecs::SplatterSystem::checkForSplatter()
+void ecs::SplatterSystem::createSplatter(SplatterEvent* splatterEvent)
 {
-	splatterEntities = manager.getEntitiesWithComponent<ecs::SplatterComponent>();
+	float minRadius = splatterEvent->radiusRange.first;
+	float maxRadius = splatterEvent->radiusRange.second;
+	float randomRadius = minRadius + (static_cast<float>(std::rand()) / RAND_MAX) * (maxRadius - minRadius);
 
-	for (const auto splatterEntity : splatterEntities)
-	{
-		auto splatterComponent = splatterEntity->getComponent<ecs::SplatterComponent>();
+	float minOffset = splatterEvent->offsetRange.first;
+	float maxOffset = splatterEvent->offsetRange.second;
 
-		if (splatterComponent->needToCreateSplatter())
-		{
-			const auto& splatterSettings = splatterComponent->getSplatterSettings();
+	// Generate a random offset value between minOffset and maxOffset
+	float offsetX = minOffset + (static_cast<float>(std::rand()) / RAND_MAX) * (maxOffset - minOffset);
+	float offsetY = minOffset + (static_cast<float>(std::rand()) / RAND_MAX) * (maxOffset - minOffset);
+	// Randomly choose the sign for the offset
+	if (std::rand() % 2 == 0) offsetX *= -1.f;
+	if (std::rand() % 2 == 0) offsetY *= -1.f;
 
-			float minRadius = splatterSettings.radiusRange.first;
-			float maxRadius = splatterSettings.radiusRange.second;
-			float randomRadius = minRadius + (static_cast<float>(std::rand()) / RAND_MAX) * (maxRadius - minRadius);
+	auto splatterPosition = splatterEvent->splatterPosition;
 
-			float minOffset = splatterSettings.offsetRange.first;
-			float maxOffset = splatterSettings.offsetRange.second;
+	auto splatterData = Splatter
+	(
+		splatterPosition, static_cast<int>(randomRadius), splatterEvent->intensity,
+		splatterEvent->redRange, splatterEvent->greenRange, splatterEvent->blueRange, splatterEvent->alphaRange
+	);
 
-			// Generate a random offset value between minOffset and maxOffset
-			float offsetX = minOffset + (static_cast<float>(std::rand()) / RAND_MAX) * (maxOffset - minOffset);
-			float offsetY = minOffset + (static_cast<float>(std::rand()) / RAND_MAX) * (maxOffset - minOffset);
-			// Randomly choose the sign for the offset
-			if (std::rand() % 2 == 0) offsetX *= -1.f;
-			if (std::rand() % 2 == 0) offsetY *= -1.f;
+	applySplatterToTile(splatterData);
 
-			auto splatterPosition = splatterComponent->getSplatterSettings().splatterPosition;
+	splatterPosition.x += offsetX * Game::constants->SCALE;
+	splatterPosition.y += offsetY * Game::constants->SCALE;
+	splatterData.setSplatterCenter(splatterPosition);
 
-			auto splatterData = Splatter
-			(
-				splatterPosition, static_cast<int>(randomRadius), splatterSettings.intensity,
-				splatterSettings.redRange, splatterSettings.greenRange, splatterSettings.blueRange, splatterSettings.alphaRange
-			);
-
-			applySplatterToTile(splatterData);
-			
-			splatterPosition.x += offsetX * Game::constants->SCALE;
-			splatterPosition.y += offsetY * Game::constants->SCALE;
-			splatterData.setSplatterCenter(splatterPosition);
-
-			applySplatterToTile(splatterData);
-			splatterComponent->setNeedToCreateSplatter(false);
-		}
-	}
+	applySplatterToTile(splatterData);
 }
 
 void ecs::SplatterSystem::applySplatterToTile(const Splatter& splatterData)

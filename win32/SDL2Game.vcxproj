@@ -111,6 +111,8 @@
     <ClInclude Include="..\src\ECS\Systems\ProjectileSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\RenderSystem.h" />
     <ClInclude Include="..\src\ECS\Systems\SplatterSystem.h" />
+    <ClInclude Include="..\src\Events\EventManager.h" />
+    <ClInclude Include="..\src\Events\Events.h" />
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\LibWrappers\wrappedJson.h" />
     <ClInclude Include="..\src\Managers\AssetManager.h" />
