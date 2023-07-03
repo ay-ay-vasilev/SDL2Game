@@ -11,6 +11,7 @@ namespace ecs
 	{
 	public:
 		explicit SplatterSystem(Manager& manager) : System(manager) {}
+		~SplatterSystem() override;
 		// System
 		void init() override;
 		void update(double delta) override;
@@ -21,6 +22,6 @@ namespace ecs
 
 	private:
 		std::vector<Entity*> splatterEntities;
-		CallbackContainer<SplatterEvent>::ListenerHandle listenerHandle;
+		ListenerHandle listenerHandle;
 	};
 }

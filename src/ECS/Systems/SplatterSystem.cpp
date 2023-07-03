@@ -7,6 +7,11 @@
 #include "Game.h"
 #include <queue>
 
+ecs::SplatterSystem::~SplatterSystem()
+{
+	EventManager::remove_listener(listenerHandle);
+}
+
 void ecs::SplatterSystem::init()
 {
 	listenerHandle = EventManager::listen<SplatterEvent>(this, &ecs::SplatterSystem::createSplatter);

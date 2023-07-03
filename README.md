@@ -19,7 +19,8 @@ My plan:
             * Do not destroy and recreate the WeaponComponent when an actor equips a different weapon - use configuration instead DONE
     * Add a pointer for aiming DONE
     * Implement the creation of the projectiles.
-        - Add an EventManager and events to send data
+        - Add an EventManager and events to send data DONE
+        - Implement weapon types, a projectile event and shooting
     * Make it prettier
     * Add a ranged weapon to the human enemy
     * Add a ranged weapon to the skeleton enemy
@@ -36,6 +37,9 @@ My plan:
 
 Maintenance:
 - Refactor the KeyboardManager 
+- Refactor the EventManager
+- Refactor the Splatter class maybe ?
+- Add namespaces for particles and events
 - Add an event queue (improve the efficiency of the ParticleManager and the ProjectileSystem)
 - Set proper surface sizes (unarmed bug)
 - Fix animations (attack animation morphs into idle for a frame)
