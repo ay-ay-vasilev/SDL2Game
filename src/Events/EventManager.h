@@ -7,164 +7,97 @@
 #include <functional>
 #include <queue>
 
-
-typedef std::uint32_t EventID;
-
-class ListenerHandle
-{
-public:
-	ListenerHandle(std::uint32_t sparse_index = 0u, std::uint32_t dense_index = 0u, std::uint32_t version = 0u, EventID event_id = 0u)
-		: m_sparse_index(sparse_index),
-		m_dense_index(dense_index),
-		m_version(version),
-		m_event_id(event_id) {}
-
-
-public:
-	std::uint32_t m_sparse_index;
-	std::uint32_t m_dense_index;
-	std::uint32_t m_version;
-	EventID       m_event_id;
-
-
-	friend class EventManager;
-
-	template<typename T>
-	friend struct CallbackContainer;
-};
-
-struct CallbackContainerBase
-{
-	virtual void remove_callback(const ListenerHandle& handle) = 0;
-};
-
 template<typename T>
-struct CallbackContainer : CallbackContainerBase
+struct CallbackContainer
 {
-	CallbackContainer(EventID event_id) : event_id{ event_id } {}
+	using CallbackType = std::function<void(const T&)>;
 
-	std::vector<std::function<void(T*)>>    callbacks;
-	std::vector<ListenerHandle>             handles;
-	EventID                                 event_id;
-
-	std::vector<ListenerHandle>             sparse;
-	std::vector<std::uint32_t>              dense;
-	std::queue<std::uint32_t>               free_sparse_indices;
-
-	template<typename T_Function>
-	auto add_callback(T_Function callback) -> ListenerHandle;
-	void remove_callback(const ListenerHandle& handle) override;
-};
-
-template<typename T>
-inline void CallbackContainer<T>::remove_callback(const ListenerHandle& handle)
-{
-	assert(handle.m_version == sparse[handle.m_sparse_index].m_version);
-
-	sparse[handle.m_sparse_index].m_version++;
-
-	std::uint32_t remove_index = sparse[handle.m_sparse_index].m_dense_index;
-	std::uint32_t last_index = callbacks.size() - 1;
-
-	dense[remove_index] = dense[last_index];
-	sparse[dense[remove_index]].m_dense_index = remove_index;
-
-	std::swap(callbacks[remove_index], callbacks[last_index]);
-
-	free_sparse_indices.push(handle.m_sparse_index);
-	callbacks.pop_back();
-	dense.pop_back();
-}
-
-template<typename T>
-template<typename T_Function>
-inline auto CallbackContainer<T>::add_callback(T_Function callback) -> ListenerHandle
-{
-	std::uint32_t sparse_index;
-
-	if (free_sparse_indices.empty())
+	struct ListenerHandle
 	{
-		sparse_index = callbacks.size();
-		sparse.emplace_back(sparse_index, sparse_index, 0u, event_id);
+		std::uint32_t id;
+	};
+
+	std::vector<CallbackType> callbacks;
+	std::vector<ListenerHandle> free_handles;
+
+	auto add_callback(CallbackType callback) -> ListenerHandle;
+
+	void remove_callback(ListenerHandle handle);
+};
+
+template<typename T>
+inline auto CallbackContainer<T>::add_callback(CallbackType callback) -> CallbackContainer<T>::ListenerHandle
+{
+	CallbackContainer<T>::ListenerHandle handle;
+
+	if (free_handles.empty())
+	{
+		handle = { static_cast<std::uint32_t>(callbacks.size()) };
+		callbacks.emplace_back(callback);
 	}
 	else
 	{
-		sparse_index = free_sparse_indices.front();
-		free_sparse_indices.pop();
+		handle = free_handles.back();
+		free_handles.pop_back();
+		callbacks[handle.id] = callback;
 	}
 
-	dense.push_back(sparse_index);
-	callbacks.emplace_back(callback);
+	return handle;
+}
 
-	return sparse[sparse_index];
+template<typename T>
+void CallbackContainer<T>::remove_callback(CallbackContainer<T>::ListenerHandle handle)
+{
+	callbacks[handle.id] = nullptr;
+	free_handles.push_back(handle);
 }
 
 class EventManager
 {
-	using CallbackContainers = std::vector<std::unique_ptr<CallbackContainerBase>>;
+	template<typename T>
+	using CallbackContainers = std::vector<std::unique_ptr<CallbackContainer<T>>>;
 public:
 	template<typename T, typename T_Function>
-	static auto listen(T_Function callback) -> ListenerHandle;
+	static auto listen(T_Function callback) -> CallbackContainer<T>::ListenerHandle;
 
 	template<typename T, typename T_Instance, typename T_Function>
-	static auto listen(T_Instance* instance, T_Function callback) -> ListenerHandle;
+	static auto listen(T_Instance* instance, T_Function callback) -> CallbackContainer<T>::ListenerHandle;
 
-	static void remove_listener(const ListenerHandle& handle);
+	template<typename T>
+	static void remove_listener(CallbackContainer<T>::ListenerHandle handle);
 
 	template<typename T, typename... T_Args>
-	static void fire(T_Args...args);
-
+	static void fire(T_Args&&...args);
 
 private:
 	template<typename T>
-	static auto get_event_id() -> EventID;
-
-	template<typename T>
-	static auto register_event() -> EventID;
-
-private:
-	static inline CallbackContainers    s_callbacks;
-	static inline EventID               s_next_event_id{ 0u };
+	static inline CallbackContainer<T> s_callbacks;
 };
 
 
 template<typename T, typename T_Function>
-inline ListenerHandle EventManager::listen(T_Function callback)
+inline CallbackContainer<T>::ListenerHandle EventManager::listen(T_Function callback)
 {
-	return static_cast<CallbackContainer<T>*>(s_callbacks[get_event_id<T>()].get())->add_callback(callback);
+	return s_callbacks<T>.add_callback(callback);
 }
 
 template<typename T, typename T_Instance, typename T_Function>
-inline ListenerHandle EventManager::listen(T_Instance* instance, T_Function callback)
+inline CallbackContainer<T>::ListenerHandle EventManager::listen(T_Instance* instance, T_Function callback)
 {
-	return static_cast<CallbackContainer<T>*>(s_callbacks[get_event_id<T>()].get())->add_callback([instance, callback](T* event) { (instance->*callback)(event); });
+	return s_callbacks<T>.add_callback([instance, callback](const T& event) { (instance->*callback)(&event); });
 }
 
-inline void EventManager::remove_listener(const ListenerHandle& handle)
+template<typename T>
+inline void EventManager::remove_listener(CallbackContainer<T>::ListenerHandle handle)
 {
-	s_callbacks[handle.m_event_id]->remove_callback(handle);
+	s_callbacks<T>.remove_callback(handle);
 }
 
 template<typename T, typename ...T_Args>
-inline void EventManager::fire(T_Args ...args)
+inline void EventManager::fire(T_Args&& ...args)
 {
-	T event{ args... };
+	T event{ std::forward<T_Args>(args)... };
 
-	auto& callbacks = static_cast<CallbackContainer<T>*>(s_callbacks[get_event_id<T>()].get())->callbacks;
-	for (auto& callback : callbacks)
-		callback(&event);
-}
-
-template<typename T>
-inline EventID EventManager::get_event_id()
-{
-	static EventID event_id = register_event<T>();
-	return event_id;
-}
-
-template<typename T>
-inline EventID EventManager::register_event()
-{
-	s_callbacks.emplace_back(std::make_unique<CallbackContainer<T*>>(s_next_event_id));
-	return s_next_event_id++;
+	for (auto& callback : s_callbacks<T>.callbacks)
+		if (callback) callback(event);
 }

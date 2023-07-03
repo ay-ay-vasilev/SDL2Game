@@ -9,7 +9,7 @@
 
 ecs::SplatterSystem::~SplatterSystem()
 {
-	EventManager::remove_listener(listenerHandle);
+	EventManager::remove_listener<SplatterEvent>(listenerHandle);
 }
 
 void ecs::SplatterSystem::init()
@@ -25,7 +25,7 @@ void ecs::SplatterSystem::draw()
 {
 }
 
-void ecs::SplatterSystem::createSplatter(SplatterEvent* splatterEvent)
+void ecs::SplatterSystem::createSplatter(const SplatterEvent* splatterEvent)
 {
 	float minRadius = splatterEvent->radiusRange.first;
 	float maxRadius = splatterEvent->radiusRange.second;

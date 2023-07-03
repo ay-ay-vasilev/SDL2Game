@@ -17,11 +17,11 @@ namespace ecs
 		void update(double delta) override;
 		void draw() override;
 
-		void createSplatter(SplatterEvent* splatterData);
+		void createSplatter(const SplatterEvent* splatterData);
 		void applySplatterToTile(const Splatter& splatterData);
 
 	private:
 		std::vector<Entity*> splatterEntities;
-		ListenerHandle listenerHandle;
+		CallbackContainer<SplatterEvent>::ListenerHandle listenerHandle;
 	};
 }
