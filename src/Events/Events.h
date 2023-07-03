@@ -1,14 +1,17 @@
 #pragma once
 #include "Vector2D.h"
 
-struct SplatterEvent
+namespace events
 {
-	Vector2D splatterPosition = { 0, 0 };
-	float intensity = 0.f;
-	std::pair<float, float> radiusRange = { 0, 0 };
-	std::pair<float, float> offsetRange = { 0, 0 };
-	std::pair<int, int> redRange = { 0, 0 };
-	std::pair<int, int> greenRange = { 0, 0 };
-	std::pair<int, int> blueRange = { 0, 0 };
-	std::pair<int, int> alphaRange = { 0, 0 };
-};
+	struct SplatterEvent
+	{
+		Vector2D splatterPosition = { 0, 0 };
+		float intensity = 0.f;
+		std::pair<float, float> radiusRange = { 0, 0 };
+		std::pair<float, float> offsetRange = { 0, 0 };
+		std::pair<int, int> redRange = { 0, 0 };
+		std::pair<int, int> greenRange = { 0, 0 };
+		std::pair<int, int> blueRange = { 0, 0 };
+		std::pair<int, int> alphaRange = { 0, 0 };
+	};
+}

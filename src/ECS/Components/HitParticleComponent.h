@@ -2,7 +2,11 @@
 #include "ECS.h"
 #include "Observer.h"
 
-class ParticleEmitter;
+namespace particles
+{
+	class ParticleEmitter;
+}
+
 namespace ecs
 {
 	class TransformComponent;
@@ -25,7 +29,7 @@ namespace ecs
 	private:
 		std::string particleName;
 
-		std::vector<std::weak_ptr<ParticleEmitter>> hitParticleEmitters;
+		std::vector<std::weak_ptr<particles::ParticleEmitter>> hitParticleEmitters;
 		std::shared_ptr<TransformComponent> transformComponent;
 		std::shared_ptr<HealthComponent> healthComponent;
 	};

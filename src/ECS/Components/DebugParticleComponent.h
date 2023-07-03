@@ -1,7 +1,11 @@
 #pragma once
 #include "ECS.h"
 
-class ParticleEmitter;
+namespace particles
+{
+	class ParticleEmitter;
+}
+
 namespace ecs
 {
 	class TransformComponent;
@@ -22,7 +26,7 @@ namespace ecs
 
 		std::string particleName;
 
-		std::weak_ptr<ParticleEmitter> emitter;
+		std::weak_ptr<particles::ParticleEmitter> emitter;
 		std::shared_ptr<TransformComponent> transformComponent;
 	};
 }

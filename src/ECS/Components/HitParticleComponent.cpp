@@ -15,7 +15,7 @@ void ecs::HitParticleComponent::init()
 
 void ecs::HitParticleComponent::play()
 {
-	std::weak_ptr<ParticleEmitter> hitParticleEmitter = Game::particleManager->addParticleEmitter(particleName);
+	std::weak_ptr<particles::ParticleEmitter> hitParticleEmitter = Game::particleManager->addParticleEmitter(particleName);
 	if (hitParticleEmitter.expired()) return;
 
 	auto hitParticleEmitterLocked = hitParticleEmitter.lock();
@@ -35,7 +35,7 @@ void ecs::HitParticleComponent::update(double delta)
 {
 	hitParticleEmitters.erase(
 		std::remove_if(hitParticleEmitters.begin(), hitParticleEmitters.end(),
-			[](const std::weak_ptr<ParticleEmitter>& weakEmitter) {
+			[](const std::weak_ptr<particles::ParticleEmitter>& weakEmitter) {
 				return weakEmitter.expired();
 			}),
 		hitParticleEmitters.end());

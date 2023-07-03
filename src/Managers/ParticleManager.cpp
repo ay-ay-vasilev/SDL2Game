@@ -25,9 +25,9 @@ void ParticleManager::loadParticleEmitterType(const std::string& particleName)
 	particleEmitterTypes[particleName] = particleEmitter;
 }
 
-std::shared_ptr<ParticleEmitter> ParticleManager::loadParticleEmitter(const std::string& particleName)
+std::shared_ptr<particles::ParticleEmitter> ParticleManager::loadParticleEmitter(const std::string& particleName)
 {
-	auto particleEmitter = std::make_shared<ParticleEmitter>();
+	auto particleEmitter = std::make_shared<particles::ParticleEmitter>();
 	nlohmann::json particleData;
 	particleData = assets::getParticleDataJson(particleName);
 
@@ -46,15 +46,15 @@ std::shared_ptr<ParticleEmitter> ParticleManager::loadParticleEmitter(const std:
 	if (particleData.contains("mode"))
 	{
 		if (particleData["mode"] == "GRAVITY")
-			particleEmitter->setEmitterMode(ParticleEmitter::eMode::GRAVITY);
+			particleEmitter->setEmitterMode(particles::ParticleEmitter::eMode::GRAVITY);
 		else if (particleData["mode"] == "RADIUS")
-			particleEmitter->setEmitterMode(ParticleEmitter::eMode::RADIUS);
+			particleEmitter->setEmitterMode(particles::ParticleEmitter::eMode::RADIUS);
 		else
 			assert(false && "Invalid particle mode");
 	}
 
 	// Gravity Mode
-	if (particleEmitter->getEmitterMode() == ParticleEmitter::eMode::GRAVITY)
+	if (particleEmitter->getEmitterMode() == particles::ParticleEmitter::eMode::GRAVITY)
 	{
 		if (particleData.contains("gravity"))
 		{
@@ -78,7 +78,7 @@ std::shared_ptr<ParticleEmitter> ParticleManager::loadParticleEmitter(const std:
 		}
 	}
 	// Radius Mode
-	else if (particleEmitter->getEmitterMode() == ParticleEmitter::eMode::RADIUS)
+	else if (particleEmitter->getEmitterMode() == particles::ParticleEmitter::eMode::RADIUS)
 	{
 		if (particleData.contains("startRadius"))
 		{
@@ -178,16 +178,16 @@ std::shared_ptr<ParticleEmitter> ParticleManager::loadParticleEmitter(const std:
 	return particleEmitter;
 }
 
-std::shared_ptr<ParticleEmitter> ParticleManager::addParticleEmitter(const std::string& particleName)
+std::shared_ptr<particles::ParticleEmitter> ParticleManager::addParticleEmitter(const std::string& particleName)
 {
 	const auto particleEmitter = particleEmitterTypes[particleName];
-	const auto newEmitter = std::make_shared<ParticleEmitter>(*particleEmitter);
+	const auto newEmitter = std::make_shared<particles::ParticleEmitter>(*particleEmitter);
 	newEmitter->setTexture(TextureManager::getTextureFromSurface(Game::assetManager->getSurface("pixel")));
 	particleEmitters.push_back(newEmitter);
 	return newEmitter;
 }
 
-void ParticleManager::removeParticleEmitter(const std::shared_ptr<ParticleEmitter>& particleEmitter)
+void ParticleManager::removeParticleEmitter(const std::shared_ptr<particles::ParticleEmitter>& particleEmitter)
 {
 	particleEmitter->stopSystem();
 	particleEmitters.erase(std::remove(particleEmitters.begin(), particleEmitters.end(), particleEmitter), particleEmitters.end());
@@ -197,7 +197,7 @@ void ParticleManager::update()
 {
 	particleEmitters.erase(
 		std::remove_if(particleEmitters.begin(), particleEmitters.end(),
-			[](const std::shared_ptr<ParticleEmitter>& emitter) {
+			[](const std::shared_ptr<particles::ParticleEmitter>& emitter) {
 				return !emitter->isActive() && emitter->getParticleCount() == 0;
 			}),
 		particleEmitters.end()
@@ -230,13 +230,13 @@ void ParticleManager::update()
 				numEmittersInBatch++;
 			}
 
-			auto emittersBatch = new std::vector<std::shared_ptr<ParticleEmitter>>(
+			auto emittersBatch = new std::vector<std::shared_ptr<particles::ParticleEmitter>>(
 				particleEmitters.begin() + emitterIndex,
 				particleEmitters.begin() + emitterIndex + numEmittersInBatch
 			);
 
 			threads[i] = SDL_CreateThread([](void* data) {
-				auto emittersBatch = static_cast<std::vector<std::shared_ptr<ParticleEmitter>>*>(data);
+				auto emittersBatch = static_cast<std::vector<std::shared_ptr<particles::ParticleEmitter>>*>(data);
 
 				for (auto& particleEmitter : *emittersBatch)
 				{

@@ -5,8 +5,11 @@
 #include "Events/Events.h"
 
 class Splatter;
+
 namespace ecs
 {
+	using EventListenerHandle = events::CallbackContainer<events::SplatterEvent>::ListenerHandle;
+
 	class SplatterSystem : public System
 	{
 	public:
@@ -14,14 +17,12 @@ namespace ecs
 		~SplatterSystem() override;
 		// System
 		void init() override;
-		void update(double delta) override;
-		void draw() override;
 
-		void createSplatter(const SplatterEvent* splatterData);
+		void createSplatter(const events::SplatterEvent* splatterData);
 		void applySplatterToTile(const Splatter& splatterData);
 
 	private:
 		std::vector<Entity*> splatterEntities;
-		CallbackContainer<SplatterEvent>::ListenerHandle listenerHandle;
+		std::unique_ptr<EventListenerHandle> listenerHandle;
 	};
 }

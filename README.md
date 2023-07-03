@@ -37,10 +37,7 @@ My plan:
 
 Maintenance:
 - Refactor the KeyboardManager 
-- Refactor the EventManager
 - Refactor the Splatter class maybe ?
-- Add namespaces for particles and events
-- Add an event queue (improve the efficiency of the ParticleManager and the ProjectileSystem)
 - Set proper surface sizes (unarmed bug)
 - Fix animations (attack animation morphs into idle for a frame)
 - JSON files for AI

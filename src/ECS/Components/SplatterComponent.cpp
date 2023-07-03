@@ -61,7 +61,7 @@ void ecs::SplatterComponent::createSplatter()
 	splatterSettings.splatterPosition = Vector2D(x, y);
 
 	// TODO : refactor this
-	const SplatterEvent splatterEvent =
+	const events::SplatterEvent splatterEvent =
 	{
 		splatterSettings.splatterPosition,
 		splatterSettings.intensity,
@@ -73,5 +73,5 @@ void ecs::SplatterComponent::createSplatter()
 		splatterSettings.alphaRange
 	};
 
-	EventManager::fire<SplatterEvent>(splatterEvent);
+	events::EventManager::fire<events::SplatterEvent>(splatterEvent);
 }

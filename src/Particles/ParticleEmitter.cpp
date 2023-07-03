@@ -24,7 +24,7 @@ inline float clampf(float value, float min_inclusive, float max_inclusive)
 	return value < min_inclusive ? min_inclusive : value < max_inclusive ? value : max_inclusive;
 }
 
-inline void normalize_point(float x, float y, Point* out)
+inline void normalize_point(float x, float y, particles::Point* out)
 {
 	float n = x * x + y * y;
 	if (n == 1.0f)
@@ -62,12 +62,12 @@ inline static float RANDOM_M11()
 	return u.f - 3.0f;
 }
 
-ParticleEmitter::ParticleEmitter()
+particles::ParticleEmitter::ParticleEmitter()
 {
 }
 
 // ParticleSystem
-bool ParticleEmitter::initWithTotalParticles(int numberOfParticles)
+bool particles::ParticleEmitter::initWithTotalParticles(int numberOfParticles)
 {
 	_totalParticles = numberOfParticles;
 	_isActive = true;
@@ -79,18 +79,18 @@ bool ParticleEmitter::initWithTotalParticles(int numberOfParticles)
 	return true;
 }
 
-void ParticleEmitter::resetTotalParticles(int numberOfParticles)
+void particles::ParticleEmitter::resetTotalParticles(int numberOfParticles)
 {
 	if (particle_data_.size() < numberOfParticles)
 		particle_data_.resize(numberOfParticles);
 }
 
-ParticleEmitter::~ParticleEmitter()
+particles::ParticleEmitter::~ParticleEmitter()
 {
 	SDL_DestroyTexture(_texture);
 }
 
-void ParticleEmitter::addParticles(int count)
+void particles::ParticleEmitter::addParticles(int count)
 {
 	if (_paused) return;
 
@@ -265,14 +265,14 @@ void ParticleEmitter::addParticles(int count)
 	}
 }
 
-void ParticleEmitter::stopSystem()
+void particles::ParticleEmitter::stopSystem()
 {
 	_isActive = false;
 	_elapsed = _duration;
 	_emitCounter = 0;
 }
 
-void ParticleEmitter::resetSystem()
+void particles::ParticleEmitter::resetSystem()
 {
 	_isActive = true;
 	_elapsed = 0;
@@ -282,13 +282,13 @@ void ParticleEmitter::resetSystem()
 	}
 }
 
-bool ParticleEmitter::isFull()
+bool particles::ParticleEmitter::isFull()
 {
 	return (_particleCount == _totalParticles);
 }
 
 // ParticleSystem - MainLoop
-void ParticleEmitter::update()
+void particles::ParticleEmitter::update()
 {
 	float dt = 1.0 / 25;
 	if (_isActive && _emissionRate)
@@ -393,7 +393,7 @@ void ParticleEmitter::update()
 }
 
 // ParticleSystem - Texture protocol
-void ParticleEmitter::setTexture(SDL_Texture* var)
+void particles::ParticleEmitter::setTexture(SDL_Texture* var)
 {
 	if (_texture != var)
 	{
@@ -402,7 +402,7 @@ void ParticleEmitter::setTexture(SDL_Texture* var)
 	}
 }
 
-void ParticleEmitter::draw()
+void particles::ParticleEmitter::draw()
 {
 	if (_texture == nullptr)
 	{
@@ -424,192 +424,192 @@ void ParticleEmitter::draw()
 	}
 }
 
-SDL_Texture* ParticleEmitter::getTexture()
+SDL_Texture* particles::ParticleEmitter::getTexture()
 {
 	return _texture;
 }
 
 // ParticleEmitter - Properties of Gravity Mode
-void ParticleEmitter::setTangentialAccel(float t)
+void particles::ParticleEmitter::setTangentialAccel(float t)
 {
 	modeA.tangentialAccel = t;
 }
 
-float ParticleEmitter::getTangentialAccel() const
+float particles::ParticleEmitter::getTangentialAccel() const
 {
 	return modeA.tangentialAccel;
 }
 
-void ParticleEmitter::setTangentialAccelVar(float t)
+void particles::ParticleEmitter::setTangentialAccelVar(float t)
 {
 	modeA.tangentialAccelVar = t;
 }
 
-float ParticleEmitter::getTangentialAccelVar() const
+float particles::ParticleEmitter::getTangentialAccelVar() const
 {
 	return modeA.tangentialAccelVar;
 }
 
-void ParticleEmitter::setRadialAccel(float t)
+void particles::ParticleEmitter::setRadialAccel(float t)
 {
 	modeA.radialAccel = t;
 }
 
-float ParticleEmitter::getRadialAccel() const
+float particles::ParticleEmitter::getRadialAccel() const
 {
 	return modeA.radialAccel;
 }
 
-void ParticleEmitter::setRadialAccelVar(float t)
+void particles::ParticleEmitter::setRadialAccelVar(float t)
 {
 	modeA.radialAccelVar = t;
 }
 
-float ParticleEmitter::getRadialAccelVar() const
+float particles::ParticleEmitter::getRadialAccelVar() const
 {
 	return modeA.radialAccelVar;
 }
 
-void ParticleEmitter::setRotationIsDir(bool t)
+void particles::ParticleEmitter::setRotationIsDir(bool t)
 {
 	modeA.rotationIsDir = t;
 }
 
-bool ParticleEmitter::getRotationIsDir() const
+bool particles::ParticleEmitter::getRotationIsDir() const
 {
 	return modeA.rotationIsDir;
 }
 
-void ParticleEmitter::setGravity(const Vec2& g)
+void particles::ParticleEmitter::setGravity(const Vec2& g)
 {
 	modeA.gravity = g;
 }
 
-const Vec2& ParticleEmitter::getGravity()
+const particles::Vec2& particles::ParticleEmitter::getGravity()
 {
 	return modeA.gravity;
 }
 
-void ParticleEmitter::setSpeed(float speed)
+void particles::ParticleEmitter::setSpeed(float speed)
 {
 	modeA.speed = speed;
 }
 
-float ParticleEmitter::getSpeed() const
+float particles::ParticleEmitter::getSpeed() const
 {
 	return modeA.speed;
 }
 
-void ParticleEmitter::setSpeedVar(float speedVar)
+void particles::ParticleEmitter::setSpeedVar(float speedVar)
 {
 
 	modeA.speedVar = speedVar;
 }
 
-float ParticleEmitter::getSpeedVar() const
+float particles::ParticleEmitter::getSpeedVar() const
 {
 
 	return modeA.speedVar;
 }
 
 // ParticleSystem - Properties of Radius Mode
-void ParticleEmitter::setStartRadius(float startRadius)
+void particles::ParticleEmitter::setStartRadius(float startRadius)
 {
 	modeB.startRadius = startRadius;
 }
 
-float ParticleEmitter::getStartRadius() const
+float particles::ParticleEmitter::getStartRadius() const
 {
 	return modeB.startRadius;
 }
 
-void ParticleEmitter::setStartRadiusVar(float startRadiusVar)
+void particles::ParticleEmitter::setStartRadiusVar(float startRadiusVar)
 {
 	modeB.startRadiusVar = startRadiusVar;
 }
 
-float ParticleEmitter::getStartRadiusVar() const
+float particles::ParticleEmitter::getStartRadiusVar() const
 {
 	return modeB.startRadiusVar;
 }
 
-void ParticleEmitter::setEndRadius(float endRadius)
+void particles::ParticleEmitter::setEndRadius(float endRadius)
 {
 	modeB.endRadius = endRadius;
 }
 
-float ParticleEmitter::getEndRadius() const
+float particles::ParticleEmitter::getEndRadius() const
 {
 	return modeB.endRadius;
 }
 
-void ParticleEmitter::setEndRadiusVar(float endRadiusVar)
+void particles::ParticleEmitter::setEndRadiusVar(float endRadiusVar)
 {
 	modeB.endRadiusVar = endRadiusVar;
 }
 
-float ParticleEmitter::getEndRadiusVar() const
+float particles::ParticleEmitter::getEndRadiusVar() const
 {
 
 	return modeB.endRadiusVar;
 }
 
-void ParticleEmitter::setRotatePerSecond(float degrees)
+void particles::ParticleEmitter::setRotatePerSecond(float degrees)
 {
 	modeB.rotatePerSecond = degrees;
 }
 
-float ParticleEmitter::getRotatePerSecond() const
+float particles::ParticleEmitter::getRotatePerSecond() const
 {
 	return modeB.rotatePerSecond;
 }
 
-void ParticleEmitter::setRotatePerSecondVar(float degrees)
+void particles::ParticleEmitter::setRotatePerSecondVar(float degrees)
 {
 	modeB.rotatePerSecondVar = degrees;
 }
 
-float ParticleEmitter::getRotatePerSecondVar() const
+float particles::ParticleEmitter::getRotatePerSecondVar() const
 {
 	return modeB.rotatePerSecondVar;
 }
 
-bool ParticleEmitter::isActive() const
+bool particles::ParticleEmitter::isActive() const
 {
 	return _isActive;
 }
 
-int ParticleEmitter::getTotalParticles() const
+int particles::ParticleEmitter::getTotalParticles() const
 {
 	return _totalParticles;
 }
 
-void ParticleEmitter::setTotalParticles(int var)
+void particles::ParticleEmitter::setTotalParticles(int var)
 {
 	_totalParticles = var;
 }
 
-bool ParticleEmitter::isAutoRemoveOnFinish() const
+bool particles::ParticleEmitter::isAutoRemoveOnFinish() const
 {
 	return _isAutoRemoveOnFinish;
 }
 
-void ParticleEmitter::setAutoRemoveOnFinish(bool var)
+void particles::ParticleEmitter::setAutoRemoveOnFinish(bool var)
 {
 	_isAutoRemoveOnFinish = var;
 }
 
-bool ParticleEmitter::isPaused() const
+bool particles::ParticleEmitter::isPaused() const
 {
 	return _paused;
 }
 
-void ParticleEmitter::pauseEmissions()
+void particles::ParticleEmitter::pauseEmissions()
 {
 	_paused = true;
 }
 
-void ParticleEmitter::resumeEmissions()
+void particles::ParticleEmitter::resumeEmissions()
 {
 	_paused = false;
 }

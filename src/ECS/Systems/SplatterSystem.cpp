@@ -9,23 +9,15 @@
 
 ecs::SplatterSystem::~SplatterSystem()
 {
-	EventManager::remove_listener<SplatterEvent>(listenerHandle);
+	events::EventManager::remove_listener<events::SplatterEvent>(*listenerHandle.get());
 }
 
 void ecs::SplatterSystem::init()
 {
-	listenerHandle = EventManager::listen<SplatterEvent>(this, &ecs::SplatterSystem::createSplatter);
+	listenerHandle = std::make_unique<EventListenerHandle>(events::EventManager::listen<events::SplatterEvent>(this, &ecs::SplatterSystem::createSplatter));
 }
 
-void ecs::SplatterSystem::update(double delta)
-{
-}
-
-void ecs::SplatterSystem::draw()
-{
-}
-
-void ecs::SplatterSystem::createSplatter(const SplatterEvent* splatterEvent)
+void ecs::SplatterSystem::createSplatter(const events::SplatterEvent* splatterEvent)
 {
 	float minRadius = splatterEvent->radiusRange.first;
 	float maxRadius = splatterEvent->radiusRange.second;
