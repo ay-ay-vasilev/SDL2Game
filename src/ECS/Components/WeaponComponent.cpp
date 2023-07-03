@@ -32,17 +32,25 @@ void ecs::WeaponComponent::onNotify(const std::string_view& observedEvent)
 {
 	if (observedEvent == "attack_action_start")
 	{
-		// add ranged weapon logic here
-		damageColliderComponent->setEnabled(true);
+		if (weaponClass == eWeaponClass::MELEE)
+		{
+			damageColliderComponent->setEnabled(true);
+		}
 	}
 	if (observedEvent == "attack_action_stop")
 	{
-		damageColliderComponent->setEnabled(false);
-		damageColliderComponent->clearAffectedTargets();
+		if (weaponClass == eWeaponClass::MELEE)
+		{
+			damageColliderComponent->setEnabled(false);
+			damageColliderComponent->clearAffectedTargets();
+		}
 	}
 	if (observedEvent == "idle_start" || observedEvent == "walk_start")
 	{
-		damageColliderComponent->setEnabled(false);
+		if (weaponClass == eWeaponClass::MELEE)
+		{
+			damageColliderComponent->setEnabled(false);
+		}
 	}
 }
 
@@ -52,6 +60,13 @@ void ecs::WeaponComponent::loadWeaponData()
 
 	const nlohmann::json weaponData = assets::getWeaponJson(name);
 	weaponType = weaponData.value("weapon_type", "unarmed");
+
+	if (weaponData.contains("weapon_class"))
+	{
+		if (weaponData["weapon_class"] == "melee") weaponClass = eWeaponClass::MELEE;
+		if (weaponData["weapon_class"] == "ranged") weaponClass = eWeaponClass::RANGED;
+	}
+
 	const auto ownerName = actorComponent->getActorType();
 	
 	if (weaponData.contains("sprite_data"))

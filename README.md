@@ -36,7 +36,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
-- Refactor the KeyboardManager 
+- Refactor the KeyboardManager
 - Refactor the Splatter class maybe ?
 - Set proper surface sizes (unarmed bug)
 - Fix animations (attack animation morphs into idle for a frame)

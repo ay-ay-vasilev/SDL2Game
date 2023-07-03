@@ -30,8 +30,6 @@ namespace ecs
 		const std::string inline getWeaponType() const { return weaponType; }
 
 	private:
-
-
 		struct SpriteData
 		{
 			std::string slotName;
@@ -39,11 +37,19 @@ namespace ecs
 			int z;
 		};
 
+		enum class eWeaponClass
+		{
+			MELEE,
+			RANGED
+		};
+
+		eWeaponClass weaponClass{eWeaponClass::MELEE};
+
 		std::shared_ptr<ecs::TransformComponent> transform;
 		std::shared_ptr<ecs::ActorComponent> actorComponent;
 		std::shared_ptr<ecs::DamageColliderComponent> damageColliderComponent;
-		std::string name;
-		std::string weaponType;
+		std::string name{"unarmed"};
+		std::string weaponType{"unarmed"};
 
 		std::vector<SpriteData> tempSprites;
 	};

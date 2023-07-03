@@ -1,5 +1,6 @@
 {
 	"damage": 8,
+	"weapon_class": "melee",
 	"weapon_type": "melee_light",
 	"collider":
 	{
