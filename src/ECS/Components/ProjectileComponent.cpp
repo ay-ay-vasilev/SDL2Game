@@ -1,7 +1,8 @@
 #include "ProjectileComponent.h"
 #include "TransformComponent.h"
 
-ecs::ProjectileComponent::ProjectileComponent(Vector2D velocity, float range) :
+ecs::ProjectileComponent::ProjectileComponent(const int ownerEntityId, Vector2D velocity, float range) :
+	ownerEntityId(ownerEntityId),
 	transform(nullptr),
 	velocity(velocity),
 	range(range) {}

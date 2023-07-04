@@ -1,5 +1,5 @@
 {
-	"speed": 0.33,
+	"speed": 5.0,
 	"collider_rect":
 	{
 		"shape": "circle",
@@ -15,7 +15,7 @@
 	},
 	"weapon":
 	{
-		"damage": 5,
+		"damage": 10,
 		"collider":
 		{
 			"shape": "circle",
@@ -45,7 +45,7 @@
 	},
 	"projectile_data":
 	{
-		"range": 100,
+		"range": 400,
 		"health":
 		{
 			"max_health": 1

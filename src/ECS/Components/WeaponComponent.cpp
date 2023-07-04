@@ -4,7 +4,11 @@
 #include "SpriteComponent.h"
 #include "HealthComponent.h"
 #include "DamageColliderComponent.h"
+#include "AimComponent.h"
 #include "AssetManager.h"
+
+#include "Events/EventManager.h"
+#include "Events/Events.h"
 
 ecs::WeaponComponent::WeaponComponent(const std::string& name) :
 	name(name)
@@ -20,6 +24,7 @@ void ecs::WeaponComponent::init()
 	actorComponent = entity->getComponent<ecs::ActorComponent>();
 	registerWithSubject(actorComponent);
 	damageColliderComponent = entity->getComponent<ecs::DamageColliderComponent>();
+	aimComponent = entity->getComponent<ecs::AimComponent>();
 
 	loadWeaponData();
 }
@@ -35,6 +40,21 @@ void ecs::WeaponComponent::onNotify(const std::string_view& observedEvent)
 		if (weaponClass == eWeaponClass::MELEE)
 		{
 			damageColliderComponent->setEnabled(true);
+		}
+		if (weaponClass == eWeaponClass::RANGED)
+		{
+			// TODO: temporary fix
+			if (!aimComponent) return;
+
+			const events::ProjectileEvent projectileEvent =
+			{
+				entity->getID(),
+				aimComponent->getCenter(),
+				aimComponent->getVelocity(),
+				"test_projectile"
+			};
+
+			events::EventManager::fire<events::ProjectileEvent>(projectileEvent);
 		}
 	}
 	if (observedEvent == "attack_action_stop")

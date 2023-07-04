@@ -10,7 +10,22 @@
 
 #include <wrappedJson.h>
 
-void ecs::ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vector2D velocity, const std::string& filename) const
+ecs::ProjectileSystem::~ProjectileSystem()
+{
+	events::EventManager::remove_listener<events::ProjectileEvent>(*listenerHandle.get());
+}
+
+void ecs::ProjectileSystem::init()
+{
+	listenerHandle = std::make_unique<ProjectileEventListenerHandle>(events::EventManager::listen<events::ProjectileEvent>(this, &ecs::ProjectileSystem::createProjectile));
+}
+
+void ecs::ProjectileSystem::createProjectile(const events::ProjectileEvent* projectileData)
+{
+	instantiateProjectile(projectileData->ownerId, projectileData->position, projectileData->velocity, projectileData->filename);
+}
+
+void ecs::ProjectileSystem::instantiateProjectile(const int ownerId, const Vector2D pos, const Vector2D velocity, const std::string& filename) const
 {
 	std::string filenameString(assets::getProjectileJsonPath(filename));
 	std::ifstream file(filenameString);
@@ -25,13 +40,13 @@ void ecs::ProjectileSystem::instantiateProjectile(const Vector2D pos, const Vect
 	auto& projectile(manager.addEntity());
 	projectile.addComponent<ecs::TransformComponent>
 	(
-		pos.x * manager.getScale(), pos.y * manager.getScale(),
+		pos.x, pos.y,
 		projectileData.value("width", 0), projectileData.value("height", 0),
 		manager.getScale(), projectileData["speed"]
 	);
 	projectile.addComponent<ecs::SpriteComponent>(projectileData["sprite_data"], false);
 	projectile.addComponent<ecs::SpriteOutlineComponent>(projectileData["sprite_data"].contains("outline") ? projectileData["sprite_data"]["outline"] : nullptr);
-	projectile.addComponent<ecs::ProjectileComponent>(velocity, projectileData["projectile_data"]["range"]);
+	projectile.addComponent<ecs::ProjectileComponent>(ownerId, velocity, projectileData["projectile_data"]["range"]);
 	projectile.addComponent<ecs::HitboxComponent>(filename, projectileData["hitbox_rect"]);
 	projectile.addComponent<ecs::DamageColliderComponent>(filename, true);
 	projectile.addComponent<ecs::ColliderComponent>(filename, projectileData["collider_rect"]);

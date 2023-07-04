@@ -5,6 +5,7 @@
 #include "ArmorComponent.h"
 #include "ActorComponent.h"
 #include "FactionComponent.h"
+#include "ProjectileComponent.h"
 #include "Collision.h"
 #include "Vector2D.h"
 #include "Game.h"
@@ -45,6 +46,11 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 			// check if hits friend
 			auto damageColliderFaction = damageColliderEntity->getComponent<ecs::FactionComponent>();
 			if (hitboxFaction && damageColliderFaction && hitboxFaction->checkIfFactionFriendly(damageColliderFaction->getFaction()))
+				continue;
+
+			// check if projectile and hits its owner
+			auto projectileComponent = damageColliderEntity->getComponent<ecs::ProjectileComponent>();
+			if (projectileComponent && projectileComponent->getOwnerEntityId() == hitboxEntity->getID())
 				continue;
 
 			auto damageColliderComponent = damageColliderEntity->getComponent<ecs::DamageColliderComponent>();

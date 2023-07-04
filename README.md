@@ -20,8 +20,12 @@ My plan:
     * Add a pointer for aiming DONE
     * Implement the creation of the projectiles.
         - Add an EventManager and events to send data DONE
-        - Implement weapon types, a projectile event and shooting
+        - Implement weapon types, a projectile event and shooting DONE
     * Make it prettier
+        - Set facing direction according to the AimComponent
+        - Fix the AimComponent at map edges
+        - Fix the AimComponent visualisation (only show with ranged weapons)
+        - Stop using the test_projectile for all ranged weapons
     * Add a ranged weapon to the human enemy
     * Add a ranged weapon to the skeleton enemy
 - Combat overhaul (make it fun - add defensive abilities (i-frames, dodge rolls, parries), attack movement, combos etc.)
@@ -50,6 +54,7 @@ Maintenance:
 - Refactor the debug draw methods
 - Deal with strings and string_views
 - CMake, cotire, CPM ?
+- Change Entity id from int to uint?
 
 Future plans:
 - Add a second container for Sprites that should not be outlined? (sword swings)

@@ -14,7 +14,7 @@ ecs::SplatterSystem::~SplatterSystem()
 
 void ecs::SplatterSystem::init()
 {
-	listenerHandle = std::make_unique<EventListenerHandle>(events::EventManager::listen<events::SplatterEvent>(this, &ecs::SplatterSystem::createSplatter));
+	listenerHandle = std::make_unique<SplatterEventListenerHandle>(events::EventManager::listen<events::SplatterEvent>(this, &ecs::SplatterSystem::createSplatter));
 }
 
 void ecs::SplatterSystem::createSplatter(const events::SplatterEvent* splatterEvent)

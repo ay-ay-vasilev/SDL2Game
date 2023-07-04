@@ -11,6 +11,7 @@ namespace ecs
 	class ActorComponent;
 	class HealthComponent;
 	class DamageColliderComponent;
+	class AimComponent;
 	class WeaponComponent : public Component, private Observer
 	{
 	public:
@@ -45,9 +46,10 @@ namespace ecs
 
 		eWeaponClass weaponClass{eWeaponClass::MELEE};
 
-		std::shared_ptr<ecs::TransformComponent> transform;
 		std::shared_ptr<ecs::ActorComponent> actorComponent;
 		std::shared_ptr<ecs::DamageColliderComponent> damageColliderComponent;
+		std::shared_ptr<ecs::AimComponent> aimComponent;
+
 		std::string name{"unarmed"};
 		std::string weaponType{"unarmed"};
 

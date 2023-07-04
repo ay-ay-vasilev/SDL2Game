@@ -155,9 +155,9 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 	player.addComponent<ecs::CameraComponent>();
 	player.addComponent<ecs::CorpseComponent>();
 	player.addComponent<ecs::DamageColliderComponent>();
+	player.addComponent<ecs::AimComponent>();
 	player.addComponent<ecs::WeaponComponent>();
 	player.addComponent<ecs::HitParticleComponent>(playerData["hit_particle"]);
-	player.addComponent<ecs::AimComponent>();
 	if (playerData.contains("splatter")) player.addComponent<ecs::SplatterComponent>(playerData["splatter"]);
 
 	if (playerData.contains("debug"))

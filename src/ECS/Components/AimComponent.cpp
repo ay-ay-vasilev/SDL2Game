@@ -23,15 +23,16 @@ void ecs::AimComponent::init()
 	std::string texturePath = "assets/images/misc/debug_assets/aim_arrow.png";
 	texture = TextureManager::loadTexture(texturePath);
 	srcRect = { 0, 0, 48, 48 };
+
 	center =
 	{
-		static_cast<float>(transform->getPosition().x - srcRect.w * transform->getScale() / 2),
-		static_cast<float>(transform->getPosition().y - srcRect.h * transform->getScale() / 2) + 10.f
+		static_cast<float>(transform->getPosition().x),
+		static_cast<float>(transform->getPosition().y)
 	};
 
 	destRect = {
-		static_cast<int>(center.x),
-		static_cast<int>(center.y),
+		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2),
+		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + 10.f),
 		static_cast<int>(srcRect.w * transform->getScale()),
 		static_cast<int>(srcRect.h * transform->getScale())};
 }
@@ -42,13 +43,14 @@ void ecs::AimComponent::update(double delta)
 
 	center =
 	{
-		static_cast<float>(transform->getPosition().x - srcRect.w * transform->getScale() / 2),
-		static_cast<float>(transform->getPosition().y - srcRect.h * transform->getScale() / 2) + 10.f
+		static_cast<float>(transform->getPosition().x),
+		static_cast<float>(transform->getPosition().y)
 	};
 
+
 	destRect = {
-		static_cast<int>(center.x),
-		static_cast<int>(center.y),
+		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2),
+		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + 10.f),
 		static_cast<int>(srcRect.w * transform->getScale()),
 		static_cast<int>(srcRect.h * transform->getScale()) };
 }

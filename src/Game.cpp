@@ -97,14 +97,20 @@ void Game::init()
 
 	label0.addComponent<ecs::UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
 
+	auto player = actorSystem->instantiatePlayer(constants->PLAYER_POS, constants->PLAYER_RACE);
+	actorSystem->addRandomCustomization(*player);
+
 	const std::string projectileFile = "test_projectile";
 	for (const auto& projectileData : constants->DEBUG_PROJECTILES)
 	{
-		projectileSystem->instantiateProjectile(projectileData.pos, projectileData.velocity, projectileFile);
+		projectileSystem->instantiateProjectile
+		(
+			player->getID(),
+			{ projectileData.pos.x * constants->SCALE, projectileData.pos.y * constants->SCALE },
+			projectileData.velocity,
+			projectileFile
+		);
 	}
-
-	auto player = actorSystem->instantiatePlayer(constants->PLAYER_POS, constants->PLAYER_RACE);
-	actorSystem->addRandomCustomization(*player);
 
 	for (const auto& humanData : constants->HUMAN_POS)
 	{

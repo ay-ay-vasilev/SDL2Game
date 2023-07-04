@@ -8,7 +8,7 @@ class Splatter;
 
 namespace ecs
 {
-	using EventListenerHandle = events::CallbackContainer<events::SplatterEvent>::ListenerHandle;
+	using SplatterEventListenerHandle = events::CallbackContainer<events::SplatterEvent>::ListenerHandle;
 
 	class SplatterSystem : public System
 	{
@@ -23,6 +23,6 @@ namespace ecs
 
 	private:
 		std::vector<Entity*> splatterEntities;
-		std::unique_ptr<EventListenerHandle> listenerHandle;
+		std::unique_ptr<SplatterEventListenerHandle> listenerHandle;
 	};
 }
