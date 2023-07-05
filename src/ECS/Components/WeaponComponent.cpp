@@ -35,6 +35,14 @@ void ecs::WeaponComponent::update(double delta)
 
 void ecs::WeaponComponent::onNotify(const std::string_view& observedEvent)
 {
+	if (observedEvent == "attack_start")
+	{
+		if (weaponClass == eWeaponClass::RANGED)
+		{
+			if (aimComponent) aimComponent->faceAimDirection();
+		}
+	}
+
 	if (observedEvent == "attack_action_start")
 	{
 		if (weaponClass == eWeaponClass::MELEE)
@@ -83,8 +91,16 @@ void ecs::WeaponComponent::loadWeaponData()
 
 	if (weaponData.contains("weapon_class"))
 	{
-		if (weaponData["weapon_class"] == "melee") weaponClass = eWeaponClass::MELEE;
-		if (weaponData["weapon_class"] == "ranged") weaponClass = eWeaponClass::RANGED;
+		if (weaponData["weapon_class"] == "melee")
+		{
+			weaponClass = eWeaponClass::MELEE;
+			if (aimComponent) aimComponent->setEnabled(false);
+		}
+		if (weaponData["weapon_class"] == "ranged")
+		{
+			weaponClass = eWeaponClass::RANGED;
+			if (aimComponent) aimComponent->setEnabled(true);
+		}
 	}
 
 	const auto ownerName = actorComponent->getActorType();

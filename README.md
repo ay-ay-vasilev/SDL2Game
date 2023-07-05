@@ -22,10 +22,11 @@ My plan:
         - Add an EventManager and events to send data DONE
         - Implement weapon types, a projectile event and shooting DONE
     * Make it prettier
-        - Set facing direction according to the AimComponent
+        - Set facing direction according to the AimComponent DONE
+        - Fix the AimComponent visualisation (only show with ranged weapons) DONE
         - Fix the AimComponent at map edges
-        - Fix the AimComponent visualisation (only show with ranged weapons)
         - Stop using the test_projectile for all ranged weapons
+        - Add hit particles and regular particles to projectiles
     * Add a ranged weapon to the human enemy
     * Add a ranged weapon to the skeleton enemy
 - Combat overhaul (make it fun - add defensive abilities (i-frames, dodge rolls, parries), attack movement, combos etc.)

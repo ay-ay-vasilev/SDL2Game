@@ -16,7 +16,7 @@ ecs::AimComponent::~AimComponent()
 
 void ecs::AimComponent::init()
 {
-	setRenderOrder(-1);
+	setRenderOrder(-2);
 	
 	transform = entity->getComponent<ecs::TransformComponent>();
 
@@ -57,6 +57,7 @@ void ecs::AimComponent::update(double delta)
 
 void ecs::AimComponent::draw()
 {
+	if (!enabled) return;
 	TextureManager::draw(texture, srcRect, destRect, rotation + 90.0);
 }
 
@@ -64,4 +65,12 @@ void ecs::AimComponent::calculateRotation(const Vector2D mousePos)
 {
 	const Vector2D newCenter = { static_cast<float>(Game::constants->SCREEN_WIDTH / 2), static_cast<float>(Game::constants->SCREEN_HEIGHT / 2) };
 	rotation = Vector2D::Angle(mousePos - newCenter);
+}
+
+void ecs::AimComponent::faceAimDirection()
+{
+	if ((rotation < -90 && rotation > -180) || (rotation > 90 && rotation < 180))
+		transform->setDirectionX(-1);
+	else if ((rotation > -90 && rotation < 90))
+		transform->setDirectionX(1);
 }

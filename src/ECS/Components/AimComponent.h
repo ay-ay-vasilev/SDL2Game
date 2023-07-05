@@ -19,6 +19,7 @@ namespace ecs
 		void draw() override;
 
 		void calculateRotation(const Vector2D mousePos);
+		void faceAimDirection();
 
 		const Vector2D inline getCenter() const { return center; }
 		const Vector2D inline getVelocity() const
@@ -35,8 +36,10 @@ namespace ecs
 			normalizedVector.Normalize();
 			return normalizedVector;
 		}
+		void inline setEnabled(const bool enabled) { this->enabled = enabled; }
 
 	private:
+		bool enabled{ false };
 		Vector2D center;
 		double rotation{};
 		std::shared_ptr<TransformComponent> transform{};
