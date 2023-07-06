@@ -2,6 +2,7 @@
 #include "TransformComponent.h"
 #include "TextureManager.h"
 #include "KeyboardManager.h"
+#include "CameraComponent.h"
 
 ecs::AimComponent::AimComponent() :
 	texture(nullptr),
@@ -19,6 +20,7 @@ void ecs::AimComponent::init()
 	setRenderOrder(-2);
 	
 	transform = entity->getComponent<ecs::TransformComponent>();
+	cameraComponent = entity->getComponent<ecs::CameraComponent>();
 
 	std::string texturePath = "assets/images/misc/debug_assets/aim_arrow.png";
 	texture = TextureManager::loadTexture(texturePath);
@@ -32,7 +34,7 @@ void ecs::AimComponent::init()
 
 	destRect = {
 		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2),
-		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + 10.f),
+		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + 10.f), // TODO: load aim offset data from JSON
 		static_cast<int>(srcRect.w * transform->getScale()),
 		static_cast<int>(srcRect.h * transform->getScale())};
 }
@@ -50,7 +52,7 @@ void ecs::AimComponent::update(double delta)
 
 	destRect = {
 		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2),
-		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + 10.f),
+		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + 10.f), // TODO: load aim offset data from JSON
 		static_cast<int>(srcRect.w * transform->getScale()),
 		static_cast<int>(srcRect.h * transform->getScale()) };
 }
@@ -63,8 +65,8 @@ void ecs::AimComponent::draw()
 
 void ecs::AimComponent::calculateRotation(const Vector2D mousePos)
 {
-	const Vector2D newCenter = { static_cast<float>(Game::constants->SCREEN_WIDTH / 2), static_cast<float>(Game::constants->SCREEN_HEIGHT / 2) };
-	rotation = Vector2D::Angle(mousePos - newCenter);
+	const auto positionOnScreen = cameraComponent->getPositionOnScreen();
+	rotation = Vector2D::Angle(mousePos - positionOnScreen);
 }
 
 void ecs::AimComponent::faceAimDirection()

@@ -24,7 +24,8 @@ My plan:
     * Make it prettier
         - Set facing direction according to the AimComponent DONE
         - Fix the AimComponent visualisation (only show with ranged weapons) DONE
-        - Fix the AimComponent at map edges
+        - Fix the AimComponent at map edges DONE
+        - Get AimComponent data from json
         - Stop using the test_projectile for all ranged weapons
         - Add hit particles and regular particles to projectiles
     * Add a ranged weapon to the human enemy
@@ -46,6 +47,7 @@ Maintenance:
 - Set proper surface sizes (unarmed bug)
 - Fix animations (attack animation morphs into idle for a frame)
 - JSON files for AI
+- Stop loading JSON files after inits (create a data structure for holding all weapons and armor data)
 - Add map json
 - Fix Tile-Collider logic
 - Clean up in constants and settings.json.

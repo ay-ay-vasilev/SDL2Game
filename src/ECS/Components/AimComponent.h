@@ -7,6 +7,7 @@
 namespace ecs
 {
 	class TransformComponent;
+	class CameraComponent;
 	class AimComponent : public DrawableComponent
 	{
 	public:
@@ -43,6 +44,7 @@ namespace ecs
 		Vector2D center;
 		double rotation{};
 		std::shared_ptr<TransformComponent> transform{};
+		std::shared_ptr<CameraComponent> cameraComponent{};
 
 		SDL_Texture* texture;
 		SDL_Rect srcRect, destRect;

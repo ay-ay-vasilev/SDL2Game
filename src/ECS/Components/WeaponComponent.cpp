@@ -54,6 +54,7 @@ void ecs::WeaponComponent::onNotify(const std::string_view& observedEvent)
 			// TODO: temporary fix
 			if (!aimComponent) return;
 
+			aimComponent->faceAimDirection();
 			const events::ProjectileEvent projectileEvent =
 			{
 				entity->getID(),

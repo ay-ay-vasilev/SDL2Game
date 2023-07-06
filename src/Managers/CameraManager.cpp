@@ -32,6 +32,22 @@ void CameraManager::update()
 	if (cameraEntities.empty())
 		return;
 
+	Vector2D cameraPosition = getSumCameraPosition();
+
+	camera.x = std::clamp(static_cast<int>(cameraPosition.x - manager->getConstants()->SCREEN_WIDTH / 2), cameraBounds.x, cameraBounds.x + cameraBounds.w);
+	camera.y = std::clamp(static_cast<int>(cameraPosition.y - manager->getConstants()->SCREEN_HEIGHT / 2), cameraBounds.y, cameraBounds.y + cameraBounds.h);
+
+	updatePositionsOnScreen();
+}
+
+const bool CameraManager::isInView(const SDL_Rect& destination) const
+{
+	return (destination.x < (camera.x + camera.w + destination.w) && destination.x >= ((-1) * destination.w))
+		&& (destination.y < (camera.y + camera.h + destination.h) && destination.y >= ((-1) * destination.h));
+}
+
+const Vector2D CameraManager::getSumCameraPosition() const
+{
 	Vector2D sumPosition;
 	int entityCount = 0;
 	for (auto entity : cameraEntities)
@@ -42,14 +58,18 @@ void CameraManager::update()
 			entityCount++;
 		}
 	}
-	Vector2D cameraPosition = sumPosition / entityCount;
-
-	camera.x = std::clamp(static_cast<int>(cameraPosition.x - manager->getConstants()->SCREEN_WIDTH / 2), cameraBounds.x, cameraBounds.x + cameraBounds.w);
-	camera.y = std::clamp(static_cast<int>(cameraPosition.y - manager->getConstants()->SCREEN_HEIGHT / 2), cameraBounds.y, cameraBounds.y + cameraBounds.h);
+	return sumPosition / entityCount;
 }
 
-const bool CameraManager::isInView(const SDL_Rect& destination) const
+void CameraManager::updatePositionsOnScreen() const
 {
-	return (destination.x < (camera.x + camera.w + destination.w) && destination.x >= ((-1) * destination.w))
-		&& (destination.y < (camera.y + camera.h + destination.h) && destination.y >= ((-1) * destination.h));
+	for (auto entity : cameraEntities)
+	{
+		if (entity->hasComponent<ecs::TransformComponent>())
+		{
+			const auto entityPosition = entity->getComponent<ecs::TransformComponent>()->getPosition();
+			const Vector2D positionOnScreen{ entityPosition.x - camera.x, entityPosition.y - camera.y };
+			entity->getComponent<ecs::CameraComponent>()->setPositionOnScreen(positionOnScreen);
+		}
+	}
 }
