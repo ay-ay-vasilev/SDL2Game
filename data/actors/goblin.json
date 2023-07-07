@@ -28,6 +28,12 @@
 		"dx": 0, "dy": 2,
 		"w": 4, "h": 10
 	},
+	"aim_data":
+	{
+		"texture": "aim_arrow",
+		"dx": 0, "dy": 10,
+		"w": 48, "h": 48
+	},
 	"sprite_data":
 	{
 		"frame_width": 48, "frame_height": 48,

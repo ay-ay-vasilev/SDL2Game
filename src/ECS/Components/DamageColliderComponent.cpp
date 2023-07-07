@@ -9,7 +9,8 @@ ecs::DamageColliderComponent::DamageColliderComponent(const std::string& name, c
 	texture(nullptr),
 	tag(name),
 	enabled(isProjectile),
-	destroyOnHit(isProjectile),
+	destroyOnHit(false),
+	maxAffectedTargets(UNLIMITED_TARGETS),
 	damage(0)
 {
 	nlohmann::json data;
@@ -51,6 +52,15 @@ void ecs::DamageColliderComponent::assignDamageCollider(const std::string& name)
 	nlohmann::json data = assets::getWeaponJson(name);
 	parseColliderJson(data);
 	loadWeaponParams();
+}
+
+bool ecs::DamageColliderComponent::addAffectedTarget(int id)
+{
+	if (maxAffectedTargets != UNLIMITED_TARGETS && affectedTargets.size() >= maxAffectedTargets)
+		return false;
+
+	affectedTargets.emplace_back(id);
+	return true;
 }
 
 void ecs::DamageColliderComponent::loadWeaponParams()
@@ -98,8 +108,8 @@ void ecs::DamageColliderComponent::parseColliderJson(const nlohmann::json& data)
 			damageColliderOffset = { damageColliderData["offset"]["dx"], damageColliderData["offset"]["dy"] };
 		damageColliderDirectionCoefficient = { damageColliderData.value("x", 0.f), damageColliderData.value("y", 0.f) };
 	}
-	if (data.contains("damage"))
-	{
-		damage = data.value("damage", 0);
-	}
+	
+	damage = data.value("damage", 0);
+	destroyOnHit = data.value("destroy_on_hit", false);
+	maxAffectedTargets = data.value("max_affected_targets", UNLIMITED_TARGETS);
 }

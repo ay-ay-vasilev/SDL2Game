@@ -8,7 +8,7 @@
 			{
 				"textures":
 				[
-					{"name" : "test_projectile", "path": "misc/debug_assets/test_projectile.png" },
+					{"name" : "aim_arrow", "path": "misc/debug_assets/aim_arrow.png" },
 					{"name" : "black", "path": "misc/util/black.png" },
 					{"name" : "pixel", "path": "misc/particles/pixel.png" }
 				]
@@ -17,6 +17,7 @@
 			{
 				"textures":
 				[
+					{"name" : "test_projectile", "path": "misc/debug_assets/test_projectile.png" },
 					{"name" : "arrow_small", "path": "spritesheets/projectiles/arrow_small.png"}
 				]
 			}

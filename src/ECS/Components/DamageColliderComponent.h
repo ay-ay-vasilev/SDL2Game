@@ -23,7 +23,7 @@ namespace ecs
 
 		void assignDamageCollider(const std::string& name);
 
-		void inline addAffectedTarget(int id) { affectedTargets.emplace_back(id); }
+		bool addAffectedTarget(int id);
 		const bool inline isInAffectedTargets(int id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
 		void inline clearAffectedTargets() { affectedTargets.clear(); }
 		const bool inline isInRange(const std::shared_ptr<ColliderShape>& targetHitbox) const { return damageCollider->collidesWith(targetHitbox); }
@@ -58,7 +58,10 @@ namespace ecs
 		bool enableDraw{ false };
 		bool enabled;
 		bool destroyOnHit;
+		int maxAffectedTargets;
 
 		int damage;
+
+		constexpr static int UNLIMITED_TARGETS = -1;
 	};
 }

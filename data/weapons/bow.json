@@ -2,6 +2,7 @@
 	"damage": 8,
 	"weapon_class": "ranged",
 	"weapon_type": "ranged_bow",
+	"projectile": "arrow_small",
 	"collider":
 	{
 		"shape": "circle",

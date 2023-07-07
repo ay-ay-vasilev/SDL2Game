@@ -52,6 +52,7 @@ namespace ecs
 
 		std::string name{"unarmed"};
 		std::string weaponType{"unarmed"};
+		std::string projectileName{ "" };
 
 		std::vector<SpriteData> tempSprites;
 	};

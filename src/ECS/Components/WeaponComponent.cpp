@@ -60,7 +60,7 @@ void ecs::WeaponComponent::onNotify(const std::string_view& observedEvent)
 				entity->getID(),
 				aimComponent->getCenter(),
 				aimComponent->getVelocity(),
-				"test_projectile"
+				projectileName
 			};
 
 			events::EventManager::fire<events::ProjectileEvent>(projectileEvent);
@@ -96,11 +96,13 @@ void ecs::WeaponComponent::loadWeaponData()
 		{
 			weaponClass = eWeaponClass::MELEE;
 			if (aimComponent) aimComponent->setEnabled(false);
+			projectileName = "";
 		}
 		if (weaponData["weapon_class"] == "ranged")
 		{
 			weaponClass = eWeaponClass::RANGED;
 			if (aimComponent) aimComponent->setEnabled(true);
+			projectileName = weaponData.value("projectile", "");
 		}
 	}
 

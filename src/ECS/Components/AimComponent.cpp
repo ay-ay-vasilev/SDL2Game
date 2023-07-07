@@ -3,11 +3,26 @@
 #include "TextureManager.h"
 #include "KeyboardManager.h"
 #include "CameraComponent.h"
+#include "AssetManager.h"
 
 ecs::AimComponent::AimComponent() :
+	texturePath(),
 	texture(nullptr),
-	srcRect(), destRect()
+	srcRect(), destRect(), offset()
 {
+}
+
+ecs::AimComponent::AimComponent(const std::optional<nlohmann::json>& aimComponentData)
+{
+	if (!aimComponentData)
+		return;
+
+	if (aimComponentData->contains("texture"))
+	{
+		texturePath = aimComponentData.value()["texture"];
+	}
+	offset = { aimComponentData.value().value("dx", 0.f), aimComponentData.value().value("dy", 0.f) };
+	srcRect = { 0, 0, aimComponentData.value().value("w", 0), aimComponentData.value().value("h", 0) };
 }
 
 ecs::AimComponent::~AimComponent()
@@ -22,9 +37,7 @@ void ecs::AimComponent::init()
 	transform = entity->getComponent<ecs::TransformComponent>();
 	cameraComponent = entity->getComponent<ecs::CameraComponent>();
 
-	std::string texturePath = "assets/images/misc/debug_assets/aim_arrow.png";
-	texture = TextureManager::loadTexture(texturePath);
-	srcRect = { 0, 0, 48, 48 };
+	texture = TextureManager::getTextureFromSurface(Game::assetManager->getSurface(texturePath));
 
 	center =
 	{
@@ -33,8 +46,8 @@ void ecs::AimComponent::init()
 	};
 
 	destRect = {
-		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2),
-		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + 10.f), // TODO: load aim offset data from JSON
+		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2 + offset.x),
+		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + offset.y),
 		static_cast<int>(srcRect.w * transform->getScale()),
 		static_cast<int>(srcRect.h * transform->getScale())};
 }
@@ -51,8 +64,8 @@ void ecs::AimComponent::update(double delta)
 
 
 	destRect = {
-		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2),
-		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + 10.f), // TODO: load aim offset data from JSON
+		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2 + offset.x),
+		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + offset.y),
 		static_cast<int>(srcRect.w * transform->getScale()),
 		static_cast<int>(srcRect.h * transform->getScale()) };
 }

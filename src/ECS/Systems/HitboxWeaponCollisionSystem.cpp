@@ -62,7 +62,9 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 
 			if (damageColliderComponent->getCollider()->collidesWith(hitboxCollider->getHitbox()))
 			{
-				damageColliderComponent->addAffectedTarget(hitboxEntity->getID());
+				if (!damageColliderComponent->addAffectedTarget(hitboxEntity->getID()))
+					return;
+
 				auto actorArmorComponent = hitboxEntity->getComponent<ecs::ArmorComponent>();
 
 				const auto weaponDamage = damageColliderComponent->getDamage();

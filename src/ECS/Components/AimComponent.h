@@ -12,6 +12,7 @@ namespace ecs
 	{
 	public:
 		AimComponent();
+		explicit AimComponent(const std::optional<nlohmann::json>& aimComponentData = std::nullopt);
 		~AimComponent();
 
 		// Component
@@ -46,7 +47,10 @@ namespace ecs
 		std::shared_ptr<TransformComponent> transform{};
 		std::shared_ptr<CameraComponent> cameraComponent{};
 
-		SDL_Texture* texture;
+		Vector2D offset{};
+		
+		std::string texturePath;
+		SDL_Texture* texture{ nullptr };
 		SDL_Rect srcRect, destRect;
 	};
 }

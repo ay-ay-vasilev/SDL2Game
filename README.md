@@ -25,8 +25,9 @@ My plan:
         - Set facing direction according to the AimComponent DONE
         - Fix the AimComponent visualisation (only show with ranged weapons) DONE
         - Fix the AimComponent at map edges DONE
-        - Get AimComponent data from json
-        - Stop using the test_projectile for all ranged weapons
+        - Get AimComponent data from json DONE
+        - Add a property for hitting only one entity with the hitbox DONE
+        - Stop using the test_projectile for all ranged weapons DONE
         - Add hit particles and regular particles to projectiles
     * Add a ranged weapon to the human enemy
     * Add a ranged weapon to the skeleton enemy
