@@ -8,7 +8,7 @@ namespace ecs
 	class ProjectileComponent : public Component
 	{
 	public:
-		ProjectileComponent(const int ownerEntityId, Vector2D velocity, float range);
+		ProjectileComponent(const int ownerEntityId, Vector2D velocity, float range, bool velocityRotation);
 		
 		// Component
 		void init() override;
@@ -24,5 +24,6 @@ namespace ecs
 		float range = 0.f;
 		float speed = 0.f;
 		float distance = 0.f;
+		bool velocityRotation{ false };
 	};
 }

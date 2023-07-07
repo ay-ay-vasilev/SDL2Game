@@ -64,7 +64,10 @@ void ecs::CollisionSystem::update(double delta)
 			if (otherMovingEntity->hasGroup(Game::eGroupLabels::PLAYERS))
 				continue;
 
-			const auto colliderEntityCollider = otherMovingEntity->getComponent<ecs::ColliderComponent>()->getCollider();
+			const auto colliderComponent = otherMovingEntity->getComponent<ecs::ColliderComponent>();
+			if (!colliderComponent->isEnabled()) continue;
+
+			const auto colliderEntityCollider = colliderComponent->getCollider();
 			float overlapX, overlapY;
 			if (overlap(movingEntityCollider, colliderEntityCollider, overlapX, overlapY))
 			{

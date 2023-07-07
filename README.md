@@ -29,6 +29,7 @@ My plan:
         - Add a property for hitting only one entity with the hitbox DONE
         - Stop using the test_projectile for all ranged weapons DONE
         - Add hit particles and regular particles to projectiles
+        - Improve projectile colliders, remove collision logic
     * Add a ranged weapon to the human enemy
     * Add a ranged weapon to the skeleton enemy
 - Combat overhaul (make it fun - add defensive abilities (i-frames, dodge rolls, parries), attack movement, combos etc.)

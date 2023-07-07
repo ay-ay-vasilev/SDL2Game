@@ -37,6 +37,7 @@
 	"projectile_data":
 	{
 		"range": 400,
+		"velocity_rotation": false,
 		"health":
 		{
 			"max_health": 1

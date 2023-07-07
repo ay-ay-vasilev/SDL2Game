@@ -17,18 +17,9 @@ namespace ecs
 	class RenderSystem : public System
 	{
 	public:
-		explicit RenderSystem(Manager& manager) : System(manager), blackTexture(nullptr), blackSrcRect(), blackDestRect() {}
-		~RenderSystem() override
-		{
-			SDL_DestroyTexture(blackTexture);
-		}
+		explicit RenderSystem(Manager& manager) : System(manager) {}
 
-		void init() override
-		{
-			blackTexture = TextureManager::getTextureFromSurface(Game::assetManager->getSurface("black"));
-			blackSrcRect = { 0, 0, 1, 1 };
-			blackDestRect = { 0, 0, Game::constants->SCREEN_WIDTH, Game::constants->SCREEN_HEIGHT };
-		}
+		void init() override {}
 
 		void update(double delta) override
 		{
@@ -63,8 +54,6 @@ namespace ecs
 
 		void draw() override
 		{
-			TextureManager::draw(blackTexture, blackSrcRect, blackDestRect, 0, SDL_FLIP_NONE, false);
-
 			for (const auto& tile : tiles) tile->draw();
 			for (const auto& entityZValue : sortedEntities) entityZValue.entity->draw();
 
@@ -82,9 +71,5 @@ namespace ecs
 		};
 		std::vector<ecs::Entity*> tiles;
 		std::vector<EntityZValue> sortedEntities;
-
-		SDL_Texture* blackTexture; // todo: remove
-		SDL_Rect blackSrcRect;
-		SDL_Rect blackDestRect;
 	};
 }

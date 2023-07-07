@@ -37,21 +37,30 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 
 		for (auto damageColliderEntity : damageColliders)
 		{
-			auto damageColliderHealth = damageColliderEntity->getComponent<ecs::HealthComponent>();
+			const auto damageColliderHealth = damageColliderEntity->getComponent<ecs::HealthComponent>();
 			if (damageColliderHealth && damageColliderHealth->isDead()) continue;
 
 			// check if hits itself
 			if (hitboxEntity->getID() == damageColliderEntity->getID()) continue;
 
 			// check if hits friend
-			auto damageColliderFaction = damageColliderEntity->getComponent<ecs::FactionComponent>();
+			const auto damageColliderFaction = damageColliderEntity->getComponent<ecs::FactionComponent>();
 			if (hitboxFaction && damageColliderFaction && hitboxFaction->checkIfFactionFriendly(damageColliderFaction->getFaction()))
 				continue;
 
-			// check if projectile and hits its owner
-			auto projectileComponent = damageColliderEntity->getComponent<ecs::ProjectileComponent>();
-			if (projectileComponent && projectileComponent->getOwnerEntityId() == hitboxEntity->getID())
-				continue;
+			// check if it's a projectile
+			const auto projectileComponent = damageColliderEntity->getComponent<ecs::ProjectileComponent>();
+			if (projectileComponent)
+			{
+				// check if hits its owner
+				if (projectileComponent->getOwnerEntityId() == hitboxEntity->getID())
+					continue;
+
+				// check if hitbox entity is a projectile and has the same owner
+				const auto hitboxProjectileComponent = hitboxEntity->getComponent<ecs::ProjectileComponent>();
+				if (hitboxProjectileComponent && projectileComponent->getOwnerEntityId() == hitboxProjectileComponent->getOwnerEntityId())
+					continue;
+			}
 
 			auto damageColliderComponent = damageColliderEntity->getComponent<ecs::DamageColliderComponent>();
 

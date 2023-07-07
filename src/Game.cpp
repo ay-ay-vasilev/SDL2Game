@@ -99,6 +99,7 @@ void Game::init()
 
 	auto player = actorSystem->instantiatePlayer(constants->PLAYER_POS, constants->PLAYER_RACE);
 	actorSystem->addRandomCustomization(*player);
+	actorSystem->equipRandomArmor(*player);
 
 	const std::string projectileFile = "test_projectile";
 	for (const auto& projectileData : constants->DEBUG_PROJECTILES)
@@ -115,25 +116,25 @@ void Game::init()
 	for (const auto& humanData : constants->HUMAN_POS)
 	{
 		auto actor = actorSystem->instantiateActor(humanData, "human");
+		actorSystem->addRandomCustomization(*actor);
 		actorSystem->equipRandomArmor(*actor);
 		actorSystem->equipRandomWeapon(*actor);
-		actorSystem->addRandomCustomization(*actor);
 	}
 
 	for (const auto& skeletonData : constants->SKELETON_POS)
 	{
 		auto actor = actorSystem->instantiateActor(skeletonData, "skeleton");
+		actorSystem->addRandomCustomization(*actor);
 		actorSystem->equipRandomArmor(*actor);
 		actorSystem->equipRandomWeapon(*actor);
-		actorSystem->addRandomCustomization(*actor);
 	}
 
 	for (const auto& goblinData : constants->GOBLIN_POS)
 	{
 		auto actor = actorSystem->instantiateActor(goblinData, "goblin");
+		actorSystem->addRandomCustomization(*actor);
 		actorSystem->equipRandomArmor(*actor);
 		actorSystem->equipRandomWeapon(*actor);
-		actorSystem->addRandomCustomization(*actor);
 	}
 
 	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
@@ -141,22 +142,23 @@ void Game::init()
 
 void Game::handleEvents()
 {
-	SDL_PollEvent(&gameEvent);
-	switch (gameEvent.type)
+	while (SDL_PollEvent(&gameEvent) != 0)
 	{
-	case SDL_QUIT:
-		isRunning = false;
-		break;
-	case SDL_KEYUP:
-	case SDL_KEYDOWN:
-	case SDL_MOUSEBUTTONDOWN:
-	case SDL_MOUSEBUTTONUP:
-		keyboardManager->handleEvents(gameEvent);
-		break;
-	default:
-		break;
+		switch (gameEvent.type)
+		{
+		case SDL_QUIT:
+			isRunning = false;
+			break;
+		case SDL_KEYUP:
+		case SDL_KEYDOWN:
+		case SDL_MOUSEBUTTONDOWN:
+		case SDL_MOUSEBUTTONUP:
+			keyboardManager->handleEvents(gameEvent);
+			break;
+		default:
+			break;
+		}
 	}
-
 	keyboardManager->handleMouse();
 }
 
@@ -181,6 +183,7 @@ void Game::update(double delta)
 
 void Game::render()
 {
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 	manager->draw();
 	SDL_RenderPresent(renderer);

@@ -1,17 +1,18 @@
 #include "ProjectileComponent.h"
 #include "TransformComponent.h"
 
-ecs::ProjectileComponent::ProjectileComponent(const int ownerEntityId, Vector2D velocity, float range) :
+ecs::ProjectileComponent::ProjectileComponent(const int ownerEntityId, Vector2D velocity, float range, bool velocityRotation) :
 	ownerEntityId(ownerEntityId),
 	transform(nullptr),
 	velocity(velocity),
-	range(range) {}
+	range(range),
+	velocityRotation(velocityRotation) {}
 
 void ecs::ProjectileComponent::init()
 {
 	transform = entity->getComponent<ecs::TransformComponent>();
 	transform->setVeloctiy(velocity);
-	transform->setRotation(Vector2D::Angle(velocity) + 180.0);
+	if (velocityRotation) transform->setRotation(Vector2D::Angle(velocity) + 180.0);
 	speed = transform->getSpeed();
 	range *= transform->getScale();
 }

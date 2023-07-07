@@ -41,13 +41,13 @@ void ecs::AimComponent::init()
 
 	center =
 	{
-		static_cast<float>(transform->getPosition().x),
-		static_cast<float>(transform->getPosition().y)
+		static_cast<float>(transform->getPosition().x + offset.x * transform->getScale()),
+		static_cast<float>(transform->getPosition().y + offset.y * transform->getScale())
 	};
 
 	destRect = {
-		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2 + offset.x),
-		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + offset.y),
+		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2),
+		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2),
 		static_cast<int>(srcRect.w * transform->getScale()),
 		static_cast<int>(srcRect.h * transform->getScale())};
 }
@@ -58,14 +58,14 @@ void ecs::AimComponent::update(double delta)
 
 	center =
 	{
-		static_cast<float>(transform->getPosition().x),
-		static_cast<float>(transform->getPosition().y)
+		static_cast<float>(transform->getPosition().x + offset.x * transform->getScale()),
+		static_cast<float>(transform->getPosition().y + offset.y * transform->getScale())
 	};
 
 
 	destRect = {
-		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2 + offset.x),
-		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2 + offset.y),
+		static_cast<int>(center.x - srcRect.w * transform->getScale() / 2),
+		static_cast<int>(center.y - srcRect.h * transform->getScale() / 2),
 		static_cast<int>(srcRect.w * transform->getScale()),
 		static_cast<int>(srcRect.h * transform->getScale()) };
 }
