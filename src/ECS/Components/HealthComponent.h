@@ -18,6 +18,7 @@ namespace ecs
 
 		bool changeHealth(int value);
 		bool changeMaxHealth(int value);
+		void setHealthToZero();
 
 		const int inline getHealth() const { return healthValue; }
 		const int inline getMaxHealth() const { return maxHealthValue; }

@@ -32,6 +32,11 @@ bool ecs::HealthComponent::changeHealth(int value)
 	return true;
 }
 
+void ecs::HealthComponent::setHealthToZero()
+{
+	changeHealth(-healthValue);
+}
+
 bool ecs::HealthComponent::changeMaxHealth(int value)
 {
 	if (dead) return false;
