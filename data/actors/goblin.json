@@ -81,9 +81,5 @@
 			"red": {"r": 180, "b": 0, "g": 0, "a": 100}
 		},
 		"shadow": { "texture": "goblin_shadow" }
-	},
-	"debug":
-	{
-		"particle": "blood"
 	}
 }

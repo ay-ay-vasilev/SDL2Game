@@ -6,6 +6,8 @@
         "energy_shield",
         "fireball",
         "fountain",
-        "torch"
+        "torch",
+        "arrow_trace",
+        "test_projectile_particle"
     ]
 }

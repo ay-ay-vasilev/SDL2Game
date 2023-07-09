@@ -7,7 +7,7 @@
 #include "HitboxComponent.h"
 #include "DamageColliderComponent.h"
 #include "HealthComponent.h"
-#include "HitParticleComponent.h"
+#include "ParticleComponent.h"
 
 #include <wrappedJson.h>
 
@@ -58,7 +58,7 @@ void ecs::ProjectileSystem::instantiateProjectile(const int ownerId, const Vecto
 	projectile.addComponent<ecs::DamageColliderComponent>(filename, true);
 	projectile.addComponent<ecs::ColliderComponent>(filename, projectileData["collider_rect"]);
 	projectile.addComponent<ecs::HealthComponent>(projectileData["projectile_data"]["health"]);
-	projectile.addComponent<ecs::HitParticleComponent>(projectileData["hit_particle"]);
+	projectile.addComponent<ecs::ParticleComponent>(projectileData["particle"]);
 
 	projectile.addGroup(Game::PROJECTILES);
 }

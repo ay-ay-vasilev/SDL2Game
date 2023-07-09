@@ -177,6 +177,9 @@
     <ClCompile Include="..\src\ECS\Components\AimComponent.cpp">
       <Filter>Source Files\ECS\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ECS\Components\ParticleComponent.cpp">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Game.h">
@@ -340,6 +343,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Events\Events.h">
       <Filter>Source Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ECS\Components\ParticleComponent.h">
+      <Filter>Source Files\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -76,6 +76,7 @@ public:
 	std::vector<Vector2D> SKELETON_POS;
 	std::vector<Vector2D> GOBLIN_POS;
 	std::vector<ProjectileData> DEBUG_PROJECTILES;
+	std::string DEBUG_PARTICLE;
 
 	int AI_AGGRO_DISTANCE{ 80 };
 	int AI_DEAGGRO_DISTANCE{ 100 };
@@ -177,24 +178,34 @@ private:
 				GOBLIN_POS.push_back({ posData["x"], posData["y"] });
 			}
 		}
-		if (constantsJson.find("debug_projectiles") != constantsJson.end())
+
+		if (constantsJson.find("debug") != constantsJson.end())
 		{
-			for (const auto& projectileData : constantsJson["debug_projectiles"])
+			const auto debugData = constantsJson["debug"];
+
+			if (debugData.find("debug_projectiles") != debugData.end())
 			{
-				const auto& projectilePos = projectileData["pos"];
-				const auto& projectileVel = projectileData["velocity"];
-				DEBUG_PROJECTILES.push_back({ { projectilePos["x"], projectilePos["y"] }, { projectileVel["x"], projectileVel["y"] } });
+				for (const auto& projectileData : debugData["debug_projectiles"])
+				{
+					const auto& projectilePos = projectileData["pos"];
+					const auto& projectileVel = projectileData["velocity"];
+					DEBUG_PROJECTILES.push_back({ { projectilePos["x"], projectilePos["y"] }, { projectileVel["x"], projectileVel["y"] } });
+				}
+			}
+			if (debugData.find("debug_draw_colliders") != debugData.end())
+			{
+				DRAW_COLLIDERS = debugData["debug_draw_colliders"];
+			}
+			if (debugData.find("debug_draw_hitboxes") != debugData.end())
+			{
+				DRAW_HITBOXES = debugData["debug_draw_hitboxes"];
+			}
+			if (debugData.find("particle") != debugData.end())
+			{
+				DEBUG_PARTICLE = debugData["particle"];
 			}
 		}
 
-		if (constantsJson.find("debug_draw_colliders") != constantsJson.end())
-		{
-			DRAW_COLLIDERS = constantsJson["debug_draw_colliders"];
-		}
-		if (constantsJson.find("debug_draw_hitboxes") != constantsJson.end())
-		{
-			DRAW_HITBOXES = constantsJson["debug_draw_hitboxes"];
-		}
 		if (constantsJson.find("ai_aggro_distance") != constantsJson.end())
 		{
 			AI_AGGRO_DISTANCE = constantsJson["ai_aggro_distance"];

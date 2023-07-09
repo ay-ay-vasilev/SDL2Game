@@ -1,6 +1,6 @@
 {
 	"speed": 5.0,
-	"hit_particle": "fireball",
+	"particle": "arrow_trace",
 	"collider_rect":
 	{
 		"shape": "circle",

@@ -160,10 +160,7 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 	player.addComponent<ecs::HitParticleComponent>(playerData["hit_particle"]);
 	if (playerData.contains("splatter")) player.addComponent<ecs::SplatterComponent>(playerData["splatter"]);
 
-	if (playerData.contains("debug"))
-	{
-		player.addComponent<ecs::DebugParticleComponent>(playerData["debug"]["particle"]);
-	}
+	player.addComponent<ecs::DebugParticleComponent>(Game::constants->DEBUG_PARTICLE);
 
 	player.addGroup(Game::eGroupLabels::PLAYERS);
 	equipWeapon(player, "unarmed");

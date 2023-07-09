@@ -100,7 +100,7 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 
 				if (damageColliderComponent->isDestroyedOnHit())
 				{
-					damageColliderHealth->setHealthToZero();
+					damageColliderEntity->destroy();
 				}
 			}
 		}
