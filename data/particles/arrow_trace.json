@@ -1,27 +1,27 @@
 {
 	"texture": "pixel",
-	"maxParticles": 200,
+	"maxParticles": 50,
 	"duration": -1,
-	"mode": "RADIUS",
-	"radius": {"value": 0.0, "variance": 0.0},
+	"mode": "GRAVITY",
+	"gravity": {"x": 0.0, "y": 0.0},
 	"radialAccel": {"value": 0.0, "variance": 0.0},
 	"tangentialAccel": {"value": 0.0, "variance": 0.0},
-	"speed": {"value": 133.33, "variance": 16.67},
-	"angle": {"value": 270.0, "variance": 10.0},
+	"speed": {"value": 0.0, "variance": 0.0},
+	"angle": {"value": 0.0, "variance": 360.0},
 	"life": {"value": 0.5, "variance": 0.0},
 	"startColor":
 	{
-		"value":{"r": 0.8, "g": 0.8, "b": 0.8, "a": 0.8},
-		"variance":{"r": 0.0, "g": 0.0, "b": 0.0, "a": 0.1}
+		"value":{"r": 0.8, "g": 0.8, "b": 0.8, "a": 1.0},
+		"variance":{"r": 0.0, "g": 0.0, "b": 0.0, "a": 0.0}
 	},
 	"endColor":
 	{
 		"value":{"r": 0.8, "g": 0.8, "b": 0.8, "a": 0.0},
-		"variance":{"r": 0.0, "g": 0.0, "b": 0.0, "a": 0.1}
+		"variance":{"r": 0.0, "g": 0.0, "b": 0.0, "a": 0.0}
 	},
-	"startSize": {"value": 1.5, "variance": 0.3},
-	"endSize": {"value": 0.5, "variance": 0.1},
+	"startSize": {"value": 1.5, "variance": 0.0},
+	"endSize": {"value": 0.1, "variance": 0.0},
 	"pos": {"x": 0.0, "y": 0.0},
-	"startSpin": {"value": 0.0, "variance": 10.0},
-	"endSpin": {"value": 0.0, "variance": 10.0}
+	"startSpin": {"value": 0.0, "variance": 0.0},
+	"endSpin": {"value": 0.0, "variance": 0.0}
 }

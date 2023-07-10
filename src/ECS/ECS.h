@@ -101,6 +101,10 @@ namespace ecs
 			std::shared_ptr<T> component = std::make_shared<T>(std::forward<TArgs>(mArgs)...);
 			component->entity = this;
 			components.emplace_back(component);
+			componentArray[getComponentTypeID<T>()] = component;
+			componentBitSet[getComponentTypeID<T>()] = true;
+			component->init();
+
 			auto drawable = std::dynamic_pointer_cast<DrawableComponent>(component);
 			if (drawable)
 			{
@@ -111,11 +115,6 @@ namespace ecs
 						return lhs->getRenderOrder() < rhs->getRenderOrder();
 					});
 			}
-
-			componentArray[getComponentTypeID<T>()] = component;
-			componentBitSet[getComponentTypeID<T>()] = true;
-
-			component->init();
 			return component;
 		}
 

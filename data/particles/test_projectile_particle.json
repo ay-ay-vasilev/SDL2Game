@@ -11,7 +11,7 @@
 	"life": {"value": 1.0, "variance": 0.5},
 	"startColor":
 	{
-		"value":{"r": 0.5, "g": 0.8, "b": 1.0, "a": 1.0},
+		"value":{"r": 0.0, "g": 1.0, "b": 1.0, "a": 1.0},
 		"variance":{"r": 0.0, "g": 0.0, "b": 0.0, "a": 0.0}
 	},
 	"endColor":
@@ -19,10 +19,9 @@
 		"value":{"r": 1.0, "g": 1.0, "b": 1.0, "a": 0.0},
 		"variance":{"r": 0.0, "g": 0.0, "b": 0.0, "a": 0.0}
 	},
-	"startSize": {"value": 1.0, "variance": 0.3},
+	"startSize": {"value": 1.5, "variance": 0.3},
 	"endSize": {"value": 0.5, "variance": 0.1},
 	"pos": {"x": 0.0, "y": 0.0},
 	"startSpin": {"value": 0.0, "variance": 360.0},
-	"endSpin": {"value": 0.0, "variance": 360.0},
-	"bounce": true
+	"endSpin": {"value": 0.0, "variance": 360.0}
 }

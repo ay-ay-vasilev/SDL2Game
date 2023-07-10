@@ -6,7 +6,7 @@ ecs::ParticleComponent::ParticleComponent(const std::string& name) : particleNam
 
 void ecs::ParticleComponent::init()
 {
-	setRenderOrder(2);
+	setRenderOrder(-10);
 	transformComponent = entity->getComponent<TransformComponent>();
 	play();
 }

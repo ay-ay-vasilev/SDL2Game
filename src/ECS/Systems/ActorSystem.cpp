@@ -163,6 +163,7 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 	player.addComponent<ecs::DebugParticleComponent>(Game::constants->DEBUG_PARTICLE);
 
 	player.addGroup(Game::eGroupLabels::PLAYERS);
+
 	equipWeapon(player, "unarmed");
 	return &player;
 }

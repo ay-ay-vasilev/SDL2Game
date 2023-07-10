@@ -1,5 +1,5 @@
 {
-	"speed": 0.33,
+	"speed": 1.0,
 	"particle": "test_projectile_particle",
 	"collider_rect":
 	{
