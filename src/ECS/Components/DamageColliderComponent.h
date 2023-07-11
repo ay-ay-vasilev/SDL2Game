@@ -36,6 +36,8 @@ namespace ecs
 		void inline setEnableDraw(bool value) { enableDraw = value; }
 		const int inline getDamage() const { return damage; }
 		const std::string inline getTag() const { return tag; }
+		const Vector2D inline getOffset() const { return damageColliderOffset; }
+		void inline setOffset(const Vector2D& offset) { damageColliderOffset = offset; }
 
 	private:
 		void parseColliderJson(const nlohmann::json& data);

@@ -47,18 +47,18 @@ void ecs::ProjectileSystem::instantiateProjectile(const int ownerId, const Vecto
 	);
 	projectile.addComponent<ecs::SpriteComponent>(projectileData["sprite_data"], false);
 	projectile.addComponent<ecs::SpriteOutlineComponent>(projectileData["sprite_data"].contains("outline") ? projectileData["sprite_data"]["outline"] : nullptr);
-	projectile.addComponent<ecs::ProjectileComponent>
-	(
-		ownerId,
-		velocity,
-		projectileData["projectile_data"]["range"],
-		projectileData["projectile_data"]["velocity_rotation"]
-	);
 	projectile.addComponent<ecs::HitboxComponent>(filename, projectileData["hitbox_rect"]);
 	projectile.addComponent<ecs::DamageColliderComponent>(filename, true);
 	projectile.addComponent<ecs::ColliderComponent>(filename, projectileData["collider_rect"]);
 	projectile.addComponent<ecs::HealthComponent>(projectileData["projectile_data"]["health"]);
 	projectile.addComponent<ecs::ParticleComponent>(projectileData["particle"]);
+	projectile.addComponent<ecs::ProjectileComponent>
+		(
+			ownerId,
+			velocity,
+			projectileData["projectile_data"]["range"],
+			projectileData["projectile_data"]["velocity_rotation"]
+		);
 
 	projectile.addGroup(Game::PROJECTILES);
 }

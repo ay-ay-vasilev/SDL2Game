@@ -1,5 +1,5 @@
 {
-	"speed": 5.0,
+	"speed": 0.1,
 	"particle": "arrow_trace",
 	"collider_rect":
 	{
@@ -20,8 +20,8 @@
 		"collider":
 		{
 			"shape": "circle",
-			"x": 0, "y": 0,
-			"radius": 5
+			"x": -2.5, "y": 0,
+			"radius": 1
 		},
 		"destroy_on_hit": true,
 		"max_affected_targets": 1

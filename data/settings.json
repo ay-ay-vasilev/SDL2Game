@@ -25,8 +25,8 @@
 	},
 	"debug":
 	{
-		"debug_draw_colliders": false,
-		"debug_draw_hitboxes": false,
+		"debug_draw_colliders": true,
+		"debug_draw_hitboxes": true,
 		"debug_projectiles":
 		[
 			{ "pos": {"x": 380, "y": 350}, "velocity": {"x": -1, "y": -2}},
