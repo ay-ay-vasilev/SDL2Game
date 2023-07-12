@@ -5,6 +5,7 @@
 namespace ecs
 {
 	class TransformComponent;
+	class DamageColliderComponent;
 	class ProjectileComponent : public Component
 	{
 	public:
@@ -18,12 +19,14 @@ namespace ecs
 
 	private:
 		std::shared_ptr<TransformComponent> transform;
+		std::shared_ptr<DamageColliderComponent> damageCollider;
 		int ownerEntityId;
 
 		Vector2D velocity{ 0.f, 0.f };
-		float range = 0.f;
-		float speed = 0.f;
-		float distance = 0.f;
-		bool velocityRotation{ false };
+		float range{ 0.f };
+		float speed{ 0.f };
+		float distance{ 0.f };
+		float angle{ 0.f };
+		bool velocityRotation = false;
 	};
 }

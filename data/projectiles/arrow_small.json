@@ -1,5 +1,5 @@
 {
-	"speed": 0.1,
+	"speed": 5.0,
 	"particle": "arrow_trace",
 	"collider_rect":
 	{
@@ -20,7 +20,8 @@
 		"collider":
 		{
 			"shape": "circle",
-			"x": -2.5, "y": 0,
+			"offset": {"dx": -2.8, "dy": 0},
+			"x": 0, "y": 0,
 			"radius": 1
 		},
 		"destroy_on_hit": true,

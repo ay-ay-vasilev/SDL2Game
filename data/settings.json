@@ -1,5 +1,19 @@
 {
 	"fullscreen": false,
+	"debug":
+	{
+		"debug_draw_colliders": false,
+		"debug_draw_hitboxes": false,
+		"debug_projectiles":
+		[
+			{ "pos": {"x": 380, "y": 350}, "velocity": {"x": -1, "y": -2}},
+			{ "pos": {"x": 300, "y": 350}, "velocity": {"x": 3, "y": -2}},
+			{ "pos": {"x": 380, "y": 300}, "velocity": {"x": -4, "y": 0}},
+			{ "pos": {"x": 350, "y": 300}, "velocity": {"x": 5, "y": 2}},
+			{ "pos": {"x": 400, "y": 280}, "velocity": {"x": -6, "y": 2}}
+		],
+		"particle": "blood"
+	},
 
 	"window_title": "The Goblin Saga",
 	"screen_width": 1280,
@@ -23,21 +37,6 @@
 		"x": 270,
 		"y": 270
 	},
-	"debug":
-	{
-		"debug_draw_colliders": true,
-		"debug_draw_hitboxes": true,
-		"debug_projectiles":
-		[
-			{ "pos": {"x": 380, "y": 350}, "velocity": {"x": -1, "y": -2}},
-			{ "pos": {"x": 300, "y": 350}, "velocity": {"x": 3, "y": -2}},
-			{ "pos": {"x": 380, "y": 300}, "velocity": {"x": -4, "y": 0}},
-			{ "pos": {"x": 350, "y": 300}, "velocity": {"x": 5, "y": 2}},
-			{ "pos": {"x": 400, "y": 280}, "velocity": {"x": -6, "y": 2}}
-		],
-		"particle": "blood"
-	},
-
 	"human_positions":
 	[
 		{ "x": 90, "y": 360 },

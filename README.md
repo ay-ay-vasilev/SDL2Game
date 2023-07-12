@@ -29,8 +29,9 @@ My plan:
         - Add a property for hitting only one entity with the hitbox DONE
         - Stop using the test_projectile for all ranged weapons DONE
         - Add hit particles and regular particles to projectiles DONE
-        - Improve projectile colliders, remove collision logic
-            * Account for rotation in the DamageColliderComponent (fire an event when a weapon is equipped?)
+        - Improve projectile colliders, remove collision logic DONE
+        - Deal with disappearing particles on projectiles
+            * Combine all particle components into one and do not destroy the entity while particle emitters are active
     * Add a ranged weapon to the human enemy
     * Add a ranged weapon to the skeleton enemy
 - Combat overhaul (make it fun - add defensive abilities (i-frames, dodge rolls, parries), attack movement, combos etc.)

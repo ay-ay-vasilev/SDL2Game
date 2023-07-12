@@ -30,6 +30,7 @@ public:
 	Vector2D& operator*(const float& i);
 	Vector2D& Zero();
 	Vector2D& Normalize();
+	const float Distance() const;
 
 	static float Distance(const Vector2D& v1, const Vector2D& v2);
 	static Vector2D VectorBetween(const Vector2D& pos1, const Vector2D& pos2);

@@ -98,6 +98,11 @@ Vector2D& Vector2D::Normalize()
 	return *this;
 }
 
+const float Vector2D::Distance() const
+{
+	return sqrt(x * x + y * y);
+}
+
 std::ostream& operator<<(std::ostream& stream, const Vector2D& vec)
 {
 	stream << "(" << vec.x << ", " << vec.y << ")";
