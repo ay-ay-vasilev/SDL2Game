@@ -143,7 +143,7 @@ void particles::ParticleEmitter::addParticles(int count)
 		particle_data_[i].size = (std::max)(0.0f, particle_data_[i].size);
 	}
 
-	if (_endSize != START_SIZE_EQUAL_TO_END_SIZE)
+	if (static_cast<int>(_endSize) != static_cast<int>(START_SIZE_EQUAL_TO_END_SIZE))
 	{
 		for (int i = start; i < _particleCount; ++i)
 		{
@@ -173,8 +173,8 @@ void particles::ParticleEmitter::addParticles(int count)
 
 	// position
 	Vec2 pos;
-	pos.x = x_;
-	pos.y = y_;
+	pos.x = static_cast<float>(x_);
+	pos.y = static_cast<float>(y_);
 
 	for (int i = start; i < _particleCount; ++i)
 	{
@@ -247,7 +247,7 @@ void particles::ParticleEmitter::addParticles(int count)
 			particle_data_[i].modeB.degreesPerSecond = Deg2Rad(modeB.rotatePerSecond + modeB.rotatePerSecondVar * RANDOM_M11());
 		}
 
-		if (modeB.endRadius == START_RADIUS_EQUAL_TO_END_RADIUS)
+		if (static_cast<int>(modeB.endRadius) == static_cast<int>(START_RADIUS_EQUAL_TO_END_RADIUS))
 		{
 			for (int i = start; i < _particleCount; ++i)
 			{
@@ -290,7 +290,7 @@ bool particles::ParticleEmitter::isFull()
 // ParticleSystem - MainLoop
 void particles::ParticleEmitter::update()
 {
-	float dt = 1.0 / 25;
+	float dt = 1.f / 25;
 	if (_isActive && _emissionRate)
 	{
 		float rate = 1.0f / _emissionRate;
@@ -305,7 +305,7 @@ void particles::ParticleEmitter::update()
 			}
 		}
 
-		int emitCount = (std::min)(1.0f * (totalParticles - _particleCount), _emitCounter / rate);
+		int emitCount = static_cast<int>((std::min)(1.0f * (totalParticles - _particleCount), _emitCounter / rate));
 		addParticles(emitCount);
 		_emitCounter -= rate * emitCount;
 
@@ -314,7 +314,7 @@ void particles::ParticleEmitter::update()
 		{
 			_elapsed = 0.f;
 		}
-		if (_duration != DURATION_INFINITY && _duration < _elapsed)
+		if (static_cast<int>(_duration) != static_cast<int>(DURATION_INFINITY) && _duration < _elapsed)
 		{
 			this->stopSystem();
 		}

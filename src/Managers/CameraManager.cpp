@@ -3,7 +3,7 @@
 #include "TransformComponent.h"
 #include "CameraComponent.h"
 
-CameraManager::CameraManager(std::shared_ptr<ecs::Manager> manager) : manager(manager) {}
+CameraManager::CameraManager(std::shared_ptr<ecs::Manager> manager) : camera(), cameraBounds(), manager(manager) {}
 
 CameraManager::~CameraManager() {}
 
@@ -29,8 +29,7 @@ void CameraManager::update()
 {
 	cameraEntities = manager->getEntitiesWithComponent<ecs::CameraComponent>();
 
-	if (cameraEntities.empty())
-		return;
+	if (cameraEntities.empty()) return;
 
 	Vector2D cameraPosition = getSumCameraPosition();
 
@@ -58,7 +57,7 @@ const Vector2D CameraManager::getSumCameraPosition() const
 			entityCount++;
 		}
 	}
-	return sumPosition / entityCount;
+	return sumPosition / static_cast<float>(entityCount);
 }
 
 void CameraManager::updatePositionsOnScreen() const

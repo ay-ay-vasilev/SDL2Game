@@ -36,7 +36,7 @@ bool Game::isRunning = false;
 // test - remove later
 auto& label0(Game::manager->addEntity());
 
-Game::Game() : window(nullptr), count(0) {}
+Game::Game() : window(nullptr), gameEvent(), count(0) {}
 
 Game::~Game() {}
 

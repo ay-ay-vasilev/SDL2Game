@@ -203,8 +203,8 @@ void ParticleManager::update()
 		particleEmitters.end()
 	);
 
-	const int numEmitters = particleEmitters.size();
-	const int numThreads = SDL_GetCPUCount();
+	const auto numEmitters = static_cast<int>(particleEmitters.size());
+	const auto numThreads = SDL_GetCPUCount();
 
 	if (numEmitters < numThreads)
 	{
@@ -215,8 +215,8 @@ void ParticleManager::update()
 	}
 	else
 	{
-		const int emittersPerThread = numEmitters / numThreads;
-		const int remainingEmitters = numEmitters % numThreads;
+		const auto emittersPerThread = numEmitters / numThreads;
+		const auto remainingEmitters = numEmitters % numThreads;
 
 		std::vector<SDL_Thread*> threads(numThreads);
 

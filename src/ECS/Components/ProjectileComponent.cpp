@@ -14,14 +14,14 @@ void ecs::ProjectileComponent::init()
 	transform = entity->getComponent<ecs::TransformComponent>();
 	damageCollider = entity->getComponent<ecs::DamageColliderComponent>();
 	transform->setVeloctiy(velocity);
-	angle = Vector2D::Angle(velocity) + 180.0;
+	angle = static_cast<float>(Vector2D::Angle(velocity) + 180.0);
 	if (velocityRotation) transform->setRotation(angle);
 	speed = transform->getSpeed();
 	range *= transform->getScale();
 
 	const float distance = damageCollider->getOffset().Distance();
-	const float offsetX = distance * std::cos((angle - 180.0) * M_PI / 180.0);
-	const float offsetY = distance * std::sin((angle - 180.0) * M_PI / 180.0);
+	const float offsetX = distance * static_cast<float>(std::cos((angle - 180.0) * M_PI / 180.0));
+	const float offsetY = distance * static_cast<float>(std::sin((angle - 180.0) * M_PI / 180.0));
 
 	damageCollider->setOffset({offsetX, offsetY});
 }

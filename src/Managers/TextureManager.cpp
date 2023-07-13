@@ -122,7 +122,7 @@ void TextureManager::applySplatter(SDL_Surface* surface, const Vector2D& positio
 	{
 		for (int x = left; x < right; ++x)
 		{
-			const auto currentPixelPos = Vector2D(x, y);
+			const auto currentPixelPos = Vector2D(static_cast<float>(x), static_cast<float>(y));
 
 			auto distance = Vector2D::Distance(currentPixelPos, splatterCenter);
 			if (distance < splatterRadius)

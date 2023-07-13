@@ -27,11 +27,11 @@ namespace ecs
 		const Vector2D inline getVelocity() const
 		{
 			// Calculate the angle in radians
-			const double angleRad = rotation * (std::numbers::pi / 180.0);
+			const float angleRad = static_cast<float>(rotation * (std::numbers::pi / 180.0));
 
 			// Calculate the vector components
-			const double x = std::cos(angleRad);
-			const double y = std::sin(angleRad);
+			const float x = std::cos(angleRad);
+			const float y = std::sin(angleRad);
 
 			// Create and return the normalized vector
 			Vector2D normalizedVector(x, y);

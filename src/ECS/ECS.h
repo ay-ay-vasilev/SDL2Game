@@ -32,8 +32,8 @@ namespace ecs
 		return typeID;
 	}
 
-	constexpr std::size_t maxComponents = 32;
-	constexpr std::size_t maxGroups = 32;
+	constexpr std::size_t inline maxComponents = 32;
+	constexpr std::size_t inline maxGroups = 32;
 
 	using ComponentBitSet = std::bitset<maxComponents>;
 	using ComponentArray = std::array<std::shared_ptr<Component>, maxComponents>;

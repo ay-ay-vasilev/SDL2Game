@@ -40,7 +40,7 @@ void ecs::ParticleComponent::update(double delta)
 	if (emitterLocked)
 	{
 		const auto position = transformComponent->getPosition();
-		emitterLocked->setPosition(position.x, position.y);
+		emitterLocked->setPosition(static_cast<int>(position.x), static_cast<int>(position.y));
 	}
 }
 
