@@ -23,8 +23,8 @@ namespace ecs
 
 		void assignDamageCollider(const std::string& name);
 
-		bool addAffectedTarget(int id);
-		const bool inline isInAffectedTargets(int id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
+		bool addAffectedTarget(Uint32 id);
+		const bool inline isInAffectedTargets(Uint32 id) const { return  std::find(affectedTargets.begin(), affectedTargets.end(), id) != affectedTargets.end(); }
 		void inline clearAffectedTargets() { affectedTargets.clear(); }
 		const bool inline isInRange(const std::shared_ptr<ColliderShape>& targetHitbox) const { return damageCollider->collidesWith(targetHitbox); }
 
@@ -51,7 +51,7 @@ namespace ecs
 		Vector2D damageColliderDirectionCoefficient;
 		Vector2D damageColliderOffset;
 
-		std::vector<int> affectedTargets;
+		std::vector<Uint32> affectedTargets;
 		SDL_Rect srcRect, destRect;
 		SDL_Texture* texture;
 

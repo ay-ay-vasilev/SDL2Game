@@ -64,7 +64,7 @@ namespace ecs
 
 	private:
 		Uint32 animStartTime = 0;
-		int startFrame;
+		int startFrame = 0;
 		int animIndex = 0;
 		std::string surfaceId = "";
 

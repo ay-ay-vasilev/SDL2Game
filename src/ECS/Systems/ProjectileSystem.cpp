@@ -26,7 +26,7 @@ void ecs::ProjectileSystem::createProjectile(const events::ProjectileEvent* proj
 	instantiateProjectile(projectileData->ownerId, projectileData->position, projectileData->velocity, projectileData->filename);
 }
 
-void ecs::ProjectileSystem::instantiateProjectile(const int ownerId, const Vector2D pos, const Vector2D velocity, const std::string& filename) const
+void ecs::ProjectileSystem::instantiateProjectile(const Uint32 ownerId, const Vector2D pos, const Vector2D velocity, const std::string& filename) const
 {
 	std::string filenameString(assets::getProjectileJsonPath(filename));
 	std::ifstream file(filenameString);

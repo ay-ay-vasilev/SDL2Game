@@ -17,7 +17,7 @@ namespace events
 
 	struct ProjectileEvent
 	{
-		int ownerId{ 0 };
+		Uint32 ownerId{ 0 };
 		Vector2D position{ 0, 0 };
 		Vector2D velocity{ 0, 0 };
 		std::string filename;

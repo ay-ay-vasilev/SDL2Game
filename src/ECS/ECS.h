@@ -162,10 +162,10 @@ namespace ecs
 			return nullptr;
 		}
 
-		int getID() const { return id; }
+		const Uint32 getID() const { return id; }
 
 	private:
-		int id;
+		Uint32 id;
 		Manager& manager;
 		bool active = true;
 		std::vector<std::shared_ptr<Component>> components;

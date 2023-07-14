@@ -88,7 +88,7 @@ void ecs::AIComponentBasicFighter::setNewTarget(const Entity* newTarget)
 	registerWithSubject(targetHealth);
 	targetTransform = target->getComponent<TransformComponent>();
 	targetHitbox = target->getComponent<HitboxComponent>();
-	targetID = target->getID();
+	targetID = static_cast<int>(target->getID());
 	distance = (Vector2D::Distance(transform->getPosition(), targetTransform->getPosition()));
 }
 

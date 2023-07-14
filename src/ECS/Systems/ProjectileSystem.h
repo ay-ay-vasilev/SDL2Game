@@ -14,7 +14,7 @@ namespace ecs
 		explicit ProjectileSystem(Manager& manager) : System(manager) {}
 		~ProjectileSystem() override;
 
-		void instantiateProjectile(const int ownerId, const Vector2D pos, const Vector2D velocity, const std::string& filename) const;
+		void instantiateProjectile(const Uint32 ownerId, const Vector2D pos, const Vector2D velocity, const std::string& filename) const;
 		void createProjectile(const events::ProjectileEvent* projectileData);
 
 		// System

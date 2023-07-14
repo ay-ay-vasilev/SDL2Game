@@ -54,7 +54,7 @@ void ecs::DamageColliderComponent::assignDamageCollider(const std::string& name)
 	loadWeaponParams();
 }
 
-bool ecs::DamageColliderComponent::addAffectedTarget(int id)
+bool ecs::DamageColliderComponent::addAffectedTarget(Uint32 id)
 {
 	if (maxAffectedTargets != UNLIMITED_TARGETS && affectedTargets.size() >= maxAffectedTargets)
 		return false;

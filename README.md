@@ -59,9 +59,10 @@ Maintenance:
 - Better ProjectileComponent implementation (add a name and make it a layer of abstraction, add "splatters" and "corpses")
 - Specific weapon stats for actors in weapon json files?
 - Refactor the debug draw methods
+- Multiple colliders in the DamageColliderComponent
+- Explosive projectiles ?
 - Deal with strings and string_views
 - CMake, cotire, CPM ?
-- Change Entity id from int to uint?
 
 Future plans:
 - Add a second container for Sprites that should not be outlined? (sword swings)
