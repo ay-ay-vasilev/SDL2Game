@@ -41,3 +41,8 @@ bool ecs::HealthComponent::changeMaxHealth(int value)
 		maxHealthValue = 0;
 	return true;
 }
+
+bool ecs::HealthComponent::kill()
+{
+	return changeHealth(-healthValue);
+}

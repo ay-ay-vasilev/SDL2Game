@@ -1,6 +1,7 @@
 #include "ProjectileComponent.h"
 #include "TransformComponent.h"
 #include "DamageColliderComponent.h"
+#include "HealthComponent.h"
 
 ecs::ProjectileComponent::ProjectileComponent(const int ownerEntityId, Vector2D velocity, float range, bool velocityRotation) :
 	ownerEntityId(ownerEntityId),
@@ -13,6 +14,9 @@ void ecs::ProjectileComponent::init()
 {
 	transform = entity->getComponent<ecs::TransformComponent>();
 	damageCollider = entity->getComponent<ecs::DamageColliderComponent>();
+	healthComponent = entity->getComponent<ecs::HealthComponent>();
+	registerWithSubject(healthComponent);
+
 	transform->setVeloctiy(velocity);
 	angle = static_cast<float>(Vector2D::Angle(velocity) + 180.0);
 	if (velocityRotation) transform->setRotation(angle);
@@ -28,10 +32,28 @@ void ecs::ProjectileComponent::init()
 
 void ecs::ProjectileComponent::update(double delta)
 {
-	distance += speed;
+	if (destroyed) return;
+
 	if (distance > range)
 	{
 		std::cout << "projectile: out of range!\n";
-		entity->destroy();
+		destroy();
 	}
+	distance += speed;
+}
+
+void ecs::ProjectileComponent::onNotify(const std::string_view& observedEvent)
+{
+	if (observedEvent == entity->getID() + "_died")
+	{
+		std::cout << "projectile" << "_" << entity->getID() << " got destroyed!\n";
+		destroy();
+	}
+}
+
+void ecs::ProjectileComponent::destroy()
+{
+	destroyed = true;
+	transform->setVeloctiy({ 0, 0 });
+	damageCollider->setEnabled(false);
 }

@@ -31,7 +31,10 @@ My plan:
         - Add hit particles and regular particles to projectiles DONE
         - Improve projectile colliders, remove collision logic DONE
         - Deal with disappearing particles on projectiles
-            * Combine all particle components into one and do not destroy the entity while particle emitters are active
+            * Do not destroy the projectile after impact/death/out of range DONE
+            * Add a ParticleManagerComponent that would manage other particle components and track which emitters are still active
+            * Add a "death" animation for projectiles
+            * Add a DeathParticleComponent
     * Add a ranged weapon to the human enemy
     * Add a ranged weapon to the skeleton enemy
 - Combat overhaul (make it fun - add defensive abilities (i-frames, dodge rolls, parries), attack movement, combos etc.)
