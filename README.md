@@ -32,7 +32,7 @@ My plan:
         - Improve projectile colliders, remove collision logic DONE
         - Deal with disappearing particles on projectiles
             * Do not destroy the projectile after impact/death/out of range DONE
-            * Add a ParticleManagerComponent that would manage other particle components and track which emitters are still active
+            * Add a ParticleManagerComponent that would manage other particle components and track which emitters are still active DONE
             * Add a "death" animation for projectiles
             * Add a DeathParticleComponent
     * Add a ranged weapon to the human enemy
@@ -49,6 +49,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
+- Remove redundant virtual functions
 - Refactor the KeyboardManager
 - Refactor the Splatter class maybe ?
 - Set proper surface sizes (unarmed bug)

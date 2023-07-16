@@ -38,6 +38,7 @@
     <ClCompile Include="..\src\ECS\Components\HitParticleComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\KeyboardComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ParticleComponent.cpp" />
+    <ClCompile Include="..\src\ECS\Components\ParticleControllerComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ProjectileComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\ShadowComponent.cpp" />
     <ClCompile Include="..\src\ECS\Components\SplatterComponent.cpp" />
@@ -93,6 +94,7 @@
     <ClInclude Include="..\src\ECS\Components\HitParticleComponent.h" />
     <ClInclude Include="..\src\ECS\Components\KeyboardComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ParticleComponent.h" />
+    <ClInclude Include="..\src\ECS\Components\ParticleControllerComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ProjectileComponent.h" />
     <ClInclude Include="..\src\ECS\Components\ShadowComponent.h" />
     <ClInclude Include="..\src\ECS\Components\SplatterComponent.h" />

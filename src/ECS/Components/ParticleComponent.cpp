@@ -1,6 +1,7 @@
 #include "ParticleComponent.h"
 #include "TransformComponent.h"
 #include "ParticleManager.h"
+#include "ParticleControllerComponent.h"
 
 ecs::ParticleComponent::ParticleComponent(const std::string& name) : particleName(name) {}
 
@@ -26,6 +27,10 @@ void ecs::ParticleComponent::play()
 		emitterLocked->setAngle(emitterLocked->getAngle() * (entityDirection.x < 0 ? 1 : -1) + 180 * (entityDirection.x < 0 ? 0 : 1));
 		emitterLocked->setPosition(static_cast<int>(entityPosition.x), static_cast<int>(entityPosition.y));
 	}
+
+	auto particleControllerComponent = entity->getComponent<ParticleControllerComponent>();
+	if (particleControllerComponent)
+		particleControllerComponent->addEmitter(emitter);
 }
 
 void ecs::ParticleComponent::update(double delta)

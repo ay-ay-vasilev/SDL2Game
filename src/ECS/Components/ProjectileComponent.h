@@ -8,6 +8,7 @@ namespace ecs
 	class TransformComponent;
 	class DamageColliderComponent;
 	class HealthComponent;
+	class ParticleControllerComponent;
 	class ProjectileComponent : public Component, public Observer
 	{
 	public:
@@ -27,6 +28,7 @@ namespace ecs
 		std::shared_ptr<TransformComponent> transform;
 		std::shared_ptr<DamageColliderComponent> damageCollider;
 		std::shared_ptr<HealthComponent> healthComponent;
+		std::shared_ptr<ParticleControllerComponent> particleControllerComponent;
 		int ownerEntityId;
 
 		Vector2D velocity{ 0.f, 0.f };

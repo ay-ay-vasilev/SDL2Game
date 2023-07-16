@@ -8,6 +8,7 @@
 #include "DamageColliderComponent.h"
 #include "HealthComponent.h"
 #include "ParticleComponent.h"
+#include "ParticleControllerComponent.h"
 
 #include <wrappedJson.h>
 
@@ -51,6 +52,7 @@ void ecs::ProjectileSystem::instantiateProjectile(const Uint32 ownerId, const Ve
 	projectile.addComponent<ecs::DamageColliderComponent>(filename, true);
 	projectile.addComponent<ecs::ColliderComponent>(filename, projectileData["collider_rect"]);
 	projectile.addComponent<ecs::HealthComponent>(projectileData["projectile_data"]["health"]);
+	projectile.addComponent<ecs::ParticleControllerComponent>();
 	projectile.addComponent<ecs::ParticleComponent>(projectileData["particle"]);
 	projectile.addComponent<ecs::ProjectileComponent>
 		(

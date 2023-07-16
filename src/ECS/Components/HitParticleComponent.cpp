@@ -2,6 +2,7 @@
 #include "TransformComponent.h"
 #include "HealthComponent.h"
 #include "ParticleManager.h"
+#include "ParticleControllerComponent.h"
 
 ecs::HitParticleComponent::HitParticleComponent(const std::string& name) : particleName(name) {}
 
@@ -29,6 +30,9 @@ void ecs::HitParticleComponent::play()
 		hitParticleEmitterLocked->setPosition(static_cast<int>(entityPosition.x), static_cast<int>(entityPosition.y));
 	}
 	hitParticleEmitters.push_back(hitParticleEmitter);
+
+	auto particleControllerComponent = entity->getComponent<ParticleControllerComponent>();
+	if (particleControllerComponent) particleControllerComponent->addEmitter(hitParticleEmitter);
 }
 
 void ecs::HitParticleComponent::update(double delta)

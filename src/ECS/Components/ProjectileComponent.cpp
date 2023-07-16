@@ -2,6 +2,7 @@
 #include "TransformComponent.h"
 #include "DamageColliderComponent.h"
 #include "HealthComponent.h"
+#include "ParticleControllerComponent.h"
 
 ecs::ProjectileComponent::ProjectileComponent(const int ownerEntityId, Vector2D velocity, float range, bool velocityRotation) :
 	ownerEntityId(ownerEntityId),
@@ -16,6 +17,8 @@ void ecs::ProjectileComponent::init()
 	damageCollider = entity->getComponent<ecs::DamageColliderComponent>();
 	healthComponent = entity->getComponent<ecs::HealthComponent>();
 	registerWithSubject(healthComponent);
+	particleControllerComponent = entity->getComponent<ecs::ParticleControllerComponent>();
+	registerWithSubject(particleControllerComponent);
 
 	transform->setVeloctiy(velocity);
 	angle = static_cast<float>(Vector2D::Angle(velocity) + 180.0);
@@ -49,6 +52,10 @@ void ecs::ProjectileComponent::onNotify(const std::string_view& observedEvent)
 		std::cout << "projectile" << "_" << entity->getID() << " got destroyed!\n";
 		destroy();
 	}
+	if (observedEvent == "particles_died")
+	{
+		entity->destroy();
+	}
 }
 
 void ecs::ProjectileComponent::destroy()
@@ -56,4 +63,5 @@ void ecs::ProjectileComponent::destroy()
 	destroyed = true;
 	transform->setVeloctiy({ 0, 0 });
 	damageCollider->setEnabled(false);
+	particleControllerComponent->disableEmitters();
 }
