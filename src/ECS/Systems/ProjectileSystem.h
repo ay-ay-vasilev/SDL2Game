@@ -23,7 +23,6 @@ namespace ecs
 		void draw() override;
 
 	private:
-		std::vector<Entity*> projectiles;
 		std::unique_ptr<ProjectileEventListenerHandle> listenerHandle;
 	};
 }

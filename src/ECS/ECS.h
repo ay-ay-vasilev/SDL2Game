@@ -18,7 +18,6 @@ namespace ecs
 	class Manager;
 
 	using ComponentID = std::size_t;
-	using Group = std::size_t;
 
 	inline ComponentID getNewComponentTypeID()
 	{
@@ -33,11 +32,9 @@ namespace ecs
 	}
 
 	constexpr std::size_t inline maxComponents = 32;
-	constexpr std::size_t inline maxGroups = 32;
 
 	using ComponentBitSet = std::bitset<maxComponents>;
 	using ComponentArray = std::array<std::shared_ptr<Component>, maxComponents>;
-	using GroupBitSet = std::bitset<maxGroups>;
 
 	class Component
 	{
@@ -73,17 +70,6 @@ namespace ecs
 		}
 		bool isActive() { return active; }
 		void destroy() { active = false; }
-
-		bool hasGroup(Group group)
-		{
-			return groupBitSet[group];
-		}
-
-		void addGroup(Group group);
-		void delGroup(Group group)
-		{
-			groupBitSet[group] = false;
-		}
 
 		template <typename T> bool hasComponent() const
 		{
@@ -173,7 +159,6 @@ namespace ecs
 
 		ComponentArray componentArray;
 		ComponentBitSet componentBitSet;
-		GroupBitSet groupBitSet;
 	};
 
 	class System
@@ -215,35 +200,12 @@ namespace ecs
 
 		void refresh()
 		{
-			for (auto i(0u); i < maxGroups; i++)
-			{
-				auto& v(groupedEntities[i]);
-				v.erase
-				(
-					std::remove_if(std::begin(v), std::end(v), [i](Entity* entity)
-						{
-							return !entity->isActive() || !entity->hasGroup(i);
-						}),
-					std::end(v)
-							);
-			}
-
 			entities.erase(std::remove_if(std::begin(entities), std::end(entities),
 				[](const std::unique_ptr<Entity>& mEntity)
 				{
 					return !mEntity->isActive();
 				}),
 				std::end(entities));
-		}
-
-		void addToGroup(Entity* entity, Group group)
-		{
-			groupedEntities[group].emplace_back(entity);
-		}
-
-		std::vector<Entity*>& getGroup(Group group)
-		{
-			return groupedEntities[group];
 		}
 
 		Entity& addEntity()
@@ -294,7 +256,6 @@ namespace ecs
 		std::shared_ptr<Constants> constants;
 		std::vector<std::unique_ptr<Entity>> entities;
 		std::vector<std::shared_ptr<System>> systems;
-		std::array<std::vector<Entity*>, maxGroups> groupedEntities;
 		float scale = 1.f;
 		int nextID = 0;
 	};

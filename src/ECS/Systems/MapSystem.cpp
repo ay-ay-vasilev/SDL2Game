@@ -1,4 +1,5 @@
 #include "MapSystem.h"
+#include "TileComponent.h"
 #include "Game.h"
 
 void ecs::MapSystem::instantiateMap(const std::string surfaceId, const int tileSize, const std::string mapFilePath, const int mapWidth, const int mapHeight)
@@ -9,7 +10,7 @@ void ecs::MapSystem::instantiateMap(const std::string surfaceId, const int tileS
 
 void ecs::MapSystem::update(double delta)
 {
-	tiles = manager.getGroup(Game::eGroupLabels::MAP);
+	tiles = manager.getEntitiesWithComponent<ecs::TileComponent>();
 }
 
 void ecs::MapSystem::draw()

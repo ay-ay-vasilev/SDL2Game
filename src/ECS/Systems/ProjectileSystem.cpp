@@ -61,13 +61,10 @@ void ecs::ProjectileSystem::instantiateProjectile(const Uint32 ownerId, const Ve
 			projectileData["projectile_data"]["range"],
 			projectileData["projectile_data"]["velocity_rotation"]
 		);
-
-	projectile.addGroup(Game::PROJECTILES);
 }
 
 void ecs::ProjectileSystem::update(double delta)
 {
-	projectiles = manager.getGroup(Game::eGroupLabels::PROJECTILES);
 }
 
 void ecs::ProjectileSystem::draw()

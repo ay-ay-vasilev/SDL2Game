@@ -91,7 +91,7 @@ void ecs::ActorSystem::init()
 
 void ecs::ActorSystem::update(double delta)
 {
-	actors = manager.getGroup(Game::eGroupLabels::ACTORS);
+	actors = manager.getEntitiesWithComponent<ecs::ActorComponent>();
 }
 
 void ecs::ActorSystem::draw()
@@ -124,8 +124,6 @@ ecs::Entity* ecs::ActorSystem::instantiateActor(const Vector2D& pos, const std::
 	actor.addComponent<ecs::WeaponComponent>();
 	actor.addComponent<ecs::HitParticleComponent>(actorData["hit_particle"]);
 	if (actorData.contains("splatter")) actor.addComponent<ecs::SplatterComponent>(actorData["splatter"]);
-
-	actor.addGroup(Game::eGroupLabels::ACTORS);
 
 	return &actor;
 }
@@ -161,9 +159,6 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 	if (playerData.contains("splatter")) player.addComponent<ecs::SplatterComponent>(playerData["splatter"]);
 
 	player.addComponent<ecs::DebugParticleComponent>(Game::constants->DEBUG_PARTICLE);
-
-	player.addGroup(Game::eGroupLabels::PLAYERS);
-
 	equipWeapon(player, "unarmed");
 	return &player;
 }

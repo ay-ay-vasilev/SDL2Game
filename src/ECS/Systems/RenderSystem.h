@@ -7,6 +7,7 @@
 #include "WeaponComponent.h"
 #include "CorpseComponent.h"
 #include "UILabelComponent.h"
+#include "TileComponent.h"
 
 #include "AssetManager.h"
 #include "CameraManager.h"
@@ -24,7 +25,7 @@ namespace ecs
 		void update(double delta) override
 		{
 			sortedEntities.clear();
-			tiles = manager.getGroup(Game::eGroupLabels::MAP);
+			tiles = manager.getEntitiesWithComponent<ecs::TileComponent>();
 			const auto entitiesWithCollision = manager.getEntitiesWithComponent<ecs::ColliderComponent>();
 
 			for (auto& entity : entitiesWithCollision)

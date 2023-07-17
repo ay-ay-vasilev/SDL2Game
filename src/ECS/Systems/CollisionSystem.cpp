@@ -2,6 +2,8 @@
 #include "ColliderComponent.h"
 #include "HealthComponent.h"
 #include "Collision.h"
+#include "TileComponent.h"
+#include "KeyboardComponent.h"
 #include "Vector2D.h"
 #include "Game.h"
 
@@ -18,7 +20,7 @@ void ecs::CollisionSystem::update(double delta)
 	}
 
 	movingEntities = manager.getEntitiesWithComponents<ecs::TransformComponent, ecs::ColliderComponent>();
-	colliderEntities = manager.getGroup(Game::eGroupLabels::COLLIDERS);
+	colliderEntities = manager.getEntitiesWithComponents<ecs::TileComponent, ecs::ColliderComponent>();
 
 	for (auto movingEntity : movingEntities)
 	{
@@ -52,7 +54,7 @@ void ecs::CollisionSystem::update(double delta)
 			}
 		}
 		// collision with moving actors (disabled for player for now)
-		if (movingEntity->hasGroup(Game::eGroupLabels::PLAYERS)) continue;
+		if (movingEntity->hasComponent<ecs::KeyboardComponent>()) continue;
 		for (auto otherMovingEntity : movingEntities)
 		{
 			if (otherMovingEntity == movingEntity)
@@ -61,7 +63,7 @@ void ecs::CollisionSystem::update(double delta)
 			auto otherMovingEntityHealth = otherMovingEntity->getComponent<ecs::HealthComponent>();
 			if (otherMovingEntityHealth && otherMovingEntityHealth->isDead()) continue;
 
-			if (otherMovingEntity->hasGroup(Game::eGroupLabels::PLAYERS))
+			if (otherMovingEntity->hasComponent<ecs::KeyboardComponent>()) continue;
 				continue;
 
 			const auto colliderComponent = otherMovingEntity->getComponent<ecs::ColliderComponent>();

@@ -54,15 +54,6 @@ public:
 	static std::unique_ptr<ParticleManager> particleManager;
 	static std::shared_ptr<ecs::Manager> manager;
 
-	enum eGroupLabels : std::size_t
-	{
-		MAP,
-		PLAYERS,
-		ACTORS,
-		COLLIDERS,
-		PROJECTILES
-	};
-
 private:
 	SDL_Window* window;
 	SDL_Event gameEvent;
