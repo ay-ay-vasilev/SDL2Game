@@ -17,7 +17,7 @@
 			{
 				"textures":
 				[
-					{"name" : "test_projectile", "path": "misc/debug_assets/test_projectile.png" },
+					{"name" : "test_projectile", "path": "spritesheets/projectiles/test_projectile.png" },
 					{"name" : "arrow_small", "path": "spritesheets/projectiles/arrow_small.png"}
 				]
 			}

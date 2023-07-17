@@ -9,6 +9,7 @@ namespace ecs
 	class DamageColliderComponent;
 	class HealthComponent;
 	class ParticleControllerComponent;
+	class SpriteComponent;
 	class ProjectileComponent : public Component, public Observer
 	{
 	public:
@@ -28,6 +29,7 @@ namespace ecs
 		std::shared_ptr<TransformComponent> transform;
 		std::shared_ptr<DamageColliderComponent> damageCollider;
 		std::shared_ptr<HealthComponent> healthComponent;
+		std::shared_ptr<SpriteComponent> spriteComponent;
 		std::shared_ptr<ParticleControllerComponent> particleControllerComponent;
 		int ownerEntityId;
 

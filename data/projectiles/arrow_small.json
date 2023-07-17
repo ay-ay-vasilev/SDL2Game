@@ -29,10 +29,16 @@
 	},
 	"sprite_data":
 	{
+		"frame_width": 7, "frame_height": 7,
 		"sprites":
 		[
 			{ "slot": "body", "texture": "arrow_small", "z": 0 }
 		],
+		"animations":
+		{
+			"idle": { "anim_index": 0, "num_of_frames": 1 },
+			"destroy": { "anim_index": 1, "num_of_frames": 1 }
+		},
 		"outline":
 		{
 			"positions":
@@ -43,9 +49,7 @@
 				{"x" : 0, "y": -1}
 			],
 			"color": {"r": 0, "b": 0, "g": 0, "a": 255}
-		},
-		"frame_width": 7,
-		"frame_height": 7
+		}
 	},
 	"projectile_data":
 	{

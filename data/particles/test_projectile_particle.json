@@ -21,7 +21,7 @@
 	},
 	"startSize": {"value": 1.5, "variance": 0.3},
 	"endSize": {"value": 0.5, "variance": 0.1},
-	"pos": {"x": 0.0, "y": 0.0},
+	"pos": {"x": 3.0, "y": 3.0},
 	"startSpin": {"value": 0.0, "variance": 360.0},
 	"endSpin": {"value": 0.0, "variance": 360.0}
 }

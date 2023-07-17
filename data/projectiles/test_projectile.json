@@ -28,12 +28,16 @@
 	},
 	"sprite_data":
 	{
+		"frame_width": 7, "frame_height": 7,
 		"sprites":
 		[
 			{ "slot": "body", "texture": "test_projectile", "z": 0 }
 		],
-		"frame_width": 7,
-		"frame_height": 7
+		"animations":
+		{
+			"idle": { "anim_index": 0, "num_of_frames": 2, "anim_speed": 100 },
+			"destroy": { "anim_index": 1, "num_of_frames": 1 }
+		}
 	},
 	"projectile_data":
 	{

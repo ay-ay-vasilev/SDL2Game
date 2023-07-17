@@ -33,7 +33,6 @@ My plan:
         - Deal with disappearing particles on projectiles
             * Do not destroy the projectile after impact/death/out of range DONE
             * Add a ParticleManagerComponent that would manage other particle components and track which emitters are still active DONE
-            * Add a "death" animation for projectiles
             * Add a DeathParticleComponent
     * Add a ranged weapon to the human enemy
     * Add a ranged weapon to the skeleton enemy
@@ -49,6 +48,8 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
+- Fix the projectile memory leak
+    - Rework the ECS from the ground up (keep the same interface)
 - Remove redundant virtual functions
 - Refactor the KeyboardManager
 - Refactor the Splatter class maybe ?

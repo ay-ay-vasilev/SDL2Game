@@ -2,6 +2,7 @@
 #include "TransformComponent.h"
 #include "DamageColliderComponent.h"
 #include "HealthComponent.h"
+#include "SpriteComponent.h"
 #include "ParticleControllerComponent.h"
 
 ecs::ProjectileComponent::ProjectileComponent(const int ownerEntityId, Vector2D velocity, float range, bool velocityRotation) :
@@ -16,6 +17,7 @@ void ecs::ProjectileComponent::init()
 	transform = entity->getComponent<ecs::TransformComponent>();
 	damageCollider = entity->getComponent<ecs::DamageColliderComponent>();
 	healthComponent = entity->getComponent<ecs::HealthComponent>();
+	spriteComponent = entity->getComponent<ecs::SpriteComponent>();
 	registerWithSubject(healthComponent);
 	particleControllerComponent = entity->getComponent<ecs::ParticleControllerComponent>();
 	registerWithSubject(particleControllerComponent);
@@ -64,4 +66,5 @@ void ecs::ProjectileComponent::destroy()
 	transform->setVeloctiy({ 0, 0 });
 	damageCollider->setEnabled(false);
 	particleControllerComponent->disableEmitters();
+	spriteComponent->play("destroy");
 }

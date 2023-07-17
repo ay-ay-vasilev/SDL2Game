@@ -46,7 +46,7 @@ void ecs::ProjectileSystem::instantiateProjectile(const Uint32 ownerId, const Ve
 		projectileData.value("width", 0), projectileData.value("height", 0),
 		manager.getScale(), projectileData["speed"]
 	);
-	projectile.addComponent<ecs::SpriteComponent>(projectileData["sprite_data"], false);
+	projectile.addComponent<ecs::SpriteComponent>(projectileData["sprite_data"], true);
 	projectile.addComponent<ecs::SpriteOutlineComponent>(projectileData["sprite_data"].contains("outline") ? projectileData["sprite_data"]["outline"] : nullptr);
 	projectile.addComponent<ecs::HitboxComponent>(filename, projectileData["hitbox_rect"]);
 	projectile.addComponent<ecs::DamageColliderComponent>(filename, true);

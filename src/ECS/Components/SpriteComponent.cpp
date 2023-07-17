@@ -226,7 +226,7 @@ void ecs::SpriteComponent::addAnimationsFromJson(const nlohmann::json& animData)
 		const int startFrame = animData.value("start_frame", 0);
 		const int animIndex = animData.value("anim_index", 0);
 		const int num_of_frames = animData.value("num_of_frames", 0);
-		const int animSpeed = animData.value("anim_speed", 0);
+		const int animSpeed = animData.value("anim_speed", 100);
 		const auto trigger_frames = animData.count("trigger_frames") ? animData.at("trigger_frames").get<std::vector<int>>() : std::vector<int>();
 		const auto action_name = animData.value("action_name", "");
 		addAnimation(name, animIndex, num_of_frames, animSpeed, trigger_frames, action_name, startFrame);
