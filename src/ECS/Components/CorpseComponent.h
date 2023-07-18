@@ -7,7 +7,6 @@ namespace ecs
 	{
 	public:
 		CorpseComponent() {}
-		virtual ~CorpseComponent() {}
 
 		const bool inline isCorpse() const { return corpse; }
 		void inline setCorpse(bool value) { corpse = value; }

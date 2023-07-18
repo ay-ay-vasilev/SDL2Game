@@ -12,8 +12,6 @@ namespace ecs
 	class KeyboardComponent : public Component, private Observer
 	{
 	public:
-		virtual ~KeyboardComponent() {}
-
 		enum class eState
 		{
 			IDLE,

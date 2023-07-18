@@ -9,7 +9,6 @@ namespace ecs
 	{
 	public:
 		explicit SplatterComponent(const nlohmann::json& splatterData);
-		virtual ~SplatterComponent() {}
 
 		struct SplatterSettings
 		{

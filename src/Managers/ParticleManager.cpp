@@ -4,12 +4,6 @@
 
 #include "wrappedJson.h"
 
-ParticleManager::ParticleManager() {}
-
-ParticleManager::~ParticleManager()
-{
-}
-
 void ParticleManager::init()
 {
 	const auto particlesData = assets::getGeneralDataJson("particles")["particles"];

@@ -50,7 +50,6 @@ My plan:
 Maintenance:
 - Fix the projectile memory leak
     - Rework the ECS from the ground up (keep the same interface)
-- Remove redundant virtual functions
 - Refactor the KeyboardManager
 - Refactor the Splatter class maybe ?
 - Set proper surface sizes (unarmed bug)

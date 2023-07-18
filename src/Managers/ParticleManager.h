@@ -6,9 +6,6 @@
 class ParticleManager
 {
 public:
-	ParticleManager();
-	virtual ~ParticleManager();
-
 	void loadParticleEmitterType(const std::string& particleName);
 	std::shared_ptr<particles::ParticleEmitter> loadParticleEmitter(const std::string& particleName);
 

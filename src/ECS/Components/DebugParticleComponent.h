@@ -13,7 +13,6 @@ namespace ecs
 	{
 	public:
 		explicit DebugParticleComponent(const std::string& name);
-		virtual ~DebugParticleComponent() {}
 
 		// Component
 		void init() override;

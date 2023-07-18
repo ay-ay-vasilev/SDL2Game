@@ -14,7 +14,6 @@ namespace ecs
 	{
 	public:
 		AIComponentBasicFighter();
-		virtual ~AIComponentBasicFighter() {}
 
 		// Component
 		void init() override;

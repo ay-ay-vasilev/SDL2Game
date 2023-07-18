@@ -13,7 +13,6 @@ namespace ecs
 	{
 	public:
 		explicit ParticleComponent(const std::string& name);
-		virtual ~ParticleComponent() {}
 
 		// Component
 		void init() override;

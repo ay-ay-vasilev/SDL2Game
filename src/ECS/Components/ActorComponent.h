@@ -11,7 +11,6 @@ namespace ecs
 	{
 	public:
 		explicit ActorComponent(const std::string& name);
-		virtual ~ActorComponent() {}
 
 		// Component
 		void init() override;

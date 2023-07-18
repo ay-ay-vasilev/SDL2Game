@@ -7,7 +7,6 @@ namespace ecs
 	{
 	public:
 		CameraComponent() {}
-		virtual ~CameraComponent() {}
 
 		void inline setPositionOnScreen(const Vector2D& position)
 		{

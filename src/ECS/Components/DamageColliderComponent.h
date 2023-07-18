@@ -9,7 +9,7 @@ namespace ecs
 	{
 	public:
 		DamageColliderComponent(const std::string& name = "unarmed", const bool isProjectile = false);
-		virtual ~DamageColliderComponent();
+		~DamageColliderComponent();
 
 		enum class eColliderShape
 		{

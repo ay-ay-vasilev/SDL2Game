@@ -15,7 +15,6 @@ namespace ecs
 	{
 	public:
 		explicit HitParticleComponent(const std::string& name);
-		virtual ~HitParticleComponent() {}
 
 		// Component
 		void init() override;
