@@ -13,27 +13,10 @@ My plan:
     * Parse spritesheets DONE
     * Added the bow weapon DONE
     * Add an arrow projectile DONE
-    * Add shooting (basic variant)
-        - Refactor WeaponComponent DONE
-            * Move damage collider logic to a separate class DONE
-            * Do not destroy and recreate the WeaponComponent when an actor equips a different weapon - use configuration instead DONE
+    * Add shooting (basic variant) DONE
     * Add a pointer for aiming DONE
-    * Implement the creation of the projectiles.
-        - Add an EventManager and events to send data DONE
-        - Implement weapon types, a projectile event and shooting DONE
-    * Make it prettier
-        - Set facing direction according to the AimComponent DONE
-        - Fix the AimComponent visualisation (only show with ranged weapons) DONE
-        - Fix the AimComponent at map edges DONE
-        - Get AimComponent data from json DONE
-        - Add a property for hitting only one entity with the hitbox DONE
-        - Stop using the test_projectile for all ranged weapons DONE
-        - Add hit particles and regular particles to projectiles DONE
-        - Improve projectile colliders, remove collision logic DONE
-        - Deal with disappearing particles on projectiles
-            * Do not destroy the projectile after impact/death/out of range DONE
-            * Add a ParticleManagerComponent that would manage other particle components and track which emitters are still active DONE
-            * Add a DeathParticleComponent
+    * Implement the creation of the projectiles DONE
+    * Make it prettier DONE
     * Add a ranged weapon to the human enemy
     * Add a ranged weapon to the skeleton enemy
 - Combat overhaul (make it fun - add defensive abilities (i-frames, dodge rolls, parries), attack movement, combos etc.)
