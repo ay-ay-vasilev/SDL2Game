@@ -18,6 +18,10 @@ My plan:
     * Implement the creation of the projectiles DONE
     * Make it prettier DONE
     * Add a ranged weapon to the human enemy
+        - Aseprite art
+        - Parse texture atlases
+        - Add a new projectile (normal sized arrow)
+        - Add the weapon json and test with player
     * Add a ranged weapon to the skeleton enemy
 - Combat overhaul (make it fun - add defensive abilities (i-frames, dodge rolls, parries), attack movement, combos etc.)
 - Add enemy classes - warrior, rogue, ranger
