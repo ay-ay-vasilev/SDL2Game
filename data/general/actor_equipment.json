@@ -38,8 +38,8 @@
 	},
 	"weapons":
 	{
-		"goblin":	["shortsword", "sword", "bow"],
-		"human":	["sword"],
+		"goblin":	["shortsword", "sword", "short_bow"],
+		"human":	["sword", "bow"],
 		"skeleton":	["sword"]
 	}
 }

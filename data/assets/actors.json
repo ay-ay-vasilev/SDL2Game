@@ -40,8 +40,8 @@
 							],
 							"ranged_bow":
 							[
-								{"name" : "goblin_bow_back", "path": "weapons/bow/bow_back.png" },
-								{"name" : "goblin_bow_front", "path": "weapons/bow/bow_front.png" }
+								{"name" : "goblin_short_bow_back", "path": "weapons/short_bow/short_bow_back.png" },
+								{"name" : "goblin_short_bow_front", "path": "weapons/short_bow/short_bow_front.png" }
 							]
 						}
 					},
@@ -171,7 +171,7 @@
 			"human":
 			{
 				"path": "human/",
-				"weapon_types": ["unarmed", "melee_medium"],
+				"weapon_types": ["unarmed", "melee_medium", "ranged_bow"],
 				"color_groups":
 				{
 					"human_colorless":
@@ -208,6 +208,11 @@
 							[
 								{"name" : "human_sword_back", "path": "weapons/sword/sword_back.png" },
 								{"name" : "human_sword_front", "path": "weapons/sword/sword_front.png" }
+							],
+							"ranged_bow":
+							[
+								{"name" : "human_bow_back", "path": "weapons/bow/bow_back.png" },
+								{"name" : "human_bow_front", "path": "weapons/bow/bow_front.png" }
 							]
 						}
 					},

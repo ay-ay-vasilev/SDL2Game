@@ -12,15 +12,15 @@
 	},
 	"sprite_data":
 	{
-		"goblin": {},
-		"human":
+		"goblin":
 		{
 			"sprites":
 			[
-				{ "slot": "weapon", "texture": "human_bow_back", "z": -201 },
-				{ "slot": "weapon", "texture": "human_bow_front", "z": 201 }
+				{ "slot": "weapon", "texture": "goblin_short_bow_back", "z": -201 },
+				{ "slot": "weapon", "texture": "goblin_short_bow_front", "z": 201 }
 			]
 		},
+		"human": {},
 		"skeleton": {}
 	}
 }
