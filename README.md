@@ -17,11 +17,7 @@ My plan:
     * Add a pointer for aiming DONE
     * Implement the creation of the projectiles DONE
     * Make it prettier DONE
-    * Add a ranged weapon to the human enemy
-        - Aseprite art DONE
-        - Parse texture atlases ALMOST
-        - Add a new projectile (normal sized arrow)
-        - Add the weapon json and test with player ALMOST
+    * Add a ranged weapon to the human enemy DONE
     * Add a ranged weapon to the skeleton enemy
 - Combat overhaul (make it fun - add defensive abilities (i-frames, dodge rolls, parries), attack movement, combos etc.)
 - Add enemy classes - warrior, rogue, ranger
@@ -35,6 +31,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
+- Add an offset logic for hitbox rects (similar to weapon rects)
 - Fix the projectile memory leak
     - Rework the ECS from the ground up (keep the same interface)
 - Refactor the KeyboardManager

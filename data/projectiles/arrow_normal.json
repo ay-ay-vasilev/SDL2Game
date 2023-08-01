@@ -1,0 +1,63 @@
+{
+	"speed": 5.0,
+	"particle": "arrow_trace",
+	"collider_rect":
+	{
+		"shape": "circle",
+		"dx": 0, "dy": 0,
+		"radius": 10,
+		"enable_collision": false
+	},
+	"hitbox_rect":
+	{
+		"shape": "circle",
+		"dx": 0, "dy": 0,
+		"radius": 10
+	},
+	"weapon":
+	{
+		"damage": 150,
+		"collider":
+		{
+			"shape": "circle",
+			"offset": {"dx": -7.0, "dy": 0},
+			"x": 0, "y": 0,
+			"radius": 2
+		},
+		"destroy_on_hit": true,
+		"max_affected_targets": 1
+	},
+	"sprite_data":
+	{
+		"frame_width": 19, "frame_height": 19,
+		"sprites":
+		[
+			{ "slot": "body", "texture": "arrow_normal", "z": 0 }
+		],
+		"animations":
+		{
+			"idle": { "anim_index": 0, "num_of_frames": 1 },
+			"destroy": { "anim_index": 1, "num_of_frames": 1 }
+		},
+		"outline":
+		{
+			"positions":
+			[
+				{"x" : 1, "y": 0},
+				{"x" : 0, "y": 1},
+				{"x" : -1, "y": 0},
+				{"x" : 0, "y": -1}
+			],
+			"color": {"r": 0, "b": 0, "g": 0, "a": 255}
+		}
+	},
+	"projectile_data":
+	{
+		"range": 400,
+		"velocity_rotation": true,
+		"health":
+		{
+			"max_health": 1
+		}
+	}
+}

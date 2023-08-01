@@ -18,7 +18,8 @@
 				"textures":
 				[
 					{"name" : "test_projectile", "path": "spritesheets/projectiles/test_projectile.png" },
-					{"name" : "arrow_small", "path": "spritesheets/projectiles/arrow_small.png"}
+					{"name" : "arrow_small", "path": "spritesheets/projectiles/arrow_small.png"},
+					{"name" : "arrow_normal", "path": "spritesheets/projectiles/arrow_normal.png"}
 				]
 			}
 		}
