@@ -31,7 +31,7 @@
 	"aim_data":
 	{
 		"texture": "aim_arrow",
-		"dx": 0, "dy": 2.8,
+		"dx": 0, "dy": -2,
 		"w": 48, "h": 48
 	},
 	"sprite_data":

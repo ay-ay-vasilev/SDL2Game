@@ -3,13 +3,6 @@
 	"weapon_class": "ranged",
 	"weapon_type": "ranged_bow",
 	"projectile": "arrow_normal",
-	"collider":
-	{
-		"shape": "circle",
-		"x": 4, "y": 4,
-		"offset": { "dx": 0, "dy": 2.7 },
-		"radius": 8
-	},
 	"sprite_data":
 	{
 		"goblin": {},
