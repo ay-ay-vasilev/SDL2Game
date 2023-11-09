@@ -22,6 +22,8 @@
 #include <iostream>
 #include <sstream>
 
+#include <entt/entt.hpp>
+
 // Singletons
 std::shared_ptr<Constants> Game::constants = std::make_shared<Constants>("../data/settings.json");
 std::shared_ptr<ecs::Manager> Game::manager = std::make_shared<ecs::Manager>(constants);
@@ -33,8 +35,10 @@ std::unique_ptr<ParticleManager> Game::particleManager = std::make_unique<Partic
 SDL_Renderer* Game::renderer = nullptr;
 bool Game::isRunning = false;
 
+entt::registry registry;
+
 // test - remove later
-auto& label0(Game::manager->addEntity());
+ecs::Entity& label0 = Game::manager->addEntity();
 
 Game::Game() : window(nullptr), gameEvent(), count(0) {}
 

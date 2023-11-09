@@ -31,6 +31,7 @@ My plan:
 - Default behavior for enemies.
 
 Maintenance:
+- Migrate to EnTT
 - Add an offset logic for hitbox rects (similar to weapon rects)
 - Fix the projectile memory leak
     - Rework the ECS from the ground up (keep the same interface)
