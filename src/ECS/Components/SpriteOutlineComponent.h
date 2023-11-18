@@ -2,6 +2,8 @@
 #include "ECS.h"
 #include "Observer.h"
 
+#include "Vector2D.h"
+#include <wrappedJson.h>
 #include <SDL.h>
 #include <optional>
 

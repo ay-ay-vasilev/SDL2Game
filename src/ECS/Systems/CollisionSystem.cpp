@@ -5,7 +5,7 @@
 #include "TileComponent.h"
 #include "KeyboardComponent.h"
 #include "Vector2D.h"
-#include "Game.h"
+#include "Constants.h"
 
 #include <cmath>
 
@@ -16,7 +16,7 @@ void ecs::CollisionSystem::update(double delta)
 	for (const auto entityWithCollider : entitiesWithColliders)
 	{
 		const auto colliderComponent = entityWithCollider->getComponent<ecs::ColliderComponent>();
-		colliderComponent->setEnableDraw(Game::constants->DRAW_COLLIDERS);
+		colliderComponent->setEnableDraw(std::any_cast<bool>(constants::Constants::Instance().Get("debug_draw_colliders")));
 	}
 
 	movingEntities = manager.getEntitiesWithComponents<ecs::TransformComponent, ecs::ColliderComponent>();

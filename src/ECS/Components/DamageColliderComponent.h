@@ -2,6 +2,8 @@
 #include "ECS.h"
 #include "ColliderShape.h"
 
+#include <wrappedJson.h>
+
 namespace ecs
 {
 	class TransformComponent;

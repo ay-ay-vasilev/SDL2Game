@@ -40,6 +40,8 @@ private:
 	SDL_Rect camera;
 	SDL_Rect cameraBounds;
 
+	int screenWidth, screenHeight;
+
 	std::shared_ptr<ecs::Manager> manager;
 	std::vector<ecs::Entity*> cameraEntities;
 };

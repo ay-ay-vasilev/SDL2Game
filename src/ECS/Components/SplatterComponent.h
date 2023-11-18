@@ -2,6 +2,9 @@
 #include "ECS.h"
 #include "Observer.h"
 
+#include <wrappedJson.h>
+#include "Vector2D.h"
+
 namespace ecs
 {
 	class HealthComponent;

@@ -5,7 +5,7 @@
 #include "HealthComponent.h"
 #include "DamageColliderComponent.h"
 // TODO: remove
-#include "Game.h"
+#include "Constants.h"
 
 ecs::AIComponentBasicFighter::AIComponentBasicFighter() :
 	target(nullptr),
@@ -22,8 +22,9 @@ void ecs::AIComponentBasicFighter::init()
 	damageCollider = entity->getComponent<DamageColliderComponent>();
 	health = entity->getComponent<HealthComponent>();
 	// TODO: remove
-	aggroDistance = Game::constants->AI_AGGRO_DISTANCE * transform->getScale();
-	loseAggroDistance = Game::constants->AI_DEAGGRO_DISTANCE * transform->getScale();
+	auto& constants = constants::Constants::Instance();
+	aggroDistance = std::any_cast<float>(constants.Get("ai_aggro_distance"));
+	loseAggroDistance = std::any_cast<float>(constants.Get("ai_deaggro_distance"));
 }
 
 void ecs::AIComponentBasicFighter::update(double delta)

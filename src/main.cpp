@@ -1,12 +1,7 @@
-#ifdef _WIN32
-#include "SDL.h"
-#else
-#include <SDL2/SDL.h>
-#endif
 #include "Game.h"
+
 #include <memory>
 #include <chrono>
-#include <thread>
 
 const double FRAME_TIME = 1.0 / 60.0; // Target frame time (60 FPS)
 

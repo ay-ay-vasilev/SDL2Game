@@ -2,7 +2,7 @@
 #include "TextureManager.h"
 #include "Vector2D.h"
 #include <SDL_ttf.h>
-#include "wrappedJson.h"
+#include <wrappedJson.h>
 
 #include <map>
 #include <string>
@@ -13,7 +13,6 @@ namespace ecs
 	class Manager;
 }
 
-class Constants;
 namespace assets
 {
 	std::filesystem::path getDataPath();
@@ -71,6 +70,5 @@ namespace assets
 		std::map<std::string, std::unordered_map<std::string, std::vector<std::pair<SDL_Color, SDL_Color>>>> colorVariations;
 
 		std::map<std::string, TTF_Font*> fonts;
-		std::shared_ptr<Constants> constants;
 	};
 }

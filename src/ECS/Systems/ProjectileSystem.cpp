@@ -11,6 +11,7 @@
 #include "ParticleControllerComponent.h"
 
 #include <wrappedJson.h>
+#include <fstream>
 
 ecs::ProjectileSystem::~ProjectileSystem()
 {

@@ -5,7 +5,7 @@
 #include "TransformComponent.h"
 #include "DebugParticleComponent.h"
 #include "SDL.h"
-#include "Game.h"
+#include "Constants.h"
 
 #include "CameraManager.h"
 #include "ParticleManager.h"
@@ -44,7 +44,7 @@ void KeyboardManager::handleEvents(const SDL_Event& gameEvent)
 			}
 			break;
 		case SDLK_o:
-			Game::constants->ReloadSettings();
+			constants::Constants::Instance().ReloadSettings();
 			pressed = true;
 			break;
 		case SDLK_1:

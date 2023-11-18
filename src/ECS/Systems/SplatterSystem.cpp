@@ -2,9 +2,8 @@
 #include "SplatterComponent.h"
 #include "TileSplatterComponent.h"
 #include "TileComponent.h"
-
 #include "Splatter.h"
-#include "Game.h"
+#include "Constants.h"
 #include <queue>
 
 ecs::SplatterSystem::~SplatterSystem()
@@ -43,8 +42,11 @@ void ecs::SplatterSystem::createSplatter(const events::SplatterEvent* splatterEv
 
 	applySplatterToTile(splatterData);
 
-	splatterPosition.x += offsetX * Game::constants->SCALE;
-	splatterPosition.y += offsetY * Game::constants->SCALE;
+	auto& constants = constants::Constants::Instance();
+	const auto& scale = std::any_cast<float>(constants::Constants::Instance().Get("scale"));
+
+	splatterPosition.x += offsetX * scale;
+	splatterPosition.y += offsetY * scale;
 	splatterData.setSplatterCenter(splatterPosition);
 
 	applySplatterToTile(splatterData);
@@ -56,11 +58,17 @@ void ecs::SplatterSystem::applySplatterToTile(const Splatter& splatterData)
 	const auto splatterPos = splatterData.getSplatterCenter();
 	const auto splatterRadius = splatterData.getSplatterRadius();
 
-	int tileIndexX = static_cast<int>(splatterPos.x / (Game::constants->TILE_SIZE * Game::constants->SCALE));
-	int tileIndexY = static_cast<int>(splatterPos.y / (Game::constants->TILE_SIZE * Game::constants->SCALE));
+	auto& constants = constants::Constants::Instance();
+	const auto& scale = std::any_cast<float>(constants::Constants::Instance().Get("scale"));
+	const auto& tileSize = std::any_cast<int>(constants::Constants::Instance().Get("tile_size"));
+	const auto& mapTileWidth = std::any_cast<int>(constants::Constants::Instance().Get("map_tile_width"));
+	const auto& mapTileHeight = std::any_cast<int>(constants::Constants::Instance().Get("map_tile_height"));
 
-	int mapWidth = Game::constants->MAP_TILE_WIDTH;
-	int mapHeight = Game::constants->MAP_TILE_HEIGHT;
+	int tileIndexX = static_cast<int>(splatterPos.x / (tileSize * scale));
+	int tileIndexY = static_cast<int>(splatterPos.y / (tileSize * scale));
+
+	int mapWidth = mapTileWidth;
+	int mapHeight = mapTileHeight;
 
 	std::queue<int> tileQueue;
 	std::vector<bool> visitedTiles(tileSplatterEntities.size(), false);
@@ -81,7 +89,7 @@ void ecs::SplatterSystem::applySplatterToTile(const Splatter& splatterData)
 		// Check if any of the four vertices of the tile is within the specified radius
 		bool isTileInRadius = false;
 		const auto tilePosition = tileComponent->getPosition();
-		float tileSize = static_cast<float>(tileComponent->getTileSize()) * Game::constants->SCALE;
+		float tileSize = static_cast<float>(tileComponent->getTileSize()) * scale;
 
 		const auto topLeft = tilePosition;
 		const auto topRight = tilePosition + Vector2D(tileSize, 0);

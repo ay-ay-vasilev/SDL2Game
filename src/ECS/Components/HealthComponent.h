@@ -2,6 +2,8 @@
 #include "ECS.h"
 #include "Subject.h"
 
+#include <wrappedJson.h>
+
 namespace ecs
 {
 	class HitboxComponent;

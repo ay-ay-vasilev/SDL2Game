@@ -27,7 +27,6 @@ namespace assets
 class KeyboardManager;
 class CameraManager;
 class ParticleManager;
-class Constants;
 
 class Game {
 
@@ -45,8 +44,6 @@ public:
 
 	static SDL_Renderer* renderer;
 	static bool isRunning;
-
-	static std::shared_ptr<Constants> constants;
 
 	static std::unique_ptr<assets::AssetManager> assetManager;
 	static std::unique_ptr<KeyboardManager> keyboardManager;

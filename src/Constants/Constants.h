@@ -1,224 +1,83 @@
 #pragma once
-#include <SDL_pixels.h>
-#pragma warning(push, 0)
-#include <wrappedJson.h>
-#pragma warning(pop)
-
 #include "Vector2D.h"
-#include <fstream>
-#include <iostream>
+
+#include <wrappedJson.h>
 #include <string>
-#include <map>
+#include <any>
+#include <unordered_map>
+
+namespace constants
+{
+
+struct ProjectileData
+{
+	Vector2D pos;
+	Vector2D velocity;
+};
 
 class Constants
 {
 public:
-	Constants(const std::string& filename) : settingsFile(filename)
-	{
-		std::ifstream file(filename);
-		if (!file.is_open())
-		{
-			std::cerr << "Failed to open constants file: " << filename << std::endl;
-			return;
-		}
 
-		nlohmann::json constantsJson;
-		file >> constantsJson;
-		LoadFromJsonObject(constantsJson);
+	static Constants& Instance()
+	{
+		static Constants instance;
+		return instance;
 	}
-
-	void ReloadSettings()
-	{
-		std::ifstream file(settingsFile);
-		if (!file.is_open())
-		{
-			std::cerr << "Failed to open constants file: " << settingsFile << std::endl;
-			return;
-		}
-
-		nlohmann::json constantsJson;
-		file >> constantsJson;
-		LoadFromJsonObject(constantsJson);
-	}
-
-	struct ProjectileData
-	{
-		Vector2D pos;
-		Vector2D velocity;
-	};
-
-	// game settings
-	int SCREEN_WIDTH{ 800 };
-	int SCREEN_HEIGHT{ 640 };
-	bool FULLSCREEN{ false };
-	float SCALE{ 6.f };
-	std::string WINDOW_TITLE{ "Game Window" };
-
-	// map settings - todo: maps will have different sizes
-	int MAP_TILE_WIDTH{ 16 };
-	int MAP_TILE_HEIGHT{ 16 };
-	int TILE_SIZE{ 32 };
-
-	// projectile settings - todo: projectiles will have different size and range
-	int PROJECTILE_SIZE{ 32 };
-	int PROJECTILE_RANGE{ 200 };
-
-	// colors
-	SDL_Color WHITE{ 255, 255, 255, 255 };
-
-	// fonts
-	int DEBUG_FONT_SIZE{ 16 };
-
-	// start positions
-	std::string PLAYER_RACE{ "goblin" };
-	Vector2D PLAYER_POS{200, 200};
-	std::vector<Vector2D> HUMAN_POS;
-	std::vector<Vector2D> SKELETON_POS;
-	std::vector<Vector2D> GOBLIN_POS;
-	std::vector<ProjectileData> DEBUG_PROJECTILES;
-	std::string DEBUG_PARTICLE;
-
-	int AI_AGGRO_DISTANCE{ 80 };
-	int AI_DEAGGRO_DISTANCE{ 100 };
-
-	bool DRAW_COLLIDERS{ false };
-	bool DRAW_HITBOXES{ false };
-
-	double TIME_SCALE{ 60.0 };
 
 private:
+	Constants() { InitDefaultValues(); }
 
-	// helper function to load constants from JSON object
-	void LoadFromJsonObject(const nlohmann::json& constantsJson)
+public:
+	Constants(const Constants&) = delete;
+	Constants& operator=(const Constants&) = delete;
+	Constants(Constants&&) = delete;
+	Constants& operator=(Constants&&) = delete;
+
+	// Interface
+	std::any Get(const std::string& key) const
 	{
-		if (constantsJson.find("screen_width") != constantsJson.end())
-		{
-			SCREEN_WIDTH = constantsJson["screen_width"];
-		}
-		if (constantsJson.find("screen_height") != constantsJson.end())
-		{
-			SCREEN_HEIGHT = constantsJson["screen_height"];
-		}
-		if (constantsJson.find("fullscreen") != constantsJson.end())
-		{
-			FULLSCREEN = constantsJson["fullscreen"];
-		}
-		if (constantsJson.find("scale") != constantsJson.end())
-		{
-			SCALE = constantsJson["scale"];
-		}
-		
-		if (constantsJson.find("window_title") != constantsJson.end())
-		{
-			WINDOW_TITLE = constantsJson["window_title"];
-		}
+		auto it = config.find(key);
+		return (it != config.end()) ? it->second : std::any();
+	}
 
-		if (constantsJson.find("map_tile_width") != constantsJson.end())
-		{
-			MAP_TILE_WIDTH = constantsJson["map_tile_width"];
-		}
-		if (constantsJson.find("map_tile_height") != constantsJson.end())
-		{
-			MAP_TILE_HEIGHT = constantsJson["map_tile_height"];
-		}
-		if (constantsJson.find("tile_size") != constantsJson.end())
-		{
-			TILE_SIZE = constantsJson["tile_size"];
-		}
-		if (constantsJson.find("projectile_size") != constantsJson.end())
-		{
-			PROJECTILE_SIZE = constantsJson["projectile_size"];
-		}
-		if (constantsJson.find("projectile_range") != constantsJson.end())
-		{
-			PROJECTILE_RANGE = constantsJson["projectile_range"];
-		}
-		if (constantsJson.find("white") != constantsJson.end())
-		{
-			auto white = constantsJson["white"];
-			WHITE.r = white[0];
-			WHITE.g = white[1];
-			WHITE.b = white[2];
-			WHITE.a = white[3];
-		}
-		if (constantsJson.find("debug_font_size") != constantsJson.end())
-		{
-			DEBUG_FONT_SIZE = constantsJson["debug_font_size"];
-		}
+	void Init(const std::string& fileName);
+	void ReloadSettings();
 
-		if (constantsJson.find("player_race") != constantsJson.end())
-		{
-			PLAYER_RACE = constantsJson["player_race"];
-		}
+private:
+	// Service
+	void InitDefaultValues();
+	template <typename T>
+	void Set(const std::string& key, const T& value)
+	{
+		config[key] = value;
+	}
 
-		if (constantsJson.find("player_pos") != constantsJson.end())
-		{
-			PLAYER_POS.x = constantsJson["player_pos"]["x"];
-			PLAYER_POS.y = constantsJson["player_pos"]["y"];
-		}
-		
-		if (constantsJson.find("human_positions") != constantsJson.end())
-		{
-			for (const auto& posData : constantsJson["human_positions"])
-			{
-				HUMAN_POS.push_back({ posData["x"], posData["y"] });
-			}
-		}
-		if (constantsJson.find("skeleton_positions") != constantsJson.end())
-		{
-			for (const auto& posData : constantsJson["skeleton_positions"])
-			{
-				SKELETON_POS.push_back({ posData["x"], posData["y"] });
-			}
-		}
-		if (constantsJson.find("goblin_positions") != constantsJson.end())
-		{
-			for (const auto& posData : constantsJson["goblin_positions"])
-			{
-				GOBLIN_POS.push_back({ posData["x"], posData["y"] });
-			}
-		}
+	template <typename T>
+	void SetFromJson(const std::string& key, const nlohmann::json& json)
+	{
+		auto it = json.find(key);
+		if (it != json.end())
+			Set(key, it->get<T>());
+	}
 
-		if (constantsJson.find("debug") != constantsJson.end())
+	void SetPositionVectorFromJsonArray(const std::string& key, const nlohmann::json& json)
+	{
+		if (auto it = json.find(key); it != json.end())
 		{
-			const auto debugData = constantsJson["debug"];
-
-			if (debugData.find("debug_projectiles") != debugData.end())
-			{
-				for (const auto& projectileData : debugData["debug_projectiles"])
-				{
-					const auto& projectilePos = projectileData["pos"];
-					const auto& projectileVel = projectileData["velocity"];
-					DEBUG_PROJECTILES.push_back({ { projectilePos["x"], projectilePos["y"] }, { projectileVel["x"], projectileVel["y"] } });
-				}
-			}
-			if (debugData.find("debug_draw_colliders") != debugData.end())
-			{
-				DRAW_COLLIDERS = debugData["debug_draw_colliders"];
-			}
-			if (debugData.find("debug_draw_hitboxes") != debugData.end())
-			{
-				DRAW_HITBOXES = debugData["debug_draw_hitboxes"];
-			}
-			if (debugData.find("particle") != debugData.end())
-			{
-				DEBUG_PARTICLE = debugData["particle"];
-			}
-		}
-
-		if (constantsJson.find("ai_aggro_distance") != constantsJson.end())
-		{
-			AI_AGGRO_DISTANCE = constantsJson["ai_aggro_distance"];
-		}
-		if (constantsJson.find("ai_deaggro_distance") != constantsJson.end())
-		{
-			AI_DEAGGRO_DISTANCE = constantsJson["ai_deaggro_distance"];
-		}
-		if (constantsJson.find("time_scale") != constantsJson.end())
-		{
-			TIME_SCALE = constantsJson["time_scale"];
+			std::vector<Vector2D> values;
+			for (const auto& data : *it)
+				values.push_back({ data["x"], data["y"] });
+			Set(key, values);
 		}
 	}
 
+	// helper function to load constants from JSON object
+	void LoadFromJsonObject(const nlohmann::json& constantsJson);
+
 	std::string settingsFile;
+	std::unordered_map<std::string, std::any> config;
+
 };
+
+}

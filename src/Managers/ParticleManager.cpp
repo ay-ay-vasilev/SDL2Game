@@ -2,7 +2,7 @@
 #include "AssetManager.h"
 #include "Constants.h"
 
-#include "wrappedJson.h"
+#include <wrappedJson.h>
 
 void ParticleManager::init()
 {
@@ -24,6 +24,9 @@ std::shared_ptr<particles::ParticleEmitter> ParticleManager::loadParticleEmitter
 	auto particleEmitter = std::make_shared<particles::ParticleEmitter>();
 	nlohmann::json particleData;
 	particleData = assets::getParticleDataJson(particleName);
+
+	auto& constants = constants::Constants::Instance();
+	const auto& scale = std::any_cast<float>(constants::Constants::Instance().Get("scale"));
 
 	// texture
 	if (particleData.contains("texture"))
@@ -52,23 +55,23 @@ std::shared_ptr<particles::ParticleEmitter> ParticleManager::loadParticleEmitter
 	{
 		if (particleData.contains("gravity"))
 		{
-			particleEmitter->setGravity({ particleData["gravity"]["x"].get<float>() * Game::constants->SCALE, particleData["gravity"]["y"].get<float>() * Game::constants->SCALE });
+			particleEmitter->setGravity({ particleData["gravity"]["x"].get<float>() * scale, particleData["gravity"]["y"].get<float>() * scale });
 		}
 
 		if (particleData.contains("radialAccel"))
 		{
-			particleEmitter->setRadialAccel(particleData["radialAccel"]["value"].get<float>() * Game::constants->SCALE);
-			particleEmitter->setRadialAccelVar(particleData["radialAccel"]["variance"].get<float>() * Game::constants->SCALE);
+			particleEmitter->setRadialAccel(particleData["radialAccel"]["value"].get<float>() * scale);
+			particleEmitter->setRadialAccelVar(particleData["radialAccel"]["variance"].get<float>() * scale);
 		}
 		if (particleData.contains("tangentialAccel"))
 		{
-			particleEmitter->setTangentialAccel(particleData["tangentialAccel"]["value"].get<float>() * Game::constants->SCALE);
-			particleEmitter->setTangentialAccelVar(particleData["tangentialAccel"]["variance"].get<float>() * Game::constants->SCALE);
+			particleEmitter->setTangentialAccel(particleData["tangentialAccel"]["value"].get<float>() * scale);
+			particleEmitter->setTangentialAccelVar(particleData["tangentialAccel"]["variance"].get<float>() * scale);
 		}
 		if (particleData.contains("speed"))
 		{
-			particleEmitter->setSpeed(particleData["speed"]["value"].get<float>() * Game::constants->SCALE);
-			particleEmitter->setSpeedVar(particleData["speed"]["variance"].get<float>() * Game::constants->SCALE);
+			particleEmitter->setSpeed(particleData["speed"]["value"].get<float>() * scale);
+			particleEmitter->setSpeedVar(particleData["speed"]["variance"].get<float>() * scale);
 		}
 	}
 	// Radius Mode
@@ -76,18 +79,18 @@ std::shared_ptr<particles::ParticleEmitter> ParticleManager::loadParticleEmitter
 	{
 		if (particleData.contains("startRadius"))
 		{
-			particleEmitter->setStartRadius(particleData["startRadius"]["value"].get<float>() * Game::constants->SCALE);
-			particleEmitter->setStartRadiusVar(particleData["startRadius"]["variance"].get<float>() * Game::constants->SCALE);
+			particleEmitter->setStartRadius(particleData["startRadius"]["value"].get<float>() * scale);
+			particleEmitter->setStartRadiusVar(particleData["startRadius"]["variance"].get<float>() * scale);
 		}
 		if (particleData.contains("endRadius"))
 		{
-			particleEmitter->setEndRadius(particleData["endRadius"]["value"].get<float>() * Game::constants->SCALE);
-			particleEmitter->setEndRadiusVar(particleData["endRadius"]["variance"].get<float>() * Game::constants->SCALE);
+			particleEmitter->setEndRadius(particleData["endRadius"]["value"].get<float>() * scale);
+			particleEmitter->setEndRadiusVar(particleData["endRadius"]["variance"].get<float>() * scale);
 		}
 		if (particleData.contains("rotatePerSecond"))
 		{
-			particleEmitter->setRotatePerSecond(particleData["rotatePerSecond"]["value"].get<float>() * Game::constants->SCALE);
-			particleEmitter->setRotatePerSecondVar(particleData["rotatePerSecond"]["variance"].get<float>() * Game::constants->SCALE);
+			particleEmitter->setRotatePerSecond(particleData["rotatePerSecond"]["value"].get<float>() * scale);
+			particleEmitter->setRotatePerSecondVar(particleData["rotatePerSecond"]["variance"].get<float>() * scale);
 		}
 	}
 
@@ -145,18 +148,18 @@ std::shared_ptr<particles::ParticleEmitter> ParticleManager::loadParticleEmitter
 	// size, in pixels
 	if (particleData.contains("startSize"))
 	{
-		particleEmitter->setStartSize(particleData["startSize"]["value"].get<float>()* Game::constants->SCALE);
-		particleEmitter->setStartSizeVar(particleData["startSize"]["variance"].get<float>() * Game::constants->SCALE);
+		particleEmitter->setStartSize(particleData["startSize"]["value"].get<float>()* scale);
+		particleEmitter->setStartSizeVar(particleData["startSize"]["variance"].get<float>() * scale);
 	}
 	if (particleData.contains("endSize"))
 	{
-		particleEmitter->setEndSize(particleData["endSize"]["value"].get<float>()* Game::constants->SCALE);
-		particleEmitter->setEndSizeVar(particleData["endSize"]["variance"].get<float>()* Game::constants->SCALE);
+		particleEmitter->setEndSize(particleData["endSize"]["value"].get<float>()* scale);
+		particleEmitter->setEndSizeVar(particleData["endSize"]["variance"].get<float>()* scale);
 	}
 	// position
 	if (particleData.contains("pos"))
 	{
-		particleEmitter->setPosVar({ particleData["pos"]["x"].get<float>() * Game::constants->SCALE, particleData["pos"]["y"].get<float>() * Game::constants->SCALE });
+		particleEmitter->setPosVar({ particleData["pos"]["x"].get<float>() * scale, particleData["pos"]["y"].get<float>() * scale });
 	}
 	// spinning
 	if (particleData.contains("startSpin"))

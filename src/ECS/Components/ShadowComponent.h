@@ -2,6 +2,7 @@
 #include "ECS.h"
 #include "Observer.h"
 
+#include <wrappedJson.h>
 #include <SDL.h>
 #include <optional>
 

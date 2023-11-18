@@ -2,6 +2,8 @@
 #include "AssetManager.h"
 #include "Constants.h"
 
+#include <fstream>
+
 namespace assets
 {
 	std::filesystem::path getDataPath()
@@ -105,7 +107,7 @@ namespace assets
 		return getJsonData(filePath);
 	}
 
-	AssetManager::AssetManager(std::shared_ptr<ecs::Manager> manager) : manager(manager), constants(manager->getConstants()) {}
+	AssetManager::AssetManager(std::shared_ptr<ecs::Manager> manager) : manager(manager) {}
 
 	AssetManager::~AssetManager()
 	{
@@ -241,7 +243,7 @@ namespace assets
 
 	void AssetManager::loadFonts()
 	{
-		addFont("arial", "../assets/fonts/arial.ttf", constants->DEBUG_FONT_SIZE);
+		addFont("arial", "../assets/fonts/arial.ttf", std::any_cast<int>(constants::Constants::Instance().Get("debug_font_size")));
 	}
 
 	void AssetManager::addSurface(const std::string id, const std::string path, const std::string color)

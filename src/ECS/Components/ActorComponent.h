@@ -3,6 +3,8 @@
 #include "Observer.h"
 #include "Subject.h"
 
+#include <optional>
+
 namespace ecs
 {
 	class SpriteComponent;

@@ -20,6 +20,7 @@
 #include "SplatterComponent.h"
 #include "DebugParticleComponent.h"
 #include "AimComponent.h"
+#include "Constants.h"
 
 #include <random>
 
@@ -158,7 +159,7 @@ ecs::Entity* ecs::ActorSystem::instantiatePlayer(const Vector2D& pos, const std:
 	player.addComponent<ecs::HitParticleComponent>(playerData["hit_particle"]);
 	if (playerData.contains("splatter")) player.addComponent<ecs::SplatterComponent>(playerData["splatter"]);
 
-	player.addComponent<ecs::DebugParticleComponent>(Game::constants->DEBUG_PARTICLE);
+	player.addComponent<ecs::DebugParticleComponent>(std::any_cast<std::string>(constants::Constants::Instance().Get("debug_particle")));
 	equipWeapon(player, "unarmed");
 	return &player;
 }

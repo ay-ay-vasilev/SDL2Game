@@ -1,6 +1,9 @@
 #pragma once
 #include "ECS.h"
 
+#include <optional>
+#include <unordered_map>
+
 namespace ecs
 {
 	class ActorComponent;

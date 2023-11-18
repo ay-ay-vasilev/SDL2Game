@@ -8,7 +8,7 @@
 #include "ProjectileComponent.h"
 #include "Collision.h"
 #include "Vector2D.h"
-#include "Game.h"
+#include "Constants.h"
 
 void ecs::HitboxWeaponCollisionSystem::update(double delta)
 {
@@ -18,13 +18,13 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 	for (const auto hitbox : hitboxes)
 	{
 		const auto hitboxComponent = hitbox->getComponent<ecs::HitboxComponent>();
-		hitboxComponent->setEnableDraw(Game::constants->DRAW_HITBOXES);
+		hitboxComponent->setEnableDraw(std::any_cast<bool>(constants::Constants::Instance().Get("debug_draw_hitboxes")));
 	}
 
 	for (const auto damageCollider : damageColliders)
 	{
 		const auto damageColliderComponent = damageCollider->getComponent<ecs::DamageColliderComponent>();
-		damageColliderComponent->setEnableDraw(Game::constants->DRAW_HITBOXES);
+		damageColliderComponent->setEnableDraw(std::any_cast<bool>(constants::Constants::Instance().Get("debug_draw_hitboxes")));
 	}
 
 	for (auto hitboxEntity : hitboxes)

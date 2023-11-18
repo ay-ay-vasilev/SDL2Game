@@ -1,5 +1,8 @@
 #pragma once
 #include "ECS.h"
+#include "Vector2D.h"
+
+#include <unordered_map>
 
 namespace ecs
 {

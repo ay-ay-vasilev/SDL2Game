@@ -2,7 +2,7 @@
 #include "ECS.h"
 #include "Vector2D.h"
 
-#include "Game.h"
+#include "Constants.h"
 
 namespace ecs
 {
@@ -18,14 +18,18 @@ namespace ecs
 		{
 			velocity.Zero();
 			speed *= scale;
+
+			timeScale = std::any_cast<double>(constants::Constants::Instance().Get("time_scale"));
 		}
 		void update(double delta) override
 		{
 			velocity.Normalize();
 			direction.Normalize();
 
-			position.x += velocity.x * speed * static_cast<float>(delta * Game::constants->TIME_SCALE);
-			position.y += velocity.y * speed * static_cast<float>(delta * Game::constants->TIME_SCALE);
+			auto& constants = constants::Constants::Instance();
+
+			position.x += velocity.x * speed * static_cast<float>(delta * timeScale);
+			position.y += velocity.y * speed * static_cast<float>(delta * timeScale);
 		}
 
 		const inline Vector2D getPosition() const { return position; }
@@ -72,5 +76,7 @@ namespace ecs
 		double rotation = 0;
 
 		float speed = 0;
+
+		double timeScale = 0;
 	};
 }

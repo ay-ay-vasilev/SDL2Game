@@ -6,6 +6,8 @@
 #include "WeaponComponent.h"
 #include "HealthComponent.h"
 
+#include <SDL.h>
+
 void ecs::KeyboardComponent::init()
 {
 	actorComponent = entity->getComponent<ecs::ActorComponent>();

@@ -2,6 +2,8 @@
 #include "ECS.h"
 
 #include <SDL_render.h>
+#include <wrappedJson.h>
+#include "Vector2D.h"
 
 class ColliderShape;
 class TextureManager;

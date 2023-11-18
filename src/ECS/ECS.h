@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Constants.h"
-
+#include <SDL_stdinc.h>
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -185,7 +184,7 @@ namespace ecs
 	class Manager
 	{
 	public:
-		Manager(std::shared_ptr<Constants> constants) : constants(constants) {}
+		Manager() {}
 
 		void update(double delta)
 		{
@@ -250,10 +249,8 @@ namespace ecs
 
 		float getScale() { return scale; }
 		void setScale(const float newScale) { scale = newScale; }
-		std::shared_ptr<Constants> getConstants() { return constants; }
 
 	private:
-		std::shared_ptr<Constants> constants;
 		std::vector<std::unique_ptr<Entity>> entities;
 		std::vector<std::shared_ptr<System>> systems;
 		float scale = 1.f;

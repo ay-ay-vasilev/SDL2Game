@@ -2,27 +2,32 @@
 #include "ECS.h"
 #include "TransformComponent.h"
 #include "CameraComponent.h"
+#include "Constants.h"
 
-CameraManager::CameraManager(std::shared_ptr<ecs::Manager> manager) : camera(), cameraBounds(), manager(manager) {}
+CameraManager::CameraManager(std::shared_ptr<ecs::Manager> manager) : camera(), cameraBounds(), manager(manager), screenWidth(), screenHeight() {}
 
 CameraManager::~CameraManager() {}
 
 void CameraManager::init()
 {
-	camera =
-	{
-		0, 0,
-		manager->getConstants()->SCREEN_WIDTH,
-		manager->getConstants()->SCREEN_HEIGHT
-	};
+	auto& constants = constants::Constants::Instance();
 
-	const auto mapWidth = manager->getConstants()->MAP_TILE_WIDTH * manager->getConstants()->TILE_SIZE * manager->getConstants()->SCALE;
-	const auto mapHeight = manager->getConstants()->MAP_TILE_HEIGHT * manager->getConstants()->TILE_SIZE * manager->getConstants()->SCALE;
+	screenWidth = std::any_cast<int>(constants.Get("screen_width"));
+	screenHeight = std::any_cast<int>(constants.Get("screen_height"));
+	const auto& MAP_TILE_WIDTH = std::any_cast<int>(constants.Get("map_tile_width"));
+	const auto& MAP_TILE_HEIGHT = std::any_cast<int>(constants.Get("map_tile_height"));
+	const auto& TILE_SIZE = std::any_cast<int>(constants.Get("tile_size"));
+	const auto& SCALE = std::any_cast<float>(constants.Get("scale"));
 
-	cameraBounds.x = std::min(0, static_cast<int>(-(manager->getConstants()->SCREEN_WIDTH - mapWidth) / 2));
-	cameraBounds.y = std::min(0, static_cast<int>(-(manager->getConstants()->SCREEN_HEIGHT - mapHeight) / 2));
-	cameraBounds.w = std::max(0, static_cast<int>(mapWidth - manager->getConstants()->SCREEN_WIDTH));
-	cameraBounds.h = std::max(0, static_cast<int>(mapHeight - manager->getConstants()->SCREEN_HEIGHT));
+	camera = { 0, 0, screenWidth, screenHeight};
+
+	const auto mapWidth = MAP_TILE_WIDTH * TILE_SIZE * SCALE;
+	const auto mapHeight = MAP_TILE_HEIGHT * TILE_SIZE * SCALE;
+
+	cameraBounds.x = std::min(0, static_cast<int>(-(screenWidth - mapWidth) / 2));
+	cameraBounds.y = std::min(0, static_cast<int>(-(screenHeight - mapHeight) / 2));
+	cameraBounds.w = std::max(0, static_cast<int>(mapWidth - screenWidth));
+	cameraBounds.h = std::max(0, static_cast<int>(mapHeight - screenHeight));
 }
 
 void CameraManager::update()
@@ -33,8 +38,8 @@ void CameraManager::update()
 
 	Vector2D cameraPosition = getSumCameraPosition();
 
-	camera.x = std::clamp(static_cast<int>(cameraPosition.x - manager->getConstants()->SCREEN_WIDTH / 2), cameraBounds.x, cameraBounds.x + cameraBounds.w);
-	camera.y = std::clamp(static_cast<int>(cameraPosition.y - manager->getConstants()->SCREEN_HEIGHT / 2), cameraBounds.y, cameraBounds.y + cameraBounds.h);
+	camera.x = std::clamp(static_cast<int>(cameraPosition.x - screenWidth / 2), cameraBounds.x, cameraBounds.x + cameraBounds.w);
+	camera.y = std::clamp(static_cast<int>(cameraPosition.y - screenHeight / 2), cameraBounds.y, cameraBounds.y + cameraBounds.h);
 
 	updatePositionsOnScreen();
 }

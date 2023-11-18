@@ -1,8 +1,11 @@
 #pragma once
 #include "ECS.h"
 
+#include "Vector2D.h"
 #include <SDL_render.h>
 #include <numbers>
+#include <optional>
+#include <wrappedJson.h>
 
 namespace ecs
 {

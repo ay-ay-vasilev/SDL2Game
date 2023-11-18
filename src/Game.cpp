@@ -25,8 +25,7 @@
 #include <entt/entt.hpp>
 
 // Singletons
-std::shared_ptr<Constants> Game::constants = std::make_shared<Constants>("../data/settings.json");
-std::shared_ptr<ecs::Manager> Game::manager = std::make_shared<ecs::Manager>(constants);
+std::shared_ptr<ecs::Manager> Game::manager = std::make_shared<ecs::Manager>();
 std::unique_ptr<assets::AssetManager> Game::assetManager = std::make_unique<assets::AssetManager>(manager);
 std::unique_ptr<KeyboardManager> Game::keyboardManager = std::make_unique<KeyboardManager>(manager);
 std::unique_ptr<CameraManager> Game::cameraManager = std::make_unique<CameraManager>(manager);
@@ -47,7 +46,26 @@ Game::~Game() {}
 void Game::init()
 {
 	int flags = 0;
-	if (constants->FULLSCREEN)
+	auto& constants = constants::Constants::Instance();
+	constants.Init("../data/settings.json");
+
+	const auto& FULLSCREEN = std::any_cast<bool>(constants.Get("fullscreen"));
+	const auto& SCALE = std::any_cast<float>(constants.Get("scale"));
+	const auto& WINDOW_TITLE = std::any_cast<std::string>(constants.Get("window_title")).c_str();
+	const auto& SCREEN_WIDTH = std::any_cast<int>(constants.Get("screen_width"));
+	const auto& SCREEN_HEIGHT = std::any_cast<int>(constants.Get("screen_height"));
+	const auto& COLOR_WHITE = std::any_cast<SDL_Color>(constants.Get("color_white"));
+	const auto& PLAYER_POS = std::any_cast<Vector2D>(constants.Get("player_pos"));
+	const auto& PLAYER_RACE = std::any_cast<std::string>(constants.Get("player_race"));
+	const auto& DEBUG_PROJECTILES = std::any_cast<std::vector<constants::ProjectileData>>(constants.Get("debug_projectiles"));
+	const auto& HUMAN_POSITIONS = std::any_cast<std::vector<Vector2D>>(constants.Get("human_positions"));
+	const auto& SKELETON_POSITIONS = std::any_cast<std::vector<Vector2D>>(constants.Get("skeleton_positions"));
+	const auto& GOBLIN_POSITIONS = std::any_cast<std::vector<Vector2D>>(constants.Get("goblin_positions"));
+	const auto& MAP_TILE_WIDTH = std::any_cast<int>(constants.Get("map_tile_width"));
+	const auto& MAP_TILE_HEIGHT = std::any_cast<int>(constants.Get("map_tile_height"));
+	const auto& TILE_SIZE = std::any_cast<int>(constants.Get("tile_size"));
+
+	if (FULLSCREEN)
 	{
 		flags = SDL_WINDOW_FULLSCREEN;
 	}
@@ -58,9 +76,9 @@ void Game::init()
 		std::cout << "Subsystem Initialized.\n";
 
 		window = SDL_CreateWindow(
-			constants->WINDOW_TITLE.c_str(), 
+			WINDOW_TITLE,
 			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-			constants->SCREEN_WIDTH, constants->SCREEN_HEIGHT,
+			SCREEN_WIDTH, SCREEN_HEIGHT,
 			flags);
 
 		if (window) std::cout << "Window created!\n";
@@ -69,7 +87,7 @@ void Game::init()
 
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, constants->WHITE.r, constants->WHITE.g, constants->WHITE.b, constants->WHITE.a);
+			SDL_SetRenderDrawColor(renderer, COLOR_WHITE.r, COLOR_WHITE.g, COLOR_WHITE.b, COLOR_WHITE.a);
 			SDL_Event event;
 			SDL_PollEvent(&event);
 			std::cout << "Renderer created!\n";
@@ -80,7 +98,7 @@ void Game::init()
 
 	if (TTF_Init() == -1) std::cout << "Error: SDL_TTF\n";
 
-	manager->setScale(constants->SCALE);
+	manager->setScale(SCALE);
 	assetManager->loadSurfaces();
 	assetManager->loadFonts();
 
@@ -99,25 +117,25 @@ void Game::init()
 	cameraManager->init();
 	particleManager->init();
 
-	label0.addComponent<ecs::UILabelComponent>(10, 10, "Test String", "arial", constants->WHITE);
+	label0.addComponent<ecs::UILabelComponent>(10, 10, "Test String", "arial", COLOR_WHITE);
 
-	auto player = actorSystem->instantiatePlayer(constants->PLAYER_POS, constants->PLAYER_RACE);
+	auto player = actorSystem->instantiatePlayer(PLAYER_POS, PLAYER_RACE);
 	actorSystem->addRandomCustomization(*player);
 	actorSystem->equipRandomArmor(*player);
 
 	const std::string projectileFile = "test_projectile";
-	for (const auto& projectileData : constants->DEBUG_PROJECTILES)
+	for (const auto& projectileData : DEBUG_PROJECTILES)
 	{
 		projectileSystem->instantiateProjectile
 		(
 			player->getID(),
-			{ projectileData.pos.x * constants->SCALE, projectileData.pos.y * constants->SCALE },
+			{ projectileData.pos.x * SCALE, projectileData.pos.y * SCALE },
 			projectileData.velocity,
 			projectileFile
 		);
 	}
 
-	for (const auto& humanData : constants->HUMAN_POS)
+	for (const auto& humanData : HUMAN_POSITIONS)
 	{
 		auto actor = actorSystem->instantiateActor(humanData, "human");
 		actorSystem->addRandomCustomization(*actor);
@@ -125,7 +143,7 @@ void Game::init()
 		actorSystem->equipRandomWeapon(*actor);
 	}
 
-	for (const auto& skeletonData : constants->SKELETON_POS)
+	for (const auto& skeletonData : SKELETON_POSITIONS)
 	{
 		auto actor = actorSystem->instantiateActor(skeletonData, "skeleton");
 		actorSystem->addRandomCustomization(*actor);
@@ -133,7 +151,7 @@ void Game::init()
 		actorSystem->equipRandomWeapon(*actor);
 	}
 
-	for (const auto& goblinData : constants->GOBLIN_POS)
+	for (const auto& goblinData : GOBLIN_POSITIONS)
 	{
 		auto actor = actorSystem->instantiateActor(goblinData, "goblin");
 		actorSystem->addRandomCustomization(*actor);
@@ -141,7 +159,7 @@ void Game::init()
 		actorSystem->equipRandomWeapon(*actor);
 	}
 
-	mapSystem->instantiateMap("terrain", constants->TILE_SIZE, "map", constants->MAP_TILE_WIDTH, constants->MAP_TILE_HEIGHT);
+	mapSystem->instantiateMap("terrain", TILE_SIZE, "map", MAP_TILE_WIDTH, MAP_TILE_HEIGHT);
 }
 
 void Game::handleEvents()
