@@ -23,8 +23,8 @@ void ecs::AIComponentBasicFighter::init()
 	health = entity->getComponent<HealthComponent>();
 	// TODO: remove
 	auto& constants = constants::Constants::Instance();
-	aggroDistance = std::any_cast<float>(constants.Get("ai_aggro_distance"));
-	loseAggroDistance = std::any_cast<float>(constants.Get("ai_deaggro_distance"));
+	aggroDistance = constants::GetConstant<float>(constants, "ai_aggro_distance");
+	loseAggroDistance = constants::GetConstant<float>(constants, "ai_deaggro_distance");
 }
 
 void ecs::AIComponentBasicFighter::update(double delta)

@@ -18,13 +18,13 @@ void ecs::HitboxWeaponCollisionSystem::update(double delta)
 	for (const auto hitbox : hitboxes)
 	{
 		const auto hitboxComponent = hitbox->getComponent<ecs::HitboxComponent>();
-		hitboxComponent->setEnableDraw(std::any_cast<bool>(constants::Constants::Instance().Get("debug_draw_hitboxes")));
+		hitboxComponent->setEnableDraw(constants::GetConstant<bool>(constants::Constants::Instance(), "debug_draw_hitboxes"));
 	}
 
 	for (const auto damageCollider : damageColliders)
 	{
 		const auto damageColliderComponent = damageCollider->getComponent<ecs::DamageColliderComponent>();
-		damageColliderComponent->setEnableDraw(std::any_cast<bool>(constants::Constants::Instance().Get("debug_draw_hitboxes")));
+		damageColliderComponent->setEnableDraw(constants::GetConstant<bool>(constants::Constants::Instance(), "debug_draw_hitboxes"));
 	}
 
 	for (auto hitboxEntity : hitboxes)

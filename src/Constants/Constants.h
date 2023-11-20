@@ -35,49 +35,32 @@ public:
 	Constants& operator=(Constants&&) = delete;
 
 	// Interface
-	std::any Get(const std::string& key) const
-	{
-		auto it = config.find(key);
-		return (it != config.end()) ? it->second : std::any();
-	}
-
+	std::any Get(const std::string& key) const;
 	void Init(const std::string& fileName);
 	void ReloadSettings();
 
 private:
 	// Service
 	void InitDefaultValues();
-	template <typename T>
-	void Set(const std::string& key, const T& value)
-	{
-		config[key] = value;
-	}
 
 	template <typename T>
-	void SetFromJson(const std::string& key, const nlohmann::json& json)
-	{
-		auto it = json.find(key);
-		if (it != json.end())
-			Set(key, it->get<T>());
-	}
+	void Set(const std::string& key, const T& value);
 
-	void SetPositionVectorFromJsonArray(const std::string& key, const nlohmann::json& json)
-	{
-		if (auto it = json.find(key); it != json.end())
-		{
-			std::vector<Vector2D> values;
-			for (const auto& data : *it)
-				values.push_back({ data["x"], data["y"] });
-			Set(key, values);
-		}
-	}
+	template <typename T>
+	void SetFromJson(const std::string& key, const nlohmann::json& json);
 
-	// helper function to load constants from JSON object
+	void SetPositionVectorFromJsonArray(const std::string& key, const nlohmann::json& json);
 	void LoadFromJsonObject(const nlohmann::json& constantsJson);
 
 	std::string settingsFile;
 	std::unordered_map<std::string, std::any> config;
 
 };
+
+template <typename T>
+T GetConstant(const Constants& constants, const std::string& key)
+{
+	return std::any_cast<T>(constants.Get(key));
+}
 
 }

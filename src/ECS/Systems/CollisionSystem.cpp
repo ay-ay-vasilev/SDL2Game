@@ -16,7 +16,7 @@ void ecs::CollisionSystem::update(double delta)
 	for (const auto entityWithCollider : entitiesWithColliders)
 	{
 		const auto colliderComponent = entityWithCollider->getComponent<ecs::ColliderComponent>();
-		colliderComponent->setEnableDraw(std::any_cast<bool>(constants::Constants::Instance().Get("debug_draw_colliders")));
+		colliderComponent->setEnableDraw(constants::GetConstant<bool>(constants::Constants::Instance(), "debug_draw_colliders"));
 	}
 
 	movingEntities = manager.getEntitiesWithComponents<ecs::TransformComponent, ecs::ColliderComponent>();

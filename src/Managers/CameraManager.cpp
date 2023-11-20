@@ -12,12 +12,12 @@ void CameraManager::init()
 {
 	auto& constants = constants::Constants::Instance();
 
-	screenWidth = std::any_cast<int>(constants.Get("screen_width"));
-	screenHeight = std::any_cast<int>(constants.Get("screen_height"));
-	const auto& MAP_TILE_WIDTH = std::any_cast<int>(constants.Get("map_tile_width"));
-	const auto& MAP_TILE_HEIGHT = std::any_cast<int>(constants.Get("map_tile_height"));
-	const auto& TILE_SIZE = std::any_cast<int>(constants.Get("tile_size"));
-	const auto& SCALE = std::any_cast<float>(constants.Get("scale"));
+	screenWidth = constants::GetConstant<int>(constants, "screen_width");
+	screenHeight = constants::GetConstant<int>(constants, "screen_height");
+	const auto& MAP_TILE_WIDTH = constants::GetConstant<int>(constants, "map_tile_width");
+	const auto& MAP_TILE_HEIGHT = constants::GetConstant<int>(constants, "map_tile_height");
+	const auto& TILE_SIZE = constants::GetConstant<int>(constants, "tile_size");
+	const auto& SCALE = constants::GetConstant<float>(constants, "scale");
 
 	camera = { 0, 0, screenWidth, screenHeight};
 

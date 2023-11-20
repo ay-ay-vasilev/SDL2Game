@@ -37,6 +37,37 @@ void Constants::ReloadSettings()
 	LoadFromJsonObject(constantsJson);
 }
 
+std::any Constants::Get(const std::string& key) const
+{
+	auto it = config.find(key);
+	return (it != config.end()) ? it->second : std::any();
+}
+
+template <typename T>
+void Constants::Set(const std::string& key, const T& value)
+{
+	config[key] = value;
+}
+
+template <typename T>
+void Constants::SetFromJson(const std::string& key, const nlohmann::json& json)
+{
+	auto it = json.find(key);
+	if (it != json.end())
+		Set(key, it->get<T>());
+}
+
+void Constants::SetPositionVectorFromJsonArray(const std::string& key, const nlohmann::json& json)
+{
+	if (auto it = json.find(key); it != json.end())
+	{
+		std::vector<Vector2D> values;
+		for (const auto& data : *it)
+			values.push_back({ data["x"], data["y"] });
+		Set(key, values);
+	}
+}
+
 void Constants::LoadFromJsonObject(const nlohmann::json& constantsJson)
 {
 	SetFromJson<int>("screen_width", constantsJson);

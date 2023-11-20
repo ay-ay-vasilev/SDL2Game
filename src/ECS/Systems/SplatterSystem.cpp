@@ -43,7 +43,7 @@ void ecs::SplatterSystem::createSplatter(const events::SplatterEvent* splatterEv
 	applySplatterToTile(splatterData);
 
 	auto& constants = constants::Constants::Instance();
-	const auto& scale = std::any_cast<float>(constants::Constants::Instance().Get("scale"));
+	const auto& scale = constants::GetConstant<float>(constants::Constants::Instance(), "scale");
 
 	splatterPosition.x += offsetX * scale;
 	splatterPosition.y += offsetY * scale;
@@ -59,10 +59,11 @@ void ecs::SplatterSystem::applySplatterToTile(const Splatter& splatterData)
 	const auto splatterRadius = splatterData.getSplatterRadius();
 
 	auto& constants = constants::Constants::Instance();
-	const auto& scale = std::any_cast<float>(constants::Constants::Instance().Get("scale"));
-	const auto& tileSize = std::any_cast<int>(constants::Constants::Instance().Get("tile_size"));
-	const auto& mapTileWidth = std::any_cast<int>(constants::Constants::Instance().Get("map_tile_width"));
-	const auto& mapTileHeight = std::any_cast<int>(constants::Constants::Instance().Get("map_tile_height"));
+	const auto& scale = constants::GetConstant<float>(constants::Constants::Instance(), "scale");
+
+	const auto& tileSize = constants::GetConstant<int>(constants::Constants::Instance(), "tile_size");
+	const auto& mapTileWidth = constants::GetConstant<int>(constants::Constants::Instance(), "map_tile_width");
+	const auto& mapTileHeight = constants::GetConstant<int>(constants::Constants::Instance(), "map_tile_height");
 
 	int tileIndexX = static_cast<int>(splatterPos.x / (tileSize * scale));
 	int tileIndexY = static_cast<int>(splatterPos.y / (tileSize * scale));

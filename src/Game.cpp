@@ -49,21 +49,21 @@ void Game::init()
 	auto& constants = constants::Constants::Instance();
 	constants.Init("../data/settings.json");
 
-	const auto& FULLSCREEN = std::any_cast<bool>(constants.Get("fullscreen"));
-	const auto& SCALE = std::any_cast<float>(constants.Get("scale"));
-	const auto& WINDOW_TITLE = std::any_cast<std::string>(constants.Get("window_title")).c_str();
-	const auto& SCREEN_WIDTH = std::any_cast<int>(constants.Get("screen_width"));
-	const auto& SCREEN_HEIGHT = std::any_cast<int>(constants.Get("screen_height"));
-	const auto& COLOR_WHITE = std::any_cast<SDL_Color>(constants.Get("color_white"));
-	const auto& PLAYER_POS = std::any_cast<Vector2D>(constants.Get("player_pos"));
-	const auto& PLAYER_RACE = std::any_cast<std::string>(constants.Get("player_race"));
-	const auto& DEBUG_PROJECTILES = std::any_cast<std::vector<constants::ProjectileData>>(constants.Get("debug_projectiles"));
-	const auto& HUMAN_POSITIONS = std::any_cast<std::vector<Vector2D>>(constants.Get("human_positions"));
-	const auto& SKELETON_POSITIONS = std::any_cast<std::vector<Vector2D>>(constants.Get("skeleton_positions"));
-	const auto& GOBLIN_POSITIONS = std::any_cast<std::vector<Vector2D>>(constants.Get("goblin_positions"));
-	const auto& MAP_TILE_WIDTH = std::any_cast<int>(constants.Get("map_tile_width"));
-	const auto& MAP_TILE_HEIGHT = std::any_cast<int>(constants.Get("map_tile_height"));
-	const auto& TILE_SIZE = std::any_cast<int>(constants.Get("tile_size"));
+	const auto& FULLSCREEN = constants::GetConstant<bool>(constants, "fullscreen");
+	const auto& SCALE = constants::GetConstant<float>(constants, "scale");
+	const auto& WINDOW_TITLE = constants::GetConstant<std::string>(constants, "window_title").c_str();
+	const auto& SCREEN_WIDTH = constants::GetConstant<int>(constants, "screen_width");
+	const auto& SCREEN_HEIGHT = constants::GetConstant<int>(constants, "screen_height");
+	const auto& COLOR_WHITE = constants::GetConstant<SDL_Color>(constants, "color_white");
+	const auto& PLAYER_POS = constants::GetConstant<Vector2D>(constants, "player_pos");
+	const auto& PLAYER_RACE = constants::GetConstant<std::string>(constants, "player_race");
+	const auto& DEBUG_PROJECTILES = constants::GetConstant<std::vector<constants::ProjectileData>>(constants, "debug_projectiles");
+	const auto& HUMAN_POSITIONS = constants::GetConstant<std::vector<Vector2D>>(constants, "human_positions");
+	const auto& SKELETON_POSITIONS = constants::GetConstant<std::vector<Vector2D>>(constants, "skeleton_positions");
+	const auto& GOBLIN_POSITIONS = constants::GetConstant<std::vector<Vector2D>>(constants, "goblin_positions");
+	const auto& MAP_TILE_WIDTH = constants::GetConstant<int>(constants, "map_tile_width");
+	const auto& MAP_TILE_HEIGHT = constants::GetConstant<int>(constants, "map_tile_height");
+	const auto& TILE_SIZE = constants::GetConstant<int>(constants, "tile_size");
 
 	if (FULLSCREEN)
 	{

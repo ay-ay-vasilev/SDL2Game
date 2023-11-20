@@ -243,7 +243,7 @@ namespace assets
 
 	void AssetManager::loadFonts()
 	{
-		addFont("arial", "../assets/fonts/arial.ttf", std::any_cast<int>(constants::Constants::Instance().Get("debug_font_size")));
+		addFont("arial", "../assets/fonts/arial.ttf", constants::GetConstant<int>(constants::Constants::Instance(), "debug_font_size"));
 	}
 
 	void AssetManager::addSurface(const std::string id, const std::string path, const std::string color)

@@ -25,8 +25,7 @@ std::shared_ptr<particles::ParticleEmitter> ParticleManager::loadParticleEmitter
 	nlohmann::json particleData;
 	particleData = assets::getParticleDataJson(particleName);
 
-	auto& constants = constants::Constants::Instance();
-	const auto& scale = std::any_cast<float>(constants::Constants::Instance().Get("scale"));
+	const auto& scale = constants::GetConstant<float>(constants::Constants::Instance(), "scale");
 
 	// texture
 	if (particleData.contains("texture"))

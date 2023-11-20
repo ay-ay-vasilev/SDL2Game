@@ -19,7 +19,7 @@ namespace ecs
 			velocity.Zero();
 			speed *= scale;
 
-			timeScale = std::any_cast<double>(constants::Constants::Instance().Get("time_scale"));
+			timeScale = constants::GetConstant<double>(constants::Constants::Instance(), "time_scale");
 		}
 		void update(double delta) override
 		{
